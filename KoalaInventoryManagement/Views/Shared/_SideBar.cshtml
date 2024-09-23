@@ -1,0 +1,53 @@
+﻿<div class="main">
+    <div class="upper">
+        <div class="change-sidebar">
+            <i class="fa-solid fa-angles-left" id="left"></i>
+            <i class="fa-solid fa-angles-right" id="right"></i>
+        </div>
+        <h3>Koala</h3>
+        <ul>
+            <li>
+                <a href="/Home" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
+                    <i class="fa-solid fa-house fa-fw"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Dashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
+                    <i class="fa-solid fa-chart-column fa-fw"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Inventory" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Inventory" ? "active" : "")">
+                    <i class="fa-solid fa-warehouse fa-fw"></i>
+                    <span>Inventory</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Stock" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Stock" ? "active" : "")">
+                    <i class="fa-solid fa-money-bill-trend-up fa-fw"></i>
+                    <span>Stock</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Suppliers" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Suppliers" ? "active" : "")">
+                    <i class="fa-solid fa-truck-field"></i>
+                    <span>Suppliers</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Staff" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Staff" ? "active" : "")">
+                    <i class="fa-solid fa-users fa-fw"></i>
+                    <span>Staff</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="lower">
+        <p>Made By <span>Koala Team</span></p>
+        <p>All rights <span>Reserved </span>®</p>
+        <p>Copyrights at <span>2024 </span>©</p>
+    </div>
+</div>
+

@@ -1,0 +1,249 @@
+﻿.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 99;
+}
+.main-page {
+    display: flex;
+}
+.upper {
+    width: 180px;
+    transition: 0.4s;
+}
+
+@media (max-width: 767px) {
+    .upper {
+        width: 40px;
+    }
+}
+
+.upper h3 {
+    user-select: none;
+    font-family: "Cookie", "Open sans";
+    font-size: 50px;
+    position: relative;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5536df;
+    height: 60px;
+    transition: 0.4s;
+}
+
+@media (max-width: 767px) {
+    .upper h3 {
+        font-size: 22px;
+        position: relative;
+        top: 9px;
+    }
+}
+
+.upper h3::before, .upper h3::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.4s;
+}
+
+.upper h3::before {
+    width: 130px;
+    height: 2px;
+    background-color: var(--black);
+    bottom: 0;
+    border-radius: 20px;
+}
+
+@media (max-width: 767px) {
+    .upper h3::before {
+        bottom: 30px;
+        width: 50px;
+        left: 22px;
+    }
+}
+
+.upper h3::after {
+    height: 16px;
+    width: 16px;
+    background-color: #5c43cc;
+    bottom: -7px;
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    outline: 8px double var(--white);
+}
+
+@media (max-width: 767px) {
+    .upper h3::after {
+        bottom: 27px;
+        outline-width: 6px;
+        height: 8px;
+        width: 8px;
+        left: 23px;
+    }
+}
+@media (max-width: 767px) {
+    .upper ul li {
+        margin-bottom: 10px;
+    }
+}
+
+.upper ul li a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    transition: 0.4s;
+}
+
+@media (max-width: 767px) {
+    .upper ul li a {
+        justify-content: center;
+    }
+}
+
+.upper ul li a span {
+    color: inherit;
+    margin-left: 10px;
+    position: relative;
+    transition: 0.4s;
+}
+
+@media (max-width: 767px) {
+    .upper ul li a span {
+        display: none;
+    }
+}
+
+.upper ul li a i {
+    color: inherit;
+}
+
+@media (max-width: 767px) {
+    .upper ul li a i {
+        font-size: 18px;
+    }
+}
+
+.upper ul li a:hover, .upper ul li a.active {
+    background-color: var(--greylight);
+}
+
+.upper ul li a:hover > span {
+    margin-left: 14px;
+}
+
+.upper ul li a.active {
+    color: var(--blue);
+}
+
+.main {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--greytemp);
+    padding: 20px;
+    height: 100vh;
+    background-color: var(--white);
+    transition: 0.4s;
+}
+@media (max-width: 767px) {
+    .main {
+        padding: 10px;
+    }
+}
+.main > .lower > p {
+    padding: 0px 10px;
+    margin: 0;
+    font-size: 14px;
+    transition:0.4s;
+}
+
+@media (max-width: 767px) {
+    .main > .lower > p {
+        display: none;
+    }
+}
+
+.main > .lower > p > span {
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Cookie", "Open sans";
+}
+a{
+    color:var(--black);
+}
+a:hover {
+    color: var(--black);
+
+}
+/*next part is for the button which change sidebar size*/
+.change-sidebar {
+    position: absolute;
+    right: -13px;
+    top: 65px;
+    box-shadow: 0px 0px 8px -2px white;
+    border-radius: 50%;
+    background-color: #5536df;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 767px) {
+    .change-sidebar {
+        display: none;
+    }
+}
+.change-sidebar i{
+    color:white;
+}
+.size-change .upper {
+    width: 40px;
+}
+.size-change .upper h3 {
+    font-size: 22px;
+    position: relative;
+    top: 9px;
+}
+.size-change .upper h3::before {
+    bottom: 30px;
+    width: 50px;
+    left: 22px;
+}
+.size-change .upper h3::after {
+    bottom: 27px;
+    outline-width: 6px;
+    height: 8px;
+    width: 8px;
+    left: 23px;
+}
+.size-change .upper ul li {
+margin-bottom: 10px;
+}
+.size-change .upper ul li a {
+    justify-content: center;
+}
+.size-change .upper ul li a span {
+    transform:scale(0);
+    position:absolute;
+}
+.size-change .upper ul li a i {
+    font-size: 18px;
+}
+.size-change.main {
+padding: 10px;
+}
+.size-change.main > .lower > p {
+    letter-spacing: -9px;
+    transform: scale(0);
+}
