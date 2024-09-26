@@ -6,6 +6,7 @@ namespace KoalaInventoryManagement.Controllers
     {
         public IActionResult Index()
         {
+            //We need number of products,Number of sales,Total profit
             return View();
         }
     }
