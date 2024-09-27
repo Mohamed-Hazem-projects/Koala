@@ -7,9 +7,28 @@
 .main-page {
     display: flex;
 }
+.main {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--greytemp);
+    padding: 20px;
+    height: 100vh;
+    background-color: var(--white);
+    transition: 0.4s;
+}
+.no-transition{
+    transition:none;
+}
+@media (max-width: 767px) {
+    .main {
+        padding: 10px;
+    }
+}
 .upper {
     width: 180px;
-    transition: 0.4s;
+    transition: inherit;
 }
 
 @media (max-width: 767px) {
@@ -30,7 +49,7 @@
     line-height: 1.2;
     color: #5536df;
     height: 60px;
-    transition: 0.4s;
+    transition: inherit;
 }
 
 @media (max-width: 767px) {
@@ -47,7 +66,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    transition: 0.4s;
+    transition: inherit;
 }
 
 .upper h3::before {
@@ -90,7 +109,12 @@
         margin-bottom: 10px;
     }
 }
-
+.upper ul {
+    transition: inherit;
+}
+.upper ul li{
+    transition:inherit;
+}
 .upper ul li a {
     display: flex;
     align-items: center;
@@ -98,7 +122,7 @@
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 6px;
-    transition: 0.4s;
+    transition: inherit;
 }
 
 @media (max-width: 767px) {
@@ -111,7 +135,7 @@
     color: inherit;
     margin-left: 10px;
     position: relative;
-    transition: 0.4s;
+    transition: inherit;
 }
 
 @media (max-width: 767px) {
@@ -142,32 +166,20 @@
     color: var(--blue);
 }
 
-.main {
-    display: flex;
-    width: fit-content;
-    flex-direction: column;
-    justify-content: space-between;
-    border-right: 1px solid var(--greytemp);
-    padding: 20px;
-    height: 100vh;
-    background-color: var(--white);
-    transition: 0.4s;
-}
-@media (max-width: 767px) {
-    .main {
-        padding: 10px;
-    }
+
+.main > .lower{
+    transition:inherit;
 }
 .main > .lower > p {
     padding: 0px 10px;
     margin: 0;
     font-size: 14px;
-    transition:0.4s;
+    transition: inherit;
 }
 
 @media (max-width: 767px) {
     .main > .lower > p {
-        display: none;
+        display: inherit;
     }
 }
 
@@ -204,8 +216,10 @@ a:hover {
         display: none;
     }
 }
-.change-sidebar i{
-    color:white;
+.change-sidebar i {
+    font-size: 14px;
+    color: white;
+    opacity: 0.85;
 }
 .size-change .upper {
     width: 40px;
