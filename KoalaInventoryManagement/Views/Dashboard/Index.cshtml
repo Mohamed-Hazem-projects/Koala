@@ -2,6 +2,8 @@
     ViewData["Title"] = "Dashboard";
 }
 <link rel="stylesheet" href="~/css/Dashboard/dashboard.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
 <div class="container-fluid p-0 dashboard">
         <!-- Dashboard Header Start-->
 
@@ -15,25 +17,11 @@
         <!-- Dashboard Header End-->
 
         <div class="p-3">
+
             <!-- Summary Widget Start-->
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-1">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">Total Sales</h3>
-                            <div class="d-inline-block">
-                                @* change this from database *@
-                                <h2 class="text-white">123</h2>
-                            <p class="text-white mb-0">April - October 2024</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5 icon">
-                                <i class="fa fa-shopping-cart"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-2">
+                    <div class="card gradient-2 betterboxshadow">
                         <div class="card-body">
                             <h3 class="card-title text-white">Total Products</h3>
                             <div class="d-inline-block">
@@ -48,12 +36,27 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-3">
+                    <div class="card gradient-1 betterboxshadow">
+                        <div class="card-body">
+                            <h3 class="card-title text-white">Total Sales</h3>
+                            <div class="d-inline-block">
+                                @* change this from database *@
+                                <h2 class="text-white">123</h2>
+                                <p class="text-white mb-0">April - October 2024</p>
+                            </div>
+                            <span class="float-right display-5 opacity-5 icon">
+                                <i class="fa fa-shopping-cart"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card gradient-3 betterboxshadow">
                         <div class="card-body">
                             <h3 class="card-title text-white">Net Profit</h3>
                             <div class="d-inline-block">
                                 @* change this from database *@
-                                <h2 class="text-white">$ 8541</h2>
+                                <h2 class="text-white">$8541</h2>
                                 <p class="text-white mb-0">April - October 2024</p>
                             </div>
                             <span class="float-right display-5 opacity-5 icon">
@@ -63,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-4">
+                    <div class="card gradient-4 betterboxshadow">
                         <div class="card-body">
                             <h3 class="card-title text-white">Customer Satisfaction</h3>
                             <div class="d-inline-block">
@@ -78,8 +81,60 @@
                 </div>
             </div>
             <!-- Summary Widget End-->
-
-            
+            <div class="product-section">
+                <!-- Donut & Pie charts Start-->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card h-100-30px">
+                            <div class="card-body ">
+                                <h4 class="card-title pb-4">Products By Category</h4>
+                                <div class="pie-chart">
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Products By Supplier</h4>
+                                <div id="Product-By-Supplier" class="d-flex align-items-center justify-content-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Donut & Pie charts End-->
+                <!-- Bar chart Start-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="area-chart card-body">
+                            <h4 class="card-title">Average Stock By Category</h4>
+                            <div id="average-stock" class="d-flex align-items-center justify-content-center"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bar chart End-->
+            </div>
+            <div class="sales-section w-100">
+                <!-- Area chart Start-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="area-chart card-body">
+                            <h4 class="card-title">Profits By Category</h4>
+                        <div id="profits-by-category" class="d-flex align-items-center justify-content-center"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Area chart End-->
+            </div>
 
         </div>
 </div>
+
+@section Scripts {
+    <script src="/js/Dashboard/Chart.bundle.min.js"></script>
+    <script src="/js/Dashboard/raphael.min.js"></script>
+    <script src="/js/Dashboard/morris.min.js"></script>
+    <script src="/js/Dashboard/dashboard.js"></script>
+}

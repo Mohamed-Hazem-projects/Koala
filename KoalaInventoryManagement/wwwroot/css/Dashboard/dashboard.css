@@ -1,5 +1,6 @@
 ﻿.dashboard {
     font-family: "Roboto", sans-serif;
+    overflow-x:hidden;
 }
 /*Dashboard header Start*/
 /* Main header container with right-to-left gradient background */
@@ -67,13 +68,19 @@
     margin-bottom: 30px;
     border: 0px;
     border-radius: 0.625rem;
-    box-shadow: 6px 11px 41px -28px #a99de7;
+    box-shadow: 0px 0px 10px -3px #a99de7;
+}
+.betterboxshadow {
+    box-shadow: 0px 0px 9px 0px #a99de7;
 }
 .card-body {
     flex: 1 1 auto;
     padding: 1.25rem;
 }
 .card .card-body {
+    padding: 1.88rem 1.81rem;
+}
+.card.card-body {
     padding: 1.88rem 1.81rem;
 }
 i{
@@ -87,8 +94,8 @@ i{
 }
 .card-title {
     margin-bottom: 0.75rem;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 19px;
+    font-weight: 700;
     line-height: 18px;
 }
 .gradient-1 {
@@ -129,16 +136,36 @@ i{
     color: #fff !important;
 }
 .gradient-1, .dropdown-mega-menu .ext-link.link-1 a, .morris-hover, .datamaps-hoverover {
-    background-image: linear-gradient(230deg, #759bff, #843cf6);
+    background-image: linear-gradient(230deg, #6a8eff, #843cf6);
 }
 .gradient-2, .dropdown-mega-menu .ext-link.link-3 a {
-    background-image: linear-gradient(230deg, #fc5286, #fbaaa2);
+    background-image: linear-gradient(230deg, #7E60BF, #5638df);
 }
 .gradient-3, .dropdown-mega-menu .ext-link.link-2 a, .header-right .icons .user-img .activity {
-    background-image: linear-gradient(230deg, #ffc480, #ff763b);
+    background-image: linear-gradient(230deg, #843cf6, #759bff);
 }
 .gradient-4, .sidebar-right .nav-tabs .nav-item .nav-link.active::after, .sidebar-right .nav-tabs .nav-item .nav-link.active span i::before {
-    background-image: linear-gradient(230deg, #0e4cfd, #6a8eff);
+    background-image: linear-gradient(230deg, #E4B1F0, #7E60BF);
 }
 
 /*Summary Widget End*/
+
+/*charts Start*/
+.pie-chart{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    
+}
+.h-100-30px {
+    height: calc(100% - 30px);
+}
+.area-chart {
+    width: 100%;
+    padding: 1.88rem 1.8rem;
+    margin-bottom: 30px;
+    border-radius: 0.625rem;
+    box-shadow: 0px 0px 10px -3px #a99de7;
+}
+}
+/*charts End*/
