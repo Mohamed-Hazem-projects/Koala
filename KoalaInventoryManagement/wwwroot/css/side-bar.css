@@ -170,6 +170,11 @@
 .main > .lower{
     transition:inherit;
 }
+@media (max-width: 767px) {
+    .main > .lower {
+        display:none;
+    }
+}
 .main > .lower > p {
     padding: 0px 10px;
     margin: 0;
@@ -201,15 +206,20 @@ a:hover {
     position: absolute;
     right: -13px;
     top: 65px;
-    box-shadow: 0px 0px 8px -2px white;
+    border: 3px solid white;
     border-radius: 50%;
     background-color: #5536df;
     cursor: pointer;
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.4s;
+}
+.change-sidebar:hover {
+    border-color: #5536df;
+    background-color:white;
 }
 @media (max-width: 767px) {
     .change-sidebar {
@@ -217,9 +227,12 @@ a:hover {
     }
 }
 .change-sidebar i {
-    font-size: 14px;
+    font-size: 13px;
     color: white;
-    opacity: 0.85;
+    transition: color 0.4s;
+}
+.change-sidebar:hover i{
+    color: #5536df;
 }
 .size-change .upper {
     width: 40px;
