@@ -8,6 +8,8 @@ helping them minimize waste, boost operational efficiency, and make informed dec
 
 **Authentication & Authorization**: Secure login system with role-based access control.<br/>
 **Real-time Inventory Tracking**: Keep up-to-date with stock levels and product movements.<br/>
+**Dashboard**: A centralized dashboard displaying real-time stock information, product data, and performance analytics across all warehouses.<br/>
+**Warehouse Management**: Manage inventory across several warehouses, with each warehouse having its own stock levels, minimum, and optimal stock levels.<br/>
 **Product Management**: Add, update, and delete product information with ease.<br/>
 **Supplier & Customer Management**: Maintain detailed records of suppliers and customers.<br/>
 **Order Processing**: Manage sales and purchase orders, including status tracking.<br/>
