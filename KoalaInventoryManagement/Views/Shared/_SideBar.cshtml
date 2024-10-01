@@ -1,4 +1,5 @@
-﻿<div class="main">
+﻿@inject SignInManager<ApplicationUser> signInManager
+<div class="main">
     <div class="upper">
         <div class="change-sidebar">
             <i class="fa-solid fa-chevron-left" id="left"></i>
@@ -42,6 +43,30 @@
                     <span>Staff</span>
                 </a>
             </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a asp-action="LogOut" asp-controller="Account">
+                        <i class="fa-solid fa-users fa-fw"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a asp-action="SignUp" asp-controller="Account">
+                        <i class="fa-solid fa-users fa-fw"></i>
+                        <span>Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-action="Login" asp-controller="Account">
+                        <i class="fa-solid fa-users fa-fw"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+            }
         </ul>
     </div>
     <div class="lower">
@@ -50,4 +75,3 @@
         <p>Copyrights at <span>2024 </span>©</p>
     </div>
 </div>
-
