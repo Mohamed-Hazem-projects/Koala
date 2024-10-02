@@ -1,6 +1,3 @@
-using KoalaInventoryManagement.Models.Context;
-using Microsoft.EntityFrameworkCore;
-
 namespace KoalaInventoryManagement
 {
     public class Program
@@ -11,15 +8,6 @@ namespace KoalaInventoryManagement
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
-            #region Inventory Services
-            //DbContext service for DB connection
-            builder.Services.AddDbContext<InventoryDBContext>(
-                opt => opt.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnectionString")
-                    )
-                );
-            #endregion
 
             var app = builder.Build();
 
