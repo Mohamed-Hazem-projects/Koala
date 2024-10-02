@@ -1,0 +1,50 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<h1>Login</h1>
+
+
+<form class="login100-form validate-form" asp-action="Login" method="post">
+	<span class="login100-form-logo">
+		<i class="zmdi zmdi-landscape"></i>
+	</span>
+
+	<span class="login100-form-title p-b-34 p-t-27">
+		Login
+	</span>
+
+	<div class="wrap-input100 validate-input" data-validate="Enter Email">
+		<input class="input100" type="email" asp-for="Email" placeholder="Email Name" value="@ViewBag.RememberMeEmail">
+		<span asp-validation-for="Email"></span>
+	</div>
+	<br />
+	<div class="wrap-input100 validate-input" data-validate="Enter Password">
+		<input class="input100" type="password" asp-for="Password" placeholder="Password" value="@ViewBag.RememberMePassword">
+		<span asp-validation-for="Password"></span>
+	</div>
+	<br />
+	<div class="contact100-form-checkbox">
+		<input asp-for="RememberMe" type="checkbox">
+		<span>RememberMe</span>
+	</div>
+	<div class="container-login100-form-btn">
+		<input class="login100-form-btn" type="submit" value="Login" />
+	</div>
+
+	<div class="text-center p-t-90">
+		<a class="txt1" asp-action="ForgetPassword" asp-controller="Account">
+			Forgot Password?
+		</a>
+	</div>
+	<br />
+	<div class="container-login100-form-btn">
+		<a class="login100-form-btn" asp-action="SignUp">
+			Register
+		</a>
+	</div>
+</form>
+
