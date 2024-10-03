@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inventory.Data.Entities
+namespace Inventory.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
