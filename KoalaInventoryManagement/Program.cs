@@ -1,9 +1,10 @@
 using Inventory.Data.Context;
-using Inventory.Data.Entities;
-using Inventory.Services.Helper;
+using Inventory.Data.Models;
+using Inventory.Services;
+using Inventory.Services.Interfaces;
+using Inventory.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace KoalaInventoryManagement
 {
@@ -18,7 +19,6 @@ namespace KoalaInventoryManagement
 
             builder.Services.AddDbContext<InventoryDbContext>(op =>
                  op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
-
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
@@ -48,7 +48,13 @@ namespace KoalaInventoryManagement
                 options.Cookie.SameSite = SameSiteMode.Strict;
             });
 
-            
+
+            // Register repositories via the Inventory.Services project
+            builder.Services.AddUnitOfWork();
+
+            //Adding the services
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

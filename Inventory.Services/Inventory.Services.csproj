@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Inventory.Repository\Inventory.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

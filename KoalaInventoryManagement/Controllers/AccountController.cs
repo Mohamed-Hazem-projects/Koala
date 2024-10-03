@@ -1,4 +1,4 @@
-﻿using Inventory.Data.Entities;
+﻿using Inventory.Data.Models;
 using Inventory.web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
