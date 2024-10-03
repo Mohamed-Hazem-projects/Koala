@@ -16,7 +16,10 @@ namespace Inventory.Services.Services
         //for testing el mfrood bdl Category yb2a el viewmodel el matloob
         public Category GetbyId(int id)
         {
-            return _UnitOfWork.Categories.GetbyId(id);
+            Category category = _UnitOfWork.Categories.GetbyId(id);
+            //_UnitOfWork.Complete(); lw kant update/delete/add
+            _UnitOfWork.Dispose();
+            return category;
         }
         
     }
