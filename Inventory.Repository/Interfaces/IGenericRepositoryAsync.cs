@@ -11,7 +11,7 @@ namespace Inventory.Repository.Interfaces
     {
         Task<T> GetbyIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
-        void AddAsync(T entity);
-        void AddRangeAsync(ICollection<T> entities);
+        Task AddAsync(T entity);
+        Task AddRangeAsync(ICollection<T> entities);
     }
 }

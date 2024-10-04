@@ -1,8 +1,8 @@
 ﻿using Inventory.Data.Models;
 using Inventory.web.Models;
+using KoalaInventoryManagement.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Inventory.Services.Helper;
 
 namespace Inventory.web.Controllers
 {

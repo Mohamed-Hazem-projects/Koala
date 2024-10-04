@@ -23,11 +23,11 @@ namespace Inventory.Repository.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async void AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
         }
-        public async void AddRangeAsync(ICollection<T> entities)
+        public async Task AddRangeAsync(ICollection<T> entities)
         {
             await _context.Set<T>().AddRangeAsync(entities);
         }

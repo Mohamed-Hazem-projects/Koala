@@ -1,8 +1,7 @@
 using Inventory.Data.Context;
 using Inventory.Data.Models;
-using Inventory.Services;
-using Inventory.Services.Interfaces;
-using Inventory.Services.Services;
+using Inventory.Repository.Interfaces;
+using Inventory.Repository.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,11 +48,8 @@ namespace KoalaInventoryManagement
             });
 
 
-            // Register repositories via the Inventory.Services project
-            builder.Services.AddUnitOfWork();
-
-            //Adding the services
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            // Register repositories in the unit of work
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
