@@ -1,6 +1,7 @@
 ﻿using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +13,32 @@ namespace Inventory.Repository.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly InventoryDbContext _context;
-        public IGenericRepositoryAsync<Category> Categories{ get; private set; }
 
+        public IGenericRepositoryAsync<Category> Categories { get; private set; }
         public IGenericRepository<Supplier> Suppliers { get; private set; }
+        public IGenericRepository<WareHouse> WareHouses { get; private set; }
+        public IGenericRepository<Product> Products { get; private set; }
 
         public UnitOfWork(InventoryDbContext context)
         {
-            _context=context;
+            _context = context;
+
             Categories = new GenericRepositoryAsync<Category>(_context);
             Suppliers = new GenericRepository<Supplier>(_context);
+            WareHouses = new GenericRepository<WareHouse>(_context);
+            Products = new GenericRepository<Product>(_context);
         }
+
         public int Complete()
         {
-            return _context.SaveChanges();
+            return _context?.SaveChanges() ?? -1;
         }
-        public Task<int> CompleteAsync()
+
+        public async Task<int> CompleteAsync()
         {
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
+
         public void Dispose()
         {
             _context.Dispose();
