@@ -10,7 +10,7 @@ namespace Inventory.Data.Models
     {
         public int Id { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
-        public bool IsDeleted { get; set; } =false;
-        public bool IsModified { get; set; } = false;
+        //public bool IsDeleted { get; set; } =false;
+        //public bool IsModified { get; set; } = false;
     }
 }
