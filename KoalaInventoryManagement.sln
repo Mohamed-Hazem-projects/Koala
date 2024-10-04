@@ -5,11 +5,9 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KoalaInventoryManagement", "KoalaInventoryManagement\KoalaInventoryManagement.csproj", "{E00DC3F2-05D2-41BD-A559-C7B0F3A35961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Repository", "Inventory.Repository\Inventory.Repository.csproj", "{2A630464-CB38-45B6-92E5-352E286F1D12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Repository", "Inventory.Repository\Inventory.Repository.csproj", "{2A630464-CB38-45B6-92E5-352E286F1D12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Data", "Inventory.Data\Inventory.Data.csproj", "{50273818-6044-4574-B47B-9E1E97662D32}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Services", "Inventory.Services\Inventory.Services.csproj", "{3B722952-37C7-4FDE-A2D1-36D5E7E43170}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Data", "Inventory.Data\Inventory.Data.csproj", "{50273818-6044-4574-B47B-9E1E97662D32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{50273818-6044-4574-B47B-9E1E97662D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50273818-6044-4574-B47B-9E1E97662D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50273818-6044-4574-B47B-9E1E97662D32}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B722952-37C7-4FDE-A2D1-36D5E7E43170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B722952-37C7-4FDE-A2D1-36D5E7E43170}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B722952-37C7-4FDE-A2D1-36D5E7E43170}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B722952-37C7-4FDE-A2D1-36D5E7E43170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

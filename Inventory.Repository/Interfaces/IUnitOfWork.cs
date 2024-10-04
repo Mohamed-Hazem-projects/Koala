@@ -9,9 +9,9 @@ namespace Inventory.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Category> Categories { get; }
+        IGenericRepositoryAsync<Category> Categories { get; }
         IGenericRepository<Supplier> Suppliers { get; }
         int Complete();
-
+        Task<int> CompleteAsync();
     }
 }

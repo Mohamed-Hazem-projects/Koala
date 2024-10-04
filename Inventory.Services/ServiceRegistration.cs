@@ -11,7 +11,7 @@ namespace Inventory.Services
         public static void AddUnitOfWork(this IServiceCollection services)
         {
             // Register your repositories here
-            services.AddTransient<IUnitOfWork,UnitOfWork>();
+            
         }
     }
 }
