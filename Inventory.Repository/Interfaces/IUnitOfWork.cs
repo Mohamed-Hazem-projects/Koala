@@ -13,7 +13,7 @@ namespace Inventory.Repository.Interfaces
         IGenericRepositoryAsync<Category> Categories { get; }
         IGenericRepository<Supplier> Suppliers { get; }
         IGenericRepository<WareHouse> WareHouses { get; }
-        IGenericRepository<Product> Products { get; }
+        IProductsRepository Products { get; }
         IWareHousesProductsRepository WareHousesProducts { get; }
 
         int Complete();

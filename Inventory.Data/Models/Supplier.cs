@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KoalaInventoryManagement.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -16,6 +17,6 @@ namespace Inventory.Data.Models
         public byte? Rating { get; set; }
         public string? Image { get; set; }
 
-        //public ICollection<Product> Products { get; set; }
+        public ICollection<Product>? Products { get; set; }
     }
 }

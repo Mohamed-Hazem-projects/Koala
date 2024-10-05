@@ -17,7 +17,7 @@ namespace Inventory.Repository.Repositories
         public IGenericRepositoryAsync<Category> Categories { get; private set; }
         public IGenericRepository<Supplier> Suppliers { get; private set; }
         public IGenericRepository<WareHouse> WareHouses { get; private set; }
-        public IGenericRepository<Product> Products { get; private set; }
+        public IProductsRepository Products { get; private set; }
         public IWareHousesProductsRepository WareHousesProducts { get; private set; }
 
         public UnitOfWork(InventoryDbContext context)
@@ -27,7 +27,7 @@ namespace Inventory.Repository.Repositories
             Categories = new GenericRepositoryAsync<Category>(_context);
             Suppliers = new GenericRepository<Supplier>(_context);
             WareHouses = new GenericRepository<WareHouse>(_context);
-            Products = new GenericRepository<Product>(_context);
+            Products = new ProductsRepository(_context);
             WareHousesProducts = new WareHousesProductsRepository(_context);
         }
 

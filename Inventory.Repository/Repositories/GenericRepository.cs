@@ -1,7 +1,9 @@
 ﻿using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Inventory.Repository.Repositories
 {
@@ -44,7 +46,21 @@ namespace Inventory.Repository.Repositories
                 return new List<T>();
             }
         }
+        public IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
 
+            }
+            return query.Where(match).ToList();
+        }
+
+        
         public virtual bool Add(T entity)
         {
             try
@@ -83,7 +99,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public virtual bool Update(T entity)
+        public virtual bool Update(T entity )
         {
             try
             {

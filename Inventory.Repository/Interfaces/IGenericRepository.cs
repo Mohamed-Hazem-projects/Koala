@@ -1,5 +1,6 @@
 ﻿using Inventory.Data.Models;
 using KoalaInventoryManagement.Models;
+using System.Linq.Expressions;
 
 namespace Inventory.Repository.Interfaces
 {
@@ -11,5 +12,6 @@ namespace Inventory.Repository.Interfaces
         bool AddRange(ICollection<T> entities);
         bool Update(T entity);
         bool Delete(int id);
+        IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null);
     }
 }

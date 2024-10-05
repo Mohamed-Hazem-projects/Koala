@@ -4,6 +4,7 @@ using Inventory.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241005122939_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,31 +122,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 112, DateTimeKind.Local).AddTicks(7996),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 530, DateTimeKind.Local).AddTicks(335),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 115, DateTimeKind.Local).AddTicks(1510),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 533, DateTimeKind.Local).AddTicks(3942),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 115, DateTimeKind.Local).AddTicks(1547),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 533, DateTimeKind.Local).AddTicks(3985),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 115, DateTimeKind.Local).AddTicks(1552),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 533, DateTimeKind.Local).AddTicks(3990),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 115, DateTimeKind.Local).AddTicks(1555),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 533, DateTimeKind.Local).AddTicks(3993),
                             Name = "Accessories"
                         });
                 });
@@ -187,7 +190,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(3670),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 534, DateTimeKind.Local).AddTicks(7818),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -196,7 +199,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(5180),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 534, DateTimeKind.Local).AddTicks(9478),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01555456789",
@@ -205,7 +208,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(5197),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 534, DateTimeKind.Local).AddTicks(9499),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01529999999",
@@ -214,7 +217,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(5201),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 534, DateTimeKind.Local).AddTicks(9503),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -230,14 +233,8 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("CurrentStock")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -247,12 +244,6 @@ namespace Inventory.Data.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("MaximumStock")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinimumStock")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -261,14 +252,7 @@ namespace Inventory.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
 
@@ -276,7 +260,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 117, DateTimeKind.Local).AddTicks(2780),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 536, DateTimeKind.Local).AddTicks(1790),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m
@@ -284,7 +268,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 117, DateTimeKind.Local).AddTicks(3999),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 536, DateTimeKind.Local).AddTicks(3560),
                             Description = "Guns Products",
                             Name = "Gun AK-74",
                             Price = 1000m
@@ -292,7 +276,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 117, DateTimeKind.Local).AddTicks(4015),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 536, DateTimeKind.Local).AddTicks(3583),
                             Description = "Food Products",
                             Name = "زبادي",
                             Price = 3m
@@ -323,19 +307,19 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(8822),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 535, DateTimeKind.Local).AddTicks(5372),
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(9301),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 535, DateTimeKind.Local).AddTicks(6193),
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 5, 16, 1, 21, 116, DateTimeKind.Local).AddTicks(9315),
+                            CreateAt = new DateTime(2024, 10, 5, 15, 29, 34, 535, DateTimeKind.Local).AddTicks(6213),
                             Name = "Section C"
                         });
                 });
@@ -547,21 +531,6 @@ namespace Inventory.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("KoalaInventoryManagement.Models.Product", b =>
-                {
-                    b.HasOne("Inventory.Data.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Inventory.Data.Models.Supplier", "Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouseProduct", b =>
                 {
                     b.HasOne("KoalaInventoryManagement.Models.Product", "Product")
@@ -630,16 +599,6 @@ namespace Inventory.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Inventory.Data.Models.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Inventory.Data.Models.Supplier", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("KoalaInventoryManagement.Models.Product", b =>

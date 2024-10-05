@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Inventory.Repository.Repositories
 {
-    public class WareHousesProductsRepository : IWareHousesProductsRepository
+    public class WareHousesProductsRepository : IWareHousesProductsRepository 
     {
         private readonly InventoryDbContext _context;
         public WareHousesProductsRepository(InventoryDbContext context)
@@ -223,6 +224,11 @@ namespace Inventory.Repository.Repositories
 
                 return false;
             }
+        }
+
+        public IEnumerable<WareHouseProduct> FindByName(Expression<Func<WareHouseProduct, bool>> match, string[] includes = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
