@@ -13,5 +13,8 @@ namespace Inventory.Repository.Interfaces
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync(T entity);
         Task AddRangeAsync(ICollection<T> entities);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task DeleteByIdAsync(int id);
     }
 }

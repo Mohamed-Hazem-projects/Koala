@@ -1,0 +1,106 @@
+﻿@model SuppliersTotalViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<div class="container-fluid p-0 suppliers">
+    <!-- Suppliers Header Start-->
+    <div class="content-header">
+        <div class=" heading">
+            <h1 class="header-title roboto">Suppliers Page</h1>
+            <p class="header-subtitle roboto">Manage your suppliers with their provided categories.</p>
+        </div>
+    </div>
+    <!-- Suppliers Header End-->
+
+    <!-- Suppliers Table Start-->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Suppliers</h4>
+                    <button class="add-btn">Add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Email Address</th>
+                                    <th scope="col">Rating</th>
+                                    <th class="btn-head" scope="col">Edit</th>
+                                    <th class="btn-head" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var supplier in Model.suppliers){
+                                    <tr>
+                                        <td>@supplier.Name</td>
+                                        <td>@supplier.Phone_Number</td>
+                                        <td>@supplier.Email_Address</td>
+                                        <td class="progress-td">
+                                            <div class="progress" style="background: rgba(127, 99, 244, .1)">
+                                                <div class="progress-bar" style="width: @supplier.Rating%;" role="progressbar">
+                                                    <span class="sr-only">@supplier.Rating% Complete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="btn-td edit">
+                                            <a><i class="fa fa-pencil color-muted"></i></a>
+                                        </td>
+                                        <td class="btn-td delete">
+                                            <a asp-action="DeleteSupplier" asp-route-id="@supplier.Id"><i class="fa fa-close color-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                }                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Suppliers Table End-->
+
+    <!-- categories Table Start-->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Categories by suppliers</h4>
+                    <button class="add-btn">Add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th class="btn-head" scope="col">Edit</th>
+                                    <th class="btn-head" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in Model.categories)
+                                {
+                                    <tr>
+                                        <td>@category.Name</td>
+                                        <td class="btn-td edit">
+                                            <a><i class="fa fa-pencil color-muted"></i></a>
+                                        </td>
+                                        <td class="btn-td delete">
+                                            <a asp-action="DeleteCategory" asp-route-id="@category.Id"><i class="fa fa-close color-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- categories Table End-->
+</div>

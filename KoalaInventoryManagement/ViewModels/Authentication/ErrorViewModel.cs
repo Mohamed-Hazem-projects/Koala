@@ -1,4 +1,4 @@
-namespace KoalaInventoryManagement.Models
+namespace KoalaInventoryManagement.ViewModels.Authentication
 {
     public class ErrorViewModel
     {

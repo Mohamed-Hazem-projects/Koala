@@ -1,4 +1,4 @@
-using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.ViewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

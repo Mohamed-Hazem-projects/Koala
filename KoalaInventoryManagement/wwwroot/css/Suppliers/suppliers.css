@@ -1,0 +1,225 @@
+﻿.roboto {
+    font-family: "Roboto", sans-serif;
+    overflow-x: hidden;
+    letter-spacing: 1px;
+}
+.suppliers {
+    min-height: 100%;
+}
+.bg-offwhite {
+    background-color: #f8f9fe;
+}
+/*Suppliers header Start*/
+/* Main header container with right-to-left gradient background */
+.content-header {
+    background: linear-gradient(90deg, #5536df, #7a65e4); /* Gradient background: right to left */
+    color: white;
+    padding: 20px 20px 0;
+    text-align: center;
+    position: relative;
+    z-index: -1;
+    margin-bottom: 75px;
+}
+
+/* Title styling */
+.header-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.heading {
+    position: relative;
+    top: 5px;
+    z-index: 3;
+}
+
+/* Subtitle styling */
+.header-subtitle {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+/* Inverted wavy bottom curve with matching right-to-left gradient */
+.content-header::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><defs><linearGradient id="grad1" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:%237a65e4;stop-opacity:1" /><stop offset="100%" style="stop-color:%235536df;stop-opacity:1" /></linearGradient></defs><path fill="url(%23grad1)" fill-opacity="1" d="M0,0L40,16C80,32,160,64,240,69.3C320,75,400,53,480,53.3C560,53,640,75,720,80C800,85,880,75,960,64C1040,53,1120,43,1200,48C1280,53,1360,75,1400,85.3L1440,96L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>') no-repeat bottom;
+    background-size: cover;
+    z-index: 2;
+    background-color: #f8f9fe;
+}
+
+/* Ensure text remains white */
+.header-title, .header-subtitle {
+    color: white;
+}
+/*Suppliers header End*/
+
+/*Suppliers Table Start*/
+.card {
+    min-width: 0;
+    margin-bottom: 1.875rem;
+    transition: all .5s ease-in-out;
+    border: 0px solid transparent;
+    box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #454545;
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+}
+.card-header {
+    margin-bottom: 0;
+    border-color: #eaeaea;
+    position: relative;
+    background: transparent;
+    padding: 1.25rem 1.25rem 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0px;    
+}
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse !important;
+}
+
+.table thead th {
+    border-bottom-width: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-color: #eaeaea;
+    vertical-align: bottom;
+    border-bottom: 2px solid #EEEEEE;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #EEEEEE;
+    color: #878787;
+    font-family: "Roboto", sans-serif;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom: 2px solid #EEEEEE;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #EEEEEE;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #EEEEEE;
+}
+.table-responsive > .table-bordered {
+    border: 0;
+}
+.table-bordered {
+    border: 1px solid #EEEEEE;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #EEEEEE;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+.progress {
+    display: flex;
+    height: 6px;
+    overflow: hidden;
+    font-size: 0.65625rem;
+    background-color: #593bdb;
+    border-radius: 0.25rem;
+    
+}
+.progress-td {
+    width: 150px
+}
+@media(max-width:1000px) {
+    .progress-td {
+        width: auto;
+    }
+}
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #593bdb;
+    transition: width 0.6s ease;
+    border-radius: 4px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+.btn-head {
+    width: 50px;
+}
+.btn-td{
+    text-align:center;
+}
+i {
+    color: #BDBDC7;
+    cursor: pointer;
+    font-size: 19px;
+    transition:0.3s;
+}
+.edit i:hover {
+    color: #593bdb;
+}
+.delete i:hover{
+    color:red;
+}
+.add-btn {
+    color: white;
+    background-color: #593bdb;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+/*Suppliers Table End*/

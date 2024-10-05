@@ -31,5 +31,28 @@ namespace Inventory.Repository.Repositories
         {
             await _context.Set<T>().AddRangeAsync(entities);
         }
+        // Async Update method without SaveChangesAsync
+        public Task UpdateAsync(T entity)
+        {
+            _context.Set<T>().Update(entity);
+            return Task.CompletedTask;
+        }
+
+        // Async Delete method without SaveChangesAsync
+        public Task DeleteAsync(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+            return Task.CompletedTask;
+        }
+
+        // Async Delete by Id method without SaveChangesAsync
+        public async Task DeleteByIdAsync(int id)
+        {
+            var entity = await GetbyIdAsync(id);
+            if (entity != null)
+            {
+                await DeleteAsync(entity);
+            }
+        }
     }
 }
