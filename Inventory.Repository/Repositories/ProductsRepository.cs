@@ -13,7 +13,7 @@ namespace Inventory.Repository.Repositories
 {
     public class ProductsRepository : GenericRepository<Product>, IProductsRepository
     {
-        private readonly InventoryDbContext _context;
+        
         public ProductsRepository(InventoryDbContext context) : base(context)
         {
         }
@@ -22,9 +22,7 @@ namespace Inventory.Repository.Repositories
         {
             try
             {
-                var products = _context.Products
-                                      .Where(p => p.SupplierId == supplierId)
-                                      .ToList();
+                var products = _context.Products.Where(p => p.SupplierId == supplierId).ToList();
                 return products;
             }
             catch (Exception ex)

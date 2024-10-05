@@ -15,7 +15,13 @@ namespace KoalaInventoryManagement.Controllers
         public IActionResult Index()
         {
             var allproducts = _unitOfWork.Products.GetAll();
-            return Ok(allproducts);
+            return Ok(allproducts) ;
+        }
+        [HttpGet]
+        public IActionResult Getview()
+        {
+            
+            return View("index");
         }
 
         [HttpGet]
@@ -32,7 +38,7 @@ namespace KoalaInventoryManagement.Controllers
         [HttpPost]
         public IActionResult AddNewProduct()
         {
-            var addNewProduct = _unitOfWork.Products.Add(new Models.Product{  Name = "Palestine Flag", Description = "Flags Products", Price = 9, CreateAt = DateTime.Now });
+            var addNewProduct = _unitOfWork.Products.Add(new Models.Product{  Name = "Test", Description = "Flags Test", Price = 20, CreateAt = DateTime.Now });
            _unitOfWork.Complete();  
             return Ok(addNewProduct);
         }
@@ -48,7 +54,7 @@ namespace KoalaInventoryManagement.Controllers
         [HttpPost]
         public IActionResult UpdateProduct()
         {
-            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama", Description = "Flags Products", Price = 9});
+            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama2", Description = "Test salama2", Price = 50});
             _unitOfWork.Complete();
             return Ok(UpdateProduct);
         }

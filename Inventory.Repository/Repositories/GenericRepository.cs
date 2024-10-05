@@ -99,32 +99,48 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public virtual bool Update(T entity )
+        public virtual bool Update(T entity)
         {
             try
             {
-                T? older = _context?.Set<T>()?.Find(entity.Id);
+                // Check if the entity is already tracked
+                var existingEntity = _context?.Set<T>()?.Local.FirstOrDefault(e => e.Id == entity.Id);
 
-                if (older != null)
+                if (existingEntity != null)
                 {
-                    _context?.Set<T>()?.Update(entity);
+                    // If the entity is already being tracked, update its properties
+                    _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                }
+                else
+                {
+                    // If it's not tracked, find the entity in the database
+                    existingEntity = _context?.Set<T>()?.Find(entity.Id);
 
-                    if (_context?.Entry(older)?.State == EntityState.Modified)
+                    if (existingEntity != null)
                     {
-                        return true;
+                        // Update the existing entity's properties
+                        _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    }
+                    else
+                    {
+                        // If no existing entity found, add the new one
+                        _context?.Set<T>()?.Add(entity);
                     }
                 }
 
-                return false;
+                // Save changes to the context
+                return true;
+              
             }
             catch (Exception ex)
             {
-                //log error
+                // Log the error
                 //.......
 
                 return false;
             }
         }
+
 
         public virtual bool Delete(int id)
         {
