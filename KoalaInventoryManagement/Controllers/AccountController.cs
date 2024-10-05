@@ -1,6 +1,5 @@
 ﻿using Inventory.Data.Models;
-using Inventory.web.Models;
-using KoalaInventoryManagement.ViewModels;
+using KoalaInventoryManagement.ViewModels.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

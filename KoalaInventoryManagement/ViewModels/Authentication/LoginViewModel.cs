@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Inventory.web.Models
+namespace KoalaInventoryManagement.ViewModels.Authentication
 {
     public class LoginViewModel
     {

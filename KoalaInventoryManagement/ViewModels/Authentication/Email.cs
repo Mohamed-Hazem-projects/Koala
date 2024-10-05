@@ -1,4 +1,4 @@
-﻿namespace KoalaInventoryManagement.ViewModels
+﻿namespace KoalaInventoryManagement.ViewModels.Authentication
 {
     public class Email
     {

@@ -11,7 +11,7 @@ namespace Inventory.Repository.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepositoryAsync<Category> Categories { get; }
-        IGenericRepository<Supplier> Suppliers { get; }
+        IGenericRepositoryAsync<Supplier> Suppliers { get; }
         IGenericRepository<WareHouse> WareHouses { get; }
         IGenericRepository<Product> Products { get; }
         IWareHousesProductsRepository WareHousesProducts { get; }

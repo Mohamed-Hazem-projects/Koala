@@ -1,6 +1,7 @@
-﻿.dashboard {
+﻿.roboto {
     font-family: "Roboto", sans-serif;
-    overflow-x:hidden;
+    overflow-x: hidden;
+    letter-spacing: 1px;
 }
 /*Dashboard header Start*/
 /* Main header container with right-to-left gradient background */
