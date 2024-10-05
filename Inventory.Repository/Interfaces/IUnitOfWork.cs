@@ -14,6 +14,7 @@ namespace Inventory.Repository.Interfaces
         IGenericRepository<Supplier> Suppliers { get; }
         IGenericRepository<WareHouse> WareHouses { get; }
         IGenericRepository<Product> Products { get; }
+        IWareHousesProductsRepository WareHousesProducts { get; }
 
         int Complete();
 

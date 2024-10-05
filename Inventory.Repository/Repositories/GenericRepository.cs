@@ -1,21 +1,20 @@
 ﻿using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
-using KoalaInventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory.Repository.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly InventoryDbContext _context;
+        protected InventoryDbContext _context;
 
         public GenericRepository(InventoryDbContext context)
         {
             _context = context;
         }
 
-        public T? GetbyId(int id)
+        public virtual T? GetbyId(int id)
         {
             try
             {
@@ -30,7 +29,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             try
             {
@@ -46,7 +45,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public bool Add(T entity)
+        public virtual bool Add(T entity)
         {
             try
             {
@@ -65,7 +64,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public bool AddRange(ICollection<T> entities)
+        public virtual bool AddRange(ICollection<T> entities)
         {
             try
             {
@@ -84,7 +83,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public bool Update(T entity)
+        public virtual bool Update(T entity)
         {
             try
             {
@@ -111,16 +110,10 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
             try
             {
-                var entity = _context.Set<T>().Find(id);
-                if (entity != null)
-                {
-                    _context.Set<T>().Remove(entity);
-                }
-
                 T? existing = _context?.Set<T>()?.Find(id);
 
                 if (existing != null)
