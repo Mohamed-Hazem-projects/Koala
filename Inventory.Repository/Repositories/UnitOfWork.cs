@@ -18,6 +18,7 @@ namespace Inventory.Repository.Repositories
         public IGenericRepository<Supplier> Suppliers { get; private set; }
         public IGenericRepository<WareHouse> WareHouses { get; private set; }
         public IGenericRepository<Product> Products { get; private set; }
+        public IWareHousesProductsRepository WareHousesProducts { get; private set; }
 
         public UnitOfWork(InventoryDbContext context)
         {
@@ -27,6 +28,7 @@ namespace Inventory.Repository.Repositories
             Suppliers = new GenericRepository<Supplier>(_context);
             WareHouses = new GenericRepository<WareHouse>(_context);
             Products = new GenericRepository<Product>(_context);
+            WareHousesProducts = new WareHousesProductsRepository(_context);
         }
 
         public int Complete()
