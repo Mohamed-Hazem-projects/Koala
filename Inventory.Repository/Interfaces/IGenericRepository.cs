@@ -4,11 +4,11 @@ namespace Inventory.Repository.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        T GetbyId(int id);
+        T? GetbyId(int id);
         IEnumerable<T> GetAll();
-        void Add(T entity);
-        void AddRange(ICollection<T> entities);
-        void Update(T entity);
-        void Delete(int id);
+        bool Add(T entity);
+        bool AddRange(ICollection<T> entities);
+        bool Update(T entity);
+        bool Delete(int id);
     }
 }
