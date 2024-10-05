@@ -1,7 +1,9 @@
 ﻿using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Inventory.Repository.Repositories
 {
@@ -44,7 +46,21 @@ namespace Inventory.Repository.Repositories
                 return new List<T>();
             }
         }
+        public IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
 
+            }
+            return query.Where(match).ToList();
+        }
+
+        
         public virtual bool Add(T entity)
         {
             try
@@ -87,28 +103,44 @@ namespace Inventory.Repository.Repositories
         {
             try
             {
-                T? older = _context?.Set<T>()?.Find(entity.Id);
+                // Check if the entity is already tracked
+                var existingEntity = _context?.Set<T>()?.Local.FirstOrDefault(e => e.Id == entity.Id);
 
-                if (older != null)
+                if (existingEntity != null)
                 {
-                    _context?.Set<T>()?.Update(entity);
+                    // If the entity is already being tracked, update its properties
+                    _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                }
+                else
+                {
+                    // If it's not tracked, find the entity in the database
+                    existingEntity = _context?.Set<T>()?.Find(entity.Id);
 
-                    if (_context?.Entry(older)?.State == EntityState.Modified)
+                    if (existingEntity != null)
                     {
-                        return true;
+                        // Update the existing entity's properties
+                        _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    }
+                    else
+                    {
+                        // If no existing entity found, add the new one
+                        _context?.Set<T>()?.Add(entity);
                     }
                 }
 
-                return false;
+                // Save changes to the context
+                return true;
+              
             }
             catch (Exception ex)
             {
-                //log error
+                // Log the error
                 //.......
 
                 return false;
             }
         }
+
 
         public virtual bool Delete(int id)
         {

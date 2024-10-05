@@ -13,7 +13,7 @@ namespace Inventory.Data.Data_Seeds
         {
             new Product()
             {
-                Id = 1, Name = "Palestine Flag", Description = "Flags Products", Price = 9
+                Id = 1, Name = "Palestine Flag", Description = "Flags Products", Price = 9,
             },
             new Product()
             {

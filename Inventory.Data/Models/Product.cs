@@ -17,6 +17,20 @@ namespace KoalaInventoryManagement.Models
         [Column(TypeName = "money")]
         public double Price { get; set; }
         public byte[]? Image { get; set; }
+        public int? CurrentStock { get; set; }
+        public int? MinimumStock { get; set; }
+        public int? MaximumStock { get; set; }
+        
+        public int? SupplierId {  get; set; }
+        [ForeignKey("SupplierId")]
+        public Supplier? Supplier { get; set; }
+
+        
+        public int? CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category? Category { get; set; }
+
+
 
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
             = new List<WareHouseProduct>();
