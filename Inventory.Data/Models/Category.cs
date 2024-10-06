@@ -1,7 +1,5 @@
 ﻿using KoalaInventoryManagement.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace Inventory.Data.Models
 {
@@ -9,7 +7,6 @@ namespace Inventory.Data.Models
     {
         [Required,MaxLength(50)]
         public string Name { get; set; }
-
         public ICollection<Product>? Products { get; set; }
     }
 }

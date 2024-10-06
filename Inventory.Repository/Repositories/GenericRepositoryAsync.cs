@@ -34,7 +34,28 @@ namespace Inventory.Repository.Repositories
         // Async Update method without SaveChangesAsync
         public Task UpdateAsync(T entity)
         {
-            _context.Set<T>().Update(entity);
+            var existingEntity = _context.Set<T>()?.Local.FirstOrDefault(e => e.Id == entity.Id);
+
+            if (existingEntity != null)
+            {
+                // If the entity is already being tracked, update its properties
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                // If it's not tracked, find the entity in the database
+                existingEntity = _context?.Set<T>()?.Find(entity.Id);
+
+                if (existingEntity != null)
+                {
+                    // Update the existing entity's properties
+                    _context?.Entry(existingEntity).CurrentValues.SetValues(entity);
+                }
+                else
+                {
+                    return Task.CompletedTask;
+                }
+            }
             return Task.CompletedTask;
         }
 

@@ -3,7 +3,6 @@ using Inventory.Data.Models;
 using KoalaInventoryManagement.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Inventory.Data.Context
 {
@@ -54,6 +53,16 @@ namespace Inventory.Data.Context
                         .HasMany(p => p.WareHouseProducts)
                         .WithOne(whp => whp.Product)
                         .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Supplier>()
+                        .HasMany(s => s.Products)
+                        .WithOne(p => p.Supplier)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Category>()
+                        .HasMany(c => c.Products)
+                        .WithOne(p => p.Category)
+                        .OnDelete(DeleteBehavior.SetNull);
             #endregion
 
             base.OnModelCreating(modelBuilder);

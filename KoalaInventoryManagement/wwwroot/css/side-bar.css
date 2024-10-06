@@ -136,6 +136,7 @@
     margin-left: 10px;
     position: relative;
     transition: inherit;
+    white-space:nowrap;
 }
 
 @media (max-width: 767px) {
@@ -261,8 +262,8 @@ margin-bottom: 10px;
     justify-content: center;
 }
 .size-change .upper ul li a span {
-    transform:scale(0);
-    position:absolute;
+    transform: scale(0) translateX(100px);
+    position: absolute;
 }
 .size-change .upper ul li a i {
     font-size: 18px;
@@ -271,6 +272,6 @@ margin-bottom: 10px;
 padding: 10px;
 }
 .size-change.main > .lower > p {
-    letter-spacing: -9px;
+    letter-spacing: -15px;
     transform: scale(0);
 }
