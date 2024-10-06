@@ -38,6 +38,11 @@ namespace Inventory.Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Search with the product Id and gets the first occurence of it
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public WareHouseProduct? GetbyId(int productID)
         {
             try
@@ -196,7 +201,11 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        //Deletes all records with ProductID
+        /// <summary>
+        /// Deletes all records that match given ProductID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public bool Delete(int productID)
         {
             try
@@ -228,7 +237,23 @@ namespace Inventory.Repository.Repositories
 
         public IEnumerable<WareHouseProduct> FindByName(Expression<Func<WareHouseProduct, bool>> match, string[] includes = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IQueryable<WareHouseProduct> query = _context.Set<WareHouseProduct>();
+
+                if (includes != null)
+                    foreach (var include in includes)
+                        query = query.Include(include);
+
+                return query.Where(match).ToList();
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return new List<WareHouseProduct>();
+            }
         }
     }
 }
