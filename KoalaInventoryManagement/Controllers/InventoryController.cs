@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KoalaInventoryManagement.Controllers
 {
-    public class ProductController : Controller
+    public class InventoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        public InventoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

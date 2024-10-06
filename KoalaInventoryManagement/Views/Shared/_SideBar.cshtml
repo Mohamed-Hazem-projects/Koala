@@ -32,9 +32,15 @@
                 </a>
             </li>
             <li>
-                <a href="/Staff" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Staff" ? "active" : "")">
+                <a href="/Sales" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Sales" ? "active" : "")">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Sales</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Staff" class="@(ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
                     <i class="fa-solid fa-users fa-fw"></i>
-                    <span>Staff</span>
+                    <span>Admin Board</span>
                 </a>
             </li>
             @if (User.Identity.IsAuthenticated)

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Suppliers</h4>
-                    <button class="add-btn">Add</button>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#supplierModal">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -48,10 +48,12 @@
                                             </div>
                                         </td>
                                         <td class="btn-td edit">
-                                            <a><i class="fa fa-pencil color-muted"></i></a>
+                                            <a onclick="openEditModalSupplier(@supplier.Id,'@supplier.Name','@supplier.Phone_Number','@supplier.Email_Address',@supplier.Rating/10)">
+                                                <i class="fa fa-pencil color-muted"></i>
+                                            </a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a asp-action="DeleteSupplier" asp-route-id="@supplier.Id"><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@supplier.Name Supplier',@supplier.Id,1)"><i class="fa fa-close color-danger"></i></a>
                                         </td>
                                     </tr>
                                 }                                
@@ -70,7 +72,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Categories by suppliers</h4>
-                    <button class="add-btn">Add</button>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#categoryModal">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -88,10 +90,10 @@
                                     <tr>
                                         <td>@category.Name</td>
                                         <td class="btn-td edit">
-                                            <a><i class="fa fa-pencil color-muted"></i></a>
+                                            <a onclick="openEditModal(@category.Id,'@category.Name')"><i class="fa fa-pencil color-muted"></i></a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a asp-action="DeleteCategory" asp-route-id="@category.Id"><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@category.Name Category',@category.Id,2)"><i class="fa fa-close color-danger"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -104,3 +106,123 @@
     </div>
     <!-- categories Table End-->
 </div>
+
+
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    <p>Do you really want to delete the following?</p>
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
+
+<!-- Category Modal Start-->
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">Add Category</h5>
+                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Suppliers/AddCategory" id="addOrEditCategoryForm">
+                    <input type="number" name="Id" hidden value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="Name" class="form-control"
+                                   required minlength="2" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="col-sm-10">
+                            <button hidden type="submit" class="btn btn-primary">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addOrEditCategory">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Category Modal End-->
+
+<!-- Supplier Modal Start-->
+<div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="supplierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="supplierModalLabel">Add Supplier</h5>
+                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Suppliers/AddSupplier" id="addOrEditSupplierForm">
+                    <input type="number" name="Id" hidden value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Name" class="form-control"
+                                   required minlength="2" maxlength="50" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Phone Number</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Phone_Number" class="form-control"
+                                   required maxlength="20" placeholder="Phone Number" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Email Address</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Email_Address" class="form-control"
+                                   maxlength="50" placeholder="Email Address" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Rating</label>
+                        <div class="col-sm-9 myrange">
+                            <input type="range" id="Rating" name="Rating" 
+                                   class="form-range" min="0" max="10" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="col-sm-10">
+                            <button hidden type="submit" class="btn btn-primary">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addOrEditSupplier">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Supplier Modal End-->
+
+
+
+@section Scripts {
+    <script src="/js/Suppliers/Suppliers.js"></script>
+}
