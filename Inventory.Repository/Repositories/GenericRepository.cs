@@ -46,21 +46,28 @@ namespace Inventory.Repository.Repositories
                 return new List<T>();
             }
         }
-        public IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null)
-        {
-            IQueryable<T> query = _context.Set<T>();
-            if (includes != null)
-            {
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
 
+        public IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[]? includes = null)
+        {
+            try
+            {
+                IQueryable<T> query = _context.Set<T>();
+
+                if (includes != null)
+                    foreach (var include in includes)
+                        query = query.Include(include);
+
+                return query.Where(match).ToList();
             }
-            return query.Where(match).ToList();
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return new List<T>();
+            }
         }
 
-        
         public virtual bool Add(T entity)
         {
             try
@@ -104,12 +111,16 @@ namespace Inventory.Repository.Repositories
             try
             {
                 // Check if the entity is already tracked
-                var existingEntity = _context?.Set<T>()?.Local.FirstOrDefault(e => e.Id == entity.Id);
+                T? existingEntity
+                    = _context?.Set<T>()?.Local?.FirstOrDefault(e => e.Id == entity.Id);
 
                 if (existingEntity != null)
                 {
                     // If the entity is already being tracked, update its properties
-                    _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                    _context?.Entry(existingEntity)?.CurrentValues.SetValues(entity);
+
+                    if (_context?.Entry(existingEntity)?.State == EntityState.Modified)
+                        return true;
                 }
                 else
                 {
@@ -119,18 +130,14 @@ namespace Inventory.Repository.Repositories
                     if (existingEntity != null)
                     {
                         // Update the existing entity's properties
-                        _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-                    }
-                    else
-                    {
-                        // If no existing entity found, add the new one
-                        _context?.Set<T>()?.Add(entity);
+                        _context?.Entry(existingEntity).CurrentValues.SetValues(entity);
+
+                        if (_context?.Entry(existingEntity)?.State == EntityState.Modified)
+                            return true;
                     }
                 }
 
-                // Save changes to the context
-                return true;
-              
+                return false;
             }
             catch (Exception ex)
             {
@@ -140,7 +147,6 @@ namespace Inventory.Repository.Repositories
                 return false;
             }
         }
-
 
         public virtual bool Delete(int id)
         {
@@ -154,13 +160,9 @@ namespace Inventory.Repository.Repositories
 
                     if (_context?.Entry(existing).State == EntityState.Deleted)
                         return true;
-                    else
-                        return false;
                 }
-                else
-                {
-                    return false;
-                }
+
+                return false;
             }
             catch (Exception ex)
             {
