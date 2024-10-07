@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Inventory.Repository.Repositories
 {
-    public class WareHousesProductsRepository : IWareHousesProductsRepository 
+    public class WareHousesProductsRepository : IWareHousesProductsRepository
     {
         private readonly InventoryDbContext _context;
         public WareHousesProductsRepository(InventoryDbContext context)
@@ -107,6 +107,21 @@ namespace Inventory.Repository.Repositories
             }
         }
 
+        public WareHouseProduct? GetWareHouseProduct(int productID, int wareHouseID)
+        {
+            try
+            {
+                return _context?.WareHousesProducts?.Find(productID, wareHouseID);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return default;
+            }
+        }
+
         public bool DeleteOneRecord(int productID, int WareHouseID)
         {
             try
@@ -123,7 +138,7 @@ namespace Inventory.Repository.Repositories
                     else
                         return false;
                 }
-                
+
                 return false;
             }
             catch (Exception ex)

@@ -1,11 +1,16 @@
 ﻿using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace KoalaInventoryManagement.Controllers
 {
     public class InventoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public InventoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -14,14 +19,255 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var allproducts = _unitOfWork.Products.GetAll();
-            return Ok(allproducts) ;
+            AllProductsViewModel? filterationViewModel = default;
+
+            if (TempData["filterationViewModel"] != null)
+            {
+                var data = TempData["filterationViewModel"]?.ToString() ?? string.Empty;
+                filterationViewModel = JsonConvert.DeserializeObject<AllProductsViewModel>(data);
+            }
+
+            if (filterationViewModel == null)
+            {
+                AllProductsViewModel ShowAllViewModle = new AllProductsViewModel()
+                {
+                    //Products = _unitOfWork.Products.GetAll().ToList(),
+                    //WareHouses = _unitOfWork.WareHouses.GetAll().ToList(),
+                    //WareHouseProducts = _unitOfWork.WareHousesProducts.GetAll().ToList(),
+                    UnFilteredProducts = _unitOfWork?.WareHousesProducts?.GetAll()
+                        .Select(p => new ProductViewModel()
+                        {
+                            Id = p.Product.Id,
+                            Name = p.Product.Name,
+                            Description = p.Product.Description,
+                            Price = p.Product.Price,
+                            Image = p?.Product.Image ?? [],
+                            WareHouseName = p.WareHouse.Name,
+                            CurrentStock = p.CurrentStock,
+                            MintStock = p.MinStock,
+                            MaxStock = p.MaxStock,
+                        }).ToList() ?? new List<ProductViewModel>()
+                };
+
+                return View(ShowAllViewModle);
+            }
+
+            return View(filterationViewModel);
         }
+
         [HttpGet]
-        public IActionResult Getview()
+        public JsonResult GetFilteredProducts(string searchString)
         {
-            
-            return View("index");
+            AllProductsViewModel allProductsViewModel = new AllProductsViewModel();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allProductsViewModel.FilteredProducts = new List<ProductViewModel>();
+
+                List<Product> products = _unitOfWork.Products.FindByName(p => p.Name.Contains(searchString)).ToList();
+                foreach (Product p in products)
+                {
+                    List<WareHouse> productWareHouse
+                        = _unitOfWork.WareHousesProducts.GetProductWareHousesByPrdID(p.Id).ToList();
+
+                    foreach (var i in productWareHouse)
+                    {
+                        allProductsViewModel.FilteredProducts.Add(
+                        new ProductViewModel()
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            Description = p.Description,
+                            Price = p.Price,
+                            Image = p?.Image ?? [],
+                            WareHouseName = i.Name,
+                            CurrentStock
+                              = i.WareHouseProducts.
+                                FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == i.Id)?.CurrentStock ?? 0,
+                            MintStock
+                              = i.WareHouseProducts.
+                                FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == i.Id)?.MinStock ?? 0,
+                            MaxStock
+                              = i.WareHouseProducts.
+                                FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == i.Id)?.MaxStock ?? 0,
+                        }
+                        );
+                    }
+
+                }
+            }
+            else
+            {
+                allProductsViewModel = new AllProductsViewModel()
+                {
+                    UnFilteredProducts = _unitOfWork?.WareHousesProducts?.GetAll()
+                        .Select(p => new ProductViewModel()
+                        {
+                            Id = p.Product.Id,
+                            Name = p.Product.Name,
+                            Description = p.Product.Description,
+                            Price = p.Product.Price,
+                            Image = p?.Product.Image ?? [],
+                            WareHouseName = p.WareHouse.Name,
+                            CurrentStock = p.CurrentStock,
+                            MintStock = p.MinStock,
+                            MaxStock = p.MaxStock,
+                        }).ToList() ?? new List<ProductViewModel>()
+                };
+            }
+
+            return Json(allProductsViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult GetByFilter(int productID, int wareHouseID)
+        {
+            if (productID > 0 || wareHouseID > 0)
+                return RedirectToAction("ApplyFilter", new { wareHouseID, productID });
+            else
+                return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ApplyFilter(int wareHouseID, int productID)
+        {
+            AllProductsViewModel filterationViewModel = new AllProductsViewModel()
+            {
+                UnFilteredProducts = _unitOfWork?.WareHousesProducts?.GetAll()
+                        .Select(p => new ProductViewModel()
+                        {
+                            Id = p.Product.Id,
+                            Name = p.Product.Name,
+                            Description = p.Product.Description,
+                            Price = p.Product.Price,
+                            Image = p?.Product.Image ?? [],
+                            WareHouseID = p.WareHouseID,
+                            WareHouseName = p.WareHouse.Name,
+                            CurrentStock = p.CurrentStock,
+                            MintStock = p.MinStock,
+                            MaxStock = p.MaxStock,
+                        }).ToList() ?? new List<ProductViewModel>()
+            };
+
+            if (wareHouseID > 0)
+            {
+                filterationViewModel.SelectedWareHouse = wareHouseID;
+
+                filterationViewModel.FilteredProducts
+                    = filterationViewModel.UnFilteredProducts.Where(p => p.WareHouseID == wareHouseID).ToList();
+
+                if (productID > 0 && filterationViewModel.FilteredProducts.Count > 0)
+                {
+                    filterationViewModel.SelectedProduct = productID;
+
+                    ProductViewModel? p = filterationViewModel.FilteredProducts.FirstOrDefault(p => p.Id == productID);
+
+                    if (p != null)
+                    {
+                        filterationViewModel.FilteredProducts.Clear();
+                        filterationViewModel.FilteredProducts.Add(p);
+                    }
+                    else
+                    {
+                        filterationViewModel.FilteredProducts.Clear();
+                    }
+                }
+            }
+            #region Old Work
+            //AllProductsViewModel filterationViewModel = new AllProductsViewModel()
+            //{
+            //    Products = _unitOfWork.Products.GetAll().ToList(),
+            //    WareHouses = _unitOfWork.WareHouses.GetAll().ToList(),
+            //    WareHouseProducts = _unitOfWork.WareHousesProducts.GetAll().ToList(),
+            //};
+
+            //if (wareHouseID > 0)
+            //{
+            //    filterationViewModel.SelectedWareHouse = wareHouseID;
+
+            //    WareHouse selectedWareHouseData
+            //        = filterationViewModel..Find(wh => wh.Id == wareHouseID) ?? new WareHouse();
+
+            //    filterationViewModel.FilteredProducts = _unitOfWork?.WareHousesProducts?
+            //        .GetWareHouseProductsByWHID(wareHouseID)?
+            //        .Select(p => new ProductViewModel()
+            //        {
+            //            Id = p.Id,
+            //            Name = p.Name,
+            //            Description = p.Description,
+            //            Price = p.Price,
+            //            Image = p?.Image ?? [],
+            //            WareHouseName = selectedWareHouseData.Name,
+            //            CurrentStock
+            //              = selectedWareHouseData?.WareHouseProducts?
+            //                  .FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == wareHouseID)?.CurrentStock ?? 0,
+            //            MintStock
+            //              = selectedWareHouseData?.WareHouseProducts?
+            //                  .FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == wareHouseID)?.MinStock ?? 0,
+            //            MaxStock
+            //              = selectedWareHouseData?.WareHouseProducts?
+            //                  .FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == wareHouseID)?.MaxStock ?? 0
+            //        })
+            //        .ToList() ?? new List<ProductViewModel>();
+
+            //    if (productID > 0 && filterationViewModel.FilteredProducts.Count > 0)
+            //    {
+            //        filterationViewModel.SelectedProduct = productID;
+
+            //        ProductViewModel? p = filterationViewModel.FilteredProducts.FirstOrDefault(p => p.Id == productID);
+
+            //        if (p != null)
+            //        {
+            //            filterationViewModel.FilteredProducts.Clear();
+            //            filterationViewModel.FilteredProducts.Add(p);
+            //        }
+            //        else
+            //        {
+            //            filterationViewModel.FilteredProducts.Clear();
+            //        }
+            //    }
+            //}
+            //else if (productID > 0)
+            //{
+            //    filterationViewModel.SelectedProduct = productID;
+            //    Product? p = filterationViewModel.Products.FirstOrDefault(p => p.Id == productID);
+            //    if (p != null)
+            //    {
+            //        filterationViewModel.FilteredProducts = new List<ProductViewModel>();
+            //        var theProductAtAllWareHouses = _unitOfWork.WareHousesProducts.GetAll()
+            //            .Where(whp => whp.ProductID == p.Id)
+            //            .Select(whp => new ProductViewModel
+            //            {
+            //                Id = p.Id,
+            //                Name = p.Name,
+            //                Description = p.Description,
+            //                Price = p.Price,
+            //                Image = p?.Image ?? [],
+            //                WareHouseName = whp.WareHouse.Name,
+            //                CurrentStock
+            //                  = whp.WareHouse.WareHouseProducts.
+            //                    FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == whp.WareHouse.Id)?.CurrentStock ?? 0,
+            //                MintStock
+            //                  = whp.WareHouse.WareHouseProducts.
+            //                    FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == whp.WareHouse.Id)?.MinStock ?? 0,
+            //                MaxStock
+            //                  = whp.WareHouse.WareHouseProducts.
+            //                    FirstOrDefault(s => s.ProductID == p.Id && s.WareHouseID == whp.WareHouse.Id)?.MaxStock ?? 0,
+            //            })
+            //            .ToList();
+
+            //        filterationViewModel.FilteredProducts.AddRange(theProductAtAllWareHouses);
+            //    }
+            //} 
+            #endregion
+
+            var settings = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.All
+            };
+            TempData["filterationViewModel"] = JsonConvert.SerializeObject(filterationViewModel, settings);
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -29,8 +275,7 @@ namespace KoalaInventoryManagement.Controllers
         {
             var searchTerm = "Palestine Flag".ToLower(); // Convert the search term to lowercase
             var ProductName = _unitOfWork.Products.FindByName(
-                a => a.Name.ToLower().Contains(searchTerm),
-                null
+                a => a.Name.ToLower().Contains(searchTerm)
             );
             return Ok(ProductName);
         }
@@ -38,8 +283,8 @@ namespace KoalaInventoryManagement.Controllers
         [HttpPost]
         public IActionResult AddNewProduct()
         {
-            var addNewProduct = _unitOfWork.Products.Add(new Models.Product{  Name = "Test", Description = "Flags Test", Price = 20, CreateAt = DateTime.Now });
-           _unitOfWork.Complete();  
+            var addNewProduct = _unitOfWork.Products.Add(new Models.Product { Name = "Test", Description = "Flags Test", Price = 20, CreateAt = DateTime.Now });
+            _unitOfWork.Complete();
             return Ok(addNewProduct);
         }
 
@@ -54,7 +299,7 @@ namespace KoalaInventoryManagement.Controllers
         [HttpPost]
         public IActionResult UpdateProduct()
         {
-            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama2", Description = "Test salama2", Price = 50});
+            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama2", Description = "Test salama2", Price = 50 });
             _unitOfWork.Complete();
             return Ok(UpdateProduct);
         }
@@ -62,7 +307,7 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult GetAllProductSupplier()
         {
-            var products= _unitOfWork.Products.GetProductsBySupplier(1);
+            var products = _unitOfWork.Products.GetProductsBySupplier(1);
             return Ok(products);
         }
         [HttpGet]

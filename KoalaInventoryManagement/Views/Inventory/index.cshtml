@@ -1,4 +1,231 @@
-﻿<form action="/Product/UpdateProduct" method="post">
-    
-    <button type="submit">Add Product</button>
-</form>
+﻿@model AllProductsViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    bool filteredProducts = Model?.FilteredProducts != null;
+}
+
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<div class="container-fluid p-0 suppliers">
+    <!-- Products Header Start-->
+    <div class="content-header">
+        <div class=" heading">
+            <h1 class="header-title roboto">Products Page</h1>
+            <p class="header-subtitle roboto">Manage your products with their warehouses.</p>
+        </div>
+    </div>
+    <!-- Products Header End-->
+
+    <div>
+        <input type="text" id="searchInput" placeholder="Search products..." />
+        <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
+            <div class="form-row">
+                <!-- WareHouse Filter Button Start -->
+                <select class="form-select" name="warehouseId" aria-label="Default select example">
+                    <option selected>All Warehouses</option>
+                    @foreach (var warehouse in
+                    filteredProducts ?
+                    Model?.FilteredProducts ?? new List<ProductViewModel>() :
+                    Model?.UnFilteredProducts ?? new List<ProductViewModel>()
+                    )
+                    {
+                        if (Model.SelectedWareHouse > 0 && warehouse.Id == Model.SelectedWareHouse)
+                        {
+                            <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                            continue;
+                        }
+                        <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                    }
+                </select>
+                <!-- WareHouse Filter Button End -->
+                <!-- Product Filter Button Start -->
+                <select class="form-select" name="productID" aria-label="Default select example">
+                    <option selected>All Products</option>
+                    @foreach (var product in
+                    filteredProducts ?
+                    Model?.FilteredProducts ?? new List<ProductViewModel>() :
+                    Model?.UnFilteredProducts ?? new List<ProductViewModel>()
+                    )
+                    {
+                        if (product.Id == Model.SelectedProduct)
+                        {
+                            <option selected value="@product.Id">@product.Name</option>
+                            continue;
+                        }
+                        <option value="@product.Id">@product.Name</option>
+                    }
+                </select>
+                <!-- Product Filter Button End -->
+            </div>
+
+            <button type="submit" class="btn btn-success">Filter</button>
+        </form>
+    </div>
+
+    <!-- Products Table Start-->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Products</h4>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#supplierModal">Add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Warehouse</th>
+                                    <th scope="col">Current Stock</th>
+                                    <th scope="col">Minimum Stock</th>
+                                    <th scope="col">Maximum Stock</th>
+                                    <th class="btn-head" scope="col">Edit</th>
+                                    <th class="btn-head" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in
+                                filteredProducts ?
+                                Model?.FilteredProducts ?? new List<ProductViewModel>() :
+                                Model?.UnFilteredProducts ?? new List<ProductViewModel>()
+                                )
+                                {
+                                    <tr>
+                                        <td>@product.Name</td>
+                                        <td>@product.Description</td>
+                                        <td>$ @product.Price</td>
+                                        <td>@product.Image</td>
+                                        <td>@product.WareHouseName</td>
+                                        <td>@product.CurrentStock</td>
+                                        <td>@product.MintStock</td>
+                                        <td>@product.MaxStock</td>
+                                        <td class="btn-td edit">
+                                            <a>
+                                                <i class="fa fa-pencil color-muted"></i>
+                                            </a>
+                                        </td>
+                                        <td class="btn-td delete">
+                                            <a><i class="fa fa-close color-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products Table End-->
+</div>
+
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var searchString = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetFilteredProducts", "Inventory")',
+                    data: { searchString: searchString },
+                    success: function (data) {
+                        console.log(data); // Log the entire response to check its structure
+                        var tableBody = $('#productsTable tbody');
+                        tableBody.empty();
+                        if (data && data.FilteredProducts && data.FilteredProducts.$values) {
+                            $.each(data.FilteredProducts.$values, function (index, product) {
+                                var row = '<tr>' +
+                                    '<td>' + product.Name + '</td>' +
+                                    '<td>' + product.Description + '</td>' +
+                                    '<td>' + product.Price + '</td>' +
+                                    '<td><img src="' + product.ImageUrl + '" alt="Product Image" width="50" height="50"/></td>' +
+                                    '<td>' + product.WareHouseName + '</td>' +
+                                    '<td>' + product.CurrentStock + '</td>' +
+                                    '<td>' + product.MintStock + '</td>' +
+                                    '<td>' + product.MaxStock + '</td>' +
+                                    '<td class="btn-td edit">' +
+                                    '<a href="/Inventory/Edit/' + product.Id + '">' +
+                                    '<i class="fa fa-pencil color-muted"></i>' +
+                                    '</a>' +
+                                    '</td>' +
+                                    '<td class="btn-td delete">' +
+                                    '<a href="/Inventory/Delete/' + product.Id + '">' +
+                                    '<i class="fa fa-close color-danger"></i>' +
+                                    '</a>' +
+                                    '</td>' +
+                                    '</tr>';
+                                tableBody.append(row);
+                            });
+                        } else if (data && data.UnFilteredProducts && data.UnFilteredProducts.$values) {
+                            debugger;
+                            $.each(data.UnFilteredProducts.$values, function (index, product) {
+                                var row = '<tr>' +
+                                    '<td>' + product.Name + '</td>' +
+                                    '<td>' + product.Description + '</td>' +
+                                    '<td>' + product.Price + '</td>' +
+                                    // <img src="' + product.ImageUrl + '" alt = "Product Image" width = "50" height = "50" />
+                                    '<td>' + product.Image + '</td>' +
+                                    '<td>' + product.WareHouseName + '</td>' +
+                                    '<td>' + product.CurrentStock + '</td>' +
+                                    '<td>' + product.MintStock + '</td>' +
+                                    '<td>' + product.MaxStock + '</td>' +
+                                    '<td class="btn-td edit">' +
+                                    '<a href="/Inventory/Edit/' + product.Id + '">' +
+                                    '<i class="fa fa-pencil color-muted"></i>' +
+                                    '</a>' +
+                                    '</td>' +
+                                    '<td class="btn-td delete">' +
+                                    '<a href="/Inventory/Delete/' + product.Id + '">' +
+                                    '<i class="fa fa-close color-danger"></i>' +
+                                    '</a>' +
+                                    '</td>' +
+                                    '</tr>';
+                                tableBody.append(row);
+                            });
+                        } else {
+                            console.error("Products data is undefined or null");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    @* <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var searchString = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetFilteredProducts", "Inventory")',
+                    data: { searchString: searchString },
+                    success: function (data) {
+                        debugger;
+                        var tableBody = $('#productsTable tbody');
+                        tableBody.empty();
+                        $.each(data.Products, function (index, product) {
+                            var row = '<tr>' +
+                                '<td>' + product.Name + '</td>' +
+
+                                '<td><a href="/Inventory/Edit/' + product.id + '" class="btn btn-primary">Edit</a></td>' +
+                                '<td><a href="/Inventory/Delete/' + product.id + '" class="btn btn-danger">Delete</a></td>' +
+                                '</tr>';
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function (error) {
+                        debugger;
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script> *@
+}

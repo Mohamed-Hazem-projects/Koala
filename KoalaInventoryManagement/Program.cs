@@ -19,6 +19,13 @@ namespace KoalaInventoryManagement
             builder.Services.AddDbContext<InventoryDbContext>(op =>
                  op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
+            builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.Password.RequiredUniqueChars = 2;
