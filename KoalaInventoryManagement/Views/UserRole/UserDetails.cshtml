@@ -1,0 +1,40 @@
+﻿@model UserDetailsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form>
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" id="FirstName" value="@Model.FirstName" readonly>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" value="@Model.LastName" readonly>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" value="@Model.Email" readonly>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="PhoneNumber">Phone Number</label>
+        <input type="number" class="form-control" id="PhoneNumber" value="@Model.phoneNumber" readonly>
+    </div>
+    <br />
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            @foreach (var role in Model.roles)
+            {
+                <input type="text" class="form-control" value="@role" readonly />
+                <br />
+            }
+        </div>
+
+
+</form>
