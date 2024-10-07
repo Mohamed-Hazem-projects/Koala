@@ -1,4 +1,5 @@
-﻿@model AllProductsViewModel
+﻿@using Newtonsoft.Json
+@model AllProductsViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -15,39 +16,31 @@
         </div>
     </div>
     <!-- Products Header End-->
-
+    <!-- Filteration Start-->
     <div>
         <input type="text" id="searchInput" placeholder="Search products..." />
         <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
             <div class="form-row">
                 <!-- WareHouse Filter Button Start -->
-                <select class="form-select" name="warehouseId" aria-label="Default select example">
+                <select id="wareHouseFilter" class="form-select" name="warehouseId" aria-label="Default select example">
                     <option selected>All Warehouses</option>
-                    @foreach (var warehouse in
-                    filteredProducts ?
-                    Model?.FilteredProducts ?? new List<ProductViewModel>() :
-                    Model?.UnFilteredProducts ?? new List<ProductViewModel>()
-                    )
+                    @foreach (var warehouse in Model?.WareHouses ?? new List<WareHouse>())
                     {
-                        if (Model.SelectedWareHouse > 0 && warehouse.Id == Model.SelectedWareHouse)
+                        if (Model?.SelectedWareHouse > 0 && warehouse.Id == Model.SelectedWareHouse)
                         {
-                            <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                            <option selected value="@warehouse.Id">@warehouse.Name</option>
                             continue;
                         }
-                        <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                        <option value="@warehouse.Id">@warehouse.Name</option>
                     }
                 </select>
                 <!-- WareHouse Filter Button End -->
                 <!-- Product Filter Button Start -->
-                <select class="form-select" name="productID" aria-label="Default select example">
+                <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
                     <option selected>All Products</option>
-                    @foreach (var product in
-                    filteredProducts ?
-                    Model?.FilteredProducts ?? new List<ProductViewModel>() :
-                    Model?.UnFilteredProducts ?? new List<ProductViewModel>()
-                    )
+                    @foreach (var product in Model?.Products ?? new List<Product>())
                     {
-                        if (product.Id == Model.SelectedProduct)
+                        if (Model?.SelectedProduct > 0 && product.Id == Model?.SelectedProduct)
                         {
                             <option selected value="@product.Id">@product.Name</option>
                             continue;
@@ -61,6 +54,7 @@
             <button type="submit" class="btn btn-success">Filter</button>
         </form>
     </div>
+    <!-- Filteration End-->
 
     <!-- Products Table Start-->
     <div class="bg-offwhite">
@@ -130,15 +124,20 @@
         $(document).ready(function () {
             $('#searchInput').on('input', function () {
                 var searchString = $(this).val();
+                debugger;
+                var filteredProductsList = @Html.Raw(@JsonConvert.SerializeObject(Model?.FilteredProducts));
+                console.log(filteredProductsList);
+                var productsJson = JSON.stringify(filteredProductsList);
                 $.ajax({
                     url: '@Url.Action("GetFilteredProducts", "Inventory")',
-                    data: { searchString: searchString },
+                    data: { searchString: searchString, showedProducts: productsJson },
                     success: function (data) {
                         console.log(data); // Log the entire response to check its structure
                         var tableBody = $('#productsTable tbody');
                         tableBody.empty();
-                        if (data && data.FilteredProducts && data.FilteredProducts.$values) {
-                            $.each(data.FilteredProducts.$values, function (index, product) {
+
+                        function appendRows(products) {
+                            $.each(products, function (index, product) {
                                 var row = '<tr>' +
                                     '<td>' + product.Name + '</td>' +
                                     '<td>' + product.Description + '</td>' +
@@ -161,71 +160,24 @@
                                     '</tr>';
                                 tableBody.append(row);
                             });
+
+                            // $('#wareHouseFilter option').eq(0).prop('selected', true);
+                            // $('#productFilter option').eq(0).prop('selected', true);
+                        }
+
+                        if (data && data.FilteredProducts && data.FilteredProducts.$values) {
+                            appendRows(data.FilteredProducts.$values);
                         } else if (data && data.UnFilteredProducts && data.UnFilteredProducts.$values) {
-                            debugger;
-                            $.each(data.UnFilteredProducts.$values, function (index, product) {
-                                var row = '<tr>' +
-                                    '<td>' + product.Name + '</td>' +
-                                    '<td>' + product.Description + '</td>' +
-                                    '<td>' + product.Price + '</td>' +
-                                    // <img src="' + product.ImageUrl + '" alt = "Product Image" width = "50" height = "50" />
-                                    '<td>' + product.Image + '</td>' +
-                                    '<td>' + product.WareHouseName + '</td>' +
-                                    '<td>' + product.CurrentStock + '</td>' +
-                                    '<td>' + product.MintStock + '</td>' +
-                                    '<td>' + product.MaxStock + '</td>' +
-                                    '<td class="btn-td edit">' +
-                                    '<a href="/Inventory/Edit/' + product.Id + '">' +
-                                    '<i class="fa fa-pencil color-muted"></i>' +
-                                    '</a>' +
-                                    '</td>' +
-                                    '<td class="btn-td delete">' +
-                                    '<a href="/Inventory/Delete/' + product.Id + '">' +
-                                    '<i class="fa fa-close color-danger"></i>' +
-                                    '</a>' +
-                                    '</td>' +
-                                    '</tr>';
-                                tableBody.append(row);
-                            });
+                            appendRows(data.UnFilteredProducts.$values);
                         } else {
                             console.error("Products data is undefined or null");
                         }
                     },
-                    error: function (error) {
-                        console.log(error);
+                    error: function (xhr, status, error) {
+                        console.error("AJAX request failed: " + status + ", " + error);
                     }
                 });
             });
         });
     </script>
-
-    @* <script type="text/javascript">
-        $(document).ready(function () {
-            $('#searchInput').on('input', function () {
-                var searchString = $(this).val();
-                $.ajax({
-                    url: '@Url.Action("GetFilteredProducts", "Inventory")',
-                    data: { searchString: searchString },
-                    success: function (data) {
-                        debugger;
-                        var tableBody = $('#productsTable tbody');
-                        tableBody.empty();
-                        $.each(data.Products, function (index, product) {
-                            var row = '<tr>' +
-                                '<td>' + product.Name + '</td>' +
-
-                                '<td><a href="/Inventory/Edit/' + product.id + '" class="btn btn-primary">Edit</a></td>' +
-                                '<td><a href="/Inventory/Delete/' + product.id + '" class="btn btn-danger">Delete</a></td>' +
-                                '</tr>';
-                            tableBody.append(row);
-                        });
-                    },
-                    error: function (error) {
-                        debugger;
-                        console.log(error);
-                    }
-                });
-            });
-        });
-    </script> *@
 }

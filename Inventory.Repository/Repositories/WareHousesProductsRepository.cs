@@ -63,15 +63,14 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public IEnumerable<WareHouse>? GetProductWareHousesByPrdID(int productID)
+        public IEnumerable<WareHouseProduct>? GetProductWareHousesByPrdID(int productID)
         {
             try
             {
-                List<WareHouse>? productWareHouses
+                List<WareHouseProduct>? productWareHouses
                     = _context?.WareHousesProducts?
                               .Include(whp => whp.WareHouse)
                               .Where(whp => whp.ProductID == productID)
-                              .Select(whp => whp.WareHouse)
                               .ToList();
 
                 return productWareHouses;

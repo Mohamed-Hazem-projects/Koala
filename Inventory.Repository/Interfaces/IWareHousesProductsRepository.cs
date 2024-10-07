@@ -9,7 +9,7 @@ namespace Inventory.Repository.Interfaces
 {
     public interface IWareHousesProductsRepository : IGenericRepository<WareHouseProduct>
     {
-        IEnumerable<WareHouse>? GetProductWareHousesByPrdID(int productID);
+        IEnumerable<WareHouseProduct>? GetProductWareHousesByPrdID(int productID);
         IEnumerable<Product>? GetWareHouseProductsByWHID(int wareHouseID);
         WareHouseProduct? GetWareHouseProduct(int productID, int wareHouseID);
 
