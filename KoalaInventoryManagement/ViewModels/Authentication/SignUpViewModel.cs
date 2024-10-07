@@ -17,6 +17,11 @@ namespace KoalaInventoryManagement.ViewModels.Authentication
         public string Email { get; set; }
 
 
+        [Required(ErrorMessage = "Phone Number is Required")]
+        [MaxLength(11 , ErrorMessage ="Must be 11 numbers")]
+        public string phoneNumber { get; set; }
+
+
         [Required(ErrorMessage = "Password is Required")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$", ErrorMessage = "Password must have at least one lowercase letter, one uppercase letter, one digit, one non-alphanumeric character, and be at least 6 characters long.")]
         public string Password { get; set; }

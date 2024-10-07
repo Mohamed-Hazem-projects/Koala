@@ -132,3 +132,5 @@ $('#supplierModal').on('hidden.bs.modal', function () {
     $('#addOrEditSupplierForm').attr('action', '/Suppliers/AddSupplier');
 });
 //Add / Edit Supplier Modal End
+
+

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "User Roles";
+}
+
+<div class="container-fluid p-0 suppliers">
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">User Roles</h4>
+                    <!-- Optional: Add a button to add a new role -->
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Role</th>
+                                    <th class="btn-head" scope="col">Details</th>
+                                    <th class="btn-head" scope="col">Update Role</th>
+                                    <th class="btn-head" scope="col">Delete User</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
+                                {
+                                    @foreach (var user in Model)
+                                    {
+                                        <tr>
+                                            <td>@user.FullName</td>
+                                            <td>@string.Join(", ", user.Roles)</td> 
+                                            <td class="btn-td edit">
+                                                <a asp-action="UserDetails" asp-route-id="@user.UserId" class="btn btn-info">
+                                                  User Details
+                                                </a>
+                                            </td>
+                                            <td class="btn-td edit">
+                                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateRolesModal" data-user-id="@user.UserId" data-user-roles="@string.Join(",", user.Roles)">
+                                                    Update User Role
+                                                </button>
+                                            <td>
+                                                <form asp-action="Delete" asp-route-id="@user.UserId" onsubmit="return confirm('Are you sure you want to delete this role?');">
+                                                    <input type="submit" value="Delete User" class="btn btn-danger" />
+                                                </form>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <div class="alert alert-warning">
+                                                <h3>No users found.</h3>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Updating Roles -->
+<div class="modal fade" id="updateRolesModal" tabindex="-1" aria-labelledby="updateRolesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateRolesLabel">Update Roles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateRolesForm" method="post" asp-action="UpdateUserRoles">
+                    <input type="hidden" id="userId" name="UserId" />
+                    <div id="rolesList">
+                        @foreach (var role in ViewBag.Roles as List<IdentityRole>)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="role_@role.Name" name="Roles" value="@role.Name" />
+                                <label class="form-check-label" for="role_@role.Name">
+                                    @role.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" form="updateRolesForm">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    <script src="/js/Suppliers/Suppliers.js"></script>
+    <script>
+
+            $('#updateRolesModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var userId = button.data('user-id');
+            var userRoles = button.data('user-roles').split(',');
+
+            console.log('UserId:', userId); // Check if userId is being captured correctly
+            console.log('User Roles:', userRoles); // Check if roles are captured correctly
+
+            // Set the userId in the hidden input
+            $('#userId').val(userId);
+
+            // Uncheck all checkboxes first
+            $('#rolesList input[type=checkbox]').prop('checked', false);
+
+            // Check the boxes for the user's current roles
+            userRoles.forEach(function (role) {
+                $('#role_' + role.trim()).prop('checked', true);
+            });
+        });
+    </script>
+}
