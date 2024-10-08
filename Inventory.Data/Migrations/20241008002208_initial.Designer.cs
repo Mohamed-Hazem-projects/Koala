@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20241006185203_lastInitial")]
-    partial class lastInitial
+    [Migration("20241008002208_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,31 +122,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 433, DateTimeKind.Local).AddTicks(9587),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 959, DateTimeKind.Local).AddTicks(2469),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 438, DateTimeKind.Local).AddTicks(2586),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3061),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 438, DateTimeKind.Local).AddTicks(2651),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3123),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 438, DateTimeKind.Local).AddTicks(2660),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3132),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 438, DateTimeKind.Local).AddTicks(2665),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3137),
                             Name = "Accessories"
                         });
                 });
@@ -190,7 +190,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(1050),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(1568),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -199,7 +199,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(3711),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4196),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -208,7 +208,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(3744),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4227),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -217,7 +217,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(3750),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4234),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -226,7 +226,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(3756),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4239),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -248,9 +248,6 @@ namespace Inventory.Data.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CurrentStock")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -258,12 +255,6 @@ namespace Inventory.Data.Migrations
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int?>("MaximumStock")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinimumStock")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -288,7 +279,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 441, DateTimeKind.Local).AddTicks(5707),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(5888),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m
@@ -296,7 +287,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 441, DateTimeKind.Local).AddTicks(7783),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8082),
                             Description = "Guns Products",
                             Name = "Gun AK-74",
                             Price = 1000m
@@ -304,7 +295,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 441, DateTimeKind.Local).AddTicks(7815),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8115),
                             Description = "Food Products",
                             Name = "زبادي",
                             Price = 3m
@@ -335,19 +326,19 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 440, DateTimeKind.Local).AddTicks(9566),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(14),
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 441, DateTimeKind.Local).AddTicks(367),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(803),
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 6, 21, 51, 52, 441, DateTimeKind.Local).AddTicks(390),
+                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(827),
                             Name = "Section C"
                         });
                 });

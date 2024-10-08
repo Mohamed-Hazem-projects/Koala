@@ -17,9 +17,6 @@ namespace KoalaInventoryManagement.Models
         [Column(TypeName = "money")]
         public double Price { get; set; }
         public byte[]? Image { get; set; }
-        public int? CurrentStock { get; set; }
-        public int? MinimumStock { get; set; }
-        public int? MaximumStock { get; set; }
         
         public int? SupplierId {  get; set; }
         [ForeignKey("SupplierId")]

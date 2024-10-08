@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Inventory.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -216,9 +216,6 @@ namespace Inventory.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CurrentStock = table.Column<int>(type: "int", nullable: true),
-                    MinimumStock = table.Column<int>(type: "int", nullable: true),
-                    MaximumStock = table.Column<int>(type: "int", nullable: true),
                     SupplierId = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -272,21 +269,21 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 7, 16, 2, 13, 541, DateTimeKind.Local).AddTicks(6210), "Electronics" },
-                    { 2, new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3593), "Clothing" },
-                    { 3, new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3666), "Groceries" },
-                    { 4, new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3673), "Furniture" },
-                    { 5, new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3677), "Accessories" }
+                    { 1, new DateTime(2024, 10, 8, 3, 22, 5, 959, DateTimeKind.Local).AddTicks(2469), "Electronics" },
+                    { 2, new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3061), "Clothing" },
+                    { 3, new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3123), "Groceries" },
+                    { 4, new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3132), "Furniture" },
+                    { 5, new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3137), "Accessories" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreateAt", "CurrentStock", "Description", "Image", "MaximumStock", "MinimumStock", "Name", "Price", "SupplierId" },
+                columns: new[] { "Id", "CategoryId", "CreateAt", "Description", "Image", "Name", "Price", "SupplierId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(9751), null, "Flags Products", null, null, null, "Palestine Flag", 9m, null },
-                    { 2, null, new DateTime(2024, 10, 7, 16, 2, 13, 552, DateTimeKind.Local).AddTicks(1560), null, "Guns Products", null, null, null, "Gun AK-74", 1000m, null },
-                    { 3, null, new DateTime(2024, 10, 7, 16, 2, 13, 552, DateTimeKind.Local).AddTicks(1585), null, "Food Products", null, null, null, "زبادي", 3m, null }
+                    { 1, null, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(5888), "Flags Products", null, "Palestine Flag", 9m, null },
+                    { 2, null, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8082), "Guns Products", null, "Gun AK-74", 1000m, null },
+                    { 3, null, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8115), "Food Products", null, "زبادي", 3m, null }
                 });
 
             migrationBuilder.InsertData(
@@ -294,11 +291,11 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "Email_Address", "Image", "Name", "Phone_Number", "Rating" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(613), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
-                    { 2, new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3591), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
-                    { 3, new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3638), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
-                    { 4, new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3644), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
-                    { 5, new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3649), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
+                    { 1, new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(1568), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
+                    { 2, new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4196), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
+                    { 3, new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4227), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
+                    { 4, new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4234), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
+                    { 5, new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4239), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
                 });
 
             migrationBuilder.InsertData(
@@ -306,9 +303,9 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(1811), "Section A" },
-                    { 2, new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(2727), "Section B" },
-                    { 3, new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(2748), "Section C" }
+                    { 1, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(14), "Section A" },
+                    { 2, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(803), "Section B" },
+                    { 3, new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(827), "Section C" }
                 });
 
             migrationBuilder.InsertData(
