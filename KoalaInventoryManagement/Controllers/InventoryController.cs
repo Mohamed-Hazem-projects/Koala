@@ -49,15 +49,14 @@ namespace KoalaInventoryManagement.Controllers
                             CurrentStock = p.CurrentStock,
                             MintStock = p.MinStock,
                             MaxStock = p.MaxStock,
+                            CategoryName = p?.Product?.Category?.Name ?? string.Empty,
+                            SupplierName = p?.Product?.Supplier?.Name ?? string.Empty,
+
                         }).ToList() ?? new List<ProductViewModel>()
                 };
 
                 return View(ShowAllViewModle);
             }
-            filterationViewModel.Products = _unitOfWork?.Products?.GetAll()?.ToList() ?? new List<Product>();
-            filterationViewModel.WareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
-            filterationViewModel.Categories = _unitOfWork?.Categories?.GetAllAsync()?.Result?.ToList() ?? new List<Category>();
-            filterationViewModel.Suppliers = _unitOfWork?.Suppliers?.GetAllAsync()?.Result?.ToList() ?? new List<Supplier>();
 
             return View(filterationViewModel);
         }
@@ -106,6 +105,8 @@ namespace KoalaInventoryManagement.Controllers
                                 CurrentStock = i.CurrentStock,
                                 MintStock = i.MinStock,
                                 MaxStock = i.MaxStock,
+                                CategoryName = i?.Product?.Category?.Name ?? string.Empty,
+                                SupplierName = i?.Product?.Supplier?.Name ?? string.Empty,
                             }
                             );
                         }
@@ -138,6 +139,8 @@ namespace KoalaInventoryManagement.Controllers
                             CurrentStock = p.CurrentStock,
                             MintStock = p.MinStock,
                             MaxStock = p.MaxStock,
+                            CategoryName = p?.Product?.Category?.Name ?? string.Empty,
+                            SupplierName = p?.Product?.Supplier?.Name ?? string.Empty,
                         }).ToList() ?? new List<ProductViewModel>()
                     };
                 }
@@ -178,6 +181,8 @@ namespace KoalaInventoryManagement.Controllers
                             CurrentStock = p.CurrentStock,
                             MintStock = p.MinStock,
                             MaxStock = p.MaxStock,
+                            CategoryName = p?.Product?.Category?.Name ?? string.Empty,
+                            SupplierName = p?.Product?.Supplier?.Name ?? string.Empty,
                         }).ToList() ?? new List<ProductViewModel>()
             };
 
@@ -225,7 +230,9 @@ namespace KoalaInventoryManagement.Controllers
                             WareHouseName = whp.WareHouse.Name,
                             CurrentStock = whp.CurrentStock,
                             MintStock = whp.MinStock,
-                            MaxStock = whp.MaxStock
+                            MaxStock = whp.MaxStock,
+                            CategoryName = whp?.Product?.Category?.Name ?? string.Empty,
+                            SupplierName = whp?.Product?.Supplier?.Name ?? string.Empty,
                         })
                         .ToList();
 
