@@ -24,6 +24,8 @@
                             '<td>' + product.CurrentStock + '</td>' +
                             '<td>' + product.MintStock + '</td>' +
                             '<td>' + product.MaxStock + '</td>' +
+                            '<td>' + product.CategoryName + '</td>' +
+                            '<td>' + product.SupplierName + '</td>' +
                             '<td class="btn-td edit">' +
                             '<a href="/Inventory/Edit/' + product.Id + '">' +
                             '<i class="fa fa-pencil color-muted"></i>' +
