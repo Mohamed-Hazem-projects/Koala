@@ -2,23 +2,27 @@
 @model AllProductsViewModel
 
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Inventory";
     bool filteredProducts = Model?.FilteredProducts != null;
+    var serlizedFilteredProducts = @JsonConvert.SerializeObject(Model?.FilteredProducts);
+    var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
 }
 
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
 <div class="container-fluid p-0 suppliers">
-    <!-- Products Header Start-->
+    <!-- Products Header Start -->
     <div class="content-header">
         <div class=" heading">
             <h1 class="header-title roboto">Products Page</h1>
             <p class="header-subtitle roboto">Manage your products with their warehouses.</p>
         </div>
     </div>
-    <!-- Products Header End-->
-    <!-- Filteration Start-->
+    <!-- Products Header End -->
+    <!-- Filteration Start -->
     <div>
         <input type="text" id="searchInput" placeholder="Search products..." />
+        <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
+        <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
             <div class="form-row">
                 <!-- WareHouse Filter Button Start -->
@@ -54,9 +58,9 @@
             <button type="submit" class="btn btn-success">Filter</button>
         </form>
     </div>
-    <!-- Filteration End-->
+    <!-- Filteration End -->
 
-    <!-- Products Table Start-->
+    <!-- Products Table Start -->
     <div class="bg-offwhite">
         <div class="col-lg-12 p-3">
             <div class="card">
@@ -114,70 +118,14 @@
             </div>
         </div>
     </div>
-    <!-- Products Table End-->
+    <!-- Products Table End -->
 </div>
 
 
 @section Scripts {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#searchInput').on('input', function () {
-                var searchString = $(this).val();
-                debugger;
-                var filteredProductsList = @Html.Raw(@JsonConvert.SerializeObject(Model?.FilteredProducts));
-                console.log(filteredProductsList);
-                var productsJson = JSON.stringify(filteredProductsList);
-                $.ajax({
-                    url: '@Url.Action("GetFilteredProducts", "Inventory")',
-                    data: { searchString: searchString, showedProducts: productsJson },
-                    success: function (data) {
-                        console.log(data); // Log the entire response to check its structure
-                        var tableBody = $('#productsTable tbody');
-                        tableBody.empty();
-
-                        function appendRows(products) {
-                            $.each(products, function (index, product) {
-                                var row = '<tr>' +
-                                    '<td>' + product.Name + '</td>' +
-                                    '<td>' + product.Description + '</td>' +
-                                    '<td>' + product.Price + '</td>' +
-                                    '<td><img src="' + product.ImageUrl + '" alt="Product Image" width="50" height="50"/></td>' +
-                                    '<td>' + product.WareHouseName + '</td>' +
-                                    '<td>' + product.CurrentStock + '</td>' +
-                                    '<td>' + product.MintStock + '</td>' +
-                                    '<td>' + product.MaxStock + '</td>' +
-                                    '<td class="btn-td edit">' +
-                                    '<a href="/Inventory/Edit/' + product.Id + '">' +
-                                    '<i class="fa fa-pencil color-muted"></i>' +
-                                    '</a>' +
-                                    '</td>' +
-                                    '<td class="btn-td delete">' +
-                                    '<a href="/Inventory/Delete/' + product.Id + '">' +
-                                    '<i class="fa fa-close color-danger"></i>' +
-                                    '</a>' +
-                                    '</td>' +
-                                    '</tr>';
-                                tableBody.append(row);
-                            });
-
-                            // $('#wareHouseFilter option').eq(0).prop('selected', true);
-                            // $('#productFilter option').eq(0).prop('selected', true);
-                        }
-
-                        if (data && data.FilteredProducts && data.FilteredProducts.$values) {
-                            appendRows(data.FilteredProducts.$values);
-                        } else if (data && data.UnFilteredProducts && data.UnFilteredProducts.$values) {
-                            appendRows(data.UnFilteredProducts.$values);
-                        } else {
-                            console.error("Products data is undefined or null");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("AJAX request failed: " + status + ", " + error);
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="~/js/inventory/filteration.js"></script>
+    <script src="~/js/inventory/inventory.js"></script>
+    @* <script type="text/javascript">
+        
+    </script> *@
 }

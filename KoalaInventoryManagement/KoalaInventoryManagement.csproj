@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Inventory.Repository\Inventory.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Inventory\" />
-  </ItemGroup>
-
 </Project>
