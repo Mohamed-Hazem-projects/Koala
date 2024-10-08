@@ -1,4 +1,4 @@
-﻿using Inventory.Data.Models;
+﻿    using Inventory.Data.Models;
 using KoalaInventoryManagement.ViewModels.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +32,8 @@ namespace Inventory.web.Controllers
                     UserName = input.Email.Split("@")[0],
                     Email = input.Email,
                     FirstName = input.FirstName,
-                    LastName = input.LastName
+                    LastName = input.LastName,
+                    PhoneNumber = input.phoneNumber,
                 };
                 var result = await _UserManager.CreateAsync(user, input.Password);
 

@@ -43,6 +43,12 @@
                     <span>Admin Board</span>
                 </a>
             </li>
+            <li>
+                <a asp-action="Index" asp-controller="UserRole">
+                    <i class="fa-solid fa-users fa-fw"></i>
+                    <span>User Role</span>
+                </a>
+            </li>
             @if (User.Identity.IsAuthenticated)
             {
                 <li>

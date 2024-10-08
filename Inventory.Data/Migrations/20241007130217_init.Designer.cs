@@ -4,6 +4,7 @@ using Inventory.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241007130217_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,51 +122,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 474, DateTimeKind.Local).AddTicks(6002),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 541, DateTimeKind.Local).AddTicks(6210),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 478, DateTimeKind.Local).AddTicks(6780),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3593),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 478, DateTimeKind.Local).AddTicks(6841),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3666),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 478, DateTimeKind.Local).AddTicks(6849),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3673),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 478, DateTimeKind.Local).AddTicks(6853),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 547, DateTimeKind.Local).AddTicks(3677),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Accessories"
                         });
                 });
@@ -207,11 +190,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 480, DateTimeKind.Local).AddTicks(4891),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(613),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -220,11 +199,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 480, DateTimeKind.Local).AddTicks(7442),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3591),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -233,11 +208,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 480, DateTimeKind.Local).AddTicks(7471),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3638),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -246,11 +217,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 480, DateTimeKind.Local).AddTicks(7478),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3644),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -259,11 +226,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 480, DateTimeKind.Local).AddTicks(7484),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 550, DateTimeKind.Local).AddTicks(3649),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -325,11 +288,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 482, DateTimeKind.Local).AddTicks(2072),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(9751),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m
@@ -337,11 +296,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 482, DateTimeKind.Local).AddTicks(4261),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 552, DateTimeKind.Local).AddTicks(1560),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Description = "Guns Products",
                             Name = "Gun AK-74",
                             Price = 1000m
@@ -349,11 +304,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 482, DateTimeKind.Local).AddTicks(4292),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 552, DateTimeKind.Local).AddTicks(1585),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Description = "Food Products",
                             Name = "زبادي",
                             Price = 3m
@@ -384,31 +335,19 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 481, DateTimeKind.Local).AddTicks(5544),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(1811),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 481, DateTimeKind.Local).AddTicks(6444),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(2727),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            CreateAt = new DateTime(2024, 10, 6, 21, 54, 42, 481, DateTimeKind.Local).AddTicks(6468),
-=======
                             CreateAt = new DateTime(2024, 10, 7, 16, 2, 13, 551, DateTimeKind.Local).AddTicks(2748),
->>>>>>> 2f914a19023c548fa7a79f2a32b8f145ab4ef923
                             Name = "Section C"
                         });
                 });
