@@ -84,6 +84,8 @@
                                     <th scope="col">Current Stock</th>
                                     <th scope="col">Minimum Stock</th>
                                     <th scope="col">Maximum Stock</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Supplier</th>
                                     <th class="btn-head" scope="col">Edit</th>
                                     <th class="btn-head" scope="col">Delete</th>
                                 </tr>
@@ -104,6 +106,8 @@
                                         <td>@product.CurrentStock</td>
                                         <td>@product.MintStock</td>
                                         <td>@product.MaxStock</td>
+                                        <td>@product.CategoryName</td>
+                                        <td>@product.SupplierName</td>
                                         <td class="btn-td edit">
                                             <a onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
                                                 <i class="fa fa-pencil color-muted"></i>
@@ -125,7 +129,7 @@
 </div>
 
 
-<!-- Add Product Modal Start-->
+<!-- Add or Edit Product Modal Start-->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -232,7 +236,7 @@
         </div>
     </div>
 </div>
-<!-- Add Product Modal End-->
+<!-- Add or Edit Product Modal End-->
 
 <!-- Confirm Delete Start-->
 <div class="overlay" onclick="closeConfirmDelete(event)"></div>

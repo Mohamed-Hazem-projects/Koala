@@ -15,5 +15,7 @@ namespace KoalaInventoryManagement.ViewModels.Products
         public int CurrentStock { get; set; }
         public int MintStock { get; set; }
         public int MaxStock { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
+        public string SupplierName { get; set; } = string.Empty;
     }
 }
