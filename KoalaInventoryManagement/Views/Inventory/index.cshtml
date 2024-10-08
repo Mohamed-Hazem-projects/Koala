@@ -18,11 +18,14 @@
         </div>
     </div>
     <!-- Products Header End -->
+
     <!-- Filteration Start -->
-    <div>
-        <input type="text" id="searchInput" placeholder="Search products..." />
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <br />
+        <input class="form-control" style="width:500px;font-size:large" type="text" id="searchInput" placeholder="Search products..." />
         <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
+        <br />
         <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
             <div class="form-row">
                 <!-- WareHouse Filter Button Start -->
@@ -42,7 +45,7 @@
                 <!-- Product Filter Button Start -->
                 <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
                     <option selected>All Products</option>
-                    @foreach (var product in Model?.Products ?? new List<Product>())
+                    @foreach (var product in Model?.Products@* .DistinctBy(p => p.Name) *@ ?? new List<Product>())
                     {
                         if (Model?.SelectedProduct > 0 && product.Id == Model?.SelectedProduct)
                         {
@@ -66,7 +69,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Products</h4>
-                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#supplierModal">Add</button>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -102,12 +105,12 @@
                                         <td>@product.MintStock</td>
                                         <td>@product.MaxStock</td>
                                         <td class="btn-td edit">
-                                            <a>
+                                            <a onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
                                                 <i class="fa fa-pencil color-muted"></i>
                                             </a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)"><i class="fa fa-close color-danger"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -122,10 +125,132 @@
 </div>
 
 
+<!-- Add Product Modal Start-->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Add Product</h5>
+                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm">
+                    <input type="number" name="Id" hidden value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Name" class="form-control"
+                                   required minlength="2" maxlength="50" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Description" class="form-control"
+                                   required placeholder="Description" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Price" class="form-control"
+                                   placeholder="Price" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Warehouses</label>
+                        <div class="col-sm-9">
+                            <select name="WareHouseID" class="form-control">
+                                <option disabled active>Select Warehouse</option>
+                                @foreach (var warehouse in Model?.WareHouses ?? new List<WareHouse>())
+                                {
+                                    <option value="@warehouse.Id">@warehouse.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Current Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="CurrentStock" class="form-control"
+                                   placeholder="Current Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Minimum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="MinStock" class="form-control"
+                                   placeholder="Minimum Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Maximum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="MaxStock" class="form-control"
+                                   placeholder="Maximum Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Supplier</label>
+                        <div class="col-sm-9">
+                            <select name="SupplierId" class="form-control">
+                                <option disabled active>Select Supplier</option>
+                                @foreach (var supplier in Model?.Suppliers ?? new List<Supplier>())
+                                {
+                                    <option value="@supplier.Id">@supplier.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                            <select name="CategoryId" class="form-control">
+                                <option disabled active>Select Category</option>
+                                @foreach (var category in Model?.Categories ?? new List<Category>())
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addOrEditProduct">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Product Modal End-->
+
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    <p>Do you really want to delete the following?</p>
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
+
 @section Scripts {
     <script src="~/js/inventory/filteration.js"></script>
     <script src="~/js/inventory/inventory.js"></script>
-    @* <script type="text/javascript">
-        
-    </script> *@
 }

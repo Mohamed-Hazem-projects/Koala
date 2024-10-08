@@ -1,4 +1,5 @@
-﻿using Inventory.Repository.Interfaces;
+﻿using Inventory.Data.Models;
+using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,8 @@ namespace KoalaInventoryManagement.Controllers
                 {
                     Products = _unitOfWork?.Products?.GetAll()?.ToList() ?? new List<Product>(),
                     WareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>(),
+                    Categories = _unitOfWork?.Categories?.GetAllAsync()?.Result?.ToList() ?? new List<Category>(),
+                    Suppliers = _unitOfWork?.Suppliers?.GetAllAsync()?.Result?.ToList() ?? new List<Supplier>(),
 
                     UnFilteredProducts = _unitOfWork?.WareHousesProducts?.GetAll()
                         .Select(p => new ProductViewModel()
@@ -51,6 +54,10 @@ namespace KoalaInventoryManagement.Controllers
 
                 return View(ShowAllViewModle);
             }
+            filterationViewModel.Products = _unitOfWork?.Products?.GetAll()?.ToList() ?? new List<Product>();
+            filterationViewModel.WareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+            filterationViewModel.Categories = _unitOfWork?.Categories?.GetAllAsync()?.Result?.ToList() ?? new List<Category>();
+            filterationViewModel.Suppliers = _unitOfWork?.Suppliers?.GetAllAsync()?.Result?.ToList() ?? new List<Supplier>();
 
             return View(filterationViewModel);
         }
@@ -64,6 +71,8 @@ namespace KoalaInventoryManagement.Controllers
             {
                 Products = _unitOfWork?.Products?.GetAll()?.ToList() ?? new List<Product>(),
                 WareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>(),
+                Categories = _unitOfWork?.Categories?.GetAllAsync()?.Result?.ToList() ?? new List<Category>(),
+                Suppliers = _unitOfWork?.Suppliers?.GetAllAsync()?.Result?.ToList() ?? new List<Supplier>(),
                 FilteredProducts = filtered ?? default,
             };
 
@@ -153,6 +162,8 @@ namespace KoalaInventoryManagement.Controllers
             {
                 Products = _unitOfWork?.Products?.GetAll()?.ToList() ?? new List<Product>(),
                 WareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>(),
+                Categories = _unitOfWork?.Categories?.GetAllAsync()?.Result?.ToList() ?? new List<Category>(),
+                Suppliers = _unitOfWork?.Suppliers?.GetAllAsync()?.Result?.ToList() ?? new List<Supplier>(),
 
                 UnFilteredProducts = _unitOfWork?.WareHousesProducts?.GetAll()
                         .Select(p => new ProductViewModel()
@@ -242,19 +253,25 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewProduct()
+        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
         {
-            var addNewProduct = _unitOfWork.Products.Add(new Models.Product { Name = "Test", Description = "Flags Test", Price = 20, CreateAt = DateTime.Now });
+            // Add the new product to the database
+            _unitOfWork.Products.Add(newProduct);
             _unitOfWork.Complete();
-            return Ok(addNewProduct);
+            wareHouseProduct.ProductID = _unitOfWork?.Products?.GetAll()?.LastOrDefault()?.Id ?? 0;
+            _unitOfWork.WareHousesProducts.Add(wareHouseProduct);
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult DeleteProduct()
+        public IActionResult DeleteProduct(int id)
         {
-            var DeleteProduct = _unitOfWork.Products.Delete(1);
+
+            _unitOfWork.Products.Delete(id);
             _unitOfWork.Complete();
-            return Ok(_unitOfWork.Products.GetAll());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -271,6 +288,7 @@ namespace KoalaInventoryManagement.Controllers
             var products = _unitOfWork.Products.GetProductsBySupplier(1);
             return Ok(products);
         }
+
         [HttpGet]
         public IActionResult GetAllProductCategory()
         {
