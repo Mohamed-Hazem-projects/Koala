@@ -26,7 +26,7 @@
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <!-- WareHouse Filter Button Start -->
-        <select id="wareHouseID" class="form-select" style="width:350px;font-size:large" name="warehouseId" aria-label="Default select example">
+        <select id="wareHouseID" class="form-select" style="width:250px;font-size:medium" name="warehouseId" aria-label="Default select example">
             <option selected>All Warehouses</option>
             @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
             {
@@ -41,7 +41,7 @@
         <!-- WareHouse Filter Button End -->
         <br />
         <!-- Category Filter Button Start -->
-        <select id="categoryID" class="form-select" style="width:350px;font-size:large" name="categoryID" aria-label="Default select example">
+        <select id="categoryID" class="form-select" style="width:250px;font-size:medium" name="categoryID" aria-label="Default select example">
             <option selected>All Categories</option>
             @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
             {
@@ -56,7 +56,7 @@
         <!-- Category Filter Button End -->
         <br />
         <!-- Supplier Filter Button Start -->
-        <select id="supplierID" class="form-select" style="width:350px;font-size:large" name="supplierID" aria-label="Default select example">
+        <select id="supplierID" class="form-select" style="width:250px;font-size:medium" name="supplierID" aria-label="Default select example">
             <option selected>All Suppliers</option>
             @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
             {

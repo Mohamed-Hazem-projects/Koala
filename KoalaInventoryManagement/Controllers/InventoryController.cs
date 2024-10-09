@@ -196,6 +196,13 @@ namespace KoalaInventoryManagement.Controllers
 
                             return Json(result);
                         }
+                        else
+                        {
+                            List<ProductViewModel> result = showedProductsNow
+                                .Where(s => s.SupplierID == supplierID).ToList();
+
+                            return Json(result);
+                        }
                     }
                     else
                     {
@@ -212,23 +219,7 @@ namespace KoalaInventoryManagement.Controllers
 
             return Json(showedProductsNow);
         }
-
-        [HttpPost]
-        public IActionResult GetByFilter(int productID, int wareHouseID)
-        {
-            if (productID > 0 || wareHouseID > 0)
-                return RedirectToAction("ApplyFilter", new { wareHouseID, productID });
-            else
-                return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult ApplyFilter(int wareHouseID, int productID)
-        {
-
-            return RedirectToAction("Index");
-        }
-
+        
         [HttpGet]
         public IActionResult Search()
         {
