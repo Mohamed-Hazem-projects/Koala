@@ -14,6 +14,8 @@ namespace Inventory.Data.Data_Seeds
             new WareHouse() {Id = 1, Name = "Section A"},
             new WareHouse() {Id = 2, Name = "Section B"},
             new WareHouse() {Id = 3, Name = "Section C"},
+            new WareHouse() {Id = 4, Name = "Section D"},
+            new WareHouse() {Id = 5, Name = "Section E"},
         };
     }
 }

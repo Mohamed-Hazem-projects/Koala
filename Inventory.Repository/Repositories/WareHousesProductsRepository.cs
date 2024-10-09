@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Inventory.Repository.Repositories
@@ -22,10 +23,7 @@ namespace Inventory.Repository.Repositories
             try
             {
                 List<WareHouseProduct> wareHousesPrds
-                    = _context?.WareHousesProducts?
-                              .Include(whp => whp.Product)
-                              .Include(whp => whp.WareHouse)
-                              .ToList() ?? new List<WareHouseProduct>();
+                    = _context?.WareHousesProducts?.ToList() ?? new List<WareHouseProduct>();
 
                 return wareHousesPrds;
             }
@@ -63,14 +61,15 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public IEnumerable<WareHouseProduct>? GetProductWareHousesByPrdID(int productID)
+        public IEnumerable<WareHouse>? GetProductWareHousesByPrdID(int productID)
         {
             try
             {
-                List<WareHouseProduct>? productWareHouses
+                List<WareHouse>? productWareHouses
                     = _context?.WareHousesProducts?
                               .Include(whp => whp.WareHouse)
                               .Where(whp => whp.ProductID == productID)
+                              .Select(whp => whp.WareHouse)
                               .ToList();
 
                 return productWareHouses;
@@ -267,6 +266,54 @@ namespace Inventory.Repository.Repositories
                 //.......
 
                 return new List<WareHouseProduct>();
+            }
+        }
+
+        public IEnumerable<WareHouseProduct> GetAll(string[] includes)
+        {
+            try
+            {
+                IQueryable<WareHouseProduct> query = _context.Set<WareHouseProduct>();
+
+                if (includes != null && includes.Length > 0)
+                    foreach (var include in includes)
+                        query = query.Include(include);
+
+                return query?.ToList() ?? new List<WareHouseProduct>();
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return new List<WareHouseProduct>();
+            }
+        }
+
+        public WareHouseProduct? GetbyId(int productID, string[] includes)
+        {
+            try
+            {
+                IQueryable<WareHouseProduct> query = _context.WareHousesProducts;
+
+                if (includes != null && includes.Length > 0)
+                {
+                    foreach (string include in includes)
+                        query = query.Include(include);
+                }
+
+
+                WareHouseProduct? productWareHouse 
+                    = query.FirstOrDefault(whp => whp.ProductID == productID);
+
+                return productWareHouse;
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return default;
             }
         }
     }
