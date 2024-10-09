@@ -14,17 +14,24 @@ namespace KoalaInventoryManagement
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()/*.AddSessionStateTempDataProvider()*/;
+            //builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            //    options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
+            //});
 
             builder.Services.AddDbContext<InventoryDbContext>(op =>
                  op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
-            builder.Services.AddControllersWithViews()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+
+            //builder.Services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout (e.g., 30 minutes)
+            //    options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+            //    options.Cookie.IsEssential = true; // Mark the session cookie as essential for GDPR
+            //});
+
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
@@ -69,9 +76,10 @@ namespace KoalaInventoryManagement
             app.UseRouting();
 
             app.UseAuthentication();
+
+            //app.UseSession();
+
             app.UseAuthorization();
-
-
 
             app.MapControllerRoute(
                 name: "default",

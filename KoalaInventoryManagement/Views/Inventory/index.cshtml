@@ -1,10 +1,9 @@
 ﻿@using Newtonsoft.Json
-@model AllProductsViewModel
+@model List<ProductViewModel>
 
 @{
     ViewData["Title"] = "Inventory";
-    bool filteredProducts = Model?.FilteredProducts != null;
-    var serlizedFilteredProducts = @JsonConvert.SerializeObject(Model?.FilteredProducts);
+    var serlizedFilteredProducts = JsonConvert.SerializeObject(Model ?? new List<ProductViewModel>());
     var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
 }
 
@@ -22,44 +21,54 @@
     <!-- Filteration Start -->
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
-        <input class="form-control" style="width:500px;font-size:large" type="text" id="searchInput" placeholder="Search products..." />
+        <input id ="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
         <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
-        <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
-            <div class="form-row">
-                <!-- WareHouse Filter Button Start -->
-                <select id="wareHouseFilter" class="form-select" name="warehouseId" aria-label="Default select example">
-                    <option selected>All Warehouses</option>
-                    @foreach (var warehouse in Model?.WareHouses ?? new List<WareHouse>())
-                    {
-                        if (Model?.SelectedWareHouse > 0 && warehouse.Id == Model.SelectedWareHouse)
-                        {
-                            <option selected value="@warehouse.Id">@warehouse.Name</option>
-                            continue;
-                        }
-                        <option value="@warehouse.Id">@warehouse.Name</option>
-                    }
-                </select>
-                <!-- WareHouse Filter Button End -->
-                <!-- Product Filter Button Start -->
-                <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
-                    <option selected>All Products</option>
-                    @foreach (var product in Model?.Products@* .DistinctBy(p => p.Name) *@ ?? new List<Product>())
-                    {
-                        if (Model?.SelectedProduct > 0 && product.Id == Model?.SelectedProduct)
-                        {
-                            <option selected value="@product.Id">@product.Name</option>
-                            continue;
-                        }
-                        <option value="@product.Id">@product.Name</option>
-                    }
-                </select>
-                <!-- Product Filter Button End -->
-            </div>
-
-            <button type="submit" class="btn btn-success">Filter</button>
-        </form>
+        <!-- WareHouse Filter Button Start -->
+        <select id="wareHouseID" class="form-select" style="width:250px;font-size:medium" name="warehouseId" aria-label="Default select example">
+            <option selected>All Warehouses</option>
+            @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+                {
+                    <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                    continue;
+                }
+                <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+            }
+        </select>
+        <!-- WareHouse Filter Button End -->
+        <br />
+        <!-- Category Filter Button Start -->
+        <select id="categoryID" class="form-select" style="width:250px;font-size:medium" name="categoryID" aria-label="Default select example">
+            <option selected>All Categories</option>
+            @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedCategory > 0 && category.Id == ViewBag.SelectedCategory)
+                {
+                    <option selected value="@category.CategoryID">@category.CategoryName</option>
+                    continue;
+                }
+                <option value="@category.CategoryID">@category.CategoryName</option>
+            }
+        </select>
+        <!-- Category Filter Button End -->
+        <br />
+        <!-- Supplier Filter Button Start -->
+        <select id="supplierID" class="form-select" style="width:250px;font-size:medium" name="supplierID" aria-label="Default select example">
+            <option selected>All Suppliers</option>
+            @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedSupplier > 0 && supplier.SupplierID == ViewBag.SelectedSupplier)
+                {
+                    <option selected value="@supplier.SupplierID">@supplier.SupplierName</option>
+                    continue;
+                }
+                <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+            }
+        </select>
+        <!-- Supplier Filter Button End -->
     </div>
     <!-- Filteration End -->
 
@@ -91,11 +100,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in
-                                filteredProducts ?
-                                Model?.FilteredProducts ?? new List<ProductViewModel>() :
-                                Model?.UnFilteredProducts ?? new List<ProductViewModel>()
-                                )
+                                @foreach (var product in Model ?? new List<ProductViewModel>())
                                 {
                                     <tr>
                                         <td>@product.Name</td>
@@ -168,9 +173,9 @@
                         <div class="col-sm-9">
                             <select name="WareHouseID" class="form-control">
                                 <option disabled active>Select Warehouse</option>
-                                @foreach (var warehouse in Model?.WareHouses ?? new List<WareHouse>())
+                                @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                                 {
-                                    <option value="@warehouse.Id">@warehouse.Name</option>
+                                    <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
                                 }
                             </select>
                         </div>
@@ -201,9 +206,9 @@
                         <div class="col-sm-9">
                             <select name="SupplierId" class="form-control">
                                 <option disabled active>Select Supplier</option>
-                                @foreach (var supplier in Model?.Suppliers ?? new List<Supplier>())
+                                @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
                                 {
-                                    <option value="@supplier.Id">@supplier.Name</option>
+                                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
                                 }
                             </select>
                         </div>
@@ -213,9 +218,9 @@
                         <div class="col-sm-9">
                             <select name="CategoryId" class="form-control">
                                 <option disabled active>Select Category</option>
-                                @foreach (var category in Model?.Categories ?? new List<Category>())
+                                @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
                                 {
-                                    <option value="@category.Id">@category.Name</option>
+                                    <option value="@category.CategoryID">@category.CategoryName</option>
                                 }
                             </select>
                         </div>

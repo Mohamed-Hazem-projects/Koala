@@ -172,5 +172,48 @@ namespace Inventory.Repository.Repositories
                 return false;
             }
         }
+
+        public IEnumerable<T> GetAll(string[] includes)
+        {
+            try
+            {
+                IQueryable<T> query = _context.Set<T>();
+                if(includes != null && includes.Length > 0)
+                    foreach (string include in includes)
+                        query = query.Include(include);
+
+                List<T> result = query?.ToList() ?? new List<T>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return new List<T>();
+            }
+        }
+
+        public T? GetbyId(int id, string[] includes)
+        {
+            try
+            {
+                IQueryable<T> query = _context.Set<T>();
+                if (includes != null && includes.Length > 0)
+                {
+                    foreach (string include in includes)
+                        query = query.Include(include);
+                }
+
+                return query.FirstOrDefault(e => e.Id == id);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return default;
+            }
+        }
     }
 }

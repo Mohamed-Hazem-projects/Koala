@@ -13,5 +13,8 @@ namespace Inventory.Repository.Interfaces
         bool Update(T entity);
         bool Delete(int id);
         IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null);
+
+        T? GetbyId(int id, string[] includes);
+        IEnumerable<T> GetAll(string[] includes);
     }
 }
