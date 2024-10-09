@@ -41,7 +41,7 @@
         <!-- WareHouse Filter Button End -->
         <br />
         <!-- Category Filter Button Start -->
-        <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
+        <select id="categoryID" class="form-select" style="width:350px;font-size:large" name="categoryID" aria-label="Default select example">
             <option selected>All Categories</option>
             @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
             {
@@ -54,6 +54,21 @@
             }
         </select>
         <!-- Category Filter Button End -->
+        <br />
+        <!-- Supplier Filter Button Start -->
+        <select id="supplierID" class="form-select" style="width:350px;font-size:large" name="supplierID" aria-label="Default select example">
+            <option selected>All Suppliers</option>
+            @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedSupplier > 0 && supplier.SupplierID == ViewBag.SelectedSupplier)
+                {
+                    <option selected value="@supplier.SupplierID">@supplier.SupplierName</option>
+                    continue;
+                }
+                <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+            }
+        </select>
+        <!-- Supplier Filter Button End -->
     </div>
     <!-- Filteration End -->
 
