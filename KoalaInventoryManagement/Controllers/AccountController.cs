@@ -9,12 +9,14 @@ namespace Inventory.web.Controllers
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager  )
+		public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager , RoleManager<IdentityRole> roleManager)
         {
             _UserManager = userManager;
             _signInManager = signInManager;
-        }
+		    _roleManager = roleManager;
+		}
 
         #region SinUp
         public IActionResult SignUp()
@@ -39,6 +41,7 @@ namespace Inventory.web.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _UserManager.AddToRoleAsync(user, "User");
                     return RedirectToAction("Login");
                 }
                 else
@@ -67,7 +70,8 @@ namespace Inventory.web.Controllers
                     ViewBag.RememberMePassword = value[1];
 				}
             }
-            return View();
+			ViewBag.Roles = _roleManager.Roles.ToList();
+			return View();
         }
 
         [HttpPost]
@@ -109,7 +113,6 @@ namespace Inventory.web.Controllers
 
         public async Task<IActionResult> LogOut()
         {
-            HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
             Response.Cookies.Delete("RememberMeFunc");
             return RedirectToAction(nameof(Login));
@@ -184,8 +187,34 @@ namespace Inventory.web.Controllers
             return View(input);
         }
 
-        #endregion
+		#endregion
 
+		#region
+		public async Task<IActionResult> LoginAsGuest(string selectedRole)
+		{
+			var guestEmail = "guest@example.com";
+			var guestPassword = "Guest@123";  
 
-    }
+			var user = await _UserManager.FindByEmailAsync(guestEmail);
+
+			if (user != null)
+			{
+				var result = await _signInManager.PasswordSignInAsync(user, guestPassword, false, true);
+
+				if (result.Succeeded)
+				{
+					if (!await _UserManager.IsInRoleAsync(user, selectedRole))
+					{
+						await _UserManager.AddToRoleAsync(user, selectedRole);
+					}
+
+					return RedirectToAction("Index", "Home"); 
+				}
+			}
+
+			return RedirectToAction("Login");  
+		}
+
+		#endregion
+	}
 }

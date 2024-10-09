@@ -50,7 +50,7 @@ namespace KoalaInventoryManagement
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                //if the remember me not selected the user still loged in in 60 min
+                //if the remember me not selected the user still loged in in 2 min
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
                 options.SlidingExpiration = true;
                 options.LoginPath = "/Account/Login";
