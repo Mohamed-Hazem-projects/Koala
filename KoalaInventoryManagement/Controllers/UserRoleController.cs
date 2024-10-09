@@ -117,12 +117,5 @@ namespace KoalaInventoryManagement.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
-
-
-
-
-
     }
 }
