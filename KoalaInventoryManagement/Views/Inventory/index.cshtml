@@ -21,12 +21,12 @@
     <!-- Filteration Start -->
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
-        <input class="form-control" style="width:500px;font-size:large" type="text" id="searchInput" placeholder="Search products..." />
+        <input id ="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
         <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <!-- WareHouse Filter Button Start -->
-        <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
+        <select id="wareHouseID" class="form-select" style="width:350px;font-size:large" name="warehouseId" aria-label="Default select example">
             <option selected>All Warehouses</option>
             @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
             {
@@ -39,40 +39,21 @@
             }
         </select>
         <!-- WareHouse Filter Button End -->
-        <!-- Product Filter Button Start -->
-                <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
-                    <option selected>All Products</option>
-                    @foreach (var product in Model?.DistinctBy(p => p.Name) ?? new List<ProductViewModel>())
-                    {
-                        if (ViewBag.SelectedProduct > 0 && product.Id == ViewBag.SelectedProduct)
-                        {
-                            <option selected value="@product.Id">@product.Name</option>
-                            continue;
-                        }
-                        <option value="@product.Id">@product.Name</option>
-                    }
-                </select>
-                <!-- Product Filter Button End -->
-        <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
-            <div class="form-row">
-                <!-- Product Filter Button Start -->
-                <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
-                    <option selected>All Products</option>
-                    @foreach (var product in Model?.DistinctBy(p => p.Name) ?? new List<ProductViewModel>())
-                    {
-                        if (ViewBag.SelectedProduct > 0 && product.Id == ViewBag.SelectedProduct)
-                        {
-                            <option selected value="@product.Id">@product.Name</option>
-                            continue;
-                        }
-                        <option value="@product.Id">@product.Name</option>
-                    }
-                </select>
-                <!-- Product Filter Button End -->
-            </div>
-
-            <button type="submit" class="btn btn-success">Filter</button>
-        </form>
+        <br />
+        <!-- Category Filter Button Start -->
+        <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
+            <option selected>All Categories</option>
+            @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedCategory > 0 && category.Id == ViewBag.SelectedCategory)
+                {
+                    <option selected value="@category.CategoryID">@category.CategoryName</option>
+                    continue;
+                }
+                <option value="@category.CategoryID">@category.CategoryName</option>
+            }
+        </select>
+        <!-- Category Filter Button End -->
     </div>
     <!-- Filteration End -->
 
