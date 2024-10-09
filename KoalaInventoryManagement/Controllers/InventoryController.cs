@@ -70,7 +70,7 @@ namespace KoalaInventoryManagement.Controllers
             {
                 WareHouse wareHouse = _unitOfWork?.WareHouses?.GetbyId(wareHouseID) ?? new WareHouse();
 
-                if(categoryID > 0)
+                if (categoryID > 0)
                 {
                     if (supplierID > 0)
                     {
@@ -219,7 +219,7 @@ namespace KoalaInventoryManagement.Controllers
 
             return Json(showedProductsNow);
         }
-        
+
         [HttpGet]
         public IActionResult Search()
         {

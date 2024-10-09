@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.ViewModels.Sales;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace KoalaInventoryManagement.Controllers
 {
-    [Route("[controller]")]
     public class SalesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -22,24 +22,26 @@ namespace KoalaInventoryManagement.Controllers
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-
-        public IActionResult Create(Sales sales)
-        {
-            if (ModelState.IsValid)
-            {
-                // var product = _InventoryDbContext.Products.Find(sales.Id);
-                // if (product != null && product.CurrentStock >= sales.ItemsBought)
-                // {
-                //     product.CurrentStock -= sales.ItemsBought; // Reduce stock
-                //     sales.TotalProfit = (decimal)product.Price * sales.ItemsBought; // Calculate total profit
-                //     _unitOfWork.Sales.AddAsync(sales);
-                //     _InventoryDbContext.SaveChanges();
-                //     return RedirectToAction("Index");
-                // }
-            }
-            return View(sales);
-        }
         public IActionResult Index()
+        {
+            var sales = _unitOfWork.Sales.GetAll(["Product"]);
+            var salesVM = new List<SalesViewModel>();
+            foreach (var sale in sales)
+            {
+                salesVM.Add(new SalesViewModel
+                {
+                    Id = sale.Id,
+                    ItemsSold = sale.ItemsSold,
+                    SaleDate = sale.SaleDate,
+                    TotalPrice = sale.TotalPrice,
+                    ProductId = sale.ProductId,
+                    ProductName = sale.Product.Name
+                });
+            }
+            return View(salesVM);
+        }
+
+        public IActionResult Form()
         {
             return View();
         }

@@ -1,0 +1,55 @@
+@model List<SalesViewModel>
+  @{ ViewData["Title"] = "Sales"; }
+  <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+  <div class="container-fluid p-0 suppliers">
+    <!-- Products Header Start -->
+    <div class="content-header">
+      <div class="heading">
+        <h1 class="header-title roboto">Sales Page</h1>
+        <p class="header-subtitle roboto">Manage your Sales.</p>
+      </div>
+    </div>
+    <!-- Products Header End -->
+    <div class="bg-offwhite">
+      <div class="col-lg-12 p-3">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title roboto">Sales</h4>
+            <a href="/sales/form" class="add-btn">Add</a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                id="productsTable"
+                class="table table-bordered verticle-middle table-responsive-sm"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Items Sold</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Date</th>
+                    <th class="btn-head" scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach (var sales in Model) {
+                  <tr>
+                    <td>@sales.ProductName</td>
+                    <td>@sales.ItemsSold</td>
+                    <td>@sales.TotalPrice</td>
+                    <td>@sales.SaleDate</td>
+                    <td class="btn-td delete text-center">
+                      <a><i class="fa fa-close color-danger"></i></a>
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></SalesViewModel
+>
