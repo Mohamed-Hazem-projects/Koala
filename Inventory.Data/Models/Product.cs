@@ -17,12 +17,12 @@ namespace KoalaInventoryManagement.Models
         [Column(TypeName = "money")]
         public double Price { get; set; }
         public byte[]? Image { get; set; }
-        
-        public int? SupplierId {  get; set; }
+
+        public int? SupplierId { get; set; }
         [ForeignKey("SupplierId")]
         public Supplier? Supplier { get; set; }
 
-        
+
         public int? CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
@@ -31,5 +31,7 @@ namespace KoalaInventoryManagement.Models
 
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
             = new List<WareHouseProduct>();
+        public virtual ICollection<Sales> Sales { get; set; }
+        = new List<Sales>();
     }
 }

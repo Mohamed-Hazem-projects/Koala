@@ -14,6 +14,7 @@ namespace Inventory.Data.Context
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHousesProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Sales> Sales { get; set; }
         #endregion
 
 
@@ -63,6 +64,10 @@ namespace Inventory.Data.Context
                         .HasMany(c => c.Products)
                         .WithOne(p => p.Category)
                         .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Product>()
+            .HasMany(p => p.Sales)
+            .WithOne(s => s.Product)
+            .OnDelete(DeleteBehavior.Cascade);
             #endregion
 
             base.OnModelCreating(modelBuilder);

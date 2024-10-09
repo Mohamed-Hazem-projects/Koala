@@ -15,7 +15,7 @@ namespace Inventory.Repository.Interfaces
         IGenericRepository<WareHouse> WareHouses { get; }
         IProductsRepository Products { get; }
         IWareHousesProductsRepository WareHousesProducts { get; }
-
+        IGenericRepositoryAsync<Sales> Sales { get; }
         int Complete();
 
         Task<int> CompleteAsync();
