@@ -19,8 +19,5 @@ namespace KoalaInventoryManagement.ViewModels.Products
         public string CategoryName { get; set; } = string.Empty;
         public int SupplierID { get; set; }
         public string SupplierName { get; set; } = string.Empty;
-
-        public int SelectedWareHouse { get; set; }
-        public int SelectedProduct { get; set; }
     }
 }

@@ -55,46 +55,73 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetFilteredProducts(string searchString, string showedProducts)
+        public JsonResult GetFilteredProducts(int wareHouseID, string searchString, string showedProducts)
         {
-            List<ProductViewModel>? showedProductsNow
-                = JsonConvert.DeserializeObject<List<ProductViewModel>>(showedProducts);
+            List<ProductViewModel>? showedProductsNow = JsonConvert.DeserializeObject<List<ProductViewModel>>(showedProducts);
 
             if (showedProductsNow == null)
                 showedProductsNow = new List<ProductViewModel>();
 
-            if (!string.IsNullOrEmpty(searchString))
+            ViewBag.SelectedWareHouse = wareHouseID;
+            ViewBag.SelectedProduct = 0;
+
+            if (wareHouseID > 0)
             {
-                showedProductsNow.Clear();
-                List<Product> products
-                    = _unitOfWork?.Products?.FindByName(p => p.Name.Contains(searchString),
-                        ["Supplier", "Category", "WareHouseProducts"])?.ToList()
-                            ?? new List<Product>();
+                WareHouse wareHouse = _unitOfWork?.WareHouses?.GetbyId(wareHouseID) ?? new WareHouse();
 
-                List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
-
-                foreach (Product p in products)
+                if (!string.IsNullOrEmpty(searchString))
                 {
-                    foreach (WareHouseProduct whp in p.WareHouseProducts)
-                    {
-                        showedProductsNow.Add(new ProductViewModel()
-                        {
-                            Id = p.Id,
-                            Name = p.Name,
-                            Description = p.Description,
-                            Price = p.Price,
-                            Image = p.Image ?? [0],
-                            WareHouseID = whp.WareHouseID,
-                            WareHouseName = wareHouses?.Find(w => w.Id == whp.WareHouseID)?.Name ?? string.Empty,
-                            CurrentStock = whp.CurrentStock,
-                            MintStock = whp.MinStock,
-                            MaxStock = whp.MaxStock,
-                            CategoryID = p?.CategoryId ?? 0,
-                            CategoryName = p?.Category?.Name ?? string.Empty,
-                            SupplierID = p?.SupplierId ?? 0,
-                            SupplierName = p?.Supplier?.Name ?? string.Empty,
-                        });
-                    }
+                    List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
+                        .Where(s => s.Name.Contains(searchString)).ToList();
+
+                    return Json(result);
+                }
+                else
+                {
+                    List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id).ToList();
+                    return Json(result);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    List<ProductViewModel> result = showedProductsNow.Where(s => s.Name.Contains(searchString)).ToList();
+                    return Json(result);
+                    #region Old Work
+                    //    showedProductsNow.Clear();
+
+                    //    List<Product> products
+                    //        = _unitOfWork?.Products?.FindByName(p => p.Name.Contains(searchString),
+                    //            ["Supplier", "Category", "WareHouseProducts"])?.ToList()
+                    //                ?? new List<Product>();
+
+                    //    foreach (Product p in products)
+                    //    {
+                    //        foreach (WareHouseProduct whp in p.WareHouseProducts)
+                    //        {
+                    //            showedProductsNow.Add(new ProductViewModel()
+                    //            {
+                    //                Id = p.Id,
+                    //                Name = p.Name,
+                    //                Description = p.Description,
+                    //                Price = p.Price,
+                    //                Image = p.Image ?? [0],
+                    //                WareHouseID = whp.WareHouseID,
+                    //                WareHouseName = wareHouses?.Find(w => w.Id == whp.WareHouseID)?.Name ?? string.Empty,
+                    //                CurrentStock = whp.CurrentStock,
+                    //                MintStock = whp.MinStock,
+                    //                MaxStock = whp.MaxStock,
+                    //                CategoryID = p?.CategoryId ?? 0,
+                    //                CategoryName = p?.Category?.Name ?? string.Empty,
+                    //                SupplierID = p?.SupplierId ?? 0,
+                    //                SupplierName = p?.Supplier?.Name ?? string.Empty,
+                    //            });
+                    //        }
+                    //    }
+                    //    //return Json(showedProductsNow);
+                    //} 
+                    #endregion
                 }
             }
 
@@ -113,7 +140,6 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult ApplyFilter(int wareHouseID, int productID)
         {
-
 
             return RedirectToAction("Index");
         }

@@ -25,28 +25,42 @@
         <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
-        <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
-            <div class="form-row">
-                <!-- WareHouse Filter Button Start -->
-                <select id="wareHouseFilter" class="form-select" name="warehouseId" aria-label="Default select example">
-                    <option selected>All Warehouses</option>
-                    @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+        <!-- WareHouse Filter Button Start -->
+        <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
+            <option selected>All Warehouses</option>
+            @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+            {
+                if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+                {
+                    <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                    continue;
+                }
+                <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+            }
+        </select>
+        <!-- WareHouse Filter Button End -->
+        <!-- Product Filter Button Start -->
+                <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
+                    <option selected>All Products</option>
+                    @foreach (var product in Model?.DistinctBy(p => p.Name) ?? new List<ProductViewModel>())
                     {
-                        if (warehouse?.SelectedWareHouse > 0 && warehouse.WareHouseID == warehouse.SelectedWareHouse)
+                        if (ViewBag.SelectedProduct > 0 && product.Id == ViewBag.SelectedProduct)
                         {
-                            <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                            <option selected value="@product.Id">@product.Name</option>
                             continue;
                         }
-                        <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                        <option value="@product.Id">@product.Name</option>
                     }
                 </select>
-                <!-- WareHouse Filter Button End -->
+                <!-- Product Filter Button End -->
+        <form method="post" asp-action="GetByFilter" asp-controller="Inventory" style="display: flex; gap: 10px;">
+            <div class="form-row">
                 <!-- Product Filter Button Start -->
                 <select id="productFilter" class="form-select" name="productID" aria-label="Default select example">
                     <option selected>All Products</option>
                     @foreach (var product in Model?.DistinctBy(p => p.Name) ?? new List<ProductViewModel>())
                     {
-                        if (product?.SelectedProduct > 0 && product.Id == product?.SelectedProduct)
+                        if (ViewBag.SelectedProduct > 0 && product.Id == ViewBag.SelectedProduct)
                         {
                             <option selected value="@product.Id">@product.Name</option>
                             continue;
