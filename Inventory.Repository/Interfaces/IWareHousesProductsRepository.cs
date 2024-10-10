@@ -14,6 +14,6 @@ namespace Inventory.Repository.Interfaces
         WareHouseProduct? GetWareHouseProduct(int productID, int wareHouseID);
 
         //Deletes only one record with ProductID and WareHouseID
-        bool DeleteOneRecord(int productID, int WareHouseID);
+        bool DeleteOneRecord(int productID, int wareHouseID);
     }
 }

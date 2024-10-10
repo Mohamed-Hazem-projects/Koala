@@ -1,10 +1,10 @@
-﻿$(document).ready(function () {
+﻿$(function () {
     $('#searchInput').on('input', function () {
         var searchString = $(this).val();
         var searchWareHouseID = $('#wareHouseID').val();
         var searchCategoryID = $('#categoryID').val();
         var searchSupplierID = $('#supplierID').val();
-        debugger;
+        //debugger;
         var filteredProductsList = JSON.parse($('#filteredProductsData').val());
         //console.log(filteredProductsList);
         var productsJson = JSON.stringify(filteredProductsList);
@@ -13,7 +13,7 @@
             data: { wareHouseID: searchWareHouseID, categoryID: searchCategoryID, supplierID: searchSupplierID, searchString: searchString, showedProducts: productsJson },
             method: "post",
             success: function (data) {
-                debugger;
+                //debugger;
                 //console.log(data); // Log the entire response to check its structure
                 var tableBody = $('#productsTable tbody');
                 tableBody.empty();
@@ -24,7 +24,7 @@
                         var row = '<tr>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
-                            '<td>$ ' + product.price + '</td>' +
+                            '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
                             '<td>' + product.wareHouseName + '</td>' +
                             '<td>' + product.currentStock + '</td>' +
@@ -33,7 +33,9 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalSupplier(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + (product.price / 10) + ')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
                             '<i class="fa fa-pencil color-muted"></i>' +
                             '</a>' +
                             '</td>' +
@@ -87,7 +89,7 @@
                         var row = '<tr>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
-                            '<td>$ ' + product.price + '</td>' +
+                            '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
                             '<td>' + product.wareHouseName + '</td>' +
                             '<td>' + product.currentStock + '</td>' +
@@ -96,7 +98,9 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalSupplier(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + (product.price / 10) + ')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
                             '<i class="fa fa-pencil color-muted"></i>' +
                             '</a>' +
                             '</td>' +
@@ -150,7 +154,7 @@
                         var row = '<tr>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
-                            '<td>$ ' + product.price + '</td>' +
+                            '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
                             '<td>' + product.wareHouseName + '</td>' +
                             '<td>' + product.currentStock + '</td>' +
@@ -159,7 +163,9 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalSupplier(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + (product.price / 10) + ')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
                             '<i class="fa fa-pencil color-muted"></i>' +
                             '</a>' +
                             '</td>' +
@@ -213,7 +219,7 @@
                         var row = '<tr>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
-                            '<td>$ ' + product.price + '</td>' +
+                            '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
                             '<td>' + product.wareHouseName + '</td>' +
                             '<td>' + product.currentStock + '</td>' +
@@ -222,7 +228,9 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalSupplier(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + (product.price / 10) + ')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
                             '<i class="fa fa-pencil color-muted"></i>' +
                             '</a>' +
                             '</td>' +
