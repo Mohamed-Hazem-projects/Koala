@@ -7,10 +7,10 @@ namespace Inventory.Data.Data_Seeds
     {
         public static List<IdentityRole> Roles { get; set; } = new List<IdentityRole>
         {
-            new IdentityRole{ Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
-            new IdentityRole{ Id = "2", Name = "ManagerWH", NormalizedName = "MANAGERWH" },
-            new IdentityRole{ Id = "3", Name = "Staff", NormalizedName = "STAFF" },
-            new IdentityRole{ Id = "4", Name = "User", NormalizedName = "USER" } 
+            new IdentityRole{ Name = "Admin", NormalizedName = "ADMIN" },
+            new IdentityRole{ Name = "ManagerWH", NormalizedName = "MANAGERWH" },
+            new IdentityRole{ Name = "Staff", NormalizedName = "STAFF" },
+            new IdentityRole{ Name = "User", NormalizedName = "USER" } 
         };
     }
 }
