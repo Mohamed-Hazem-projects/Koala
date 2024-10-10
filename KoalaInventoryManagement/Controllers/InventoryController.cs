@@ -219,16 +219,6 @@ namespace KoalaInventoryManagement.Controllers
 
             return Json(showedProductsNow);
         }
-        
-        [HttpGet]
-        public IActionResult Search()
-        {
-            var searchTerm = "Palestine Flag".ToLower(); // Convert the search term to lowercase
-            var ProductName = _unitOfWork.Products.FindByName(
-                a => a.Name.ToLower().Contains(searchTerm)
-            );
-            return Ok(ProductName);
-        }
 
         [HttpPost]
         public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
@@ -280,20 +270,6 @@ namespace KoalaInventoryManagement.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult GetAllProductSupplier()
-        {
-            var products = _unitOfWork.Products.GetProductsBySupplier(1);
-            return Ok(products);
-        }
-
-        [HttpGet]
-        public IActionResult GetAllProductCategory()
-        {
-            var products = _unitOfWork.Products.GetProductsByCategory(1);
-            return Ok(products);
         }
     }
 }
