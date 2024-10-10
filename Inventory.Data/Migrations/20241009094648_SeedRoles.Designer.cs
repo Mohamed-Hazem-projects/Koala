@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20241008002208_initial")]
-    partial class initial
+    [Migration("20241009094648_SeedRoles")]
+    partial class SeedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,31 +122,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 959, DateTimeKind.Local).AddTicks(2469),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 428, DateTimeKind.Local).AddTicks(711),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3061),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 434, DateTimeKind.Local).AddTicks(4461),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3123),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 434, DateTimeKind.Local).AddTicks(4551),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3132),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 434, DateTimeKind.Local).AddTicks(4558),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 963, DateTimeKind.Local).AddTicks(3137),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 434, DateTimeKind.Local).AddTicks(4563),
                             Name = "Accessories"
                         });
                 });
@@ -190,7 +190,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(1568),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 436, DateTimeKind.Local).AddTicks(9437),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -199,7 +199,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4196),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 437, DateTimeKind.Local).AddTicks(2192),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -208,7 +208,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4227),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 437, DateTimeKind.Local).AddTicks(2220),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -217,7 +217,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4234),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 437, DateTimeKind.Local).AddTicks(2225),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -226,7 +226,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 965, DateTimeKind.Local).AddTicks(4239),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 437, DateTimeKind.Local).AddTicks(2460),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -248,6 +248,9 @@ namespace Inventory.Data.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CurrentStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -255,6 +258,12 @@ namespace Inventory.Data.Migrations
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("MaximumStock")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MinimumStock")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -279,7 +288,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(5888),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 438, DateTimeKind.Local).AddTicks(8530),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m
@@ -287,7 +296,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8082),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 439, DateTimeKind.Local).AddTicks(317),
                             Description = "Guns Products",
                             Name = "Gun AK-74",
                             Price = 1000m
@@ -295,7 +304,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(8115),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 439, DateTimeKind.Local).AddTicks(339),
                             Description = "Food Products",
                             Name = "زبادي",
                             Price = 3m
@@ -326,19 +335,19 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(14),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 438, DateTimeKind.Local).AddTicks(439),
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(803),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 438, DateTimeKind.Local).AddTicks(1354),
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 8, 3, 22, 5, 966, DateTimeKind.Local).AddTicks(827),
+                            CreateAt = new DateTime(2024, 10, 9, 12, 46, 44, 438, DateTimeKind.Local).AddTicks(1390),
                             Name = "Section C"
                         });
                 });
@@ -442,6 +451,32 @@ namespace Inventory.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "ManagerWH",
+                            NormalizedName = "MANAGERWH"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Staff",
+                            NormalizedName = "STAFF"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

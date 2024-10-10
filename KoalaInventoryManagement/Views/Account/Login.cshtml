@@ -2,49 +2,113 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    Layout = null;
 }
+<link rel="stylesheet" href="~/css/Account/login.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<!-- Font Awesome Kit -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet" />
 
-<h1>Login</h1>
+<div class="containerz">
+    <div class="form">
+        <h2>Sign In</h2>
+        <form asp-action="Login" method="post">
+            <div class="email">
+                <input required onchange="labeleffect()" type="email" asp-for="Email" value="@ViewBag.RememberMeEmail">
+                <label for="Email">Email</label>
+            </div>
+            <div class="password">
+                <input required onchange="labeleffect()" type="password" asp-for="Password" value="@ViewBag.RememberMePassword">
+                <label for="Password">Password</label>
+            </div>
+            <div class="rememberme">
+                <input asp-for="RememberMe" type="checkbox" id="rememberMe">
+                <p onclick="toggleCheckbox()">Remember Me</p>
+            </div>
+            <input type="submit" value="Sign In" />
+        </form>
+        <div class="or">
+            <p>Or</p>
+            <span></span>
+        </div>
+        <a asp-action="ForgetPassword" asp-controller="Account">
+            Forgot Password <i class="fa-solid fa-arrow-right-long"></i>
+        </a>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#RolesModal">
+            Continue as Guest <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+    </div>
+    <div class="createacc">
+        <h2>New Staff Member?</h2>
+        <p>Welcome to the Koala Inventory Management System! Here's what you can do:</p>
+        <div class="part">
+            <div class="img"><i class="fa-regular fa-clock"></i></div>
+            <div class="writing">
+                <h3>Real-time Inventory Tracking</h3>
+                <p>
+                    Keep up-to-date with stock levels and product movements across all warehouses.
+                </p>
+            </div>
+        </div>
+        <div class="part">
+            <div class="img"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="writing">
+                <h3>Warehouse & Product Management</h3>
+                <p>
+                    Manage inventory across multiple warehouses, track stock levels, and add or update product information with ease.
+                </p>
+            </div>
+        </div>
+        <div class="part">
+            <div class="img"><i class="fa-solid fa-note-sticky"></i></div>
+            <div class="writing">
+                <h3>Dashboard</h3>
+                <p>
+                    Access a centralized dashboard displaying real-time stock information, product data, and performance analytics.
+                </p>
+            </div>
+        </div>
+        <a asp-action="SignUp" class="create-account-link">Create Account</a>
+    </div>
+</div>
 
 
-<form class="login100-form validate-form" asp-action="Login" method="post">
-	<span class="login100-form-logo">
-		<i class="zmdi zmdi-landscape"></i>
-	</span>
+<div class="modal fade" id="RolesModal" tabindex="-1" aria-labelledby="rolesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rolesLabel">Choose a role to login as a guest</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="guestLoginForm" method="post" asp-action="LoginAsGuest">
+                    <div id="rolesList">
+                        @* @foreach (var role in ViewBag.Roles as List<IdentityRole>)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="role_@role.Name" name="selectedRole" value="@role.Name" />
+                                <label class="form-check-label" for="role_@role.Name">
+                                    @role.Name
+                                </label>
+                            </div>
+                        } *@
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" form="guestLoginForm">Login as Guest</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-	<span class="login100-form-title p-b-34 p-t-27">
-		Login
-	</span>
-
-	<div class="wrap-input100 validate-input" data-validate="Enter Email">
-		<input class="input100" type="email" asp-for="Email" placeholder="Email Name" value="@ViewBag.RememberMeEmail">
-		<span asp-validation-for="Email"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Password">
-		<input class="input100" type="password" asp-for="Password" placeholder="Password" value="@ViewBag.RememberMePassword">
-		<span asp-validation-for="Password"></span>
-	</div>
-	<br />
-	<div class="contact100-form-checkbox">
-		<input asp-for="RememberMe" type="checkbox">
-		<span>RememberMe</span>
-	</div>
-	<div class="container-login100-form-btn">
-		<input class="login100-form-btn" type="submit" value="Login" />
-	</div>
-
-	<div class="text-center p-t-90">
-		<a class="txt1" asp-action="ForgetPassword" asp-controller="Account">
-			Forgot Password?
-		</a>
-	</div>
-	<br />
-	<div class="container-login100-form-btn">
-		<a class="login100-form-btn" asp-action="SignUp">
-			Register
-		</a>
-	</div>
-</form>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Account/Login.js"></script>
+<script src="https://kit.fontawesome.com/831317d937.js" crossorigin="anonymous"></script>

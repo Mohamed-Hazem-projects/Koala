@@ -1,0 +1,290 @@
+﻿.containerz {
+    color: #333;
+    display: flex;
+    flex-direction: row;
+    padding: 80px 0px;
+}
+
+.containerz > .form > form > div > input.touched ~ label {
+    top: 0%;
+    transform: translateY(-10%);
+}
+
+@media (max-width: 1250px) {
+    .containerz {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 700px) {
+    .containerz {
+        padding: 20px 0px;
+    }
+}
+
+.containerz > .form {
+    min-width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 1250px) {
+    .containerz > .form {
+        width: 100%;
+    }
+}
+
+.containerz > .form > h2 {
+    margin: 0 0 40px 0;
+    font-size: 45px;
+    color: #5536df;
+}
+
+@media (max-width: 615px) {
+    .containerz > .form > h2 {
+        font-size: 30px;
+    }
+}
+
+.containerz > .form form div {
+    position: relative;
+}
+
+.containerz > .form form div input {
+    padding: 0px 8px;
+    margin: 10px 0px;
+    width: 330px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    outline: none;
+    border: 1px solid #333;
+}
+
+.containerz > .form form div input:focus ~ label {
+    top: 0%;
+    transform: translateY(-10%);
+}
+
+.containerz > .form form div label {
+    position: absolute;
+    left: 5px;
+    color: rgba(92, 91, 91, 0.656);
+    font-size: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px 2px;
+    background: white;
+    border-radius: 2px;
+    cursor: text;
+    transition: 0.2s;
+}
+
+.containerz > .form form > input {
+    margin-top: 25px;
+    width: 330px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 7px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .containerz > .form form > input:hover {
+        color: white;
+        background-color: #5536df;
+    }
+
+.containerz > .form form p {
+    text-align: center;
+    color: red;
+}
+
+.containerz > .form > div {
+    position: relative;
+}
+
+    .containerz > .form > div > p {
+        margin: 20px 0px;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 5px 14px;
+        position: relative;
+        background-color: white;
+        z-index: 5;
+        color: #5536df;
+    }
+
+.containerz > .form > div > span {
+    position: absolute;
+    height: 2px;
+    width: 330px;
+    background-color: #5536df;
+    transform: translateX(-42.95%);
+    top: 37px;
+    z-index: 1;
+}
+
+.containerz > .form a {
+    margin-bottom: 12px;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+.containerz > .form button {
+    background-color: transparent;
+    color: #1694f5;
+    border: none;
+    font-size: 16px;
+    cursor:pointer;
+}
+
+.containerz > .form > a:visited {
+    color: #1694f5;
+}
+
+.containerz > .createacc {
+    display: flex;
+    flex-direction: column;
+    padding-right: 8%;
+}
+
+@media (max-width: 1250px) {
+    .containerz > .createacc {
+        margin-top:50px;
+        padding: 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    .containerz > .createacc {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 615px) {
+    .containerz > .createacc {
+        padding: 20px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 485px) {
+    .containerz > .createacc {
+        padding: 5px;
+    }
+}
+input[type=submit] {
+    color: #5536df;
+    border-color: #5536df;
+}
+
+.containerz > .createacc > h2 {
+    margin: 0;
+    font-size: 2.05rem;
+    color: #5536df;
+}
+
+@media (max-width: 615px) {
+    .containerz > .createacc > h2 {
+        font-size: 1.6rem;
+    }
+}
+
+.containerz > .createacc > p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 615px) {
+    .containerz > .createacc > p {
+        font-size: 0.875rem;
+        text-align: center;
+    }
+}
+
+.containerz > .createacc > .part {
+    display: flex;
+}
+
+.containerz > .createacc > .part > .img {
+    display: flex;
+    align-items: center;
+    min-width: 95px;
+}
+
+.containerz > .createacc > .part > .img > i {
+    color: #5536df;
+    font-size: 55px;
+}
+
+.containerz > .createacc > .part h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    color: #5536df;
+}
+
+@media (max-width: 615px) {
+    .containerz > .createacc > .part h3 {
+        font-size: 1.4rem;
+    }
+}
+
+.containerz > .createacc > .part p {
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    margin: 9px 0px;
+}
+
+@media (max-width: 615px) {
+    .containerz > .createacc > .part p {
+        font-size: 0.875rem;
+        line-height: 1.3rem;
+    }
+}
+
+
+.containerz > .form > form > .rememberme {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    height: 13px;
+    margin-left: -9px;
+}
+
+.containerz > .form > form > .rememberme input {
+    margin-left: 10px;
+    width: 14px;
+}
+.containerz > .form > form > .rememberme p {
+    margin-left: 6px;
+    margin-bottom: 0;
+    font-size: 15px;
+    color: rgb(92 91 91);
+}
+
+.containerz > .createacc > a.create-account-link {
+    margin-top: 25px;
+    width: 330px;
+    font-size: 1.3rem;
+    background-color: transparent;
+    border-radius: 30px;
+    border: 2px solid #5536df;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #5536df;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color .3s, color .3s;
+}
+
+.containerz > .createacc > a.create-account-link:hover {
+    background-color: #5536df;
+    color: white;
+}
