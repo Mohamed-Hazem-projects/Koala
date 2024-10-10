@@ -246,18 +246,40 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult DeleteProduct(int id)
         {
-
             _unitOfWork.Products.Delete(id);
             _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct()
+        public IActionResult UpdateProduct(/*ProductViewModel updatedProductedData*/Product editedProduct
+            , WareHouseProduct editedWHP, int oldWareHouseID)
         {
-            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama2", Description = "Test salama2", Price = 50 });
-            _unitOfWork.Complete();
-            return Ok(UpdateProduct);
+            if(editedProduct != null && editedWHP != null && oldWareHouseID > 0)
+            {
+                Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
+                if (existingProduct != null)
+                {
+                    if (_unitOfWork?.Products?.Update(editedProduct) ?? false)
+                        _unitOfWork?.Complete();
+
+                    WareHouseProduct? existingWHP
+                        = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(existingProduct.Id, oldWareHouseID);
+
+                    if (existingWHP != null)
+                    {
+                        if (_unitOfWork?.WareHousesProducts?.DeleteOneRecord(editedProduct.Id, oldWareHouseID) ?? false)
+                        {
+                            _unitOfWork?.Complete();
+                            editedWHP.ProductID = editedProduct.Id;
+                            if (_unitOfWork?.WareHousesProducts?.Add(editedWHP) ?? false)
+                                _unitOfWork?.Complete();
+                        }
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

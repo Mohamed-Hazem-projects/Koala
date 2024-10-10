@@ -106,7 +106,7 @@
                                     <tr>
                                         <td>@product.Name</td>
                                         <td>@product.Description</td>
-                                        <td>$ @product.Price</td>
+                                        <td>$&nbsp;@product.Price</td>
                                         <td>@product.Image</td>
                                         <td>@product.WareHouseName</td>
                                         <td>@product.CurrentStock</td>
@@ -115,7 +115,9 @@
                                         <td>@product.CategoryName</td>
                                         <td>@product.SupplierName</td>
                                         <td class="btn-td edit">
-                                            <a onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
+                                            <a onclick="openEditModalProduct(@product.Id, @product.WareHouseID, @product.CategoryID, @product.SupplierID,
+                                                '@product.Name', '@product.Description', @product.Price, '@product.Image', '@product.WareHouseName', 
+                                                 @product.CurrentStock, @product.MintStock, @product.MaxStock, '@product.CategoryName', '@product.SupplierName')">
                                                 <i class="fa fa-pencil color-muted"></i>
                                             </a>
                                         </td>
@@ -148,6 +150,7 @@
             <div class="modal-body">
                 <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm">
                     <input type="number" name="Id" hidden value="" />
+                    <input type="number" name="oldWareHouseID" hidden value="" />
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
@@ -172,7 +175,7 @@
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Warehouses</label>
                         <div class="col-sm-9">
-                            <select name="WareHouseID" class="form-control">
+                            <select id="wareHouseSelector" name="WareHouseID" class="form-control">
                                 <option disabled active>Select Warehouse</option>
                                 @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                                 {
@@ -205,7 +208,7 @@
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Supplier</label>
                         <div class="col-sm-9">
-                            <select name="SupplierId" class="form-control">
+                            <select id="supplierSelector" name="SupplierId" class="form-control">
                                 <option disabled active>Select Supplier</option>
                                 @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
                                 {
@@ -217,7 +220,7 @@
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
-                            <select name="CategoryId" class="form-control">
+                            <select id="categorySelector" name="CategoryId" class="form-control">
                                 <option disabled active>Select Category</option>
                                 @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
                                 {
@@ -226,18 +229,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group-row">
-                        <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">
-                                Add
-                            </button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="addOrEditProduct" class="btn btn-primary">Add</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addOrEditProduct">Add</button>
             </div>
         </div>
     </div>
@@ -270,6 +266,6 @@
 
 
 @section Scripts {
-    <script src="~/js/inventory/filteration.js"></script>
-    <script src="~/js/inventory/inventory.js"></script>
+    <script src="~/js/Inventory/Filteration.js"></script>
+    <script src="~/js/Inventory/Inventory.js"></script>
 }

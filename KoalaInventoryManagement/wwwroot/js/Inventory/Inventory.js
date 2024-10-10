@@ -5,10 +5,9 @@ $(".mainconfirm").hide()
 $(".green").hide()
 let runOnce = false;
 let deletedID = null;
-let DeleteSupplerOrCategory = null; //1 for suppliers and 2 for categories
+
 function confirmDelete(deletedText, deletedid) {
     deletedID = deletedid;
-    DeleteSupplerOrCategory = 1;
     $(".overlay").fadeIn()
     $("#toBeDeleted").text(deletedText)
     $(".mainconfirm").fadeIn()
@@ -44,93 +43,56 @@ function deleteFromDB() {
     });
 }
 
-//Confirm Delete End
-
-//Add / Edit Category Modal Start
-
-$("#addOrEditCategory").on('click', () => {
-    $("#addOrEditCategoryForm").validate()
-    if ($("#addOrEditCategoryForm").valid()) {
-        $("#addOrEditCategoryForm").trigger("submit")
-    }
-})
 
 // Function to open modal in edit mode
-function openEditModal(id, name) {
-    // Change the modal header to "Edit Category"
-    $('#categoryModalLabel').text("Edit Category");
-    // Change the button text to "Save Changes" for editing
-    $('#addOrEditCategory').text("Edit");
-    // Set the input field to the clicked category's name
-    $('input[name="Id"]').val(id);
-    $('input[name="Name"]').val(name);
-    // Change the form action to the EditCategory action with the categoryId
-    $('#addOrEditCategoryForm').attr('action', `/Suppliers/UpdateCategory`);
-    // Open the modal
-    $('#categoryModal').modal('show');
-}
-
-// Reset modal back to "Add Category" mode when it's closed
-$('#categoryModal').on('hidden.bs.modal', function () {
-    // Reset modal title and button text for the Add mode
-    $('#categoryModalLabel').text("Add Category");
-    $('#addOrEditCategory').text("Add");
-    // Clear the input field
-    $('input[name="Name"]').val('');
-    $('input[name="Id"]').val('');
-    // Reset the form action back to AddCategory
-    $('#addOrEditCategoryForm').attr('action', '/Suppliers/AddCategory');
-});
-
-//Add / Edit Category Modal End
-
-//Add / Edit Supplier Modal Start
-
-$("#addOrEditSupplier").on('click', () => {
-    $("#addOrEditSupplierForm").validate({
-        rules:
-        {
-            Rating:
-            {
-                range: [0, 10]
-            }
-        }
-    })
-    if ($("#addOrEditSupplierForm").valid()) {
-        $("#addOrEditSupplierForm").trigger("submit")
-    }
-})
-
-// Function to open modal in edit mode
-function openEditModalSupplier(id, name, phone, email, rating) {
-    // Change the modal header to "Edit Category"
-    $('#supplierModalLabel').text("Edit Supplier");
-    // Change the button text to "Save Changes" for editing
-    $('#addOrEditSupplier').text("Edit");
+function openEditModalProduct(id, wareHouseID, categoryID, supplierID, name, description, price,
+    image, wareHouseName, currentStock, mintStock, maxStock, categoryName, supplierName) {
+    debugger;
+    $('#productModalLabel').text("Edit Product");
+    $('#addOrEditProduct').text("Edit");
     // mapping
     $('input[name="Id"]').val(id);
+    $('input[name="oldWareHouseID"]').val(wareHouseID);
     $('input[name="Name"]').val(name);
-    $('input[name="Phone_Number"]').val(phone);
-    $('input[name="Email_Address"]').val(email);
-    $('input[name="Rating"]').val(rating);
-    // Change the form action to the EditCategory action with the categoryId
-    $('#addOrEditSupplierForm').attr('action', `/Suppliers/UpdateSupplier`);
+    $('input[name="Description"]').val(description);
+    $('input[name="Price"]').val(price);
+    $('input[name="Image"]').val(image);
+    $('input[name="CurrentStock"]').val(currentStock);
+    $('input[name="MinStock"]').val(mintStock);
+    $('input[name="MaxStock"]').val(maxStock);
+
+    $('#wareHouseSelector').val(wareHouseID);
+    $('#supplierSelector').val(supplierID);
+    $('#categorySelector').val(categoryID);
+    
+    $('#addOrEditProductForm').attr('action', `/Inventory/UpdateProduct`);
     // Open the modal
-    $('#supplierModal').modal('show');
+    $('#productModal').modal('show');
 }
 
-// Reset modal back to "Add Category" mode when it's closed
-$('#supplierModal').on('hidden.bs.modal', function () {
+// Reset modal back to "Add Product" mode when it's closed
+$('#productModal').on('hidden.bs.modal', function () {
+    debugger;
     // Reset modal title and button text for the Add mode
-    $('#supplierModalLabel').text("Add Supplier");
-    $('#addOrEditSupplier').text("Add");
+    $('#productModalLabel').text("Add Product");
+    $('#addOrEditProduct').text("Add");
     // Clear the input field
-    $('input[name="Name"]').val('');
     $('input[name="Id"]').val('');
-    $('input[name="Phone_Number"]').val('');
-    $('input[name="Email_Address"]').val('');
-    $('input[name="Rating"]').val('');
-    // Reset the form action back to AddCategory
-    $('#addOrEditSupplierForm').attr('action', '/Suppliers/AddSupplier');
+    $('input[name="oldWareHouseID"]').val('');
+    $('input[name="Name"]').val('');
+    $('input[name="Description"]').val('');
+    $('input[name="Price"]').val('');
+    $('input[name="Image"]').val('');
+    $('input[name="CurrentStock"]').val('');
+    $('input[name="MinStock"]').val('');
+    $('input[name="MaxStock"]').val('');
+
+    $('#wareHouseSelector').val('');
+    $('#supplierSelector').val('');
+    $('#categorySelector').val('');
+
+    // Reset the form action back to AddProduct
+    $('#addOrEditProductForm').attr('action', '/Inventory/AddProduct');
 });
-//Add / Edit Supplier Modal End
+
+//Add / Edit Product Modal End
