@@ -96,6 +96,7 @@
                                     <th scope="col">Maximum Stock</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Supplier</th>
+                                    <th class="btn-head" scope="col">Info</th>
                                     <th class="btn-head" scope="col">Edit</th>
                                     <th class="btn-head" scope="col">Delete</th>
                                 </tr>
@@ -114,15 +115,22 @@
                                         <td>@product.MaxStock</td>
                                         <td>@product.CategoryName</td>
                                         <td>@product.SupplierName</td>
+                                        <td>
+                                            <a onclick="" class="btn btn-labeled">
+                                                <i class="fa fa-info-circle" style="color: #227B94"></i>
+                                            </a>
+                                        </td>
                                         <td class="btn-td edit">
                                             <a onclick="openEditModalProduct(@product.Id, @product.WareHouseID, @product.CategoryID, @product.SupplierID,
                                                 '@product.Name', '@product.Description', @product.Price, '@product.Image', '@product.WareHouseName', 
                                                  @product.CurrentStock, @product.MintStock, @product.MaxStock, '@product.CategoryName', '@product.SupplierName')">
-                                                <i class="fa fa-pencil color-muted"></i>
+                                                <i class="fa fa-pencil" style="color: #DD761C"></i>
                                             </a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)"><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)">
+                                                <i class="fa fa-close text-danger"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
