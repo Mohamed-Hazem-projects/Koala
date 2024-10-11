@@ -15,11 +15,11 @@ namespace KoalaInventoryManagement
 
             // Add services to the container.
             builder.Services.AddControllersWithViews()/*.AddSessionStateTempDataProvider()*/;
-            //builder.Services.AddControllersWithViews().AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-            //    options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
-            //});
+            builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
+            });
 
             // builder.Services.AddDbContext<InventoryDbContext>(op =>
             //      op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));

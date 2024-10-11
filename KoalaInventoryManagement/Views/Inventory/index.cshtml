@@ -21,12 +21,14 @@
     <!-- Filteration Start -->
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
-        <input id ="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
+        <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text"
+            placeholder="Search products..." />
         <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <!-- WareHouse Filter Button Start -->
-        <select id="wareHouseID" class="form-select" style="width:250px;font-size:medium" name="warehouseId" aria-label="Default select example">
+        <select id="wareHouseID" class="form-select" style="width:250px;font-size:medium" name="warehouseId"
+            aria-label="Default select example">
             <option selected>All Warehouses</option>
             @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
             {
@@ -41,7 +43,8 @@
         <!-- WareHouse Filter Button End -->
         <br />
         <!-- Category Filter Button Start -->
-        <select id="categoryID" class="form-select" style="width:250px;font-size:medium" name="categoryID" aria-label="Default select example">
+        <select id="categoryID" class="form-select" style="width:250px;font-size:medium" name="categoryID"
+            aria-label="Default select example">
             <option selected>All Categories</option>
             @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
             {
@@ -56,7 +59,8 @@
         <!-- Category Filter Button End -->
         <br />
         <!-- Supplier Filter Button Start -->
-        <select id="supplierID" class="form-select" style="width:250px;font-size:medium" name="supplierID" aria-label="Default select example">
+        <select id="supplierID" class="form-select" style="width:250px;font-size:medium" name="supplierID"
+            aria-label="Default select example">
             <option selected>All Suppliers</option>
             @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
             {
@@ -78,7 +82,8 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Products</h4>
-                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
+                    <button class="add-btn" type="button" data-bs-toggle="modal"
+                        data-bs-target="#productModal">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -114,12 +119,14 @@
                                         <td>@product.CategoryName</td>
                                         <td>@product.SupplierName</td>
                                         <td class="btn-td edit">
-                                            <a onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
+                                            <a
+                                                onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
                                                 <i class="fa fa-pencil color-muted"></i>
                                             </a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)"><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)"><i
+                                                    class="fa fa-close color-danger"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -135,7 +142,8 @@
 
 
 <!-- Add or Edit Product Modal Start-->
-<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,22 +158,21 @@
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
-                            <input type="text" name="Name" class="form-control"
-                                   required minlength="2" maxlength="50" placeholder="Name" />
+                            <input type="text" name="Name" class="form-control" required minlength="2" maxlength="50"
+                                placeholder="Name" />
                         </div>
                     </div>
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <input type="text" name="Description" class="form-control"
-                                   required placeholder="Description" />
+                            <input type="text" name="Description" class="form-control" required
+                                placeholder="Description" />
                         </div>
                     </div>
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Price</label>
                         <div class="col-sm-9">
-                            <input type="text" name="Price" class="form-control"
-                                   placeholder="Price" />
+                            <input type="text" name="Price" class="form-control" placeholder="Price" />
                         </div>
                     </div>
                     <div class="form-group-row">
@@ -173,7 +180,8 @@
                         <div class="col-sm-9">
                             <select name="WareHouseID" class="form-control">
                                 <option disabled active>Select Warehouse</option>
-                                @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+                                @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new
+                                List<ProductViewModel>())
                                 {
                                     <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
                                 }
@@ -183,22 +191,19 @@
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Current Stock</label>
                         <div class="col-sm-9">
-                            <input type="text" name="CurrentStock" class="form-control"
-                                   placeholder="Current Stock" />
+                            <input type="text" name="CurrentStock" class="form-control" placeholder="Current Stock" />
                         </div>
                     </div>
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Minimum Stock</label>
                         <div class="col-sm-9">
-                            <input type="text" name="MinStock" class="form-control"
-                                   placeholder="Minimum Stock" />
+                            <input type="text" name="MinStock" class="form-control" placeholder="Minimum Stock" />
                         </div>
                     </div>
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Maximum Stock</label>
                         <div class="col-sm-9">
-                            <input type="text" name="MaxStock" class="form-control"
-                                   placeholder="Maximum Stock" />
+                            <input type="text" name="MaxStock" class="form-control" placeholder="Maximum Stock" />
                         </div>
                     </div>
                     <div class="form-group-row">
@@ -206,7 +211,8 @@
                         <div class="col-sm-9">
                             <select name="SupplierId" class="form-control">
                                 <option disabled active>Select Supplier</option>
-                                @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
+                                @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new
+                                List<ProductViewModel>())
                                 {
                                     <option value="@supplier.SupplierID">@supplier.SupplierName</option>
                                 }
@@ -218,7 +224,8 @@
                         <div class="col-sm-9">
                             <select name="CategoryId" class="form-control">
                                 <option disabled active>Select Category</option>
-                                @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
+                                @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new
+                                List<ProductViewModel>())
                                 {
                                     <option value="@category.CategoryID">@category.CategoryName</option>
                                 }

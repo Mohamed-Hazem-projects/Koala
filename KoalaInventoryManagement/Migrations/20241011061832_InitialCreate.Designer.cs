@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KoalaInventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20241009125910_InitialCreate")]
+    [Migration("20241011061832_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -114,31 +114,31 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 696, DateTimeKind.Local).AddTicks(2041),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 58, DateTimeKind.Local).AddTicks(313),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7233),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4600),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7274),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4630),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7279),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4634),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7281),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4636),
                             Name = "Accessories"
                         });
                 });
@@ -164,58 +164,14 @@ namespace KoalaInventoryManagement.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("WareHouseId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("WareHouseId", "ProductId");
 
                     b.ToTable("Sales");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(138),
-                            ItemsSold = 5,
-                            ProductId = 1,
-                            SaleDate = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(666),
-                            TotalPrice = 100m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2142),
-                            ItemsSold = 10,
-                            ProductId = 2,
-                            SaleDate = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2162),
-                            TotalPrice = 200m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2174),
-                            ItemsSold = 15,
-                            ProductId = 3,
-                            SaleDate = new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 300m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2221),
-                            ItemsSold = 20,
-                            ProductId = 4,
-                            SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 400m
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2233),
-                            ItemsSold = 25,
-                            ProductId = 5,
-                            SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 500m
-                        });
                 });
 
             modelBuilder.Entity("Inventory.Data.Models.Supplier", b =>
@@ -255,7 +211,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 708, DateTimeKind.Local).AddTicks(8762),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(4173),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -264,7 +220,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(141),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5324),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -273,7 +229,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(158),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5338),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -282,7 +238,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(162),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5342),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -291,7 +247,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(165),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5345),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -343,7 +299,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 1,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 715, DateTimeKind.Local).AddTicks(9274),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(3486),
                             Description = "Automotive Products",
                             Name = "Saudi Arabia Flag",
                             Price = 804.0,
@@ -353,7 +309,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1142),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(4995),
                             Description = "Toys",
                             Name = "Textbook",
                             Price = 394.0,
@@ -363,7 +319,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 3,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1162),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5009),
                             Description = "Home Appliances",
                             Name = "Laptop",
                             Price = 740.0,
@@ -373,7 +329,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 4,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1167),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5013),
                             Description = "Beauty Products",
                             Name = "TV",
                             Price = 72.0,
@@ -383,7 +339,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1170),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5016),
                             Description = "Garden Equipment",
                             Name = "Saudi Arabia Flag",
                             Price = 490.0,
@@ -393,7 +349,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 6,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1187),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5030),
                             Description = "Furniture",
                             Name = "Smartphone",
                             Price = 113.0,
@@ -403,7 +359,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1191),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5033),
                             Description = "Electronics Products",
                             Name = "Sofa",
                             Price = 607.0,
@@ -413,7 +369,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1195),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5036),
                             Description = "Books",
                             Name = "Power Bank",
                             Price = 664.0,
@@ -423,7 +379,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1199),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5039),
                             Description = "Electronics Products",
                             Name = "Camera",
                             Price = 99.0,
@@ -433,7 +389,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 10,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1240),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5044),
                             Description = "Sports Equipment",
                             Name = "Dining Table",
                             Price = 833.0,
@@ -443,7 +399,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1244),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5047),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9.0,
@@ -453,7 +409,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 12,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1248),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5050),
                             Description = "Flags Products",
                             Name = "Egypt Flag",
                             Price = 8.0,
@@ -463,7 +419,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 13,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1252),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5053),
                             Description = "Flags Products",
                             Name = "Saudi Arabia Flag",
                             Price = 10.0,
@@ -473,7 +429,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 14,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1255),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5056),
                             Description = "Electronics Products",
                             Name = "Laptop",
                             Price = 500.0,
@@ -483,7 +439,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 15,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1259),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5059),
                             Description = "Electronics Products",
                             Name = "Smartphone",
                             Price = 300.0,
@@ -493,7 +449,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 16,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1263),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5062),
                             Description = "Electronics Products",
                             Name = "Tablet",
                             Price = 200.0,
@@ -503,7 +459,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 17,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1266),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5065),
                             Description = "Home Appliances",
                             Name = "Refrigerator",
                             Price = 800.0,
@@ -513,7 +469,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 18,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1271),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5069),
                             Description = "Home Appliances",
                             Name = "Washing Machine",
                             Price = 600.0,
@@ -523,7 +479,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 19,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1275),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5073),
                             Description = "Home Appliances",
                             Name = "Microwave",
                             Price = 150.0,
@@ -533,7 +489,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 20,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1279),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5076),
                             Description = "Furniture",
                             Name = "Sofa",
                             Price = 350.0,
@@ -543,7 +499,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 21,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1283),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5079),
                             Description = "Furniture",
                             Name = "Dining Table",
                             Price = 450.0,
@@ -553,7 +509,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 22,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1286),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5082),
                             Description = "Furniture",
                             Name = "Bed Frame",
                             Price = 400.0,
@@ -563,7 +519,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 23,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1290),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5085),
                             Description = "Books",
                             Name = "Novel",
                             Price = 15.0,
@@ -573,7 +529,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 24,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1294),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5088),
                             Description = "Books",
                             Name = "Cookbook",
                             Price = 20.0,
@@ -583,7 +539,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 25,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1298),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5091),
                             Description = "Books",
                             Name = "Textbook",
                             Price = 30.0,
@@ -593,7 +549,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 26,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1302),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5094),
                             Description = "Furniture",
                             Name = "Monitor",
                             Price = 180.0,
@@ -603,7 +559,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 27,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1305),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5097),
                             Description = "Beauty Products",
                             Name = "Wardrobe",
                             Price = 615.0,
@@ -613,7 +569,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 28,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1309),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5100),
                             Description = "Toys",
                             Name = "Mirror",
                             Price = 563.0,
@@ -623,7 +579,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 29,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1313),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5103),
                             Description = "Electronics Products",
                             Name = "Cookbook",
                             Price = 243.0,
@@ -633,7 +589,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 30,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1316),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5106),
                             Description = "Flags Products",
                             Name = "Heater",
                             Price = 5.0,
@@ -643,7 +599,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 31,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1320),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5109),
                             Description = "Kitchen Appliances",
                             Name = "Rug",
                             Price = 336.0,
@@ -653,7 +609,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 32,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1324),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5112),
                             Description = "Home Appliances",
                             Name = "Iron",
                             Price = 874.0,
@@ -663,7 +619,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 33,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1327),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5116),
                             Description = "Games",
                             Name = "Textbook",
                             Price = 436.0,
@@ -673,7 +629,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 34,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1332),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5120),
                             Description = "Flags Products",
                             Name = "Monitor",
                             Price = 927.0,
@@ -683,7 +639,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 35,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1336),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5123),
                             Description = "Musical Instruments",
                             Name = "Sofa",
                             Price = 201.0,
@@ -693,7 +649,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 36,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1340),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5126),
                             Description = "Musical Instruments",
                             Name = "Cookbook",
                             Price = 399.0,
@@ -703,7 +659,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 37,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1343),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5129),
                             Description = "Kitchen Appliances",
                             Name = "Egypt Flag",
                             Price = 549.0,
@@ -713,7 +669,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 38,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1347),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5132),
                             Description = "Toys",
                             Name = "Laptop",
                             Price = 442.0,
@@ -723,7 +679,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 39,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1351),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5135),
                             Description = "Books",
                             Name = "Bed Frame",
                             Price = 657.0,
@@ -733,7 +689,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 40,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1355),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5138),
                             Description = "Electronics Products",
                             Name = "Charger",
                             Price = 257.0,
@@ -743,7 +699,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 41,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1358),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5141),
                             Description = "Automotive Products",
                             Name = "Tablet",
                             Price = 639.0,
@@ -753,7 +709,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 42,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1362),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5144),
                             Description = "Home Appliances",
                             Name = "Headphones",
                             Price = 676.0,
@@ -763,7 +719,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 43,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1411),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5147),
                             Description = "Flags Products",
                             Name = "Dining Table",
                             Price = 161.0,
@@ -773,7 +729,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 44,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1415),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5222),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9.0,
@@ -783,7 +739,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 45,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1419),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5227),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
                             Price = 10.0,
@@ -793,7 +749,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 46,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1423),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5230),
                             Description = "Flags Products",
                             Name = "USA Flag",
                             Price = 12.0,
@@ -803,7 +759,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 47,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1426),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5233),
                             Description = "Flags Products",
                             Name = "China Flag",
                             Price = 8.0,
@@ -813,7 +769,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 48,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1430),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5236),
                             Description = "Flags Products",
                             Name = "Brazil Flag",
                             Price = 11.0,
@@ -823,7 +779,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 49,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1434),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5239),
                             Description = "Flags Products",
                             Name = "Germany Flag",
                             Price = 10.0,
@@ -833,7 +789,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 50,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1437),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5243),
                             Description = "Flags Products",
                             Name = "France Flag",
                             Price = 9.0,
@@ -843,7 +799,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 51,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1441),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5246),
                             Description = "Flags Products",
                             Name = "UK Flag",
                             Price = 13.0,
@@ -853,7 +809,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 52,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1445),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5249),
                             Description = "Flags Products",
                             Name = "Russia Flag",
                             Price = 9.0,
@@ -863,7 +819,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 53,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1449),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5252),
                             Description = "Flags Products",
                             Name = "Italy Flag",
                             Price = 10.0,
@@ -873,7 +829,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 54,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1453),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5255),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 50.0,
@@ -883,7 +839,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 55,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1457),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5258),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 12.0,
@@ -893,7 +849,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 56,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1460),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5261),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 20.0,
@@ -903,7 +859,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 57,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1464),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5264),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9.0,
@@ -913,7 +869,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 58,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1468),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5267),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
                             Price = 40.0,
@@ -923,7 +879,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 59,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1471),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5271),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 18.0,
@@ -933,7 +889,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 60,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1475),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5274),
                             Description = "Electronics",
                             Name = "Headphones",
                             Price = 65.0,
@@ -943,7 +899,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 61,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1479),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5277),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
                             Price = 15.0,
@@ -953,7 +909,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 62,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1483),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5280),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 25.0,
@@ -963,7 +919,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 63,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1486),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5283),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 8.0,
@@ -973,7 +929,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 64,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1490),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5286),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 10.0,
@@ -983,7 +939,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 65,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1494),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5289),
                             Description = "Office Supplies",
                             Name = "Coffee Mug",
                             Price = 15.0,
@@ -993,7 +949,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 66,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1499),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5294),
                             Description = "Flags Products",
                             Name = "Jordan Flag",
                             Price = 8.0,
@@ -1003,7 +959,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 67,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1503),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5297),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
                             Price = 5.0,
@@ -1013,7 +969,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 68,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1507),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5300),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
                             Price = 25.0,
@@ -1023,7 +979,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 69,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1511),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5303),
                             Description = "Clothing and Apparel",
                             Name = "T-shirt",
                             Price = 18.0,
@@ -1033,7 +989,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 70,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1514),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5306),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 12.0,
@@ -1043,7 +999,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 71,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1518),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5309),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
                             Price = 20.0,
@@ -1053,7 +1009,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 72,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1522),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5313),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
                             Price = 7.0,
@@ -1063,7 +1019,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 73,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1525),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5316),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 6.0,
@@ -1073,7 +1029,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 74,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1529),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5319),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
                             Price = 50.0,
@@ -1083,7 +1039,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 75,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1534),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5322),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
                             Price = 55.0,
@@ -1093,7 +1049,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 76,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1537),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5325),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 20.0,
@@ -1103,7 +1059,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 77,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1541),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5328),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 10.0,
@@ -1113,7 +1069,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 78,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1545),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5331),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
                             Price = 15.0,
@@ -1123,7 +1079,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 79,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1548),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5334),
                             Description = "Travel Essentials",
                             Name = "Backpack",
                             Price = 30.0,
@@ -1133,7 +1089,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 80,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1552),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5337),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
                             Price = 80.0,
@@ -1143,7 +1099,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 81,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1556),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5340),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
                             Price = 35.0,
@@ -1153,7 +1109,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 82,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1559),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5343),
                             Description = "Tech Gadgets",
                             Name = "Power Bank",
                             Price = 25.0,
@@ -1163,7 +1119,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 83,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1605),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5346),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 10.0,
@@ -1173,7 +1129,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 84,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1610),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5349),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 8.0,
@@ -1183,7 +1139,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 85,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1613),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5352),
                             Description = "Office Supplies",
                             Name = "Mouse Pad",
                             Price = 12.0,
@@ -1193,7 +1149,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 86,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1617),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5355),
                             Description = "Tech Gadgets",
                             Name = "Charger",
                             Price = 15.0,
@@ -1203,7 +1159,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 87,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1621),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5358),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 10.0,
@@ -1213,7 +1169,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 88,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1624),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5361),
                             Description = "Flags Products",
                             Name = "Syria Flag",
                             Price = 9.0,
@@ -1223,7 +1179,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 89,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1628),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5364),
                             Description = "Travel Essentials",
                             Name = "Umbrella",
                             Price = 12.0,
@@ -1233,7 +1189,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 90,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1632),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5367),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
                             Price = 7.0,
@@ -1243,7 +1199,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 91,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1636),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5371),
                             Description = "Office Supplies",
                             Name = "Desk Organizer",
                             Price = 18.0,
@@ -1253,7 +1209,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 92,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1639),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5374),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 9.0,
@@ -1263,7 +1219,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 93,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1643),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5377),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
                             Price = 55.0,
@@ -1273,7 +1229,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 94,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1647),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5380),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
                             Price = 5.0,
@@ -1283,7 +1239,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 95,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1650),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5383),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
                             Price = 90.0,
@@ -1293,7 +1249,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 96,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1655),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5386),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 6.0,
@@ -1303,7 +1259,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 97,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1658),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5425),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 14.0,
@@ -1313,7 +1269,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 98,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1662),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5429),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
                             Price = 12.0,
@@ -1323,7 +1279,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 99,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1666),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5432),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
                             Price = 25.0,
@@ -1333,7 +1289,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 100,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1670),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5435),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
                             Price = 20.0,
@@ -1343,7 +1299,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 101,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1673),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5438),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
                             Price = 15.0,
@@ -1353,7 +1309,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 102,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1677),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5441),
                             Description = "Travel Essentials",
                             Name = "Backpack",
                             Price = 32.0,
@@ -1363,7 +1319,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 103,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1681),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5444),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 18.0,
@@ -1373,7 +1329,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 104,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1684),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5447),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
                             Price = 6.0,
@@ -1383,7 +1339,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 105,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1688),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5450),
                             Description = "Tech Gadgets",
                             Name = "Charger",
                             Price = 16.0,
@@ -1393,7 +1349,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 106,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1692),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5453),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 12.0,
@@ -1403,7 +1359,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 107,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1696),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5456),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 11.0,
@@ -1413,7 +1369,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 108,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1699),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5459),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 8.0,
@@ -1423,7 +1379,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 109,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1703),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5462),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 7.0,
@@ -1433,7 +1389,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 110,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1707),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5465),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
                             Price = 36.0,
@@ -1443,7 +1399,7 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 111,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1710),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5468),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 13.0,
@@ -1473,31 +1429,31 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(3771),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8563),
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4185),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8917),
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4199),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8928),
                             Name = "Section C"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4202),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8931),
                             Name = "Section D"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4206),
+                            CreateAt = new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8934),
                             Name = "Section E"
                         });
                 });
@@ -2546,13 +2502,13 @@ namespace KoalaInventoryManagement.Migrations
 
             modelBuilder.Entity("Inventory.Data.Models.Sales", b =>
                 {
-                    b.HasOne("KoalaInventoryManagement.Models.Product", "Product")
+                    b.HasOne("KoalaInventoryManagement.Models.WareHouseProduct", "WareHouseProduct")
                         .WithMany("Sales")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("WareHouseId", "ProductId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("WareHouseProduct");
                 });
 
             modelBuilder.Entity("KoalaInventoryManagement.Models.Product", b =>
@@ -2654,14 +2610,17 @@ namespace KoalaInventoryManagement.Migrations
 
             modelBuilder.Entity("KoalaInventoryManagement.Models.Product", b =>
                 {
-                    b.Navigation("Sales");
-
                     b.Navigation("WareHouseProducts");
                 });
 
             modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouse", b =>
                 {
                     b.Navigation("WareHouseProducts");
+                });
+
+            modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouseProduct", b =>
+                {
+                    b.Navigation("Sales");
                 });
 #pragma warning restore 612, 618
         }

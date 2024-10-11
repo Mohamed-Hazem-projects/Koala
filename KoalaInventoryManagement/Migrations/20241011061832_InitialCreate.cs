@@ -238,29 +238,6 @@ namespace KoalaInventoryManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sales",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ItemsSold = table.Column<int>(type: "INTEGER", nullable: false),
-                    SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Sales_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WareHousesProducts",
                 columns: table => new
                 {
@@ -287,16 +264,40 @@ namespace KoalaInventoryManagement.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ItemsSold = table.Column<int>(type: "INTEGER", nullable: false),
+                    SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    WareHouseId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sales_WareHousesProducts_WareHouseId_ProductId",
+                        columns: x => new { x.WareHouseId, x.ProductId },
+                        principalTable: "WareHousesProducts",
+                        principalColumns: new[] { "ProductID", "WareHouseID" },
+                        onDelete: ReferentialAction.SetNull);
+                });
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 9, 15, 59, 8, 696, DateTimeKind.Local).AddTicks(2041), "Electronics" },
-                    { 2, new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7233), "Clothing" },
-                    { 3, new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7274), "Groceries" },
-                    { 4, new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7279), "Furniture" },
-                    { 5, new DateTime(2024, 10, 9, 15, 59, 8, 707, DateTimeKind.Local).AddTicks(7281), "Accessories" }
+                    { 1, new DateTime(2024, 10, 11, 9, 18, 31, 58, DateTimeKind.Local).AddTicks(313), "Electronics" },
+                    { 2, new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4600), "Clothing" },
+                    { 3, new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4630), "Groceries" },
+                    { 4, new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4634), "Furniture" },
+                    { 5, new DateTime(2024, 10, 11, 9, 18, 31, 69, DateTimeKind.Local).AddTicks(4636), "Accessories" }
                 });
 
             migrationBuilder.InsertData(
@@ -304,11 +305,11 @@ namespace KoalaInventoryManagement.Migrations
                 columns: new[] { "Id", "CreateAt", "Email_Address", "Image", "Name", "Phone_Number", "Rating" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 9, 15, 59, 8, 708, DateTimeKind.Local).AddTicks(8762), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
-                    { 2, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(141), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
-                    { 3, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(158), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
-                    { 4, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(162), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
-                    { 5, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(165), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
+                    { 1, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(4173), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
+                    { 2, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5324), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
+                    { 3, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5338), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
+                    { 4, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5342), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
+                    { 5, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(5345), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
                 });
 
             migrationBuilder.InsertData(
@@ -316,11 +317,11 @@ namespace KoalaInventoryManagement.Migrations
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(3771), "Section A" },
-                    { 2, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4185), "Section B" },
-                    { 3, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4199), "Section C" },
-                    { 4, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4202), "Section D" },
-                    { 5, new DateTime(2024, 10, 9, 15, 59, 8, 709, DateTimeKind.Local).AddTicks(4206), "Section E" }
+                    { 1, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8563), "Section A" },
+                    { 2, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8917), "Section B" },
+                    { 3, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8928), "Section C" },
+                    { 4, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8931), "Section D" },
+                    { 5, new DateTime(2024, 10, 11, 9, 18, 31, 70, DateTimeKind.Local).AddTicks(8934), "Section E" }
                 });
 
             migrationBuilder.InsertData(
@@ -328,129 +329,117 @@ namespace KoalaInventoryManagement.Migrations
                 columns: new[] { "Id", "CategoryId", "CreateAt", "Description", "Image", "Name", "Price", "SupplierId" },
                 values: new object[,]
                 {
-                    { 1, 5, new DateTime(2024, 10, 9, 15, 59, 8, 715, DateTimeKind.Local).AddTicks(9274), "Automotive Products", null, "Saudi Arabia Flag", 804.0, 2 },
-                    { 2, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1142), "Toys", null, "Textbook", 394.0, 4 },
-                    { 3, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1162), "Home Appliances", null, "Laptop", 740.0, 2 },
-                    { 4, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1167), "Beauty Products", null, "TV", 72.0, 5 },
-                    { 5, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1170), "Garden Equipment", null, "Saudi Arabia Flag", 490.0, 4 },
-                    { 6, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1187), "Furniture", null, "Smartphone", 113.0, 3 },
-                    { 7, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1191), "Electronics Products", null, "Sofa", 607.0, 5 },
-                    { 8, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1195), "Books", null, "Power Bank", 664.0, 2 },
-                    { 9, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1199), "Electronics Products", null, "Camera", 99.0, 1 },
-                    { 10, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1240), "Sports Equipment", null, "Dining Table", 833.0, 4 },
-                    { 11, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1244), "Flags Products", null, "Palestine Flag", 9.0, 1 },
-                    { 12, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1248), "Flags Products", null, "Egypt Flag", 8.0, 2 },
-                    { 13, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1252), "Flags Products", null, "Saudi Arabia Flag", 10.0, 3 },
-                    { 14, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1255), "Electronics Products", null, "Laptop", 500.0, 1 },
-                    { 15, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1259), "Electronics Products", null, "Smartphone", 300.0, 2 },
-                    { 16, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1263), "Electronics Products", null, "Tablet", 200.0, 3 },
-                    { 17, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1266), "Home Appliances", null, "Refrigerator", 800.0, 4 },
-                    { 18, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1271), "Home Appliances", null, "Washing Machine", 600.0, 5 },
-                    { 19, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1275), "Home Appliances", null, "Microwave", 150.0, 4 },
-                    { 20, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1279), "Furniture", null, "Sofa", 350.0, 1 },
-                    { 21, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1283), "Furniture", null, "Dining Table", 450.0, 2 },
-                    { 22, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1286), "Furniture", null, "Bed Frame", 400.0, 3 },
-                    { 23, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1290), "Books", null, "Novel", 15.0, 1 },
-                    { 24, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1294), "Books", null, "Cookbook", 20.0, 2 },
-                    { 25, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1298), "Books", null, "Textbook", 30.0, 3 },
-                    { 26, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1302), "Furniture", null, "Monitor", 180.0, 2 },
-                    { 27, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1305), "Beauty Products", null, "Wardrobe", 615.0, 1 },
-                    { 28, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1309), "Toys", null, "Mirror", 563.0, 1 },
-                    { 29, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1313), "Electronics Products", null, "Cookbook", 243.0, 3 },
-                    { 30, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1316), "Flags Products", null, "Heater", 5.0, 4 },
-                    { 31, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1320), "Kitchen Appliances", null, "Rug", 336.0, 2 },
-                    { 32, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1324), "Home Appliances", null, "Iron", 874.0, 1 },
-                    { 33, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1327), "Games", null, "Textbook", 436.0, 2 },
-                    { 34, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1332), "Flags Products", null, "Monitor", 927.0, 3 },
-                    { 35, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1336), "Musical Instruments", null, "Sofa", 201.0, 5 },
-                    { 36, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1340), "Musical Instruments", null, "Cookbook", 399.0, 4 },
-                    { 37, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1343), "Kitchen Appliances", null, "Egypt Flag", 549.0, 2 },
-                    { 38, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1347), "Toys", null, "Laptop", 442.0, 3 },
-                    { 39, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1351), "Books", null, "Bed Frame", 657.0, 5 },
-                    { 40, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1355), "Electronics Products", null, "Charger", 257.0, 3 },
-                    { 41, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1358), "Automotive Products", null, "Tablet", 639.0, 4 },
-                    { 42, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1362), "Home Appliances", null, "Headphones", 676.0, 5 },
-                    { 43, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1411), "Flags Products", null, "Dining Table", 161.0, 1 },
-                    { 44, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1415), "Flags Products", null, "Palestine Flag", 9.0, 1 },
-                    { 45, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1419), "Flags Products", null, "Lebanon Flag", 10.0, 2 },
-                    { 46, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1423), "Flags Products", null, "USA Flag", 12.0, 3 },
-                    { 47, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1426), "Flags Products", null, "China Flag", 8.0, 4 },
-                    { 48, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1430), "Flags Products", null, "Brazil Flag", 11.0, 5 },
-                    { 49, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1434), "Flags Products", null, "Germany Flag", 10.0, 1 },
-                    { 50, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1437), "Flags Products", null, "France Flag", 9.0, 2 },
-                    { 51, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1441), "Flags Products", null, "UK Flag", 13.0, 3 },
-                    { 52, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1445), "Flags Products", null, "Russia Flag", 9.0, 4 },
-                    { 53, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1449), "Flags Products", null, "Italy Flag", 10.0, 5 },
-                    { 54, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1453), "Tech Gadgets", null, "Flash Drive", 50.0, 3 },
-                    { 55, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1457), "Stationery", null, "Notebook", 12.0, 1 },
-                    { 56, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1460), "Fashion Accessories", null, "Wristband", 20.0, 4 },
-                    { 57, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1464), "Flags Products", null, "Palestine Flag", 9.0, 2 },
-                    { 58, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1468), "Tech Gadgets", null, "Portable Speaker", 40.0, 5 },
-                    { 59, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1471), "Office Supplies", null, "Calendar", 18.0, 3 },
-                    { 60, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1475), "Electronics", null, "Headphones", 65.0, 2 },
-                    { 61, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1479), "Clothing and Apparel", null, "Cap", 15.0, 1 },
-                    { 62, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1483), "Travel Essentials", null, "Water Bottle", 25.0, 4 },
-                    { 63, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1486), "Home Decor", null, "Poster", 8.0, 2 },
-                    { 64, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1490), "Flags Products", null, "Palestine Flag", 10.0, 2 },
-                    { 65, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1494), "Office Supplies", null, "Coffee Mug", 15.0, 4 },
-                    { 66, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1499), "Flags Products", null, "Jordan Flag", 8.0, 1 },
-                    { 67, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1503), "Fashion Accessories", null, "Keychain", 5.0, 3 },
-                    { 68, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1507), "Fashion Accessories", null, "Sunglasses", 25.0, 5 },
-                    { 69, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1511), "Clothing and Apparel", null, "T-shirt", 18.0, 2 },
-                    { 70, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1514), "Stationery", null, "Notebook", 12.0, 1 },
-                    { 71, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1518), "Fashion Accessories", null, "Bracelet", 20.0, 4 },
-                    { 72, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1522), "Stationery", null, "Laptop Sticker", 7.0, 5 },
-                    { 73, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1525), "Office Supplies", null, "Pen", 6.0, 3 },
-                    { 74, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1529), "Tech Gadgets", null, "Headphones", 50.0, 2 },
-                    { 75, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1534), "Tech Gadgets", null, "Portable Speaker", 55.0, 4 },
-                    { 76, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1537), "Travel Essentials", null, "Water Bottle", 20.0, 5 },
-                    { 77, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1541), "Home Decor", null, "Poster", 10.0, 1 },
-                    { 78, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1545), "Tech Gadgets", null, "Phone Case", 15.0, 3 },
-                    { 79, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1548), "Travel Essentials", null, "Backpack", 30.0, 2 },
-                    { 80, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1552), "Tech Gadgets", null, "Smartwatch", 80.0, 4 },
-                    { 81, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1556), "Travel Essentials", null, "Travel Bag", 35.0, 5 },
-                    { 82, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1559), "Tech Gadgets", null, "Power Bank", 25.0, 3 },
-                    { 83, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1605), "Tech Gadgets", null, "Flash Drive", 10.0, 2 },
-                    { 84, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1610), "Office Supplies", null, "Calendar", 8.0, 1 },
-                    { 85, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1613), "Office Supplies", null, "Mouse Pad", 12.0, 4 },
-                    { 86, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1617), "Tech Gadgets", null, "Charger", 15.0, 5 },
-                    { 87, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1621), "Fashion Accessories", null, "Wristband", 10.0, 2 },
-                    { 88, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1624), "Flags Products", null, "Syria Flag", 9.0, 3 },
-                    { 89, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1628), "Travel Essentials", null, "Umbrella", 12.0, 4 },
-                    { 90, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1632), "Flags Products", null, "Lebanon Flag", 7.0, 5 },
-                    { 91, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1636), "Office Supplies", null, "Desk Organizer", 18.0, 1 },
-                    { 92, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1639), "Home Decor", null, "Poster", 9.0, 2 },
-                    { 93, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1643), "Tech Gadgets", null, "Headphones", 55.0, 3 },
-                    { 94, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1647), "Fashion Accessories", null, "Keychain", 5.0, 4 },
-                    { 95, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1650), "Tech Gadgets", null, "Smartwatch", 90.0, 5 },
-                    { 96, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1655), "Office Supplies", null, "Pen", 6.0, 2 },
-                    { 97, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1658), "Stationery", null, "Notebook", 14.0, 3 },
-                    { 98, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1662), "Clothing and Apparel", null, "Cap", 12.0, 4 },
-                    { 99, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1666), "Fashion Accessories", null, "Sunglasses", 25.0, 1 },
-                    { 100, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1670), "Fashion Accessories", null, "Bracelet", 20.0, 3 },
-                    { 101, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1673), "Tech Gadgets", null, "Phone Case", 15.0, 2 },
-                    { 102, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1677), "Travel Essentials", null, "Backpack", 32.0, 5 },
-                    { 103, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1681), "Travel Essentials", null, "Water Bottle", 18.0, 4 },
-                    { 104, 2, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1684), "Stationery", null, "Laptop Sticker", 6.0, 1 },
-                    { 105, 5, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1688), "Tech Gadgets", null, "Charger", 16.0, 2 },
-                    { 106, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1692), "Tech Gadgets", null, "Flash Drive", 12.0, 3 },
-                    { 107, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1696), "Fashion Accessories", null, "Wristband", 11.0, 5 },
-                    { 108, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1699), "Office Supplies", null, "Calendar", 8.0, 4 },
-                    { 109, 3, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1703), "Office Supplies", null, "Pen", 7.0, 1 },
-                    { 110, 4, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1707), "Travel Essentials", null, "Travel Bag", 36.0, 3 },
-                    { 111, 1, new DateTime(2024, 10, 9, 15, 59, 8, 716, DateTimeKind.Local).AddTicks(1710), "Stationery", null, "Notebook", 13.0, 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Sales",
-                columns: new[] { "Id", "CreateAt", "ItemsSold", "ProductId", "SaleDate", "TotalPrice" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(138), 5, 1, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(666), 100m },
-                    { 2, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2142), 10, 2, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2162), 200m },
-                    { 3, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2174), 15, 3, new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300m },
-                    { 4, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2221), 20, 4, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 400m },
-                    { 5, new DateTime(2024, 10, 9, 15, 59, 8, 720, DateTimeKind.Local).AddTicks(2233), 25, 5, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 500m }
+                    { 1, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(3486), "Automotive Products", null, "Saudi Arabia Flag", 804.0, 2 },
+                    { 2, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(4995), "Toys", null, "Textbook", 394.0, 4 },
+                    { 3, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5009), "Home Appliances", null, "Laptop", 740.0, 2 },
+                    { 4, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5013), "Beauty Products", null, "TV", 72.0, 5 },
+                    { 5, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5016), "Garden Equipment", null, "Saudi Arabia Flag", 490.0, 4 },
+                    { 6, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5030), "Furniture", null, "Smartphone", 113.0, 3 },
+                    { 7, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5033), "Electronics Products", null, "Sofa", 607.0, 5 },
+                    { 8, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5036), "Books", null, "Power Bank", 664.0, 2 },
+                    { 9, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5039), "Electronics Products", null, "Camera", 99.0, 1 },
+                    { 10, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5044), "Sports Equipment", null, "Dining Table", 833.0, 4 },
+                    { 11, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5047), "Flags Products", null, "Palestine Flag", 9.0, 1 },
+                    { 12, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5050), "Flags Products", null, "Egypt Flag", 8.0, 2 },
+                    { 13, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5053), "Flags Products", null, "Saudi Arabia Flag", 10.0, 3 },
+                    { 14, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5056), "Electronics Products", null, "Laptop", 500.0, 1 },
+                    { 15, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5059), "Electronics Products", null, "Smartphone", 300.0, 2 },
+                    { 16, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5062), "Electronics Products", null, "Tablet", 200.0, 3 },
+                    { 17, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5065), "Home Appliances", null, "Refrigerator", 800.0, 4 },
+                    { 18, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5069), "Home Appliances", null, "Washing Machine", 600.0, 5 },
+                    { 19, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5073), "Home Appliances", null, "Microwave", 150.0, 4 },
+                    { 20, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5076), "Furniture", null, "Sofa", 350.0, 1 },
+                    { 21, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5079), "Furniture", null, "Dining Table", 450.0, 2 },
+                    { 22, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5082), "Furniture", null, "Bed Frame", 400.0, 3 },
+                    { 23, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5085), "Books", null, "Novel", 15.0, 1 },
+                    { 24, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5088), "Books", null, "Cookbook", 20.0, 2 },
+                    { 25, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5091), "Books", null, "Textbook", 30.0, 3 },
+                    { 26, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5094), "Furniture", null, "Monitor", 180.0, 2 },
+                    { 27, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5097), "Beauty Products", null, "Wardrobe", 615.0, 1 },
+                    { 28, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5100), "Toys", null, "Mirror", 563.0, 1 },
+                    { 29, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5103), "Electronics Products", null, "Cookbook", 243.0, 3 },
+                    { 30, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5106), "Flags Products", null, "Heater", 5.0, 4 },
+                    { 31, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5109), "Kitchen Appliances", null, "Rug", 336.0, 2 },
+                    { 32, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5112), "Home Appliances", null, "Iron", 874.0, 1 },
+                    { 33, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5116), "Games", null, "Textbook", 436.0, 2 },
+                    { 34, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5120), "Flags Products", null, "Monitor", 927.0, 3 },
+                    { 35, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5123), "Musical Instruments", null, "Sofa", 201.0, 5 },
+                    { 36, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5126), "Musical Instruments", null, "Cookbook", 399.0, 4 },
+                    { 37, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5129), "Kitchen Appliances", null, "Egypt Flag", 549.0, 2 },
+                    { 38, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5132), "Toys", null, "Laptop", 442.0, 3 },
+                    { 39, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5135), "Books", null, "Bed Frame", 657.0, 5 },
+                    { 40, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5138), "Electronics Products", null, "Charger", 257.0, 3 },
+                    { 41, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5141), "Automotive Products", null, "Tablet", 639.0, 4 },
+                    { 42, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5144), "Home Appliances", null, "Headphones", 676.0, 5 },
+                    { 43, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5147), "Flags Products", null, "Dining Table", 161.0, 1 },
+                    { 44, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5222), "Flags Products", null, "Palestine Flag", 9.0, 1 },
+                    { 45, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5227), "Flags Products", null, "Lebanon Flag", 10.0, 2 },
+                    { 46, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5230), "Flags Products", null, "USA Flag", 12.0, 3 },
+                    { 47, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5233), "Flags Products", null, "China Flag", 8.0, 4 },
+                    { 48, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5236), "Flags Products", null, "Brazil Flag", 11.0, 5 },
+                    { 49, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5239), "Flags Products", null, "Germany Flag", 10.0, 1 },
+                    { 50, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5243), "Flags Products", null, "France Flag", 9.0, 2 },
+                    { 51, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5246), "Flags Products", null, "UK Flag", 13.0, 3 },
+                    { 52, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5249), "Flags Products", null, "Russia Flag", 9.0, 4 },
+                    { 53, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5252), "Flags Products", null, "Italy Flag", 10.0, 5 },
+                    { 54, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5255), "Tech Gadgets", null, "Flash Drive", 50.0, 3 },
+                    { 55, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5258), "Stationery", null, "Notebook", 12.0, 1 },
+                    { 56, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5261), "Fashion Accessories", null, "Wristband", 20.0, 4 },
+                    { 57, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5264), "Flags Products", null, "Palestine Flag", 9.0, 2 },
+                    { 58, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5267), "Tech Gadgets", null, "Portable Speaker", 40.0, 5 },
+                    { 59, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5271), "Office Supplies", null, "Calendar", 18.0, 3 },
+                    { 60, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5274), "Electronics", null, "Headphones", 65.0, 2 },
+                    { 61, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5277), "Clothing and Apparel", null, "Cap", 15.0, 1 },
+                    { 62, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5280), "Travel Essentials", null, "Water Bottle", 25.0, 4 },
+                    { 63, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5283), "Home Decor", null, "Poster", 8.0, 2 },
+                    { 64, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5286), "Flags Products", null, "Palestine Flag", 10.0, 2 },
+                    { 65, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5289), "Office Supplies", null, "Coffee Mug", 15.0, 4 },
+                    { 66, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5294), "Flags Products", null, "Jordan Flag", 8.0, 1 },
+                    { 67, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5297), "Fashion Accessories", null, "Keychain", 5.0, 3 },
+                    { 68, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5300), "Fashion Accessories", null, "Sunglasses", 25.0, 5 },
+                    { 69, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5303), "Clothing and Apparel", null, "T-shirt", 18.0, 2 },
+                    { 70, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5306), "Stationery", null, "Notebook", 12.0, 1 },
+                    { 71, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5309), "Fashion Accessories", null, "Bracelet", 20.0, 4 },
+                    { 72, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5313), "Stationery", null, "Laptop Sticker", 7.0, 5 },
+                    { 73, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5316), "Office Supplies", null, "Pen", 6.0, 3 },
+                    { 74, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5319), "Tech Gadgets", null, "Headphones", 50.0, 2 },
+                    { 75, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5322), "Tech Gadgets", null, "Portable Speaker", 55.0, 4 },
+                    { 76, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5325), "Travel Essentials", null, "Water Bottle", 20.0, 5 },
+                    { 77, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5328), "Home Decor", null, "Poster", 10.0, 1 },
+                    { 78, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5331), "Tech Gadgets", null, "Phone Case", 15.0, 3 },
+                    { 79, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5334), "Travel Essentials", null, "Backpack", 30.0, 2 },
+                    { 80, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5337), "Tech Gadgets", null, "Smartwatch", 80.0, 4 },
+                    { 81, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5340), "Travel Essentials", null, "Travel Bag", 35.0, 5 },
+                    { 82, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5343), "Tech Gadgets", null, "Power Bank", 25.0, 3 },
+                    { 83, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5346), "Tech Gadgets", null, "Flash Drive", 10.0, 2 },
+                    { 84, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5349), "Office Supplies", null, "Calendar", 8.0, 1 },
+                    { 85, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5352), "Office Supplies", null, "Mouse Pad", 12.0, 4 },
+                    { 86, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5355), "Tech Gadgets", null, "Charger", 15.0, 5 },
+                    { 87, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5358), "Fashion Accessories", null, "Wristband", 10.0, 2 },
+                    { 88, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5361), "Flags Products", null, "Syria Flag", 9.0, 3 },
+                    { 89, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5364), "Travel Essentials", null, "Umbrella", 12.0, 4 },
+                    { 90, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5367), "Flags Products", null, "Lebanon Flag", 7.0, 5 },
+                    { 91, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5371), "Office Supplies", null, "Desk Organizer", 18.0, 1 },
+                    { 92, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5374), "Home Decor", null, "Poster", 9.0, 2 },
+                    { 93, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5377), "Tech Gadgets", null, "Headphones", 55.0, 3 },
+                    { 94, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5380), "Fashion Accessories", null, "Keychain", 5.0, 4 },
+                    { 95, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5383), "Tech Gadgets", null, "Smartwatch", 90.0, 5 },
+                    { 96, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5386), "Office Supplies", null, "Pen", 6.0, 2 },
+                    { 97, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5425), "Stationery", null, "Notebook", 14.0, 3 },
+                    { 98, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5429), "Clothing and Apparel", null, "Cap", 12.0, 4 },
+                    { 99, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5432), "Fashion Accessories", null, "Sunglasses", 25.0, 1 },
+                    { 100, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5435), "Fashion Accessories", null, "Bracelet", 20.0, 3 },
+                    { 101, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5438), "Tech Gadgets", null, "Phone Case", 15.0, 2 },
+                    { 102, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5441), "Travel Essentials", null, "Backpack", 32.0, 5 },
+                    { 103, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5444), "Travel Essentials", null, "Water Bottle", 18.0, 4 },
+                    { 104, 2, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5447), "Stationery", null, "Laptop Sticker", 6.0, 1 },
+                    { 105, 5, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5450), "Tech Gadgets", null, "Charger", 16.0, 2 },
+                    { 106, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5453), "Tech Gadgets", null, "Flash Drive", 12.0, 3 },
+                    { 107, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5456), "Fashion Accessories", null, "Wristband", 11.0, 5 },
+                    { 108, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5459), "Office Supplies", null, "Calendar", 8.0, 4 },
+                    { 109, 3, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5462), "Office Supplies", null, "Pen", 7.0, 1 },
+                    { 110, 4, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5465), "Travel Essentials", null, "Travel Bag", 36.0, 3 },
+                    { 111, 1, new DateTime(2024, 10, 11, 9, 18, 31, 76, DateTimeKind.Local).AddTicks(5468), "Stationery", null, "Notebook", 13.0, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -619,9 +608,9 @@ namespace KoalaInventoryManagement.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_ProductId",
+                name: "IX_Sales_WareHouseId_ProductId",
                 table: "Sales",
-                column: "ProductId");
+                columns: new[] { "WareHouseId", "ProductId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_WareHousesProducts_WareHouseID",
@@ -651,13 +640,13 @@ namespace KoalaInventoryManagement.Migrations
                 name: "Sales");
 
             migrationBuilder.DropTable(
-                name: "WareHousesProducts");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "WareHousesProducts");
 
             migrationBuilder.DropTable(
                 name: "Products");

@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
-using KoalaInventoryManagement.ViewModels.Sales;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Inventory.Data.ViewModels;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -24,26 +17,26 @@ namespace KoalaInventoryManagement.Controllers
         }
         public IActionResult Index()
         {
-            var sales = _unitOfWork.Sales.GetAll(["Product"]);
-            var salesVM = new List<SalesViewModel>();
-            foreach (var sale in sales)
-            {
-                salesVM.Add(new SalesViewModel
-                {
-                    Id = sale.Id,
-                    ItemsSold = sale.ItemsSold,
-                    SaleDate = sale.SaleDate,
-                    TotalPrice = sale.TotalPrice,
-                    ProductId = sale.ProductId,
-                    ProductName = sale.Product.Name
-                });
-            }
-            return View(salesVM);
+            var sales = _unitOfWork.Sales.GetProdcutAndWareHouse()!;
+            var warehouseProductJunction = _unitOfWork.WareHousesProducts.GetAll(["Product", "WareHouse"]);
+            ViewBag.WareHouses = warehouseProductJunction.Select(x => x.WareHouse).DistinctBy(x => x.Name).OrderBy(x => x.Name);
+            return View(sales);
         }
 
-        public IActionResult Form()
+        [HttpPost]
+        public IActionResult GetProductSuggestions(string name, int warehouseId)
         {
-            return View();
+            if (warehouseId == 0)
+            {
+                var products = _unitOfWork.Products.FindByName(x => x.Name.ToLower().Contains(name.ToLower()))
+                          .Select(x => new { x.Id, x.Name, x.Price })
+                          .DistinctBy(x => x.Name)
+                          .ToList();
+
+                return Json(products);
+            }
+            var filteredProducts = _unitOfWork.WareHousesProducts.FindByName(x => x.WareHouseID == warehouseId, ["Product"]).Where(x => x.Product.Name.ToLower().Contains(name.ToLower())).ToList();
+            return Json(filteredProducts);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
