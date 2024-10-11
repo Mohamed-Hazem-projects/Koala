@@ -33,7 +33,7 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
@@ -104,7 +104,7 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
@@ -175,7 +175,7 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
@@ -246,7 +246,7 @@
                             '<td>' + product.categoryName + '</td>' +
                             '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
