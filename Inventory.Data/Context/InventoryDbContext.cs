@@ -38,6 +38,8 @@ namespace Inventory.Data.Context
 
             modelBuilder.Entity<WareHouseProduct>()
                         .HasData(WareHousesProductsSeed.WareHouseProducts);
+            modelBuilder.Entity<Sales>()
+                        .HasData(SalesSeed.sales);
             #endregion
 
             #region WareHouse and Product M:M Relationship
@@ -64,10 +66,12 @@ namespace Inventory.Data.Context
                         .HasMany(c => c.Products)
                         .WithOne(p => p.Category)
                         .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<Product>()
-            .HasMany(p => p.Sales)
-            .WithOne(s => s.Product)
-            .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Sales>()
+            .HasOne(s => s.WareHouseProduct)
+            .WithMany(whp => whp.Sales)
+            .OnDelete(DeleteBehavior.SetNull)
+            .HasForeignKey(s => new { s.ProductId, s.WareHouseId })  // Ensure correct order
+            .HasPrincipalKey(whp => new { whp.ProductID, whp.WareHouseID });
             #endregion
 
             base.OnModelCreating(modelBuilder);
