@@ -184,7 +184,7 @@
                         <div class="col-sm-9">
                             <select id="wareHouseSelector" name="WareHouseID" class="form-control">
                                 <option disabled active>Select Warehouse</option>
-                                @foreach (var warehouse in Model?.DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+                                @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
                                 }
