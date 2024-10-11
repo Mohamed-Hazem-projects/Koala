@@ -1,5 +1,4 @@
 ﻿using Inventory.Data.Models;
-using Microsoft.SqlServer.Server;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,7 +30,5 @@ namespace KoalaInventoryManagement.Models
 
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
             = new List<WareHouseProduct>();
-        public virtual ICollection<Sales> Sales { get; set; }
-        = new List<Sales>();
     }
 }
