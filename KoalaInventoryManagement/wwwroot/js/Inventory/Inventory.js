@@ -46,7 +46,7 @@ function deleteFromDB() {
 
 // Function to open modal in edit mode
 function openEditModalProduct(id, wareHouseID, categoryID, supplierID, name, description, price,
-    image, wareHouseName, currentStock, mintStock, maxStock, categoryName, supplierName) {
+    image, currentStock, mintStock, maxStock) {
     debugger;
     $('#productModalLabel').text("Edit Product");
     $('#addOrEditProduct').text("Edit");

@@ -123,5 +123,11 @@ namespace KoalaInventoryManagement.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult ShowDetails()
+        {
+            return View();
+        }
     }
 }
