@@ -94,8 +94,7 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(/*ProductViewModel updatedProductedData*/Product editedProduct
-            , WareHouseProduct editedWHP, int oldWareHouseID)
+        public IActionResult UpdateProduct(Product editedProduct, WareHouseProduct editedWHP, int oldWareHouseID)
         {
             if(editedProduct != null && editedWHP != null && oldWareHouseID > 0)
             {
@@ -125,7 +124,7 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult ShowDetails()
+        public IActionResult ShowDetails(int id)
         {
             return View();
         }

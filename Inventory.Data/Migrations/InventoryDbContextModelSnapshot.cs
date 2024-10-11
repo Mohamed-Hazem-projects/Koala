@@ -119,31 +119,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 624, DateTimeKind.Local).AddTicks(4173),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 390, DateTimeKind.Local).AddTicks(7103),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 628, DateTimeKind.Local).AddTicks(5968),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 397, DateTimeKind.Local).AddTicks(2950),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 628, DateTimeKind.Local).AddTicks(6036),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 397, DateTimeKind.Local).AddTicks(3017),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 628, DateTimeKind.Local).AddTicks(6044),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 397, DateTimeKind.Local).AddTicks(3024),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 628, DateTimeKind.Local).AddTicks(6049),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 397, DateTimeKind.Local).AddTicks(3028),
                             Name = "Accessories"
                         });
                 });
@@ -187,7 +187,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 630, DateTimeKind.Local).AddTicks(4498),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 399, DateTimeKind.Local).AddTicks(9527),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -196,7 +196,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 630, DateTimeKind.Local).AddTicks(7017),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(2053),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -205,7 +205,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 630, DateTimeKind.Local).AddTicks(7049),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(2084),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -214,7 +214,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 630, DateTimeKind.Local).AddTicks(7055),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(2090),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -223,7 +223,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 630, DateTimeKind.Local).AddTicks(7061),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(2197),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -277,7 +277,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 640, DateTimeKind.Local).AddTicks(9473),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 410, DateTimeKind.Local).AddTicks(7187),
                             Description = "Automotive Products",
                             Name = "Saudi Arabia Flag",
                             Price = 804m,
@@ -287,7 +287,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2873),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(497),
                             Description = "Toys",
                             Name = "Textbook",
                             Price = 394m,
@@ -297,7 +297,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2909),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(532),
                             Description = "Home Appliances",
                             Name = "Laptop",
                             Price = 740m,
@@ -307,7 +307,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 4,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2917),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(539),
                             Description = "Beauty Products",
                             Name = "TV",
                             Price = 72m,
@@ -317,7 +317,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2923),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(546),
                             Description = "Garden Equipment",
                             Name = "Saudi Arabia Flag",
                             Price = 490m,
@@ -327,7 +327,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 6,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2945),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(559),
                             Description = "Furniture",
                             Name = "Smartphone",
                             Price = 113m,
@@ -337,7 +337,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2952),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(565),
                             Description = "Electronics Products",
                             Name = "Sofa",
                             Price = 607m,
@@ -347,7 +347,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2958),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(618),
                             Description = "Books",
                             Name = "Power Bank",
                             Price = 664m,
@@ -357,7 +357,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2964),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(625),
                             Description = "Electronics Products",
                             Name = "Camera",
                             Price = 99m,
@@ -367,7 +367,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 10,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2973),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(633),
                             Description = "Sports Equipment",
                             Name = "Dining Table",
                             Price = 833m,
@@ -377,7 +377,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2979),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(638),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m,
@@ -387,7 +387,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 12,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2985),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(644),
                             Description = "Flags Products",
                             Name = "Egypt Flag",
                             Price = 8m,
@@ -397,7 +397,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 13,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2991),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(651),
                             Description = "Flags Products",
                             Name = "Saudi Arabia Flag",
                             Price = 10m,
@@ -407,7 +407,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 14,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(2997),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(658),
                             Description = "Electronics Products",
                             Name = "Laptop",
                             Price = 500m,
@@ -417,7 +417,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 15,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3003),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(664),
                             Description = "Electronics Products",
                             Name = "Smartphone",
                             Price = 300m,
@@ -427,7 +427,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 16,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3049),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(670),
                             Description = "Electronics Products",
                             Name = "Tablet",
                             Price = 200m,
@@ -437,7 +437,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 17,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3057),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(676),
                             Description = "Home Appliances",
                             Name = "Refrigerator",
                             Price = 800m,
@@ -447,7 +447,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 18,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3066),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(684),
                             Description = "Home Appliances",
                             Name = "Washing Machine",
                             Price = 600m,
@@ -457,7 +457,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 19,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3072),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(689),
                             Description = "Home Appliances",
                             Name = "Microwave",
                             Price = 150m,
@@ -467,7 +467,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 20,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3165),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(695),
                             Description = "Furniture",
                             Name = "Sofa",
                             Price = 350m,
@@ -477,7 +477,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 21,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3175),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(701),
                             Description = "Furniture",
                             Name = "Dining Table",
                             Price = 450m,
@@ -487,7 +487,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 22,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3181),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(707),
                             Description = "Furniture",
                             Name = "Bed Frame",
                             Price = 400m,
@@ -497,7 +497,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 23,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3187),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(713),
                             Description = "Books",
                             Name = "Novel",
                             Price = 15m,
@@ -507,7 +507,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 24,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3193),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(736),
                             Description = "Books",
                             Name = "Cookbook",
                             Price = 20m,
@@ -517,7 +517,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 25,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3199),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(743),
                             Description = "Books",
                             Name = "Textbook",
                             Price = 30m,
@@ -527,7 +527,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 26,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3205),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(749),
                             Description = "Furniture",
                             Name = "Monitor",
                             Price = 180m,
@@ -537,7 +537,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 27,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3211),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(754),
                             Description = "Beauty Products",
                             Name = "Wardrobe",
                             Price = 615m,
@@ -547,7 +547,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 28,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3218),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(760),
                             Description = "Toys",
                             Name = "Mirror",
                             Price = 563m,
@@ -557,7 +557,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 29,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3223),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(766),
                             Description = "Electronics Products",
                             Name = "Cookbook",
                             Price = 243m,
@@ -567,7 +567,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 30,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3230),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(772),
                             Description = "Flags Products",
                             Name = "Heater",
                             Price = 5m,
@@ -577,7 +577,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 31,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3236),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(778),
                             Description = "Kitchen Appliances",
                             Name = "Rug",
                             Price = 336m,
@@ -587,7 +587,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 32,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3242),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(784),
                             Description = "Home Appliances",
                             Name = "Iron",
                             Price = 874m,
@@ -597,7 +597,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 33,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3266),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(790),
                             Description = "Games",
                             Name = "Textbook",
                             Price = 436m,
@@ -607,7 +607,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 34,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3276),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(797),
                             Description = "Flags Products",
                             Name = "Monitor",
                             Price = 927m,
@@ -617,7 +617,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 35,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3282),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(803),
                             Description = "Musical Instruments",
                             Name = "Sofa",
                             Price = 201m,
@@ -627,7 +627,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 36,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3288),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(809),
                             Description = "Musical Instruments",
                             Name = "Cookbook",
                             Price = 399m,
@@ -637,7 +637,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 37,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3294),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(814),
                             Description = "Kitchen Appliances",
                             Name = "Egypt Flag",
                             Price = 549m,
@@ -647,7 +647,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 38,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3300),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(821),
                             Description = "Toys",
                             Name = "Laptop",
                             Price = 442m,
@@ -657,7 +657,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 39,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3306),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(884),
                             Description = "Books",
                             Name = "Bed Frame",
                             Price = 657m,
@@ -667,7 +667,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 40,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3312),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(893),
                             Description = "Electronics Products",
                             Name = "Charger",
                             Price = 257m,
@@ -677,7 +677,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 41,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3318),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(917),
                             Description = "Automotive Products",
                             Name = "Tablet",
                             Price = 639m,
@@ -687,7 +687,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 42,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3324),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(923),
                             Description = "Home Appliances",
                             Name = "Headphones",
                             Price = 676m,
@@ -697,7 +697,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 43,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3330),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(929),
                             Description = "Flags Products",
                             Name = "Dining Table",
                             Price = 161m,
@@ -707,7 +707,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 44,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3336),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(935),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m,
@@ -717,7 +717,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 45,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3342),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(941),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
                             Price = 10m,
@@ -727,7 +727,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 46,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3348),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(947),
                             Description = "Flags Products",
                             Name = "USA Flag",
                             Price = 12m,
@@ -737,7 +737,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 47,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3354),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(953),
                             Description = "Flags Products",
                             Name = "China Flag",
                             Price = 8m,
@@ -747,7 +747,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 48,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3359),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(959),
                             Description = "Flags Products",
                             Name = "Brazil Flag",
                             Price = 11m,
@@ -757,7 +757,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 49,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3383),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(965),
                             Description = "Flags Products",
                             Name = "Germany Flag",
                             Price = 10m,
@@ -767,7 +767,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 50,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3390),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(970),
                             Description = "Flags Products",
                             Name = "France Flag",
                             Price = 9m,
@@ -777,7 +777,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 51,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3396),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(976),
                             Description = "Flags Products",
                             Name = "UK Flag",
                             Price = 13m,
@@ -787,7 +787,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 52,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3402),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(981),
                             Description = "Flags Products",
                             Name = "Russia Flag",
                             Price = 9m,
@@ -797,7 +797,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 53,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3408),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(987),
                             Description = "Flags Products",
                             Name = "Italy Flag",
                             Price = 10m,
@@ -807,7 +807,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 54,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3414),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(993),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 50m,
@@ -817,7 +817,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 55,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3420),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(999),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 12m,
@@ -827,7 +827,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 56,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3426),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1004),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 20m,
@@ -837,7 +837,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 57,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3432),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1027),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 9m,
@@ -847,7 +847,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 58,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3438),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1033),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
                             Price = 40m,
@@ -857,7 +857,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 59,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3444),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1038),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 18m,
@@ -867,7 +867,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 60,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3450),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1044),
                             Description = "Electronics",
                             Name = "Headphones",
                             Price = 65m,
@@ -877,7 +877,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 61,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3456),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1050),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
                             Price = 15m,
@@ -887,7 +887,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 62,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3462),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1056),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 25m,
@@ -897,7 +897,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 63,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3468),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1062),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 8m,
@@ -907,7 +907,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 64,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3474),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1067),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
                             Price = 10m,
@@ -917,7 +917,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 65,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3497),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1073),
                             Description = "Office Supplies",
                             Name = "Coffee Mug",
                             Price = 15m,
@@ -927,7 +927,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 66,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3507),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1080),
                             Description = "Flags Products",
                             Name = "Jordan Flag",
                             Price = 8m,
@@ -937,7 +937,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 67,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3513),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1086),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
                             Price = 5m,
@@ -947,7 +947,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 68,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3520),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1092),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
                             Price = 25m,
@@ -957,7 +957,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 69,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3570),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1098),
                             Description = "Clothing and Apparel",
                             Name = "T-shirt",
                             Price = 18m,
@@ -967,7 +967,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 70,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3579),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1104),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 12m,
@@ -977,7 +977,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 71,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3585),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1110),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
                             Price = 20m,
@@ -987,7 +987,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 72,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3591),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1115),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
                             Price = 7m,
@@ -997,7 +997,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 73,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3597),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1138),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 6m,
@@ -1007,7 +1007,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 74,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3603),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1144),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
                             Price = 50m,
@@ -1017,7 +1017,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 75,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3609),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1150),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
                             Price = 55m,
@@ -1027,7 +1027,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 76,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3615),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1156),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 20m,
@@ -1037,7 +1037,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 77,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3621),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1161),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 10m,
@@ -1047,7 +1047,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 78,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3627),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1167),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
                             Price = 15m,
@@ -1057,7 +1057,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 79,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3633),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1173),
                             Description = "Travel Essentials",
                             Name = "Backpack",
                             Price = 30m,
@@ -1067,7 +1067,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 80,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3639),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1178),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
                             Price = 80m,
@@ -1077,7 +1077,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 81,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3662),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1184),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
                             Price = 35m,
@@ -1087,7 +1087,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 82,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3669),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1190),
                             Description = "Tech Gadgets",
                             Name = "Power Bank",
                             Price = 25m,
@@ -1097,7 +1097,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 83,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3675),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1196),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 10m,
@@ -1107,7 +1107,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 84,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3681),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1201),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 8m,
@@ -1117,7 +1117,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 85,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3687),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1207),
                             Description = "Office Supplies",
                             Name = "Mouse Pad",
                             Price = 12m,
@@ -1127,7 +1127,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 86,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3693),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1213),
                             Description = "Tech Gadgets",
                             Name = "Charger",
                             Price = 15m,
@@ -1137,7 +1137,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 87,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3699),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1218),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 10m,
@@ -1147,7 +1147,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 88,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3705),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1224),
                             Description = "Flags Products",
                             Name = "Syria Flag",
                             Price = 9m,
@@ -1157,7 +1157,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 89,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3711),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1246),
                             Description = "Travel Essentials",
                             Name = "Umbrella",
                             Price = 12m,
@@ -1167,7 +1167,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 90,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3717),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1353),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
                             Price = 7m,
@@ -1177,7 +1177,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 91,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3723),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1361),
                             Description = "Office Supplies",
                             Name = "Desk Organizer",
                             Price = 18m,
@@ -1187,7 +1187,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 92,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3729),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1367),
                             Description = "Home Decor",
                             Name = "Poster",
                             Price = 9m,
@@ -1197,7 +1197,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 93,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3735),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1372),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
                             Price = 55m,
@@ -1207,7 +1207,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 94,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3741),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1379),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
                             Price = 5m,
@@ -1217,7 +1217,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 95,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3747),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1385),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
                             Price = 90m,
@@ -1227,7 +1227,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 96,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3753),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1391),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 6m,
@@ -1237,7 +1237,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 97,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3759),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1396),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 14m,
@@ -1247,7 +1247,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 98,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3766),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1402),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
                             Price = 12m,
@@ -1257,7 +1257,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 99,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3772),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1408),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
                             Price = 25m,
@@ -1267,7 +1267,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 100,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3778),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1414),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
                             Price = 20m,
@@ -1277,7 +1277,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 101,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3784),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1419),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
                             Price = 15m,
@@ -1287,7 +1287,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 102,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3790),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1425),
                             Description = "Travel Essentials",
                             Name = "Backpack",
                             Price = 32m,
@@ -1297,7 +1297,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 103,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3796),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1431),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
                             Price = 18m,
@@ -1307,7 +1307,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 104,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3802),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1437),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
                             Price = 6m,
@@ -1317,7 +1317,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 105,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3808),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1443),
                             Description = "Tech Gadgets",
                             Name = "Charger",
                             Price = 16m,
@@ -1327,7 +1327,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 106,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3814),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1448),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
                             Price = 12m,
@@ -1337,7 +1337,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 107,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3820),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1454),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
                             Price = 11m,
@@ -1347,7 +1347,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 108,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3826),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1460),
                             Description = "Office Supplies",
                             Name = "Calendar",
                             Price = 8m,
@@ -1357,7 +1357,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 109,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3832),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1466),
                             Description = "Office Supplies",
                             Name = "Pen",
                             Price = 7m,
@@ -1367,7 +1367,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 110,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3838),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1472),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
                             Price = 36m,
@@ -1377,7 +1377,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 111,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 641, DateTimeKind.Local).AddTicks(3844),
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 411, DateTimeKind.Local).AddTicks(1478),
                             Description = "Stationery",
                             Name = "Notebook",
                             Price = 13m,
@@ -1409,32 +1409,32 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 631, DateTimeKind.Local).AddTicks(3671),
-                            Name = "Section A"
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(8711),
+                            Name = "SwiftStore"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 631, DateTimeKind.Local).AddTicks(4505),
-                            Name = "Section B"
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(9510),
+                            Name = "OptiStock"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 631, DateTimeKind.Local).AddTicks(4527),
-                            Name = "Section C"
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(9535),
+                            Name = "Nexus Dist"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 631, DateTimeKind.Local).AddTicks(4533),
-                            Name = "Section D"
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(9540),
+                            Name = "PrimeSpace"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 1, 56, 25, 631, DateTimeKind.Local).AddTicks(4538),
-                            Name = "Section E"
+                            CreateAt = new DateTime(2024, 10, 12, 1, 12, 2, 400, DateTimeKind.Local).AddTicks(9545),
+                            Name = "AgileHub"
                         });
                 });
 
@@ -1474,7 +1474,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 2,
                             WareHouseID = 1,
-                            CurrentStock = (short)18,
+                            CurrentStock = (short)5,
                             MaxStock = (short)44,
                             MinStock = (short)9
                         },
@@ -1706,7 +1706,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 31,
                             WareHouseID = 1,
-                            CurrentStock = (short)10,
+                            CurrentStock = (short)2,
                             MaxStock = (short)37,
                             MinStock = (short)6
                         },
@@ -1802,7 +1802,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 43,
                             WareHouseID = 5,
-                            CurrentStock = (short)14,
+                            CurrentStock = (short)9,
                             MaxStock = (short)44,
                             MinStock = (short)10
                         },
@@ -1914,7 +1914,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 57,
                             WareHouseID = 5,
-                            CurrentStock = (short)16,
+                            CurrentStock = (short)7,
                             MaxStock = (short)46,
                             MinStock = (short)11
                         },
@@ -1930,7 +1930,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 59,
                             WareHouseID = 1,
-                            CurrentStock = (short)10,
+                            CurrentStock = (short)4,
                             MaxStock = (short)36,
                             MinStock = (short)7
                         },
@@ -2066,7 +2066,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 76,
                             WareHouseID = 3,
-                            CurrentStock = (short)18,
+                            CurrentStock = (short)5,
                             MaxStock = (short)48,
                             MinStock = (short)13
                         },
@@ -2082,7 +2082,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 78,
                             WareHouseID = 5,
-                            CurrentStock = (short)16,
+                            CurrentStock = (short)10,
                             MaxStock = (short)45,
                             MinStock = (short)12
                         },
@@ -2090,7 +2090,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 79,
                             WareHouseID = 1,
-                            CurrentStock = (short)14,
+                            CurrentStock = (short)8,
                             MaxStock = (short)42,
                             MinStock = (short)9
                         },
@@ -2146,7 +2146,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 86,
                             WareHouseID = 3,
-                            CurrentStock = (short)13,
+                            CurrentStock = (short)3,
                             MaxStock = (short)42,
                             MinStock = (short)10
                         },
@@ -2186,7 +2186,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 91,
                             WareHouseID = 3,
-                            CurrentStock = (short)18,
+                            CurrentStock = (short)12,
                             MaxStock = (short)49,
                             MinStock = (short)13
                         },
@@ -2282,7 +2282,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 103,
                             WareHouseID = 5,
-                            CurrentStock = (short)16,
+                            CurrentStock = (short)10,
                             MaxStock = (short)47,
                             MinStock = (short)12
                         },
@@ -2322,7 +2322,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 108,
                             WareHouseID = 5,
-                            CurrentStock = (short)17,
+                            CurrentStock = (short)0,
                             MaxStock = (short)46,
                             MinStock = (short)11
                         },
@@ -2381,25 +2381,25 @@ namespace Inventory.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1770b1e5-de79-4e96-a5e5-ee9e7017cc21",
+                            Id = "2f8dc086-96bc-4e0b-9712-adb434e779ad",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "adc09ba7-1388-4234-8e55-f45288b967f9",
+                            Id = "a4becf50-01be-45ee-8214-f3780bfe2d87",
                             Name = "ManagerWH",
                             NormalizedName = "MANAGERWH"
                         },
                         new
                         {
-                            Id = "7250f9ac-f397-4ab4-bc3a-ee1d3cd04667",
+                            Id = "1ffce538-2f6e-4e3a-867c-451795456e80",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
-                            Id = "9da31eb7-e0d9-4758-9cd1-67f6a8f53130",
+                            Id = "f2ddd502-5e44-47e6-be88-bb1e227d3925",
                             Name = "User",
                             NormalizedName = "USER"
                         });
