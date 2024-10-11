@@ -1,65 +1,133 @@
-﻿//use an api in the controller then call it by ajax and in case of success
-//put the response in the data of the charts and initialize them
+﻿//warehouse info section
+$.get("/Dashboard/GetWarehouseDetails", function (warehouseData) {
 
-//pie dart ((Product By Category))
+    //donut chart (Product By Supplier)
+    Morris.Donut({
+        element: 'warehousesStock',
+        data: warehouseData.donutData,
+        colors: ['#8241f7', '#6e84fe', '#b189d8']
+    });
+    //pie chart
+    var pieChart1 = document.getElementById("warehousesProducts");
+    var myChart = new Chart(pieChart1, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: warehouseData.productsPerWarehouse,
+                backgroundColor: [
+                    "#8241f7",
+                    "#6e84fe",
+                    "#b189d8",
+                    "#6e84fe",
+                    "#7a5af9"
+                ]
+            }],
+            labels: warehouseData.warehousesNames
+        }
+    });
 
-//pie chart
-var ctx = document.getElementById("pieChart");
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-            data: [150, 50, 100, 120,40],
-            backgroundColor: [
-                "#8241f7",
-                "#6e84fe",
-                "#b189d8",
-                "#6e84fe",
-                "#7a5af9"
-            ]
-        }],
-        labels: [
-            "Electronics",
-            "Clothing",
-            "Groceries",
-            "Furniture",
-            "Accessories"
-        ]
-    }
 });
 
-//donut chart (Product By Supplier)
-Morris.Donut({
-    element: 'Product-By-Supplier',
-    data: [
-        { label: "PF Concept B.V.", value: 123 },
-        { label: "Anda Present Kft.", value: 23 },
-        { label: "Gorfactory S.A.", value: 56 },
-        { label: "Paul Stricker, S.A.", value: 23 },
-        { label: "Inspirion GmbH", value: 80 },
-    ],
-    colors: ['#8241f7', '#6e84fe','#b189d8']
-});
+//change that number to get it from authorization somehow
+changeCharts(1)
 
-//Bar chart(average product stock by category)
-Morris.Bar({
-    element: 'average-stock',
-    data: [
-        { category: 'Electronics', min_stock: 50, current_stock: 150, max_stock: 200 },
-        { category: 'Clothing', min_stock: 30, current_stock: 100, max_stock: 120 },
-        { category: 'Groceries', min_stock: 100, current_stock: 200, max_stock: 250 },
-        { category: 'Furniture', min_stock: 20, current_stock: 60, max_stock: 80 },
-        { category: 'Accessories', min_stock: 20, current_stock: 50, max_stock: 70 }
-    ],
-    xkey: 'category',  // Categories displayed on the x-axis
-    ykeys: ['min_stock', 'current_stock', 'max_stock'],  // Values for each category
-    labels: ['Minimum Stock', 'Current Stock', 'Maximum Stock'],  // Labels for each bar section
-    barColors: ['#b189d8', '#6e84fe', '#8241f7'],  // Colors for the bars
-    hideHover: 'auto',  // Hide hover effect automatically
-    gridLineColor: 'transparent'  // Make grid lines transparent
-});
+function warehouseChanged(id, element) {
+    // Remove 'active' class from all buttons
+    $(".wh-btn").removeClass("active");
+
+    // Add 'active' class to the clicked button
+    $(element).addClass("active");
+    changeCharts(id)
+}
+var productsPieChart;
+var morrisDonutChart;
+var morrisBarChart;
+function changeCharts(warehouseID) {
+    url = `/Dashboard/GetProductsInfoPerWarehouse/${warehouseID}`
+    $.get(url, function (warehouseData) {
+        //pie chart
+        if (productsPieChart) {
+            productsPieChart.destroy();
+        }
+        var ctx = document.getElementById("pieChart");
+        productsPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: warehouseData.productNumberArray,
+                    backgroundColor: [
+                        "#8241f7",
+                        "#6e84fe",
+                        "#b189d8",
+                        "#6e84fe",
+                        "#7a5af9"
+                    ]
+                }],
+                labels: warehouseData.categoriesNamesArray
+            }
+        });
+        //donut chart (Product By Supplier)
+        // Update Morris donut chart
+        if (morrisDonutChart) {
+            morrisDonutChart.setData(warehouseData.productsPerSupplier);  // Update the existing chart with new data
+        } else {
+            morrisDonutChart = Morris.Donut({
+                element: 'Product-By-Supplier',
+                data: warehouseData.productsPerSupplier,
+                colors: ['#8241f7', '#6e84fe', '#b189d8']
+            });
+        }
+        //Bar chart(average product stock by category)
+        if (morrisBarChart) {
+            morrisBarChart.setData(warehouseData.categoryStockAverages);  // Update the existing chart with new data
+        } else {
+            morrisBarChart = Morris.Bar({
+                element: 'average-stock',
+                data: warehouseData.categoryStockAverages,
+                xkey: 'category',  // Categories displayed on the x-axis
+                ykeys: ['min_Stock', 'current_Stock', 'max_Stock'],  // Values for each category
+                labels: ['Average Minimum Stock', 'Average Current Stock', 'Average Maximum Stock'],  // Labels for each bar section
+                barColors: ['#b189d8', '#6e84fe', '#8241f7'],  // Colors for the bars
+                hideHover: 'auto',  // Hide hover effect automatically
+                gridLineColor: 'transparent'  // Make grid lines transparent
+            });
+        }
+        $("#whName").text(warehouseData.lowStockNotifications.warehouseName);
+        let Lowstockproductscount = warehouseData.lowStockNotifications.lowStockProductsCount
+        if (Lowstockproductscount == 0) {
+            $("#lowStockCount").text(Lowstockproductscount);
+            $("#lowStockCount").removeClass("red")
+            $("#lowStockCount").addClass("green")
+
+        } else {
+            $("#lowStockCount").text(Lowstockproductscount);
+            $("#lowStockCount").removeClass("green")
+            $("#lowStockCount").addClass("red")
+        }
+        $("#lowStockProductsTable").html("");
+        for(let product of warehouseData.lowStockNotifications.lowStockProducts)
+        {
+            $("#lowStockProductsTable").append(`<tr>
+                                                    <th scope="row">${product.id}</th>
+                                                    <td>${product.name}</td>
+                                                    <td>${product.price}</td>
+                                                    <td>${product.min_Stock}</td>
+                                                    <td>${product.current_Stock}</td>
+                                                    <td>${product.max_Stock}</td>
+                                                </tr>`);
+        }
+
+    })
+}
 
 
+
+
+
+
+
+
+//sayebha 3shan shaklaha 7elw momken yt3mlha implementation lma el sales t5ls
 //Area chart (profits by category)
 Morris.Area({
     element: 'profits-by-category',
