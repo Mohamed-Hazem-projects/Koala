@@ -1,6 +1,7 @@
+using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
+using KoalaInventoryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
-using Inventory.Data.ViewModels;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -28,15 +29,42 @@ namespace KoalaInventoryManagement.Controllers
         {
             if (warehouseId == 0)
             {
-                var products = _unitOfWork.Products.FindByName(x => x.Name.ToLower().Contains(name.ToLower()))
-                          .Select(x => new { x.Id, x.Name, x.Price })
-                          .DistinctBy(x => x.Name)
-                          .ToList();
-
-                return Json(products);
+                //var products = _unitOfWork.WareHousesProducts.FindByName(x => x.Product.Name.ToLower().Contains(name.ToLower()), [nameof(Product)]).Select(w => new
+                //{
+                //    w.Product.Id,
+                //    w.Product.Name,
+                //    w.Product.Price,
+                //    w.CurrentStock,
+                //});
+                return Json(new List<object>());
             }
-            var filteredProducts = _unitOfWork.WareHousesProducts.FindByName(x => x.WareHouseID == warehouseId, ["Product"]).Where(x => x.Product.Name.ToLower().Contains(name.ToLower())).ToList();
+            var filteredProducts = _unitOfWork.WareHousesProducts.FindByName(x => x.WareHouseID == warehouseId, [nameof(Product)]).Where(x => x.Product.Name.ToLower().Contains(name.ToLower())).Select(x => new
+            {
+                x.Product.Id,
+                x.Product.Name,
+                x.Product.Price,
+                x.CurrentStock,
+                x.WareHouseID
+            }).ToList();
             return Json(filteredProducts);
+        }
+
+        [HttpPost]
+        public IActionResult AddSale(Sales? sale)
+        {
+            if (sale != null)
+            {
+                _unitOfWork.Sales.Add(sale);
+                _unitOfWork.Complete();
+                var product = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
+                if (product != null)
+                {
+                    product.CurrentStock -= 1;
+                    _unitOfWork.Complete();
+                }
+                return Json(new { message = "success" });
+            }
+            return Json(new { message = "failed" });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

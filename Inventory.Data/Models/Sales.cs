@@ -9,7 +9,7 @@ namespace Inventory.Data.Models
         public DateTime SaleDate { get; set; }
         public decimal TotalPrice { get; set; }
 
-        public virtual WareHouseProduct WareHouseProduct { get; set; }
+        public  WareHouseProduct WareHouseProduct { get; set; }
         public int ProductId { get; set; }
         public int WareHouseId { get; set; }
     }

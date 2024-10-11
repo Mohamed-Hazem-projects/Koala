@@ -1,3 +1,28 @@
-select option[value="default"]{
+select option[value="default"] {
     background-color: #F4F6FF;
+}
+
+.no-click {
+    color: grey;
+    cursor: not-allowed;
+}
+
+#quantity-error {
+    color: red;
+    display: none;
+}
+
+.close-btn {
+    color: white;
+    background-color: gray;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: -10px;
+}
+
+.close-btn:hover {
+    color: #35374B;
 }
