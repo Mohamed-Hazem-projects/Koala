@@ -21,8 +21,8 @@ namespace KoalaInventoryManagement
                 options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
             });
 
-            // builder.Services.AddDbContext<InventoryDbContext>(op =>
-            //      op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+            //builder.Services.AddDbContext<InventoryDbContext>(op =>
+            //     op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
             builder.Services.AddDbContext<InventoryDbContext>(op =>
                        op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
@@ -32,7 +32,6 @@ namespace KoalaInventoryManagement
             //    options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
             //    options.Cookie.IsEssential = true; // Mark the session cookie as essential for GDPR
             //});
-
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
@@ -61,7 +60,6 @@ namespace KoalaInventoryManagement
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.SameSite = SameSiteMode.Strict;
             });
-
 
             // Register repositories in the unit of work
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
