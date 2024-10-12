@@ -114,7 +114,7 @@ namespace Inventory.Data.Data_Seeds
             new Product() { Id = 101, Name = "Phone Case", Description = "Tech Gadgets", Price = 15, SupplierId = 2, CategoryId = 3 },
             new Product() { Id = 102, Name = "Backpack", Description = "Travel Essentials", Price = 32, SupplierId = 5, CategoryId = 2 },
             new Product() { Id = 103, Name = "Water Bottle", Description = "Travel Essentials", Price = 18, SupplierId = 4, CategoryId = 3 },
-            new Product() { Id = 104, Name = "Laptop Sticker", Description = "Stationery", Price = 6, SupplierId = 1, CategoryId = 2 },
+            new Product() { Id = 104, Name = "Laptop Keyboard", Description = "Stationery", Price = 6, SupplierId = 1, CategoryId = 2 },
             new Product() { Id = 105, Name = "Charger", Description = "Tech Gadgets", Price = 16, SupplierId = 2, CategoryId = 5 },
             new Product() { Id = 106, Name = "Flash Drive", Description = "Tech Gadgets", Price = 12, SupplierId = 3, CategoryId = 4 },
             new Product() { Id = 107, Name = "Wristband", Description = "Fashion Accessories", Price = 11, SupplierId = 5, CategoryId = 3 },

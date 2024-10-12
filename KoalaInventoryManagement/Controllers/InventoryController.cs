@@ -1,12 +1,9 @@
-﻿using Inventory.Data.Models;
-using Inventory.Repository.Interfaces;
+﻿using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
-using NuGet.Configuration;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -41,11 +38,11 @@ namespace KoalaInventoryManagement.Controllers
                         Description = p.Description,
                         Price = p.Price,
                         Image = p.Image ?? [0],
-                        WareHouseID = whp.WareHouseID,
-                        WareHouseName = wareHouses?.Find(w => w.Id == whp.WareHouseID)?.Name ?? string.Empty,
-                        CurrentStock = whp.CurrentStock,
-                        MintStock = whp.MinStock,
-                        MaxStock = whp.MaxStock,
+                        WareHouseID = whp?.WareHouseID ?? 0,
+                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
+                        CurrentStock = whp?.CurrentStock ?? 0,
+                        MintStock = whp?.MinStock ?? 0,
+                        MaxStock = whp?.MaxStock ?? 0,
                         CategoryID = p?.CategoryId ?? 0,
                         CategoryName = p?.Category?.Name ?? string.Empty,
                         SupplierID = p?.SupplierId ?? 0,
@@ -126,7 +123,32 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult ShowDetails(int id)
         {
-            return View();
+            Product? product
+                = _unitOfWork?.Products?.GetbyId(id, ["Supplier", "Category"]) ?? new Product();
+
+            List<WareHouseProduct> prdWareHouses
+                = _unitOfWork?.WareHousesProducts?
+                              .GettWareHousesProductsByPrdID(id, ["WareHouse"])?
+                              .ToList() ?? new List<WareHouseProduct>();
+
+
+            int productQuantity = 0;
+            foreach(int currentStock in prdWareHouses.Select(whp => whp.CurrentStock))
+                productQuantity += currentStock;
+
+            ProductDetailsVM productDetails = new ProductDetailsVM()
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Image = product.Image ?? [0],
+                Quantity = productQuantity,
+                ProductWareHouses = prdWareHouses,
+                CategoryName = product?.Category?.Name ?? string.Empty,
+                SupplierName = product?.Supplier?.Name ?? string.Empty,
+            };
+
+            return View(productDetails);
         }
     }
 }
