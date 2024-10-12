@@ -26,12 +26,6 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
@@ -97,12 +91,6 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
@@ -168,12 +156,6 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
@@ -239,12 +221,6 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
