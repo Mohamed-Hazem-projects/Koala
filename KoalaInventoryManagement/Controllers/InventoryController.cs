@@ -25,6 +25,7 @@ namespace KoalaInventoryManagement.Controllers
             List<Product> products
                 = _unitOfWork?.Products?.GetAll(["Supplier", "Category", "WareHouseProducts"])?.ToList()
                     ?? new List<Product>();
+            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
 
             foreach (Product p in products)
             {
@@ -37,11 +38,11 @@ namespace KoalaInventoryManagement.Controllers
                         Description = p.Description,
                         Price = p.Price,
                         Image = p.Image ?? [0],
-                        WareHouseID = whp.WareHouseID,
-                        WareHouseName = whp.WareHouse?.Name ?? string.Empty,
-                        CurrentStock = whp.CurrentStock,
-                        MintStock = whp.MinStock,
-                        MaxStock = whp.MaxStock,
+                        WareHouseID = whp?.WareHouseID ?? 0,
+                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
+                        CurrentStock = whp?.CurrentStock ?? 0,
+                        MintStock = whp?.MinStock ?? 0,
+                        MaxStock = whp?.MaxStock ?? 0,
                         CategoryID = p?.CategoryId ?? 0,
                         CategoryName = p?.Category?.Name ?? string.Empty,
                         SupplierID = p?.SupplierId ?? 0,
