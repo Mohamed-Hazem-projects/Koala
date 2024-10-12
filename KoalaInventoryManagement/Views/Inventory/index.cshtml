@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Inventory";
-    var serlizedFilteredProducts = JsonConvert.SerializeObject(Model ?? new List<ProductViewModel>());
+    var serlizedFilteredProducts = JsonConvert.SerializeObject(Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>());
     var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
 }
 
@@ -95,7 +95,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in Model ?? new List<ProductViewModel>())
+                                @foreach (var product in Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>())
                                 {
                                     <tr>
                                         <td>@product.Name</td>
