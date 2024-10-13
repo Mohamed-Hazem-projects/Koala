@@ -6,12 +6,14 @@
         public int PageSize { get; set; } = 10;
         public int PageNumbers { get; set; }
 
-        public int ItemsCount { get; set; }
+        public int TotalItems { get; set; }
+        public int ItemsCountPerPage { get; set; }
         public PaginatedList(List<T> items, int count, int pageNumber, int actualCount)
         {
             PageIndex = pageNumber;
+            TotalItems = count;
             PageNumbers = (int)Math.Ceiling(count / (double)10);
-            ItemsCount = actualCount;
+            ItemsCountPerPage = actualCount;
             this.AddRange(items);
         }
         public bool HasPreviousPage => PageIndex > 1;
