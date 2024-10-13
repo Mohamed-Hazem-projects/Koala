@@ -91,7 +91,7 @@ $("#addOrEditSupplier").on('click', () => {
 })
 
 // Function to open modal in edit mode
-function openEditModalSupplier(id, name, phone, email, rating) {
+
     function openEditModalSupplier(id, name, phone, email, rating) {
         // Change the modal header to "Edit Category"
         $('#supplierModalLabel').text("Edit Supplier");
@@ -124,4 +124,4 @@ function openEditModalSupplier(id, name, phone, email, rating) {
         $('#addOrEditSupplierForm').attr('action', '/Suppliers/AddSupplier');
     });
     //Add / Edit Supplier Modal End
-}
+
