@@ -17,7 +17,6 @@ namespace Inventory.Data.Context
         public virtual DbSet<Sales> Sales { get; set; }
         #endregion
 
-
         public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options)
         { }
 
@@ -69,7 +68,7 @@ namespace Inventory.Data.Context
             modelBuilder.Entity<Sales>()
             .HasOne(s => s.WareHouseProduct)
             .WithMany(whp => whp.Sales)
-            .OnDelete(DeleteBehavior.SetNull)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasForeignKey(s => new { s.ProductId, s.WareHouseId })  // Ensure correct order
             .HasPrincipalKey(whp => new { whp.ProductID, whp.WareHouseID });
             #endregion

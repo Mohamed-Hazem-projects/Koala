@@ -16,12 +16,17 @@ namespace KoalaInventoryManagement.Controllers
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? pageNumber)
         {
-            var sales = _unitOfWork.Sales.GetProdcutAndWareHouse()!;
+            var sales = _unitOfWork.Sales.GetProdcutAndWareHouse()!
+                .OrderByDescending(x => x.SaleDate)
+                .ToList();
+            var paginatedSales = _unitOfWork.Sales.GetSalesPaginated(x => x.WareHouseId == 1, pageNumber ?? 1)!
+                .OrderByDescending(x => x.SaleDate)
+                .ToList();
             var warehouseProductJunction = _unitOfWork.WareHousesProducts.GetAll(["Product", "WareHouse"]);
             ViewBag.WareHouses = warehouseProductJunction.Select(x => x.WareHouse).DistinctBy(x => x.Name).OrderBy(x => x.Name);
-            return View(sales);
+            return View(paginatedSales);
         }
 
         [HttpPost]
@@ -54,17 +59,32 @@ namespace KoalaInventoryManagement.Controllers
         {
             if (sale != null)
             {
-                _unitOfWork.Sales.Add(sale);
-                _unitOfWork.Complete();
-                var product = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
-                if (product != null)
+                try
                 {
-                    product.CurrentStock -= 1;
+                    _unitOfWork.Sales.Add(sale);
                     _unitOfWork.Complete();
+                    var product = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
+                    if (product != null)
+                    {
+                        product.CurrentStock -= 1;
+                        _unitOfWork.Complete();
+                    }
+                    return Json(new { message = "success" });
                 }
-                return Json(new { message = "success" });
+                catch (Exception ex)
+                {
+                    return Json(new { message = "error" });
+                }
             }
             return Json(new { message = "failed" });
+        }
+        [HttpGet]
+        public IActionResult GetUpdatedData()
+        {
+            var sales = _unitOfWork.Sales.GetSalesPaginated()!
+                .OrderByDescending(x => x.SaleDate)
+                .ToList();
+            return Json(sales);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

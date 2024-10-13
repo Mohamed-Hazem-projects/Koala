@@ -21,11 +21,11 @@ namespace KoalaInventoryManagement
                 options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
             });
 
-            //builder.Services.AddDbContext<InventoryDbContext>(op =>
-            //     op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly(typeof(InventoryDbContext).Assembly.FullName)));
-
             builder.Services.AddDbContext<InventoryDbContext>(op =>
-                       op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
+                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly(typeof(InventoryDbContext).Assembly.FullName)));
+
+            //builder.Services.AddDbContext<InventoryDbContext>(op =>
+            //           op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
             //builder.Services.AddSession(options =>
             //{
             //    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout (e.g., 30 minutes)

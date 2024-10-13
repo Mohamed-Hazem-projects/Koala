@@ -3,6 +3,16 @@ var timer;
 var typingStopped = 400;
 const suggestionsUrl = $('#url').attr('data-productSuggestionsUrl');
 const addUrl = $('#url').attr('data-addSaleUrl');
+const updatedUrl = $('#url').attr('data-updatedDataUrl');
+const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true, // Use 12-hour format
+    timeZone: 'Africa/Cairo'
+};
 $(document).ready(function () {
     $('#warehouseNames').change(function () {
         $('#warehouse-error').hide();
@@ -80,7 +90,6 @@ $(document).ready(function () {
             e.preventDefault(); // Prevent clicking
             return; // Exit the handler early for the "No products found" item
         }
-        //debugger;
         console.log('Click event fired');
         e.preventDefault(); // This prevents the default action of the anchor tag which is to navigate to another page or same page
         const productId = $(this).attr('data-id');
@@ -102,7 +111,6 @@ $(document).ready(function () {
     $('#quantity').on('input', function () {
         /* This function is invoked when a user enters a value for the
         quantity and calculates the Price input field and the TotalPrice input field. */
-        debugger;
         const quantity = +$(this).val();
         const stock = +$('#stock').val();
         // Check if quantity is greater than stock
@@ -145,15 +153,12 @@ $(document).ready(function () {
         const totalPrice = $('#totalPrice').val();
         const quantity = $('#quantity').val();
         const stock = $('#stock').val();
-
         const saleObj = {
             ProductId: productId,
             WareHouseId: warehouseId,
             ItemsSold: quantity,
             TotalPrice: totalPrice,
-            SaleDate: new Date().toISOString()
         }
-        debugger;
         if (productId === undefined) {
             $('#product-error').show();
             return;
@@ -167,11 +172,40 @@ $(document).ready(function () {
             method: 'POST',
             data: saleObj,
             success: function (data) {
-                console.log(data);
+                fetchUpdatedData();
+                $('#addModal').modal('hide');
             },
             error: function (error) {
                 console.error('Error:', error);
             }
         })
     });
+
+    function fetchUpdatedData() {
+        $.ajax({
+            url: updatedUrl,
+            method: 'GET',
+            success: function (updatedData) {
+                console.log(updatedData);
+                $('#salesTable tbody').empty();
+                $.each(updatedData, function (i, obj) {
+                    const row = ` <tr>
+                    <td>${obj.productName}</td>
+                    <td>${obj.wareHouseName}</td>
+                    <td>${obj.itemsSold}</td>
+                    <td>${obj.totalPrice}</td>
+                    <td>${new Date(obj.saleDate).toLocaleString("en-US", options).replace(',','')}</td>
+                    <td class="btn-td delete text-center">
+                      <a id="sales-id" data-id="${obj.id}"><i class="fa fa-close color-danger"></i></a>
+                    </td>
+                  </tr>`;
+                    $('#salesTable tbody').append(row);
+                });
+                
+            },
+            error: function (error) {
+                console.log('Error: ', error)
+            }
+        })
+    }
 });

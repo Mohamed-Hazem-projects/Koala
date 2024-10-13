@@ -3,11 +3,12 @@
     ViewData["Title"] = "Sales";
     var productSuggestionsUrl = Url.Action("GetProductSuggestions", "Sales");
     var addSaleUrl = Url.Action("AddSale", "Sales");
+    var updatedDataUrl = Url.Action("GetUpdatedData", "Sales");
 }
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
 <link rel="stylesheet" href="~/css/Sales/sales.css">
 
-<input type="text" id="url" data-productSuggestionsUrl="@productSuggestionsUrl" data-addSaleUrl="@addSaleUrl" hidden />
+<input type="text" id="url" data-productSuggestionsUrl="@productSuggestionsUrl" data-addSaleUrl="@addSaleUrl"  data-updatedDataUrl="@updatedDataUrl"  hidden />
 <div class="container-fluid p-0 suppliers"  >
   <!-- Products Header Start -->
   <div class="content-header">
@@ -29,7 +30,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
+            <table id="salesTable" class="table table-bordered verticle-middle table-responsive-sm">
               <thead>
                 <tr>
                   <th scope="col">Product Name</th>
@@ -48,7 +49,7 @@
                     <td>@sales.WareHouseName</td>
                     <td>@sales.ItemsSold</td>
                     <td>@sales.TotalPrice</td>
-                    <td>@sales.SaleDate</td>
+                    <td>@sales.SaleDate.ToString("MM/dd/yyyy hh:mm tt")</td>
                     <td class="btn-td delete text-center">
                       <a id="sales-id" data-id="@sales.Id"><i class="fa fa-close color-danger"></i></a>
                     </td>
@@ -117,5 +118,5 @@
 <!-- Modal End-->
 
 @section Scripts {
-  <script src="~/js/Sales/filteration.js"></script>
+      <script src="~/js/Sales/filteration.js" asp-append-version="true"></script>
 }
