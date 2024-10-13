@@ -119,31 +119,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 29, DateTimeKind.Local).AddTicks(2957),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 986, DateTimeKind.Local).AddTicks(8077),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 33, DateTimeKind.Local).AddTicks(4476),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 990, DateTimeKind.Local).AddTicks(8707),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 33, DateTimeKind.Local).AddTicks(4537),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 990, DateTimeKind.Local).AddTicks(8770),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 33, DateTimeKind.Local).AddTicks(4546),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 990, DateTimeKind.Local).AddTicks(8779),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 33, DateTimeKind.Local).AddTicks(4551),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 990, DateTimeKind.Local).AddTicks(8784),
                             Name = "Accessories"
                         });
                 });
@@ -187,7 +187,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 35, DateTimeKind.Local).AddTicks(3482),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 992, DateTimeKind.Local).AddTicks(7371),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -196,7 +196,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 35, DateTimeKind.Local).AddTicks(5934),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 992, DateTimeKind.Local).AddTicks(9917),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -205,7 +205,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 35, DateTimeKind.Local).AddTicks(5963),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 992, DateTimeKind.Local).AddTicks(9949),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -214,7 +214,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 35, DateTimeKind.Local).AddTicks(5969),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 992, DateTimeKind.Local).AddTicks(9955),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -223,7 +223,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 35, DateTimeKind.Local).AddTicks(5974),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 992, DateTimeKind.Local).AddTicks(9961),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -277,7 +277,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 45, DateTimeKind.Local).AddTicks(9272),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(1996),
                             Description = "High-quality Saudi Arabia flag for display",
                             Name = "Saudi Arabia Flag",
                             Price = 804m,
@@ -287,7 +287,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2553),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5277),
                             Description = "Comprehensive textbook for Mathematics",
                             Name = "Textbook - Mathematics",
                             Price = 394m,
@@ -297,7 +297,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2591),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5312),
                             Description = "Powerful laptop for home and office use",
                             Name = "Laptop",
                             Price = 740m,
@@ -307,7 +307,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 4,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2598),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5319),
                             Description = "Slim and stylish 40-inch smart TV",
                             Name = "TV - 40 Inch",
                             Price = 72m,
@@ -317,7 +317,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2605),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5325),
                             Description = "Essential garden tools set for outdoor tasks",
                             Name = "Garden Tools Set",
                             Price = 490m,
@@ -327,7 +327,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 6,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2625),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5342),
                             Description = "High-performance smartphone with a large display",
                             Name = "Smartphone - Pro Edition",
                             Price = 113m,
@@ -337,7 +337,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2632),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5348),
                             Description = "Elegant leather sofa for living room",
                             Name = "Leather Sofa",
                             Price = 607m,
@@ -347,7 +347,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2637),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5354),
                             Description = "Fast-charging power bank for mobile devices",
                             Name = "Portable Power Bank",
                             Price = 664m,
@@ -357,7 +357,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2643),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5404),
                             Description = "Compact digital camera with high resolution",
                             Name = "Digital Camera",
                             Price = 99m,
@@ -367,7 +367,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 10,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2653),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5414),
                             Description = "Solid wood dining table with modern design",
                             Name = "Wooden Dining Table",
                             Price = 833m,
@@ -377,7 +377,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2659),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5421),
                             Description = "National Palestine flag for home and events",
                             Name = "Palestine Flag",
                             Price = 9m,
@@ -387,7 +387,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 12,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2709),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5427),
                             Description = "Flag of Egypt, durable and fade-resistant",
                             Name = "Egypt Flag",
                             Price = 8m,
@@ -397,7 +397,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 13,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2717),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5433),
                             Description = "Premium Saudi Arabia flag for outdoor use",
                             Name = "Flag of Saudi Arabia",
                             Price = 10m,
@@ -407,7 +407,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 14,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2723),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5439),
                             Description = "High-end gaming laptop with advanced graphics",
                             Name = "Gaming Laptop",
                             Price = 500m,
@@ -417,7 +417,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 15,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2728),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5445),
                             Description = "Compact smartphone with essential features",
                             Name = "Smartphone - Mini Edition",
                             Price = 300m,
@@ -427,7 +427,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 16,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2734),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5451),
                             Description = "10-inch tablet with large display and fast processor",
                             Name = "Tablet - 10 Inch",
                             Price = 200m,
@@ -437,7 +437,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 17,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2740),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5457),
                             Description = "Spacious double door refrigerator",
                             Name = "Refrigerator - Double Door",
                             Price = 800m,
@@ -447,7 +447,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 18,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2748),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5466),
                             Description = "Energy-efficient washing machine",
                             Name = "Washing Machine",
                             Price = 600m,
@@ -457,7 +457,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 19,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2754),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5472),
                             Description = "Compact microwave oven with multiple settings",
                             Name = "Microwave Oven",
                             Price = 150m,
@@ -467,7 +467,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 20,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2760),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5479),
                             Description = "Stylish and comfortable modern sofa",
                             Name = "Modern Sofa",
                             Price = 350m,
@@ -477,7 +477,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 21,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2766),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5484),
                             Description = "Classic dining table for six",
                             Name = "Classic Dining Table",
                             Price = 450m,
@@ -487,7 +487,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 22,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2772),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5490),
                             Description = "Sturdy queen-size bed frame",
                             Name = "Bed Frame - Queen Size",
                             Price = 400m,
@@ -497,7 +497,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 23,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2778),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5496),
                             Description = "Fiction novel by a best-selling author",
                             Name = "Novel - Fiction",
                             Price = 15m,
@@ -507,7 +507,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 24,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2784),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5502),
                             Description = "Collection of healthy recipes",
                             Name = "Cookbook - Healthy Recipes",
                             Price = 20m,
@@ -517,7 +517,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 25,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2790),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5526),
                             Description = "Educational science textbook for students",
                             Name = "Science Textbook",
                             Price = 30m,
@@ -527,7 +527,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 26,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2795),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5532),
                             Description = "High-resolution LCD monitor for desktop",
                             Name = "LCD Monitor",
                             Price = 180m,
@@ -537,7 +537,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 27,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2801),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5538),
                             Description = "Spacious 3-door wardrobe for bedrooms",
                             Name = "Wardrobe - 3 Door",
                             Price = 615m,
@@ -547,7 +547,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 28,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2807),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5544),
                             Description = "Decorative wall mirror for living room",
                             Name = "Wall Mirror",
                             Price = 563m,
@@ -557,7 +557,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 29,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2831),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5551),
                             Description = "Cookbook with quick and easy meal recipes",
                             Name = "Cookbook - Quick Meals",
                             Price = 243m,
@@ -567,7 +567,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 30,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2837),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5557),
                             Description = "Portable electric heater for home",
                             Name = "Electric Heater",
                             Price = 5m,
@@ -577,7 +577,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 31,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2843),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5564),
                             Description = "Soft kitchen rug with non-slip backing",
                             Name = "Kitchen Rug",
                             Price = 336m,
@@ -587,7 +587,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 32,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2849),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5570),
                             Description = "Powerful steam iron for wrinkle-free clothes",
                             Name = "Steam Iron",
                             Price = 874m,
@@ -597,7 +597,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 33,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(2856),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5576),
                             Description = "Textbook on game theory and applications",
                             Name = "Game Theory Textbook",
                             Price = 436m,
@@ -607,7 +607,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 34,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3041),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5584),
                             Description = "Large curved monitor for immersive experience",
                             Name = "Curved Monitor",
                             Price = 927m,
@@ -617,7 +617,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 35,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3080),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5664),
                             Description = "Comfortable leather sofa for three people",
                             Name = "Leather Sofa - 3 Seater",
                             Price = 201m,
@@ -627,7 +627,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 36,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3086),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5671),
                             Description = "Essential cookbook for baking recipes",
                             Name = "Cookbook - Baking Essentials",
                             Price = 399m,
@@ -637,7 +637,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 37,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3092),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5678),
                             Description = "Durable Egypt flag for all occasions",
                             Name = "Egypt Flag",
                             Price = 549m,
@@ -647,7 +647,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 38,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3097),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5684),
                             Description = "Durable laptop for children's learning",
                             Name = "Laptop - Kid's Edition",
                             Price = 442m,
@@ -657,7 +657,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 39,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3103),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5690),
                             Description = "Elegant king-size bed frame",
                             Name = "Bed Frame - King Size",
                             Price = 657m,
@@ -667,7 +667,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 40,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3109),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5696),
                             Description = "Fast USB charger for multiple devices",
                             Name = "USB Charger",
                             Price = 257m,
@@ -677,7 +677,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 41,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3115),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5701),
                             Description = "Convertible tablet for mobile and desktop use",
                             Name = "Convertible Tablet",
                             Price = 639m,
@@ -687,7 +687,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 42,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3120),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5726),
                             Description = "Headphones with noise-cancelling feature",
                             Name = "Noise Cancelling Headphones",
                             Price = 676m,
@@ -697,7 +697,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 43,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3126),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5732),
                             Description = "Extendable dining table for extra seating",
                             Name = "Extendable Dining Table",
                             Price = 161m,
@@ -707,7 +707,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 44,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3132),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5738),
                             Description = "Miniature Palestine flag for display",
                             Name = "Palestine Flag - Mini",
                             Price = 9m,
@@ -717,7 +717,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 45,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3163),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5744),
                             Description = "High-quality Lebanon flag",
                             Name = "Lebanon Flag",
                             Price = 10m,
@@ -727,7 +727,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 46,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3169),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5750),
                             Description = "Durable USA flag for outdoor use",
                             Name = "USA Flag",
                             Price = 12m,
@@ -737,7 +737,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 47,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3175),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5757),
                             Description = "Quality China flag for display",
                             Name = "China Flag",
                             Price = 8m,
@@ -747,7 +747,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 48,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3181),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5763),
                             Description = "Vibrant Brazil flag for all occasions",
                             Name = "Brazil Flag",
                             Price = 11m,
@@ -757,7 +757,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 49,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3186),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5769),
                             Description = "Germany flag for international events",
                             Name = "Germany Flag",
                             Price = 10m,
@@ -767,7 +767,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 50,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3193),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5775),
                             Description = "Classic France flag for outdoor use",
                             Name = "France Flag",
                             Price = 9m,
@@ -777,7 +777,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 51,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3199),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5781),
                             Description = "United Kingdom flag for all seasons",
                             Name = "UK Flag",
                             Price = 13m,
@@ -787,7 +787,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 52,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3205),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5787),
                             Description = "Durable Russia flag for display",
                             Name = "Russia Flag",
                             Price = 9m,
@@ -797,7 +797,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 53,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3210),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5793),
                             Description = "High-quality Italy flag for indoor and outdoor use",
                             Name = "Italy Flag",
                             Price = 10m,
@@ -807,7 +807,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 54,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3216),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5799),
                             Description = "Portable USB flash drive with 16GB capacity",
                             Name = "USB Flash Drive",
                             Price = 50m,
@@ -817,7 +817,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 55,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3222),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5805),
                             Description = "Compact notebook for notes and ideas",
                             Name = "Notebook - A5 Size",
                             Price = 12m,
@@ -827,7 +827,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 56,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3228),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5811),
                             Description = "Smart fitness wristband for activity tracking",
                             Name = "Fitness Wristband",
                             Price = 20m,
@@ -837,7 +837,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 57,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3233),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5817),
                             Description = "Large Palestine flag for official events",
                             Name = "Palestine Flag - Large",
                             Price = 9m,
@@ -847,7 +847,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 58,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3239),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5839),
                             Description = "Portable Bluetooth speaker with deep bass",
                             Name = "Bluetooth Speaker",
                             Price = 40m,
@@ -857,7 +857,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 59,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3245),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5846),
                             Description = "Compact desk calendar for office use",
                             Name = "Desk Calendar",
                             Price = 18m,
@@ -867,7 +867,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 60,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3251),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5852),
                             Description = "Comfortable wireless headphones with long battery life",
                             Name = "Wireless Headphones",
                             Price = 65m,
@@ -877,7 +877,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 61,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3276),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5858),
                             Description = "Classic baseball cap with adjustable strap",
                             Name = "Baseball Cap",
                             Price = 15m,
@@ -887,7 +887,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 62,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3282),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5864),
                             Description = "Stainless steel insulated water bottle",
                             Name = "Insulated Water Bottle",
                             Price = 25m,
@@ -897,7 +897,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 63,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3288),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5870),
                             Description = "Artistic wall poster for home decoration",
                             Name = "Wall Poster - Art",
                             Price = 8m,
@@ -907,7 +907,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 64,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3294),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5876),
                             Description = "Small Palestine flag for personal use",
                             Name = "Palestine Flag - Small",
                             Price = 10m,
@@ -917,7 +917,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 65,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3299),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5882),
                             Description = "Durable ceramic coffee mug for office or home",
                             Name = "Ceramic Coffee Mug",
                             Price = 15m,
@@ -927,7 +927,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 66,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3310),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5890),
                             Description = "Jordan flag with vibrant colors",
                             Name = "Jordan Flag",
                             Price = 8m,
@@ -937,7 +937,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 67,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3316),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5896),
                             Description = "Durable metal keychain with modern design",
                             Name = "Metal Keychain",
                             Price = 5m,
@@ -947,7 +947,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 68,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3321),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5902),
                             Description = "Polarized sunglasses for UV protection",
                             Name = "Polarized Sunglasses",
                             Price = 25m,
@@ -957,7 +957,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 69,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3327),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5909),
                             Description = "Comfortable graphic t-shirt with unique design",
                             Name = "Graphic T-Shirt",
                             Price = 18m,
@@ -967,7 +967,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 70,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3333),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5915),
                             Description = "Durable hardcover notebook for everyday use",
                             Name = "Hardcover Notebook",
                             Price = 12m,
@@ -977,7 +977,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 71,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3339),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5921),
                             Description = "Stylish leather bracelet for daily wear",
                             Name = "Leather Bracelet",
                             Price = 20m,
@@ -987,7 +987,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 72,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3344),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5927),
                             Description = "Customizable laptop sticker for decoration",
                             Name = "Laptop Decal Sticker",
                             Price = 7m,
@@ -997,7 +997,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 73,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3350),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5933),
                             Description = "Smooth writing ballpoint pen",
                             Name = "Ballpoint Pen",
                             Price = 6m,
@@ -1007,7 +1007,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 74,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3356),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5957),
                             Description = "Premium noise-cancelling headphones",
                             Name = "Noise-Cancelling Headphones",
                             Price = 50m,
@@ -1017,7 +1017,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 75,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3362),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5963),
                             Description = "Compact Bluetooth speaker for outdoor use",
                             Name = "Portable Bluetooth Speaker",
                             Price = 55m,
@@ -1027,7 +1027,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 76,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3368),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5969),
                             Description = "Eco-friendly reusable water bottle",
                             Name = "Reusable Water Bottle",
                             Price = 20m,
@@ -1037,7 +1037,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 77,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3391),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5975),
                             Description = "Framed wall poster for home decor",
                             Name = "Framed Poster",
                             Price = 10m,
@@ -1047,7 +1047,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 78,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3397),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5982),
                             Description = "Protective silicone phone case",
                             Name = "Silicone Phone Case",
                             Price = 15m,
@@ -1057,7 +1057,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 79,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3403),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5988),
                             Description = "Spacious travel backpack with multiple compartments",
                             Name = "Travel Backpack",
                             Price = 30m,
@@ -1067,7 +1067,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 80,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3409),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(5994),
                             Description = "Fitness smartwatch with health tracking features",
                             Name = "Smartwatch - Fitness Edition",
                             Price = 80m,
@@ -1077,7 +1077,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 81,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3415),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6000),
                             Description = "Durable duffel bag for travel",
                             Name = "Travel Duffel Bag",
                             Price = 35m,
@@ -1087,7 +1087,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 82,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3421),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6006),
                             Description = "Slim power bank with fast charging",
                             Name = "Portable Power Bank - Slim",
                             Price = 25m,
@@ -1097,7 +1097,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 83,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3427),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6012),
                             Description = "High-speed USB flash drive with 32GB capacity",
                             Name = "High-Speed Flash Drive",
                             Price = 10m,
@@ -1107,7 +1107,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 84,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3433),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6018),
                             Description = "Compact desktop calendar for office use",
                             Name = "Desktop Calendar",
                             Price = 8m,
@@ -1117,7 +1117,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 85,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3438),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6024),
                             Description = "Comfortable mouse pad with wrist support",
                             Name = "Ergonomic Mouse Pad",
                             Price = 12m,
@@ -1127,7 +1127,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 86,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3521),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6030),
                             Description = "Fast charging USB charger for multiple devices",
                             Name = "Fast Charging Charger",
                             Price = 15m,
@@ -1137,7 +1137,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 87,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3528),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6036),
                             Description = "Durable silicone wristband for everyday wear",
                             Name = "Silicone Wristband",
                             Price = 10m,
@@ -1147,7 +1147,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 88,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3533),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6085),
                             Description = "Quality Syria flag for events",
                             Name = "Syria Flag",
                             Price = 9m,
@@ -1157,7 +1157,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 89,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3539),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6092),
                             Description = "Portable umbrella for travel",
                             Name = "Compact Umbrella",
                             Price = 12m,
@@ -1167,7 +1167,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 90,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3545),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6115),
                             Description = "Small Lebanon flag for personal use",
                             Name = "Lebanon Flag - Small",
                             Price = 7m,
@@ -1177,7 +1177,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 91,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3551),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6121),
                             Description = "Multi-functional desk organizer for office supplies",
                             Name = "Office Desk Organizer",
                             Price = 18m,
@@ -1187,7 +1187,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 92,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3557),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6127),
                             Description = "High-quality art poster for home decor",
                             Name = "Art Wall Poster",
                             Price = 9m,
@@ -1197,7 +1197,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 93,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3562),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6133),
                             Description = "Comfortable Bluetooth over-ear headphones",
                             Name = "Bluetooth Over-Ear Headphones",
                             Price = 55m,
@@ -1207,7 +1207,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 94,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3588),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6139),
                             Description = "Personalized keychain with durable metal",
                             Name = "Custom Keychain",
                             Price = 5m,
@@ -1217,7 +1217,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 95,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3594),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6145),
                             Description = "Luxury smartwatch with premium features",
                             Name = "Smartwatch - Luxury Edition",
                             Price = 90m,
@@ -1227,7 +1227,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 96,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3600),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6151),
                             Description = "Smooth writing rollerball pen",
                             Name = "Rollerball Pen",
                             Price = 6m,
@@ -1237,7 +1237,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 97,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3607),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6157),
                             Description = "Durable academic notebook for school and office",
                             Name = "Academic Notebook",
                             Price = 14m,
@@ -1247,7 +1247,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 98,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3613),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6163),
                             Description = "Breathable summer cap with adjustable strap",
                             Name = "Summer Cap",
                             Price = 12m,
@@ -1257,7 +1257,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 99,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3618),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6169),
                             Description = "Polarized sunglasses with black frame",
                             Name = "Polarized Sunglasses - Black",
                             Price = 25m,
@@ -1267,7 +1267,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 100,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3624),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6175),
                             Description = "Stylish charm bracelet for daily wear",
                             Name = "Charm Bracelet",
                             Price = 20m,
@@ -1277,7 +1277,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 101,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3630),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6181),
                             Description = "Durable protective case for smartphones",
                             Name = "Protective Phone Case",
                             Price = 15m,
@@ -1287,7 +1287,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 102,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3636),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6187),
                             Description = "Spacious and ergonomic travel backpack",
                             Name = "Travel Backpack",
                             Price = 32m,
@@ -1297,7 +1297,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 103,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3642),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6193),
                             Description = "Double-walled insulated water bottle",
                             Name = "Insulated Water Bottle",
                             Price = 18m,
@@ -1307,7 +1307,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 104,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3648),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6199),
                             Description = "Wireless keyboard compatible with all laptops",
                             Name = "Wireless Laptop Keyboard",
                             Price = 6m,
@@ -1317,7 +1317,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 105,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3654),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6206),
                             Description = "High-speed phone charger with universal compatibility",
                             Name = "Fast Charging Phone Charger",
                             Price = 16m,
@@ -1327,7 +1327,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 106,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3660),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6212),
                             Description = "64GB high-speed USB flash drive",
                             Name = "USB Flash Drive",
                             Price = 12m,
@@ -1337,7 +1337,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 107,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3666),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6217),
                             Description = "Elegant leather wristband for men and women",
                             Name = "Leather Wristband",
                             Price = 11m,
@@ -1347,7 +1347,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 108,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3672),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6223),
                             Description = "Stylish desktop calendar with monthly pages",
                             Name = "Desktop Calendar",
                             Price = 8m,
@@ -1357,7 +1357,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 109,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3679),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6229),
                             Description = "Smooth-writing gel ink pen for office use",
                             Name = "Gel Ink Pen",
                             Price = 7m,
@@ -1367,7 +1367,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 110,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3686),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6235),
                             Description = "Lightweight expandable travel bag",
                             Name = "Expandable Travel Bag",
                             Price = 36m,
@@ -1377,7 +1377,7 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 111,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 46, DateTimeKind.Local).AddTicks(3692),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 59, 3, DateTimeKind.Local).AddTicks(6241),
                             Description = "Classic journal notebook for writing and notes",
                             Name = "Journal Notebook",
                             Price = 13m,
@@ -1409,31 +1409,31 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 36, DateTimeKind.Local).AddTicks(2403),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 993, DateTimeKind.Local).AddTicks(6323),
                             Name = "SwiftStore"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 36, DateTimeKind.Local).AddTicks(3211),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 993, DateTimeKind.Local).AddTicks(7132),
                             Name = "OptiStock"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 36, DateTimeKind.Local).AddTicks(3233),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 993, DateTimeKind.Local).AddTicks(7156),
                             Name = "Nexus Dist"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 36, DateTimeKind.Local).AddTicks(3238),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 993, DateTimeKind.Local).AddTicks(7161),
                             Name = "PrimeSpace"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 13, 17, 22, 37, 36, DateTimeKind.Local).AddTicks(3243),
+                            CreateAt = new DateTime(2024, 10, 13, 19, 20, 58, 993, DateTimeKind.Local).AddTicks(7166),
                             Name = "AgileHub"
                         });
                 });
@@ -1462,22 +1462,6 @@ namespace Inventory.Data.Migrations
                     b.ToTable("WareHousesProducts");
 
                     b.HasData(
-                        new
-                        {
-                            ProductID = 1,
-                            WareHouseID = 4,
-                            CurrentStock = (short)12,
-                            MaxStock = (short)41,
-                            MinStock = (short)7
-                        },
-                        new
-                        {
-                            ProductID = 1,
-                            WareHouseID = 2,
-                            CurrentStock = (short)12,
-                            MaxStock = (short)41,
-                            MinStock = (short)7
-                        },
                         new
                         {
                             ProductID = 1,
@@ -2405,25 +2389,25 @@ namespace Inventory.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "518f0f35-5089-4e3f-85e3-918a431d09f9",
+                            Id = "a786d23b-87ba-48a2-b169-1dd8ce7b4554",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "88af1ca1-12de-4bf5-b2d9-b2bd72d1d22b",
+                            Id = "4c6118d6-92bd-4e3a-9eda-fbbb0b27ab09",
                             Name = "ManagerWH",
                             NormalizedName = "MANAGERWH"
                         },
                         new
                         {
-                            Id = "8141db5e-9950-495b-a4c0-21be4c767d9b",
+                            Id = "2f38d5bb-b932-462b-af35-2204f99239ab",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
-                            Id = "a0f7d269-0de9-4675-9539-635516ed9d88",
+                            Id = "4418557c-de0f-481f-b1f8-3ee026deab47",
                             Name = "User",
                             NormalizedName = "USER"
                         });
