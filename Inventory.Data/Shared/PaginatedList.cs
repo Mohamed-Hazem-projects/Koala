@@ -13,7 +13,7 @@
             this.AddRange(items);
         }
         public bool HasPreviousPage => PageIndex > 1;
-        public bool HasNextPage => PageIndex < PageSize;
+        public bool HasNextPage => PageIndex < PageNumbers;
 
         public static PaginatedList<T> GetPaginatedList(IQueryable<T> source, int pageNumber)
         {

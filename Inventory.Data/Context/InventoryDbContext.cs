@@ -68,7 +68,7 @@ namespace Inventory.Data.Context
             modelBuilder.Entity<Sales>()
             .HasOne(s => s.WareHouseProduct)
             .WithMany(whp => whp.Sales)
-            .OnDelete(DeleteBehavior.Cascade)
+            .OnDelete(DeleteBehavior.Restrict)
             .HasForeignKey(s => new { s.ProductId, s.WareHouseId })  // Ensure correct order
             .HasPrincipalKey(whp => new { whp.ProductID, whp.WareHouseID });
             #endregion

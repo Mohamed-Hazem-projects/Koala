@@ -22,9 +22,9 @@ namespace KoalaInventoryManagement
             });
 
             builder.Services.AddDbContext<InventoryDbContext>(op =>
-                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly(typeof(InventoryDbContext).Assembly.FullName)));
+                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
 
-            //builder.Services.AddDbContext<InventoryDbContext>(op =>
+            // builder.Services.AddDbContext<InventoryDbContext>(op =>
             //           op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
             //builder.Services.AddSession(options =>
             //{

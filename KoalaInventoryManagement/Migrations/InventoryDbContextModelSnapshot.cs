@@ -3,6 +3,7 @@ using System;
 using Inventory.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -15,67 +16,71 @@ namespace KoalaInventoryManagement.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Inventory.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -84,7 +89,8 @@ namespace KoalaInventoryManagement.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -93,15 +99,17 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -111,31 +119,31 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 935, DateTimeKind.Local).AddTicks(3106),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 755, DateTimeKind.Local).AddTicks(5847),
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 944, DateTimeKind.Local).AddTicks(4936),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6577),
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 944, DateTimeKind.Local).AddTicks(4964),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6633),
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 944, DateTimeKind.Local).AddTicks(4967),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6638),
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 944, DateTimeKind.Local).AddTicks(4969),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6641),
                             Name = "Accessories"
                         });
                 });
@@ -144,29 +152,32 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ItemsSold")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SaleDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("TEXT");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("WareHouseId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WareHouseId", "ProductId");
+                    b.HasIndex("ProductId", "WareHouseId");
 
                     b.ToTable("Sales");
 
@@ -174,27 +185,27 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 953, DateTimeKind.Local).AddTicks(9542),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(364),
                             ItemsSold = 5,
                             ProductId = 1,
-                            SaleDate = new DateTime(2024, 10, 11, 9, 20, 23, 953, DateTimeKind.Local).AddTicks(9823),
+                            SaleDate = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(713),
                             TotalPrice = 100m,
                             WareHouseId = 4
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 954, DateTimeKind.Local).AddTicks(1079),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1934),
                             ItemsSold = 10,
                             ProductId = 2,
-                            SaleDate = new DateTime(2024, 10, 11, 9, 20, 23, 954, DateTimeKind.Local).AddTicks(1090),
+                            SaleDate = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1938),
                             TotalPrice = 200m,
                             WareHouseId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 954, DateTimeKind.Local).AddTicks(1094),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1944),
                             ItemsSold = 15,
                             ProductId = 3,
                             SaleDate = new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -204,7 +215,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 954, DateTimeKind.Local).AddTicks(1121),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1989),
                             ItemsSold = 20,
                             ProductId = 4,
                             SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -214,7 +225,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 954, DateTimeKind.Local).AddTicks(1125),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1995),
                             ItemsSold = 25,
                             ProductId = 5,
                             SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -227,30 +238,32 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email_Address")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone_Number")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<byte?>("Rating")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
@@ -260,7 +273,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(3917),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(4303),
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -269,7 +282,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(5012),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6426),
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -278,7 +291,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(5026),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6472),
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -287,7 +300,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(5029),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6477),
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -296,7 +309,7 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(5032),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6482),
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -308,32 +321,34 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<byte[]>("Image")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("money");
 
                     b.Property<int?>("SupplierId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -348,1110 +363,1110 @@ namespace KoalaInventoryManagement.Migrations
                         {
                             Id = 1,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(8467),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(5562),
                             Description = "Automotive Products",
                             Name = "Saudi Arabia Flag",
-                            Price = 804.0,
+                            Price = 804m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9916),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7444),
                             Description = "Toys",
                             Name = "Textbook",
-                            Price = 394.0,
+                            Price = 394m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9931),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7463),
                             Description = "Home Appliances",
                             Name = "Laptop",
-                            Price = 740.0,
+                            Price = 740m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9934),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7467),
                             Description = "Beauty Products",
                             Name = "TV",
-                            Price = 72.0,
+                            Price = 72m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9937),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7471),
                             Description = "Garden Equipment",
                             Name = "Saudi Arabia Flag",
-                            Price = 490.0,
+                            Price = 490m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9949),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7486),
                             Description = "Furniture",
                             Name = "Smartphone",
-                            Price = 113.0,
+                            Price = 113m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 7,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9952),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7491),
                             Description = "Electronics Products",
                             Name = "Sofa",
-                            Price = 607.0,
+                            Price = 607m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9955),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7494),
                             Description = "Books",
                             Name = "Power Bank",
-                            Price = 664.0,
+                            Price = 664m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9958),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7498),
                             Description = "Electronics Products",
                             Name = "Camera",
-                            Price = 99.0,
+                            Price = 99m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 10,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9962),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7503),
                             Description = "Sports Equipment",
                             Name = "Dining Table",
-                            Price = 833.0,
+                            Price = 833m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 11,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9965),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7507),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 12,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9968),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7511),
                             Description = "Flags Products",
                             Name = "Egypt Flag",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 13,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9971),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7514),
                             Description = "Flags Products",
                             Name = "Saudi Arabia Flag",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 14,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9973),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7518),
                             Description = "Electronics Products",
                             Name = "Laptop",
-                            Price = 500.0,
+                            Price = 500m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 15,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9976),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7627),
                             Description = "Electronics Products",
                             Name = "Smartphone",
-                            Price = 300.0,
+                            Price = 300m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 16,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9979),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7632),
                             Description = "Electronics Products",
                             Name = "Tablet",
-                            Price = 200.0,
+                            Price = 200m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 17,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9982),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7635),
                             Description = "Home Appliances",
                             Name = "Refrigerator",
-                            Price = 800.0,
+                            Price = 800m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 18,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9986),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7641),
                             Description = "Home Appliances",
                             Name = "Washing Machine",
-                            Price = 600.0,
+                            Price = 600m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 19,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9989),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7645),
                             Description = "Home Appliances",
                             Name = "Microwave",
-                            Price = 150.0,
+                            Price = 150m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 20,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9992),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7649),
                             Description = "Furniture",
                             Name = "Sofa",
-                            Price = 350.0,
+                            Price = 350m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 21,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9995),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7652),
                             Description = "Furniture",
                             Name = "Dining Table",
-                            Price = 450.0,
+                            Price = 450m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 22,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 950, DateTimeKind.Local).AddTicks(9998),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7656),
                             Description = "Furniture",
                             Name = "Bed Frame",
-                            Price = 400.0,
+                            Price = 400m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 23,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(1),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7661),
                             Description = "Books",
                             Name = "Novel",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 24,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(4),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7664),
                             Description = "Books",
                             Name = "Cookbook",
-                            Price = 20.0,
+                            Price = 20m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 25,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(7),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7668),
                             Description = "Books",
                             Name = "Textbook",
-                            Price = 30.0,
+                            Price = 30m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 26,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(10),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7671),
                             Description = "Furniture",
                             Name = "Monitor",
-                            Price = 180.0,
+                            Price = 180m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 27,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(96),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7675),
                             Description = "Beauty Products",
                             Name = "Wardrobe",
-                            Price = 615.0,
+                            Price = 615m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 28,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(100),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7678),
                             Description = "Toys",
                             Name = "Mirror",
-                            Price = 563.0,
+                            Price = 563m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 29,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(103),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7682),
                             Description = "Electronics Products",
                             Name = "Cookbook",
-                            Price = 243.0,
+                            Price = 243m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 30,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(106),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7685),
                             Description = "Flags Products",
                             Name = "Heater",
-                            Price = 5.0,
+                            Price = 5m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 31,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(109),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7689),
                             Description = "Kitchen Appliances",
                             Name = "Rug",
-                            Price = 336.0,
+                            Price = 336m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 32,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(113),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7692),
                             Description = "Home Appliances",
                             Name = "Iron",
-                            Price = 874.0,
+                            Price = 874m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 33,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(116),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7696),
                             Description = "Games",
                             Name = "Textbook",
-                            Price = 436.0,
+                            Price = 436m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 34,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(121),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7701),
                             Description = "Flags Products",
                             Name = "Monitor",
-                            Price = 927.0,
+                            Price = 927m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 35,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(123),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7704),
                             Description = "Musical Instruments",
                             Name = "Sofa",
-                            Price = 201.0,
+                            Price = 201m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 36,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(126),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7708),
                             Description = "Musical Instruments",
                             Name = "Cookbook",
-                            Price = 399.0,
+                            Price = 399m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 37,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(129),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7711),
                             Description = "Kitchen Appliances",
                             Name = "Egypt Flag",
-                            Price = 549.0,
+                            Price = 549m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 38,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(132),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7715),
                             Description = "Toys",
                             Name = "Laptop",
-                            Price = 442.0,
+                            Price = 442m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 39,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(135),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7718),
                             Description = "Books",
                             Name = "Bed Frame",
-                            Price = 657.0,
+                            Price = 657m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 40,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(138),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7722),
                             Description = "Electronics Products",
                             Name = "Charger",
-                            Price = 257.0,
+                            Price = 257m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 41,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(141),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7726),
                             Description = "Automotive Products",
                             Name = "Tablet",
-                            Price = 639.0,
+                            Price = 639m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 42,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(144),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7729),
                             Description = "Home Appliances",
                             Name = "Headphones",
-                            Price = 676.0,
+                            Price = 676m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 43,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(146),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7733),
                             Description = "Flags Products",
                             Name = "Dining Table",
-                            Price = 161.0,
+                            Price = 161m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 44,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(149),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7736),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 45,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(152),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7740),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 46,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(155),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7743),
                             Description = "Flags Products",
                             Name = "USA Flag",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 47,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(158),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7747),
                             Description = "Flags Products",
                             Name = "China Flag",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 48,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(161),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7751),
                             Description = "Flags Products",
                             Name = "Brazil Flag",
-                            Price = 11.0,
+                            Price = 11m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 49,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(164),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7754),
                             Description = "Flags Products",
                             Name = "Germany Flag",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 50,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(167),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7758),
                             Description = "Flags Products",
                             Name = "France Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 51,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(170),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7761),
                             Description = "Flags Products",
                             Name = "UK Flag",
-                            Price = 13.0,
+                            Price = 13m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 52,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(172),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7764),
                             Description = "Flags Products",
                             Name = "Russia Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 53,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(175),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7768),
                             Description = "Flags Products",
                             Name = "Italy Flag",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 54,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(178),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7771),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
-                            Price = 50.0,
+                            Price = 50m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 55,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(181),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7775),
                             Description = "Stationery",
                             Name = "Notebook",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 56,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(183),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7779),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
-                            Price = 20.0,
+                            Price = 20m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 57,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(186),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7783),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 58,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(189),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7786),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
-                            Price = 40.0,
+                            Price = 40m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 59,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(192),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7790),
                             Description = "Office Supplies",
                             Name = "Calendar",
-                            Price = 18.0,
+                            Price = 18m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 60,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(195),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7793),
                             Description = "Electronics",
                             Name = "Headphones",
-                            Price = 65.0,
+                            Price = 65m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 61,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(197),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7797),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 62,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(200),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7800),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
-                            Price = 25.0,
+                            Price = 25m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 63,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(203),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7804),
                             Description = "Home Decor",
                             Name = "Poster",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 64,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(206),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7807),
                             Description = "Flags Products",
                             Name = "Palestine Flag",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 65,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(209),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7811),
                             Description = "Office Supplies",
                             Name = "Coffee Mug",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 66,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(213),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7860),
                             Description = "Flags Products",
                             Name = "Jordan Flag",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 67,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(216),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7864),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
-                            Price = 5.0,
+                            Price = 5m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 68,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(219),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7868),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
-                            Price = 25.0,
+                            Price = 25m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 69,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(222),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7871),
                             Description = "Clothing and Apparel",
                             Name = "T-shirt",
-                            Price = 18.0,
+                            Price = 18m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 70,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(225),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7875),
                             Description = "Stationery",
                             Name = "Notebook",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 71,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(228),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7878),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
-                            Price = 20.0,
+                            Price = 20m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 72,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(230),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7882),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
-                            Price = 7.0,
+                            Price = 7m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 73,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(233),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7886),
                             Description = "Office Supplies",
                             Name = "Pen",
-                            Price = 6.0,
+                            Price = 6m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 74,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(236),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7889),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
-                            Price = 50.0,
+                            Price = 50m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 75,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(239),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7893),
                             Description = "Tech Gadgets",
                             Name = "Portable Speaker",
-                            Price = 55.0,
+                            Price = 55m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 76,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(275),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7896),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
-                            Price = 20.0,
+                            Price = 20m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 77,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(278),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7900),
                             Description = "Home Decor",
                             Name = "Poster",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 78,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(281),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7904),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 79,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(284),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7907),
                             Description = "Travel Essentials",
                             Name = "Backpack",
-                            Price = 30.0,
+                            Price = 30m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 80,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(287),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7911),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
-                            Price = 80.0,
+                            Price = 80m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 81,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(290),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7914),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
-                            Price = 35.0,
+                            Price = 35m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 82,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(293),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7917),
                             Description = "Tech Gadgets",
                             Name = "Power Bank",
-                            Price = 25.0,
+                            Price = 25m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 83,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(296),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7921),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 84,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(299),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7924),
                             Description = "Office Supplies",
                             Name = "Calendar",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 85,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(301),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7928),
                             Description = "Office Supplies",
                             Name = "Mouse Pad",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 86,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(304),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7931),
                             Description = "Tech Gadgets",
                             Name = "Charger",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 87,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(307),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7935),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
-                            Price = 10.0,
+                            Price = 10m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 88,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(310),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7939),
                             Description = "Flags Products",
                             Name = "Syria Flag",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 89,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(313),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7943),
                             Description = "Travel Essentials",
                             Name = "Umbrella",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 90,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(316),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7947),
                             Description = "Flags Products",
                             Name = "Lebanon Flag",
-                            Price = 7.0,
+                            Price = 7m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 91,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(318),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7950),
                             Description = "Office Supplies",
                             Name = "Desk Organizer",
-                            Price = 18.0,
+                            Price = 18m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 92,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(321),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7954),
                             Description = "Home Decor",
                             Name = "Poster",
-                            Price = 9.0,
+                            Price = 9m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 93,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(324),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7958),
                             Description = "Tech Gadgets",
                             Name = "Headphones",
-                            Price = 55.0,
+                            Price = 55m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 94,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(327),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7962),
                             Description = "Fashion Accessories",
                             Name = "Keychain",
-                            Price = 5.0,
+                            Price = 5m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 95,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(329),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7966),
                             Description = "Tech Gadgets",
                             Name = "Smartwatch",
-                            Price = 90.0,
+                            Price = 90m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 96,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(332),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7969),
                             Description = "Office Supplies",
                             Name = "Pen",
-                            Price = 6.0,
+                            Price = 6m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 97,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(335),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7973),
                             Description = "Stationery",
                             Name = "Notebook",
-                            Price = 14.0,
+                            Price = 14m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 98,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(338),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7976),
                             Description = "Clothing and Apparel",
                             Name = "Cap",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 99,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(341),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7979),
                             Description = "Fashion Accessories",
                             Name = "Sunglasses",
-                            Price = 25.0,
+                            Price = 25m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 100,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(344),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7983),
                             Description = "Fashion Accessories",
                             Name = "Bracelet",
-                            Price = 20.0,
+                            Price = 20m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 101,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(347),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7986),
                             Description = "Tech Gadgets",
                             Name = "Phone Case",
-                            Price = 15.0,
+                            Price = 15m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 102,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(350),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7990),
                             Description = "Travel Essentials",
                             Name = "Backpack",
-                            Price = 32.0,
+                            Price = 32m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 103,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(352),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7993),
                             Description = "Travel Essentials",
                             Name = "Water Bottle",
-                            Price = 18.0,
+                            Price = 18m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 104,
                             CategoryId = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(355),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7997),
                             Description = "Stationery",
                             Name = "Laptop Sticker",
-                            Price = 6.0,
+                            Price = 6m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 105,
                             CategoryId = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(358),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8000),
                             Description = "Tech Gadgets",
                             Name = "Charger",
-                            Price = 16.0,
+                            Price = 16m,
                             SupplierId = 2
                         },
                         new
                         {
                             Id = 106,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(361),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8004),
                             Description = "Tech Gadgets",
                             Name = "Flash Drive",
-                            Price = 12.0,
+                            Price = 12m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 107,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(364),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8008),
                             Description = "Fashion Accessories",
                             Name = "Wristband",
-                            Price = 11.0,
+                            Price = 11m,
                             SupplierId = 5
                         },
                         new
                         {
                             Id = 108,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(366),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8011),
                             Description = "Office Supplies",
                             Name = "Calendar",
-                            Price = 8.0,
+                            Price = 8m,
                             SupplierId = 4
                         },
                         new
                         {
                             Id = 109,
                             CategoryId = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(369),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8015),
                             Description = "Office Supplies",
                             Name = "Pen",
-                            Price = 7.0,
+                            Price = 7m,
                             SupplierId = 1
                         },
                         new
                         {
                             Id = 110,
                             CategoryId = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(372),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8018),
                             Description = "Travel Essentials",
                             Name = "Travel Bag",
-                            Price = 36.0,
+                            Price = 36m,
                             SupplierId = 3
                         },
                         new
                         {
                             Id = 111,
                             CategoryId = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 951, DateTimeKind.Local).AddTicks(375),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8022),
                             Description = "Stationery",
                             Name = "Notebook",
-                            Price = 13.0,
+                            Price = 13m,
                             SupplierId = 2
                         });
                 });
@@ -1460,15 +1475,17 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -1478,31 +1495,31 @@ namespace KoalaInventoryManagement.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(8086),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2148),
                             Name = "Section A"
                         },
                         new
                         {
                             Id = 2,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(8424),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2713),
                             Name = "Section B"
                         },
                         new
                         {
                             Id = 3,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(8436),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2731),
                             Name = "Section C"
                         },
                         new
                         {
                             Id = 4,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(8439),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2736),
                             Name = "Section D"
                         },
                         new
                         {
                             Id = 5,
-                            CreateAt = new DateTime(2024, 10, 11, 9, 20, 23, 945, DateTimeKind.Local).AddTicks(8442),
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2741),
                             Name = "Section E"
                         });
                 });
@@ -1510,19 +1527,19 @@ namespace KoalaInventoryManagement.Migrations
             modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouseProduct", b =>
                 {
                     b.Property<int>("ProductID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("WareHouseID")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<short>("CurrentStock")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("smallint");
 
                     b.Property<short>("MaxStock")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("smallint");
 
                     b.Property<short>("MinStock")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("smallint");
 
                     b.HasKey("ProductID", "WareHouseID");
 
@@ -2424,25 +2441,26 @@ namespace KoalaInventoryManagement.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -2451,17 +2469,19 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -2474,17 +2494,19 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -2496,17 +2518,17 @@ namespace KoalaInventoryManagement.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -2518,10 +2540,10 @@ namespace KoalaInventoryManagement.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -2533,16 +2555,16 @@ namespace KoalaInventoryManagement.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -2553,8 +2575,8 @@ namespace KoalaInventoryManagement.Migrations
                 {
                     b.HasOne("KoalaInventoryManagement.Models.WareHouseProduct", "WareHouseProduct")
                         .WithMany("Sales")
-                        .HasForeignKey("WareHouseId", "ProductId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasForeignKey("ProductId", "WareHouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("WareHouseProduct");

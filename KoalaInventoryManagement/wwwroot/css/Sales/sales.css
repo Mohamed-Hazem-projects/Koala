@@ -26,3 +26,7 @@ select option[value="default"] {
 .close-btn:hover {
     color: #35374B;
 }
+
+#page-item-count{
+    color: gray;
+}

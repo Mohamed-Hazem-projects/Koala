@@ -1,15 +1,16 @@
-@model List<SalesViewModel>
+@model PaginatedList<SalesViewModel>
 @{
-    ViewData["Title"] = "Sales";
-    var productSuggestionsUrl = Url.Action("GetProductSuggestions", "Sales");
-    var addSaleUrl = Url.Action("AddSale", "Sales");
-    var updatedDataUrl = Url.Action("GetUpdatedData", "Sales");
+  ViewData["Title"] = "Sales";
+  var productSuggestionsUrl = Url.Action("GetProductSuggestions", "Sales");
+  var addSaleUrl = Url.Action("AddSale", "Sales");
+  var updatedDataUrl = Url.Action("GetUpdatedData", "Sales");
 }
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
 <link rel="stylesheet" href="~/css/Sales/sales.css">
 
-<input type="text" id="url" data-productSuggestionsUrl="@productSuggestionsUrl" data-addSaleUrl="@addSaleUrl"  data-updatedDataUrl="@updatedDataUrl"  hidden />
-<div class="container-fluid p-0 suppliers"  >
+<input type="text" id="url" data-productSuggestionsUrl="@productSuggestionsUrl" data-addSaleUrl="@addSaleUrl"
+  data-updatedDataUrl="@updatedDataUrl" hidden />
+<div class="container-fluid p-0 suppliers">
   <!-- Products Header Start -->
   <div class="content-header">
     <div class="heading">
@@ -24,6 +25,7 @@
         <div class="card-header">
           <h4 class="card-title roboto">Sales</h4>
           @* <a href="/sales/form" class="add-btn">Add</a> *@
+          <!-- Button trigger modal -->
           <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addModal">
             Add
           </button>
@@ -57,13 +59,37 @@
                 }
               </tbody>
             </table>
+
+          </div>
+          <div class="row align-content-center">
+            @{
+              var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+              var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-end align-items-center">
+                <li><span class="mx-3" id="page-item-count">@(Model.PageIndex * Model.PageSize) out of
+                    @(Model.PageNumbers * Model.PageSize)</span></li>
+                <li class="page-item @prevDisabled"><a class="page-link"
+                    asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a></li>
+                @for (int i = 1; i <= Model.PageNumbers; i++)
+                {
+                  <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-route-pageNumber="@(i)" id="@(i == Model.PageIndex ? "active": "")">@i</a>
+                  </li>
+                }
+                <li class="page-item @nextDisabled"><a class="page-link"
+                    asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a></li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Button trigger modal -->
+</div>
+
 
 <!-- Modal Start-->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -77,7 +103,7 @@
         <div class="mb-3">
           <label for="warehouseNames" class="form-label">Warehouses</label>
           <select class="form-select" name="warehouseNames" id="warehouseNames" required>
-            <option  value="default" selected disabled>Select a Warehouse </option>
+            <option value="default" selected disabled>Select a Warehouse </option>
             @foreach (var warehouse in ViewBag.WareHouses)
             {
               <option value="@warehouse.Id">@warehouse.Name</option>
@@ -87,17 +113,21 @@
         <div class="mb-3">
           <label for="productName" class="form-label">Product Name</label>
           <input type="text" class="form-control" id="productName" autocomplete="off" required />
-          <span id="product-error" style="color: red;display: none; font-weight:bolder; margin-left:0.3rem;font-size:small;">Enter a valid Product !</span>
+          <span id="product-error"
+            style="color: red;display: none; font-weight:bolder; margin-left:0.3rem;font-size:small;">Enter a valid
+            Product !</span>
           <div id="productSuggestions" class="dropdown-menu"></div> <!-- For showing suggestions -->
         </div>
         <div class="mb-3">
           <label for="quantity" class="form-label" required>Quantity</label>
-          <input type="number" class="form-control" min="1" id="quantity" placeholder="Enter quantity"/>
-          <span id="quantity-error" style="color: red;display: none; font-weight:bolder; margin-left:0.3rem;font-size:small;">Quantity must be greater than 0 or lower than or equal to Stock !</span>
+          <input type="number" class="form-control" min="1" id="quantity" placeholder="Enter quantity" />
+          <span id="quantity-error"
+            style="color: red;display: none; font-weight:bolder; margin-left:0.3rem;font-size:small;">Quantity must be
+            greater than 0 or lower than or equal to Stock !</span>
         </div>
         <div>
-             <label for="stock" class="form-label" required>Stock</label>
-             <input type="number" class="form-control" id="stock" readonly />
+          <label for="stock" class="form-label" required>Stock</label>
+          <input type="number" class="form-control" id="stock" readonly />
         </div>
         <div class="mb-3">
           <label for="price" class="form-label">Price</label>
@@ -118,5 +148,5 @@
 <!-- Modal End-->
 
 @section Scripts {
-      <script src="~/js/Sales/filteration.js" asp-append-version="true"></script>
+  <script src="~/js/Sales/filteration.js" asp-append-version="true"></script>
 }

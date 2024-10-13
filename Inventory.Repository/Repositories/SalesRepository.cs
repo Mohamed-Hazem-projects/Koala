@@ -15,9 +15,23 @@ namespace Inventory.Repository.Repositories
             _context = context;
         }
 
+        // public bool AddSale(Sales sale)
+        // {
+        //     try
+        //     {
+        //         _context.Sales.Add(sale);
+        //         _context.SaveChanges();
+        //         return true;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return false;
+        //     }
+        // }
+
         public IEnumerable<SalesViewModel>? GetSalesPaginated(int pageNumber)
         {
-            var query = _context.Sales.Select(s => new SalesViewModel
+            var query = _context.Sales.OrderByDescending(x => x.SaleDate).Select(s => new SalesViewModel
             {
                 Id = s.Id,
                 ProductName = s.WareHouseProduct.Product.Name,
@@ -74,10 +88,10 @@ namespace Inventory.Repository.Repositories
             IQueryable<Sales> query = _context.Sales;
             if (match != null)
             {
+                query = query.Include(s => s.WareHouseProduct).ThenInclude(w => w.Product).ThenInclude(p => p.WareHouseProducts).ThenInclude(w => w.WareHouse);
                 query = query.Where(match);
             }
-            query = query.Include(s => s.WareHouseProduct);
-            query = query.ThenInclude(w => w.Product);
+            query = query.OrderByDescending(s => s.SaleDate);
 
             return PaginatedList<Sales>.GetPaginatedList(query, pageNumber).Select(s => new SalesViewModel
             {

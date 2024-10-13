@@ -10,7 +10,7 @@ namespace Inventory.Data.Models
         [Precision(18, 2)]
         public decimal TotalPrice { get; set; }
 
-        public WareHouseProduct WareHouseProduct { get; set; }
+        public virtual WareHouseProduct WareHouseProduct { get; set; }
         public int ProductId { get; set; }
         public int WareHouseId { get; set; }
     }

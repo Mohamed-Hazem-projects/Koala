@@ -21,11 +21,11 @@ namespace KoalaInventoryManagement.Controllers
             var sales = _unitOfWork.Sales.GetProdcutAndWareHouse()!
                 .OrderByDescending(x => x.SaleDate)
                 .ToList();
-            var paginatedSales = _unitOfWork.Sales.GetSalesPaginated(x => x.WareHouseId == 1, pageNumber ?? 1)!
-                .OrderByDescending(x => x.SaleDate)
-                .ToList();
-            var warehouseProductJunction = _unitOfWork.WareHousesProducts.GetAll(["Product", "WareHouse"]);
-            ViewBag.WareHouses = warehouseProductJunction.Select(x => x.WareHouse).DistinctBy(x => x.Name).OrderBy(x => x.Name);
+            var paginatedSales = _unitOfWork.Sales.GetSalesPaginated(pageNumber ?? 1)!;
+            ViewBag.WareHouses = _unitOfWork.WareHousesProducts.GetAll(["Product", "WareHouse"])
+            .Select(x => x.WareHouse)
+            .DistinctBy(x => x.Name)
+            .OrderBy(x => x.Name);
             return View(paginatedSales);
         }
 
@@ -62,7 +62,6 @@ namespace KoalaInventoryManagement.Controllers
                 try
                 {
                     _unitOfWork.Sales.Add(sale);
-                    _unitOfWork.Complete();
                     var product = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
                     if (product != null)
                     {
@@ -78,12 +77,10 @@ namespace KoalaInventoryManagement.Controllers
             }
             return Json(new { message = "failed" });
         }
-        [HttpGet]
-        public IActionResult GetUpdatedData()
+        [HttpGet, HttpPost]
+        public IActionResult GetUpdatedData(int pageNumber)
         {
-            var sales = _unitOfWork.Sales.GetSalesPaginated()!
-                .OrderByDescending(x => x.SaleDate)
-                .ToList();
+            var sales = _unitOfWork.Sales.GetSalesPaginated(pageNumber)!;
             return Json(sales);
         }
 
