@@ -30,6 +30,12 @@ namespace Inventory.web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingUser = await _UserManager.FindByEmailAsync(input.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("", "The email is already in use. Please choose a different email.");
+                    return View(input);
+                }
                 var user = new ApplicationUser()
                 {
                     UserName = input.Email.Split("@")[0],
