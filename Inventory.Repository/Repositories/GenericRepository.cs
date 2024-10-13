@@ -173,27 +173,40 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public IEnumerable<T> GetAll(string[] includes)
+        //public IEnumerable<T> GetAll(string[] includes)
+        //{
+        //    try
+        //    {
+        //        IQueryable<T> query = _context.Set<T>();
+        //        if(includes != null && includes.Length > 0)
+        //            foreach (string include in includes)
+        //                query = query.Include(include);
+
+        //        List<T> result = query?.ToList() ?? new List<T>();
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //log error
+        //        //.......
+
+        //        return new List<T>();
+        //    }
+        //}
+        public IQueryable<T> GetAll(string[] includes)
         {
-            try
-            {
-                IQueryable<T> query = _context.Set<T>();
-                if(includes != null && includes.Length > 0)
-                    foreach (string include in includes)
-                        query = query.Include(include);
+            IQueryable<T> query = _context.Set<T>();
 
-                List<T> result = query?.ToList() ?? new List<T>();
-                return result;
-            }
-            catch (Exception ex)
+            if (includes != null && includes.Length > 0)
             {
-                //log error
-                //.......
-
-                return new List<T>();
+                foreach (string include in includes)
+                {
+                    query = query.Include(include);
+                }
             }
+
+            return query; // Return IQueryable<T> instead of IEnumerable<T>
         }
-
         public T? GetbyId(int id, string[] includes)
         {
             try
@@ -215,5 +228,7 @@ namespace Inventory.Repository.Repositories
                 return default;
             }
         }
+
+     
     }
 }

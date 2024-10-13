@@ -339,5 +339,10 @@ namespace Inventory.Repository.Repositories
                 return default;
             }
         }
+
+        IQueryable<WareHouseProduct> IGenericRepository<WareHouseProduct>.GetAll(string[] includes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

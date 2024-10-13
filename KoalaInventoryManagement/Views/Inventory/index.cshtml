@@ -1,9 +1,10 @@
 ﻿@using Newtonsoft.Json
-@model List<ProductViewModel>
+@using System.Linq;
+@model Inventory.Data.Models.PaginatedList<KoalaInventoryManagement.ViewModels.Products.ProductViewModel>
 
 @{
     ViewData["Title"] = "Inventory";
-    var serlizedFilteredProducts = JsonConvert.SerializeObject(Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>());
+    var serializedFilteredProducts = JsonConvert.SerializeObject(Model.Items.DistinctBy(p => p.Id) ?? new List<ProductViewModel>());
     var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
 }
 
@@ -18,119 +19,152 @@
         </div>
     </div>
     <!-- Products Header End -->
-    <!-- Filteration Start -->
-    <div class="d-flex justify-content-center align-items-center flex-column">
-        <br />
-        <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
-        <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
-        <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
-        <br />
-        <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
-            <!-- WareHouse Filter Button Start -->
+<!-- Filteration Start -->
+<div class="d-flex justify-content-center align-items-center flex-column">
+    <br />
+    <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
+    <input type="hidden" id="filteredProductsData" value='@Html.Raw(serializedFilteredProducts)' />
+    <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
+    <br />
+    <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
+        <!-- WareHouse Filter Button Start -->
+  
             <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
                 <option selected>All Warehouses</option>
-                @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+                @foreach (var warehouse in ViewBag.WareHouses as List<WareHouse>)
                 {
-                    if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+                    if (ViewBag.SelectedWareHouse > 0 && warehouse.Id == ViewBag.SelectedWareHouse)
                     {
-                        <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                        <option selected value="@warehouse.Id">@warehouse.Name</option>
                         continue;
                     }
-                    <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                    <option value="@warehouse.Id">@warehouse.Name</option>
                 }
             </select>
-            <!-- WareHouse Filter Button End -->
-            <!-- Category Filter Button Start -->
-            <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
-                <option selected>All Categories</option>
-                @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
+        <!-- Category Filter Button Start -->
+        <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
+            <option selected>All Categories</option>
+            @foreach (var category in Model.Items.GroupBy(p => p.CategoryName).Select(g => g.First()))
+            {
+                if (ViewBag.SelectedCategory > 0 && category.CategoryID == ViewBag.SelectedCategory)
                 {
-                    if (ViewBag.SelectedCategory > 0 && category.Id == ViewBag.SelectedCategory)
-                    {
-                        <option selected value="@category.CategoryID">@category.CategoryName</option>
-                        continue;
-                    }
-                    <option value="@category.CategoryID">@category.CategoryName</option>
+                    <option selected value="@category.CategoryID">@category.CategoryName</option>
+                    continue;
                 }
-            </select>
-            <!-- Category Filter Button End -->
-            <!-- Supplier Filter Button Start -->
-            <select id="supplierID" class="form-select" name="supplierID" aria-label="Default select example">
-                <option selected>All Suppliers</option>
-                @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
+                <option value="@category.CategoryID">@category.CategoryName</option>
+            }
+        </select>
+        <!-- Category Filter Button End -->
+
+        <!-- Supplier Filter Button Start -->
+        <select id="supplierID" class="form-select" name="supplierID" aria-label="Default select example">
+            <option selected>All Suppliers</option>
+            @foreach (var supplier in Model.Items.GroupBy(p => p.SupplierName).Select(g => g.First()))
+            {
+                if (ViewBag.SelectedSupplier > 0 && supplier.SupplierID == ViewBag.SelectedSupplier)
                 {
-                    if (ViewBag.SelectedSupplier > 0 && supplier.SupplierID == ViewBag.SelectedSupplier)
-                    {
-                        <option selected value="@supplier.SupplierID">@supplier.SupplierName</option>
-                        continue;
-                    }
-                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                    <option selected value="@supplier.SupplierID">@supplier.SupplierName</option>
+                    continue;
                 }
-            </select>
-            <!-- Supplier Filter Button End -->
-        </div>
-        <br />
+                <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+            }
+        </select>
+        <!-- Supplier Filter Button End -->
     </div>
-    <!-- Filteration End -->
-    <!-- Products Table Start -->
-    <div class="bg-offwhite">
-        <div class="col-lg-12 p-3">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title roboto">Products</h4>
-                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
-                            <thead>
+    <br />
+</div>
+<!-- Filteration End -->
+
+
+<!-- Products Table Start -->
+<div class="bg-offwhite">
+    <div class="col-lg-12 p-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title roboto">Products</h4>
+                <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Image</th>
+                                <th class="btn-head" scope="col">Info</th>
+                                <th class="btn-head" scope="col">Edit</th>
+                                <th class="btn-head" scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Items)
+                            {
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Image</th>
-                                    <th class="btn-head" scope="col">Info</th>
-                                    <th class="btn-head" scope="col">Edit</th>
-                                    <th class="btn-head" scope="col">Delete</th>
+                                    <td>@product.Name</td>
+                                    <td>@product.Description</td>
+                                    <td>$&nbsp;@product.Price</td>
+                                    <td>@product.Image</td>
+                                    <td>
+                                        <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
+                                            <i class="fa fa-info-circle color-info"></i>
+                                        </a>
+                                    </td>
+                                    <td class="btn-td edit">
+                                        <a onclick="openEditModalProduct(@product.Id, @product.WareHouseID, @product.CategoryID, @product.SupplierID,
+                                            '@product.Name', '@product.Description', @product.Price, '@product.Image',@product.CurrentStock,
+                                            @product.MinStock, @product.MaxStock, '@product.CategoryName', '@product.SupplierName')">
+                                            <i class="fa fa-pencil color-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="btn-td delete">
+                                        <a onclick="confirmDelete('@product.Name Product', @product.Id)">
+                                            <i class="fa fa-close color-danger"></i>
+                                        </a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var product in Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>())
-                                {
-                                    <tr>
-                                        <td>@product.Name</td>
-                                        <td>@product.Description</td>
-                                        <td>$&nbsp;@product.Price</td>
-                                        <td>@product.Image</td>
-                                        <td>
-                                            <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
-                                                <i class="fa fa-info-circle color-info"></i>
-                                            </a>
-                                        </td>
-                                        <td class="btn-td edit">
-                                            <a onclick="openEditModalProduct(@product.Id, @product.WareHouseID, @product.CategoryID, @product.SupplierID,
-                                                '@product.Name', '@product.Description', @product.Price, '@product.Image',@product.CurrentStock,
-                                                 @product.MintStock, @product.MaxStock, '@product.CategoryName', '@product.SupplierName')">
-                                                <i class="fa fa-pencil color-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)">
-                                                <i class="fa fa-close color-danger"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Products Table End -->
 </div>
+<!-- Products Table End -->
+<!-- Paging -->
+<div class="row">
+    <div class="col-md-6">
+        <span>Page @(Model.PageIndex) of @(Model.TotalPages)</span>
+    </div>
+    <div class="col-md-6">
+        <nav>
+            <ul class="pagination justify-content-end">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-route-pageNumber="1" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">First</a>
+                </li>
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Previous</a>
+                </li>
 
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                        <a class="page-link" asp-route-pageNumber="@i" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Next</a>
+                </li>
+                <li class="page-item @(Model.PageIndex == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-route-pageNumber="@Model.TotalPages" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
 <!-- Add or Edit Product Modal Start-->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
@@ -138,92 +172,76 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="productModalLabel">Add Product</h5>
-                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm">
-                    <input type="number" name="Id" hidden value="" />
-                    <input type="number" name="oldWareHouseID" hidden value="" />
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Name</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="Name" class="form-control"
-                                   required minlength="2" maxlength="50" placeholder="Name" />
-                        </div>
+                    <input type="hidden" name="Id" value="" />
+                    <input type="hidden" name="oldWareHouseID" value="" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="Name" class="form-control" required minlength="2" maxlength="50" placeholder="Name" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Description</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="Description" class="form-control"
-                                   required placeholder="Description" />
-                        </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" name="Description" class="form-control" required placeholder="Description" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Price</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="Price" class="form-control"
-                                   placeholder="Price" />
-                        </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="text" name="Price" class="form-control" placeholder="Price" required pattern="^\d+(\.\d{1,2})?$" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Warehouses</label>
-                        <div class="col-sm-9">
-                            <select id="wareHouseSelector" name="WareHouseID" class="form-control">
-                                <option disabled active>Select Warehouse</option>
-                                @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+
+                    <div id="warehouse" class="mb-3">
+                        <label class="form-label">Warehouses</label>
+                        <select id="wareHouseSelector" name="WareHouseID" class="form-control" required>
+                            <option value="" disabled selected>Select Warehouse</option>
+                                @foreach (var warehouse in ViewBag.WareHouses as List<WareHouse>)
                                 {
-                                    <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                                    <option value="@warehouse.Id">@warehouse.Name</option>
                                 }
-                            </select>
-                        </div>
+                        </select>
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Current Stock</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="CurrentStock" class="form-control"
-                                   placeholder="Current Stock" />
-                        </div>
+
+                        <div id="currentstock" class="mb-3">
+                        <label class="form-label">Current Stock</label>
+                        <input type="number" name="CurrentStock" class="form-control" placeholder="Current Stock" required min="0" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Minimum Stock</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="MinStock" class="form-control"
-                                   placeholder="Minimum Stock" />
-                        </div>
+
+                    <div id="minstock" class="mb-3">
+                        <label class="form-label">Minimum Stock</label>
+                        <input type="number" name="MinStock" class="form-control" placeholder="Minimum Stock" required min="0" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Maximum Stock</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="MaxStock" class="form-control"
-                                   placeholder="Maximum Stock" />
-                        </div>
+
+                    <div id="maxstock" class="mb-3">
+                        <label class="form-label">Maximum Stock</label>
+                        <input type="number" name="MaxStock" class="form-control" placeholder="Maximum Stock" required min="0" />
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Supplier</label>
-                        <div class="col-sm-9">
-                            <select id="supplierSelector" name="SupplierId" class="form-control">
-                                <option disabled active>Select Supplier</option>
-                                @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
-                                {
-                                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
-                                }
-                            </select>
-                        </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Supplier</label>
+                        <select id="supplierSelector" name="SupplierId" class="form-control" required>
+                            <option value="" disabled selected>Select Supplier</option>
+                            @foreach (var supplier in Model.Items.DistinctBy(s => s.SupplierName))
+                            {
+                                <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                            }
+                        </select>
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Category</label>
-                        <div class="col-sm-9">
-                            <select id="categorySelector" name="CategoryId" class="form-control">
-                                <option disabled active>Select Category</option>
-                                @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
-                                {
-                                    <option value="@category.CategoryID">@category.CategoryName</option>
-                                }
-                            </select>
-                        </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select id="categorySelector" name="CategoryId" class="form-control" required>
+                            <option value="" disabled selected>Select Category</option>
+                            @foreach (var category in Model.Items.DistinctBy(c => c.CategoryName))
+                            {
+                                <option value="@category.CategoryID">@category.CategoryName</option>
+                            }
+                        </select>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" id="addOrEditProduct" class="btn btn-primary">Add</button>
@@ -233,8 +251,8 @@
         </div>
     </div>
 </div>
-<!-- Add or Edit Product Modal End-->
-<!-- Confirm Delete Start-->
+<!-- Add or Edit Product Modal End -->
+<!-- Confirm Delete Start -->
 <div class="overlay" onclick="closeConfirmDelete(event)"></div>
 <div class="mainconfirm">
     <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
@@ -248,9 +266,7 @@
         <button class="delete" onclick="startAnimation()">Delete</button>
     </div>
 </div>
-<!-- Confirm Delete End-->
-
-
+<!-- Confirm Delete End -->
 @section Scripts {
     <script src="~/js/Inventory/Filteration.js"></script>
     <script src="~/js/Inventory/Inventory.js"></script>

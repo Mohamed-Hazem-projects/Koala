@@ -50,16 +50,18 @@ function openEditModalProduct(id, wareHouseID, categoryID, supplierID, name, des
     debugger;
     $('#productModalLabel').text("Edit Product");
     $('#addOrEditProduct').text("Edit");
+    $('#warehouse').css('display', 'none');
+    $('#currentstock').css('display', 'none');
+    $('#maxstock').css('display', 'none');
+    $('#minstock').css('display', 'none');
     // mapping
     $('input[name="Id"]').val(id);
-    $('input[name="oldWareHouseID"]').val(wareHouseID);
+    
     $('input[name="Name"]').val(name);
     $('input[name="Description"]').val(description);
     $('input[name="Price"]').val(price);
     $('input[name="Image"]').val(image);
-    $('input[name="CurrentStock"]').val(currentStock);
-    $('input[name="MinStock"]').val(mintStock);
-    $('input[name="MaxStock"]').val(maxStock);
+
 
     $('#wareHouseSelector').val(wareHouseID);
     $('#supplierSelector').val(supplierID);
@@ -76,6 +78,10 @@ $('#productModal').on('hidden.bs.modal', function () {
     // Reset modal title and button text for the Add mode
     $('#productModalLabel').text("Add Product");
     $('#addOrEditProduct').text("Add");
+    $('#warehouse').css('display', 'block');
+    $('#currentstock').css('display', 'block');
+    $('#maxstock').css('display', 'block');
+    $('#minstock').css('display', 'block');
     // Clear the input field
     $('input[name="Id"]').val('');
     $('input[name="oldWareHouseID"]').val('');

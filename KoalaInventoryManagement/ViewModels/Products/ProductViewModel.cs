@@ -11,9 +11,10 @@ namespace KoalaInventoryManagement.ViewModels.Products
         public byte[] Image { get; set; } = [];
         //public WareHouse ProductWareHouse { get; set; } = new WareHouse();
         public int WareHouseID { get; set; }
-        public string WareHouseName { get; set; } = string.Empty;
+        public List<string> WareHouseNames { get; set; } 
+
         public int CurrentStock { get; set; }
-        public int MintStock { get; set; }
+        public int MinStock { get; set; }
         public int MaxStock { get; set; }
         public int CategoryID { get; set; }
         public string CategoryName { get; set; } = string.Empty;

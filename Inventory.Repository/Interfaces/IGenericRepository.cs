@@ -15,6 +15,7 @@ namespace Inventory.Repository.Interfaces
         IEnumerable<T> FindByName(Expression<Func<T, bool>> match, string[] includes = null);
 
         T? GetbyId(int id, string[] includes);
-        IEnumerable<T> GetAll(string[] includes);
+        //IEnumerable<T> GetAll(string[] includes);
+        IQueryable<T> GetAll(string[] includes);
     }
 }

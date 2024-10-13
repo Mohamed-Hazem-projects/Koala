@@ -1,9 +1,12 @@
-﻿using Inventory.Repository.Interfaces;
+﻿using Inventory.Data.Models;
+using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -18,41 +21,96 @@ namespace KoalaInventoryManagement.Controllers
             _productFilter = productFilter;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
-            List<Product> products
-                = _unitOfWork?.Products?.GetAll(["Supplier", "Category", "WareHouseProducts"])?.ToList()
-                    ?? new List<Product>();
-            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+        //[HttpGet]
+        //public async Task<IActionResult>  Index(string searchString, string sortOrder, int pageNumber, string currentFilter)
+        //{
+        //    List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
+        //    List<Product> products
+        //        = _unitOfWork?.Products?.GetAll(["Supplier", "Category", "WareHouseProducts"])?.ToList()
+        //            ?? new List<Product>();
+        //    List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
 
-            foreach (Product p in products)
+        //    foreach (Product p in products)
+        //    {
+        //        foreach (WareHouseProduct whp in p.WareHouseProducts)
+        //        {
+        //            productsViewModel.Add(new ProductViewModel()
+        //            {
+        //                Id = p.Id,
+        //                Name = p.Name,
+        //                Description = p.Description,
+        //                Price = p.Price,
+        //                Image = p.Image ?? [0],
+        //                WareHouseID = whp?.WareHouseID ?? 0,
+        //                WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
+        //                CurrentStock = whp?.CurrentStock ?? 0,
+        //                MintStock = whp?.MinStock ?? 0,
+        //                MaxStock = whp?.MaxStock ?? 0,
+        //                CategoryID = p?.CategoryId ?? 0,
+        //                CategoryName = p?.Category?.Name ?? string.Empty,
+        //                SupplierID = p?.SupplierId ?? 0,
+        //                SupplierName = p?.Supplier?.Name ?? string.Empty,
+        //            });
+        //        }
+        //    }
+
+
+
+        //    return View(productsViewModel);
+        //}
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchString, string sortOrder, int pageNumber = 1, string currentFilter = null)
+        {
+            // Ensure pageNumber is at least 1
+            if (pageNumber < 1)
             {
-                foreach (WareHouseProduct whp in p.WareHouseProducts)
-                {
-                    productsViewModel.Add(new ProductViewModel()
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Description = p.Description,
-                        Price = p.Price,
-                        Image = p.Image ?? [0],
-                        WareHouseID = whp?.WareHouseID ?? 0,
-                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
-                        CurrentStock = whp?.CurrentStock ?? 0,
-                        MintStock = whp?.MinStock ?? 0,
-                        MaxStock = whp?.MaxStock ?? 0,
-                        CategoryID = p?.CategoryId ?? 0,
-                        CategoryName = p?.Category?.Name ?? string.Empty,
-                        SupplierID = p?.SupplierId ?? 0,
-                        SupplierName = p?.Supplier?.Name ?? string.Empty,
-                    });
-                }
+                pageNumber = 1;
             }
 
-            return View(productsViewModel);
+            IQueryable<Product> productsQuery = _unitOfWork?.Products?.GetAll(new string[] { "Supplier", "Category", "WareHouseProducts.WareHouse" }) ?? Enumerable.Empty<Product>().AsQueryable();
+            List<WareHouse> wareHouses =  _unitOfWork?.WareHouses?.GetAll().ToList() ?? new List<WareHouse>();
+
+            // Apply filtering based on search string
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                productsQuery = productsQuery.Where(p => p.Name.Contains(searchString) || p.Description.Contains(searchString));
+            }
+
+            // Check the total count before pagination
+            var totalCount = await productsQuery.CountAsync();
+            Console.WriteLine($"Total Count before pagination: {totalCount}"); // Debug log
+
+            int pageSize = 10; // Set your desired page size
+            var paginatedProducts = await PaginatedList<Product>.CreateAsync(productsQuery, pageNumber, pageSize);
+
+            // Convert to ProductViewModel
+            var productsViewModel = paginatedProducts.Items.Select(p => new ProductViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Image = p.Image,
+                // Assuming you want to list all warehouse names associated with the product
+                WareHouseNames = p.WareHouseProducts.Select(wp => wp.WareHouse.Name).ToList(), // Get all warehouse names
+                CurrentStock = p.WareHouseProducts.Sum(wp => wp.CurrentStock), // Sum current stock from all warehouses
+                MinStock = p.WareHouseProducts.Min(wp => wp.MinStock),
+                MaxStock = p.WareHouseProducts.Max(wp => wp.MaxStock),
+                CategoryID = p.CategoryId ?? 0,
+                CategoryName = p.Category?.Name ?? string.Empty,
+                SupplierID = p.SupplierId ?? 0,
+                SupplierName = p.Supplier?.Name ?? string.Empty,
+            }).ToList();
+
+            // Create a PaginatedList<ProductViewModel>
+            var paginatedViewModel = new PaginatedList<ProductViewModel>(productsViewModel, paginatedProducts.TotalItems, paginatedProducts.PageIndex, pageSize);
+            ViewBag.WareHouses = wareHouses;
+            return View(paginatedViewModel);
         }
+
+
+
+
 
         [HttpPost]
         public JsonResult GetFilteredProducts(int wareHouseID, int categoryID, int supplierID, string searchString, string showedProducts)
