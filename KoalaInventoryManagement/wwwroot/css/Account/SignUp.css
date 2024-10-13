@@ -1,0 +1,187 @@
+﻿.main > .form > form > div > input.touched ~ label {
+    top: 0%;
+    transform: translateY(-10%);
+}
+
+.main {
+    color: #333;
+    display: flex;
+    padding: 30px;
+    width: 100%;
+}
+
+@media (max-width: 500px) {
+    .main {
+        padding: 20px;
+    }
+}
+
+.main > .form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main > .form > h2 {
+    margin: 20px 0;
+    font-size: 35px;
+    color: #5536df;
+}
+
+@media (max-width: 615px) {
+    .main > .form > h2 {
+        font-size: 25px;
+    }
+}
+
+.main > .form form > div:not(.checks) {
+    position: relative;
+}
+
+.main > .form form > div:not(.checks) input {
+    padding: 0px 8px;
+    margin: 10px 0px;
+    width: 330px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    outline: none;
+    border: 1px solid #333;
+}
+
+.main > .form form > div:not(.checks) input:focus ~ label {
+    top: 0%;
+    transform: translateY(-10%);
+}
+
+.main > .form form > div:not(.checks) label {
+    position: absolute;
+    left: 5px;
+    color: rgba(92, 91, 91, 0.656);
+    font-size: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px 2px;
+    background: white;
+    border-radius: 2px;
+    cursor: text;
+    transition: 0.2s;
+}
+
+.main > .form form > div:not(.checks) > i {
+    color: #5536df;
+    position: absolute;
+    right: 13px;
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.main > .form form .checks {
+    display: flex;
+    align-items: center;
+}
+
+.main > .form form .checks input {
+    margin-right: 10px;
+    width: 19px;
+    height: 20px;
+    cursor: pointer;
+}
+input[type=submit] {
+    color: #5536df;
+    border-color: #5536df;
+}
+.main > .form form .checks label {
+    position: relative;
+    user-select:none;
+}
+
+.main > .form form small {
+    color: #fe1b1b;
+    position: relative;
+    top: -7px;
+}
+
+.main > .form form .password-rules {
+    width: 330px;
+    color: #fe1b1b;
+    display: flex;
+    flex-direction: column;
+}
+
+.main > .form form .password-rules > div {
+    display: flex;
+}
+
+.main > .form form .password-rules h4 {
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.main > .form form .password-rules p {
+    text-align: left;
+    margin-bottom: 3px;
+    margin-top: 2px;
+    margin-left: 8px;
+    line-height: 1.1rem;
+    font-size: 14px;
+    letter-spacing: 0.03rem;
+}
+
+.main > .form form .password-rules i {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    top: 6px;
+    font-size: 11px;
+}
+
+.main > .form form .password-rules .greenify {
+    color: #2ecc4e;
+}
+
+
+.main > .form form > input {
+    margin-top: 25px;
+    width: 330px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 7px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main > .form form > input:hover {
+    color: white;
+    background-color: #5536df;
+}
+
+.main > .form form > p {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 11px;
+}
+
+.main > .form form > p {
+    color: #333;
+}
+
+.main > .form form > p a {
+    color: #1694f5;
+    text-decoration:none;
+}
+
+.main > .form form > p a:visited {
+    color: #1694f5;
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    display: none; /* Initially hidden */
+}
