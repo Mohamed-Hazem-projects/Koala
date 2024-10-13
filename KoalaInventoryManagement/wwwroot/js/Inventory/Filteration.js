@@ -26,27 +26,22 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
-                            '<i class="fa fa-info-circle" style="color: #227B94"></i>' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
+                            '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
                             '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
-                            '<i class="fa fa-pencil color-muted" style="color: #DD761C;"></i>' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
+                            product.supplierName + '\')">' +
+                            '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td delete">' +
                             '<a onclick="confirmDelete(\'' + product.name + ' Product\', ' + product.id + ')">' +
-                            '<i class="fa fa-close text-danger"></i>' +
+                            '<i class="fa fa-close color-danger"></i>' +
                             '</a>' +
                             '</td>' +
                             '</tr>';
@@ -90,33 +85,28 @@
 
                 function appendRows(products) {
                     $.each(products, function (index, product) {
-                        //debugger;
+                        debugger;
                         var row = '<tr>' +
                             '<td>' + product.name + '</td>' +
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
-                            '<i class="fa fa-info-circle" style="color: #227B94"></i>' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
+                            '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
                             '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
-                            '<i class="fa fa-pencil color-muted" style="color: #DD761C;"></i>' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
+                            product.supplierName + '\')">' +
+                            '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td delete">' +
                             '<a onclick="confirmDelete(\'' + product.name + ' Product\', ' + product.id + ')">' +
-                            '<i class="fa fa-close text-danger"></i>' +
+                            '<i class="fa fa-close color-danger"></i>' +
                             '</a>' +
                             '</td>' +
                             '</tr>';
@@ -166,27 +156,22 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
-                            '<i class="fa fa-info-circle" style="color: #227B94"></i>' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
+                            '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
                             '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
-                            '<i class="fa fa-pencil color-muted" style="color: #DD761C;"></i>' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
+                            product.supplierName + '\')">' +
+                            '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td delete">' +
                             '<a onclick="confirmDelete(\'' + product.name + ' Product\', ' + product.id + ')">' +
-                            '<i class="fa fa-close text-danger"></i>' +
+                            '<i class="fa fa-close color-danger"></i>' +
                             '</a>' +
                             '</td>' +
                             '</tr>';
@@ -236,27 +221,22 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
-                            '<td>' + product.wareHouseName + '</td>' +
-                            '<td>' + product.currentStock + '</td>' +
-                            '<td>' + product.mintStock + '</td>' +
-                            '<td>' + product.maxStock + '</td>' +
-                            '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.supplierName + '</td>' +
                             '<td>' +
-                            '<a onclick="" class="btn btn-labeled">' +
-                            '<i class="fa fa-info-circle" style="color: #227B94"></i>' +
+                            '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
+                            '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
                             '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', \'' + product.wareHouseName + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' + product.supplierName + '\')">' +
-                            '<i class="fa fa-pencil color-muted" style="color: #DD761C;"></i>' +
+                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
+                            product.supplierName + '\')">' +
+                            '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td delete">' +
                             '<a onclick="confirmDelete(\'' + product.name + ' Product\', ' + product.id + ')">' +
-                            '<i class="fa fa-close text-danger"></i>' +
+                            '<i class="fa fa-close color-danger"></i>' +
                             '</a>' +
                             '</td>' +
                             '</tr>';

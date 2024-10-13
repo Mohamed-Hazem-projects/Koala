@@ -21,158 +21,26 @@ namespace KoalaInventoryManagement.Services
                 showedProductsNow = new List<ProductViewModel>();
 
 
+            var filteredProducts = showedProductsNow.AsQueryable();
+
             if (wareHouseID > 0)
             {
-                WareHouse wareHouse = _unitOfWork?.WareHouses?.GetbyId(wareHouseID) ?? new WareHouse();
-
-                if (categoryID > 0)
-                {
-                    if (supplierID > 0)
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.SupplierID == supplierID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.SupplierID == supplierID)
-                                .ToList();
-                            return result;
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.CategoryID == categoryID)
-                                .ToList();
-                            return result;
-                        }
-                    }
-                }
-                else
-                {
-                    if (supplierID > 0)
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.SupplierID == supplierID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.SupplierID == supplierID).ToList();
-                            return result;
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.WareHouseID == wareHouse.Id).ToList();
-                            return result;
-                        }
-                    }
-                }
+                filteredProducts = filteredProducts.Where(s => s.WareHouseID == wareHouseID);
             }
-            else
+            if (categoryID > 0)
             {
-                if (categoryID > 0)
-                {
-                    if (supplierID > 0)
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.SupplierID == supplierID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.SupplierID == supplierID).ToList();
-                            return result;
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.CategoryID == categoryID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow.Where(s => s.CategoryID == categoryID).ToList();
-                            return result;
-                        }
-                    }
-                }
-                else
-                {
-                    if (supplierID > 0)
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow
-                                .Where(s => s.SupplierID == supplierID)
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                        else
-                        {
-                            List<ProductViewModel> result = showedProductsNow
-                                .Where(s => s.SupplierID == supplierID).ToList();
-
-                            return result;
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(searchString))
-                        {
-                            List<ProductViewModel> result = showedProductsNow
-                                .Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
-
-                            return result;
-                        }
-                    }
-                }
+                filteredProducts = filteredProducts.Where(s => s.CategoryID == categoryID);
+            }
+            if (supplierID > 0)
+            {
+                filteredProducts = filteredProducts.Where(s => s.SupplierID == supplierID);
+            }
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                filteredProducts = filteredProducts.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
             }
 
-            return showedProductsNow;
+            return filteredProducts.ToList();
         }
     }
 }

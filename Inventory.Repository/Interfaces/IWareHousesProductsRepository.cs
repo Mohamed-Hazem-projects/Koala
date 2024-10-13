@@ -12,6 +12,7 @@ namespace Inventory.Repository.Interfaces
         IEnumerable<WareHouse>? GetProductWareHousesByPrdID(int productID);
         IEnumerable<Product>? GetWareHouseProductsByWHID(int wareHouseID);
         WareHouseProduct? GetWareHouseProduct(int productID, int wareHouseID);
+        IEnumerable<WareHouseProduct>? GettWareHousesProductsByPrdID(int productID, string[]? includes = null);
 
         //Deletes only one record with ProductID and WareHouseID
         bool DeleteOneRecord(int productID, int wareHouseID);

@@ -1,0 +1,131 @@
+﻿/* General Card Styling - Ensures Consistency with supplier.css */
+.product-card, .warehouse-card {
+    width: 100%; /* Full width for responsiveness */
+    max-width: 400px; /* Limit the max width */
+    background-color: #fff; /* Clean white background */
+    border-radius: 15px; /* Rounded corners for smooth visuals */
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    margin: 20px 0; /* Space between cards */
+    transition: all 0.3s ease-in-out; /* Smooth hover and animations */
+}
+
+    /* Image Styling */
+    .product-card img {
+        border-radius: 15px 15px 0 0; /* Rounded top corners for consistency */
+        object-fit: cover; /* Ensure proper image fit */
+        height: 200px; /* Consistent height for product images */
+        width: 100%; /* Full width for responsiveness */
+    }
+
+    /* Product Card Hover Effect */
+    .product-card:hover {
+        transform: translateY(-5px); /* Slight lift on hover */
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+    }
+
+    /* Card Body */
+    .product-card .card-body, .warehouse-card .card-body {
+        padding: 20px; /* Spacious padding */
+        text-align: center; /* Center align content */
+    }
+
+    /* Product Card Title */
+    .product-card .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #454545; /* Dark text for strong readability */
+        margin-bottom: 10px;
+    }
+
+    /* Product Card Description */
+    .product-card .card-text {
+        font-size: 1rem;
+        color: #878787; /* Light text for secondary info */
+        margin-bottom: 15px;
+    }
+
+    /* Product Card Important Text */
+    .product-card h6 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #593bdb; /* Use primary color from supplier.css for consistency */
+        margin-bottom: 10px;
+    }
+
+/* Warehouse Card Styling */
+.warehouse-card {
+    display: none; /* Hidden by default, shown via JS */
+    transition: all 0.3s ease-in-out; /* Smooth slide-in animation */
+    padding: 20px; /* Padding for clarity */
+    border-radius: 15px; /* Rounded corners */
+    background-color: #f8f9fe; /* Light background for contrast */
+}
+
+    /* Warehouse Card Title */
+    .warehouse-card h5 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #454545; /* Dark color for headings */
+        margin-bottom: 10px;
+    }
+
+    /* Warehouse Card Details */
+    .warehouse-card p {
+        font-size: 1rem;
+        color: #878787; /* Secondary text color */
+        margin-bottom: 10px;
+    }
+
+/* Button Styling */
+.btn {
+    border-radius: 25px; /* Rounded buttons */
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #593bdb; /* Matching primary color with supplier.css */
+    border: none;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #452bb8; /* Darker on hover */
+        transform: scale(1.05); /* Subtle enlargement on hover */
+    }
+
+/* Outline Button */
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: white;
+    }
+
+/* Slide-in Animation for the Warehouse Card */
+.warehouse-card.slide-in {
+    display: block;
+    opacity: 0;
+    transform: translateX(50px); /* Start off to the right */
+}
+
+    .warehouse-card.slide-in.show {
+        opacity: 1;
+        transform: translateX(0); /* Slide into place */
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .product-card, .warehouse-card {
+        max-width: 100%; /* Ensure full width on smaller screens */
+    }
+
+        .product-card img {
+            height: 150px; /* Slightly smaller images for mobile */
+        }
+}

@@ -8,6 +8,9 @@ namespace Inventory.Data.Data_Seeds
             = new List<WareHouseProduct>()
             {
                 new WareHouseProduct() { ProductID = 1, WareHouseID = 4, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
+                new WareHouseProduct() { ProductID = 1, WareHouseID = 2, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
+                new WareHouseProduct() { ProductID = 1, WareHouseID = 3, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
+                new WareHouseProduct() { ProductID = 1, WareHouseID = 5, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
                 new WareHouseProduct() { ProductID = 2, WareHouseID = 1, MinStock = 9, CurrentStock = 5, MaxStock = 44 },
                 new WareHouseProduct() { ProductID = 3, WareHouseID = 5, MinStock = 12, CurrentStock = 16, MaxStock = 45 },
                 new WareHouseProduct() { ProductID = 4, WareHouseID = 2, MinStock = 8, CurrentStock = 10, MaxStock = 38 },
