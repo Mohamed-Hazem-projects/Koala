@@ -100,7 +100,7 @@ $("#addOrEditSupplier").on('click', () => {
 })
 
 // Function to open modal in edit mode
-function openEditModalProduct(id, name,phone,email,rating) {
+function openEditModalSupplier(id, name,phone,email,rating) {
     // Change the modal header to "Edit Category"
     $('#supplierModalLabel').text("Edit Supplier");
     // Change the button text to "Save Changes" for editing

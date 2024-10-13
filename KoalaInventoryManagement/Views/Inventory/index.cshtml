@@ -22,7 +22,7 @@
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
         <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
-        <input type="hidden" id="filteredProductsData" value='@Html.Raw(serlizedFilteredProducts)' />
+        <textarea id="filteredProductsData" style="display:none">@Html.Raw(serlizedFilteredProducts)</textarea>
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
@@ -89,28 +89,30 @@
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Image</th>
+                                    @* <th scope="col">Warehouse</th> *@
                                     <th class="btn-head" scope="col">Info</th>
                                     <th class="btn-head" scope="col">Edit</th>
                                     <th class="btn-head" scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>())
+                                @foreach (var product in Model?.DistinctBy(p => p.Id) ?? new List<ProductViewModel>())
                                 {
                                     <tr>
                                         <td>@product.Name</td>
                                         <td>@product.Description</td>
                                         <td>$&nbsp;@product.Price</td>
                                         <td>@product.Image</td>
+                                        @* <td>@product.WareHouseName</td> *@
                                         <td>
                                             <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
                                                 <i class="fa fa-info-circle color-info"></i>
                                             </a>
                                         </td>
                                         <td class="btn-td edit">
-                                            <a onclick="openEditModalProduct(@product.Id, @product.WareHouseID, @product.CategoryID, @product.SupplierID,
-                                                '@product.Name', '@product.Description', @product.Price, '@product.Image',@product.CurrentStock,
-                                                 @product.MintStock, @product.MaxStock, '@product.CategoryName', '@product.SupplierName')">
+                                            <a onclick="openEditModalProduct(@product.Id,
+                                                    '@product.Name', '@product.Description', @product.Price, '@product.Image',
+                                                    @product.CategoryID, @product.SupplierID)">
                                                 <i class="fa fa-pencil color-edit"></i>
                                             </a>
                                         </td>
@@ -167,11 +169,11 @@
                                    placeholder="Price" />
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="warehouseDiv">
                         <label class="col-sm-3 col-form-label">Warehouses</label>
                         <div class="col-sm-9">
                             <select id="wareHouseSelector" name="WareHouseID" class="form-control">
-                                <option disabled active>Select Warehouse</option>
+                                <option disabled>Select Warehouse</option>
                                 @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
@@ -179,32 +181,32 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="currentDiv">
                         <label class="col-sm-3 col-form-label">Current Stock</label>
                         <div class="col-sm-9">
                             <input type="text" name="CurrentStock" class="form-control"
                                    placeholder="Current Stock" />
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="minDiv">
                         <label class="col-sm-3 col-form-label">Minimum Stock</label>
                         <div class="col-sm-9">
                             <input type="text" name="MinStock" class="form-control"
                                    placeholder="Minimum Stock" />
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="maxDiv">
                         <label class="col-sm-3 col-form-label">Maximum Stock</label>
                         <div class="col-sm-9">
                             <input type="text" name="MaxStock" class="form-control"
                                    placeholder="Maximum Stock" />
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="supplierDiv">
                         <label class="col-sm-3 col-form-label">Supplier</label>
                         <div class="col-sm-9">
                             <select id="supplierSelector" name="SupplierId" class="form-control">
-                                <option disabled active>Select Supplier</option>
+                                <option disabled>Select Supplier</option>
                                 @foreach (var supplier in Model?.DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@supplier.SupplierID">@supplier.SupplierName</option>
@@ -212,11 +214,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group-row" id="categoryDiv">
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
                             <select id="categorySelector" name="CategoryId" class="form-control">
-                                <option disabled active>Select Category</option>
+                                <option disabled>Select Category</option>
                                 @foreach (var category in Model?.DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@category.CategoryID">@category.CategoryName</option>

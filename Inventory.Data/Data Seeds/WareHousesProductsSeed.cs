@@ -7,8 +7,6 @@ namespace Inventory.Data.Data_Seeds
         public static List<WareHouseProduct> WareHouseProducts { get; set; }
             = new List<WareHouseProduct>()
             {
-                new WareHouseProduct() { ProductID = 1, WareHouseID = 4, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
-                new WareHouseProduct() { ProductID = 1, WareHouseID = 2, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
                 new WareHouseProduct() { ProductID = 1, WareHouseID = 3, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
                 new WareHouseProduct() { ProductID = 1, WareHouseID = 5, MinStock = 7, CurrentStock = 12, MaxStock = 41 },
                 new WareHouseProduct() { ProductID = 2, WareHouseID = 1, MinStock = 9, CurrentStock = 5, MaxStock = 44 },
