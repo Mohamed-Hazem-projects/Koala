@@ -68,7 +68,7 @@
             }
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-end align-items-center">
-                <li><span class="mx-3" id="page-item-count">@(Model.PageIndex * Model.PageSize) out of
+                <li><span class="mx-3" id="page-item-count">@(Model.ItemsCount) out of
                     @(Model.PageNumbers * Model.PageSize)</span></li>
                 <li class="page-item @prevDisabled"><a class="page-link"
                     asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a></li>
