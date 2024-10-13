@@ -20,7 +20,7 @@ namespace Inventory.Repository.Repositories
         public IProductsRepository Products { get; private set; }
         public IWareHousesProductsRepository WareHousesProducts { get; private set; }
         public IDashBoardRepository DashBoard { get; private set; }
-
+        public ISalesRepository Sales { get; private set; }
         public UnitOfWork(InventoryDbContext context)
         {
             _context = context;
@@ -31,6 +31,7 @@ namespace Inventory.Repository.Repositories
             Products = new ProductsRepository(_context);
             WareHousesProducts = new WareHousesProductsRepository(_context);
             DashBoard = new DashBoardRepository(_context);
+            Sales = new SalesRepository(_context);
         }
 
         public int Complete()
