@@ -55,15 +55,15 @@ function openEditModalProduct(id, name, description, price, image, categoryID, S
     $('input[name="Description"]').val(description);
     $('input[name="Price"]').val(price);
     $('input[name="Image"]').val(image);
-    $('#supplierSelector').val(categoryID);
-    $('#categorySelector').val(SupplierID);
+    $('#categorySelector').val(categoryID);
+    $('#supplierSelector').val(SupplierID);
 
     $('#currentDiv').hide();
     $('#minDiv').hide();
     $('#maxDiv').hide();
     $('#warehouseDiv').hide();
-    $('#supplierDiv').hide();
-    $('#categoryDiv').hide();
+    //$('#supplierDiv').hide();
+    //$('#categoryDiv').hide();
 
     $('#addOrEditProductForm').attr('action', `/Inventory/UpdateProduct`);
     // Open the modal
@@ -72,7 +72,7 @@ function openEditModalProduct(id, name, description, price, image, categoryID, S
 
 // Reset modal back to "Add Product" mode when it's closed
 $('#productModal').on('hidden.bs.modal', function () {
-    debugger;
+    //debugger;
     // Reset modal title and button text for the Add mode
     $('#productModalLabel').text("Add Product");
     $('#addOrEditProduct').text("Add");
