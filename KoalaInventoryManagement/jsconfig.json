@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "checkJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["wwwroot/js/*", "wwwroot/lib/*"]
+    }
+  },
+  "include": [
+    "wwwroot/js/*.js",
+      "wwwroot/lib/jquery/jquery.d.ts"
+  ],
+  "typeAcquisition": {
+    "include": [
+      "jquery"
+    ]
+  }
+}
