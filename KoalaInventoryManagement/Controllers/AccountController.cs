@@ -23,8 +23,9 @@ namespace Inventory.web.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(SignUpViewModel input)
         {
             if (ModelState.IsValid)
@@ -73,8 +74,9 @@ namespace Inventory.web.Controllers
 			ViewBag.Roles = _roleManager.Roles.ToList();
 			return View();
         }
-
+       
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel input)
         {
             if (ModelState.IsValid)
@@ -126,8 +128,9 @@ namespace Inventory.web.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel input)
         {
             if (ModelState.IsValid)
@@ -167,8 +170,9 @@ namespace Inventory.web.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel input)
         {
             if (ModelState.IsValid)

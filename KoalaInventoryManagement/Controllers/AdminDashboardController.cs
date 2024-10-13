@@ -7,11 +7,11 @@ using System.Data;
 
 namespace KoalaInventoryManagement.Controllers
 {
-    public class UserRoleController : Controller
+    public class AdminDashboardController : Controller
     {
         public UserManager<ApplicationUser> _UserManager;
         public RoleManager<IdentityRole> _RoleManager;
-        public UserRoleController(UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
+        public AdminDashboardController(UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;

@@ -4,64 +4,80 @@
     ViewData["Title"] = "SignUp";
     Layout = null;
 }
+<link rel="stylesheet" href="~/css/Account/SignUp.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<!-- Font Awesome Kit -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet" />
 
-<h1>SignUp</h1>
+<div class="main">
+    <div class="form">
+        <h2>Create Account</h2>
+        <form asp-action="SignUp" method="post">
+            <div class="fname">
+                <input type="text" required asp-for="FirstName">
+                <label for="FirstName">First Name</label>
+            </div>
+            <div class="lname">
+                <input type="text" required asp-for="LastName">
+                <label for="LastName">Last Name</label>
+            </div>
+            <div class="email">
+                <input type="email" required asp-for="Email">
+                <label for="Email">Email Address</label>
+            </div>
+            <div class="phoneNo">
+                <input type="text" required asp-for="phoneNumber">
+                <label for="phoneNumber">Phone Number</label>
+            </div>
+            <div class="password">
+                <input class="passwordstuff" type="password" required asp-for="Password">
+                <label for="Password">Password</label>
+                <i onclick="showOrHidePassword()" class="fa-regular fa-eye"></i>
+                <i onclick="showOrHidePassword()" class="fa-regular fa-eye-slash"></i>
+            </div>
+            <div class="password-rules">
+                <h4>Password must contain:</h4>
+                <div id="pwMinLength" class="rule">
+                    <i class="fa-solid"></i>
+                    <p>Minimum 8 characters</p>
+                </div>
+                <div id="lowerUpper" class="rule">
+                    <i class="fa-solid"></i>
+                    <p>At least 1 lower case and 1 upper case character</p>
+                </div>
+                <div id="numbermin" class="rule">
+                    <i class="fa-solid"></i>
+                    <p>At least 1 number</p>
+                </div>
+                <div id="specialChar" class="rule">
+                    <i class="fa-solid"></i>
+                    <p>At least 1 special character from - + _ ! &#64; # $ % ^ & * . , ? ( )</p>
+                </div>
+            </div>
+            <div class="confirmP">
+                <input class="passwordstuff" type="password" required asp-for="ConfirmPassword">
+                <label for="ConfirmPassword">Re-enter Password</label>
+                <i onclick="showOrHidePassword()" class="fa-regular fa-eye"></i>
+                <i onclick="showOrHidePassword()" class="fa-regular fa-eye-slash"></i>
+            </div>
+            <span id="confirmPasswordError" class="error-message"></span> <!-- Error message placeholder -->
+            <div class="checks">
+                <input type="checkbox" id="subscribe" value="subscribe" formControlName="newsletter" />
+                <label for="subscribe">I Agree the terms & Conditions</label>
+            </div>
+            <input type="submit" value="Create Account" />
+            <p>
+                Have an account? <a href="/Account/Login">Sign In</a>
+            </p>
+        </form>
+    </div>
+</div>
 
-<form class="login100-form validate-form" asp-action="SignUp" method="post">
-	<span class="login100-form-logo">
-		<i class="zmdi zmdi-landscape"></i>
-	</span>
-
-	<span class="login100-form-title p-b-34 p-t-27">
-		Register
-	</span>
-
-	<div class="wrap-input100 validate-input" data-validate="Enter First Enter Last Name">
-		<input class="input100" type="text" asp-for="FirstName" placeholder="First Name">
-		<span asp-validation-for="FirstName"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Last Name">
-		<input class="input100" type="text" asp-for="LastName" placeholder="last Name">
-		<span asp-validation-for="LastName"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Email">
-		<input class="input100" type="email" asp-for="Email" placeholder="Email Name">
-		<span asp-validation-for="Email"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Phone Number">
-		<input class="input100" type="text" asp-for="phoneNumber" placeholder="Phone Number">
-		<span asp-validation-for="phoneNumber"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Password">
-		<input class="input100" type="password" asp-for="Password" placeholder="Password">
-		<span asp-validation-for="Password"></span>
-	</div>
-	<br />
-	<div class="wrap-input100 validate-input" data-validate="Enter Confirm Password">
-		<input class="input100" type="text" asp-for="ConfirmPassword" placeholder="Confirm Password">
-		<span asp-validation-for="ConfirmPassword"></span>
-	</div>
-	<br />
-	<div class="contact100-form-checkbox">
-		<input type="checkbox">
-		<span>I Agree the terms & Conditions</span>
-	</div>
-
-	<div class="container-login100-form-btn">
-		<input class="login100-form-btn" type="submit" value="SignUp" />
-	</div>
-
-	<br />
-	<div class="container-login100-form-btn">
-		<a class="login100-form-btn" asp-action="Login">
-			Login
-		</a>
-	</div>
-
-</form>
-
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/Account/SignUp.js"></script>
+<script src="https://kit.fontawesome.com/831317d937.js" crossorigin="anonymous"></script>

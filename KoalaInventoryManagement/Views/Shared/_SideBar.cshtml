@@ -38,46 +38,54 @@
                 </a>
             </li>
             <li>
-                <a href="/Staff" class="@(ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
+                <a href="/AdminDashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
                     <i class="fa-solid fa-users fa-fw"></i>
                     <span>Admin Board</span>
                 </a>
             </li>
             <li>
-                <a asp-action="Index" asp-controller="UserRole">
-                    <i class="fa-solid fa-users fa-fw"></i>
-                    <span>User Role</span>
+                <a href="/Reports" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Reports" ? "active" : "")">
+                    <i class="fa-solid fa-paperclip"></i>
+                    <span>Reports</span>
                 </a>
-            </li>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <li>
-                    <a asp-action="LogOut" asp-controller="Account">
-                        <i class="fa-solid fa-users fa-fw"></i>
-                        <span>Logout</span>
-                    </a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a asp-action="SignUp" asp-controller="Account">
-                        <i class="fa-solid fa-users fa-fw"></i>
-                        <span>Register</span>
-                    </a>
-                </li>
-                <li>
-                    <a asp-action="Login" asp-controller="Account">
-                        <i class="fa-solid fa-users fa-fw"></i>
-                        <span>Login</span>
-                    </a>
-                </li>
-            }
+            </li>   
         </ul>
     </div>
     <div class="lower">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="dropup">
+                <a id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="true">
+                    <img src="/Images/Account/loggedin.jpg" alt="user" class="rounded-circle me-2">
+                    @* Add User Name Here *@
+                    <strong class="shrink">@User.Identity.Name.Substring(0,9)</strong>
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownMenuButton" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -34.4px);" data-popper-placement="top-start">
+                    @* Add user profile link here *@
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="/Dashboard">Dashboard</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" asp-action="LogOut" asp-controller="Account">Sign out</a></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="dropup">
+                <a id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
+                    <img src="/Images/Account/loggedout.jpg" alt="user" class="rounded-circle me-2">
+                    <strong class="shrink">Not Logged In</strong>
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownMenuButton" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -34.4px);" data-popper-placement="top-start">
+                    <li><a class="dropdown-item" asp-action="SignUp" asp-controller="Account">Register</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" asp-action="Login" asp-controller="Account">Log In</a></li>
+                </ul>
+            </div>
+        }
         <p>Made By <span>Koala Team</span></p>
-        <p>All rights <span>Reserved </span>®</p>
         <p>Copyrights at <span>2024 </span>©</p>
     </div>
 </div>
