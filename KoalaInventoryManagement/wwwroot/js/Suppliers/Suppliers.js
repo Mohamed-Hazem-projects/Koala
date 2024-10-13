@@ -91,41 +91,37 @@ $("#addOrEditSupplier").on('click', () => {
 })
 
 // Function to open modal in edit mode
-<<<<<<< HEAD
-function openEditModalSupplier(id, name,phone,email,rating) {
-=======
-function openEditModalSupplier(id, name, phone, email, rating) {
->>>>>>> ab52c0e2613cb59cbe9e66198c8564f18fa32af5
-    // Change the modal header to "Edit Category"
-    $('#supplierModalLabel').text("Edit Supplier");
-    // Change the button text to "Save Changes" for editing
-    $('#addOrEditSupplier').text("Edit");
-    // mapping
-    $('input[name="Id"]').val(id);
-    $('input[name="Name"]').val(name);
-    $('input[name="Phone_Number"]').val(phone);
-    $('input[name="Email_Address"]').val(email);
-    $('input[name="Rating"]').val(rating);
-    // Change the form action to the EditCategory action with the categoryId
-    $('#addOrEditSupplierForm').attr('action', `/Suppliers/UpdateSupplier`);
-    // Open the modal
-    $('#supplierModal').modal('show');
-}
 
-// Reset modal back to "Add Category" mode when it's closed
-$('#supplierModal').on('hidden.bs.modal', function () {
-    // Reset modal title and button text for the Add mode
-    $('#supplierModalLabel').text("Add Supplier");
-    $('#addOrEditSupplier').text("Add");
-    // Clear the input field
-    $('input[name="Name"]').val('');
-    $('input[name="Id"]').val('');
-    $('input[name="Phone_Number"]').val('');
-    $('input[name="Email_Address"]').val('');
-    $('input[name="Rating"]').val('');
-    // Reset the form action back to AddCategory
-    $('#addOrEditSupplierForm').attr('action', '/Suppliers/AddSupplier');
-});
-//Add / Edit Supplier Modal End
+    function openEditModalSupplier(id, name, phone, email, rating) {
+        // Change the modal header to "Edit Category"
+        $('#supplierModalLabel').text("Edit Supplier");
+        // Change the button text to "Save Changes" for editing
+        $('#addOrEditSupplier').text("Edit");
+        // mapping
+        $('input[name="Id"]').val(id);
+        $('input[name="Name"]').val(name);
+        $('input[name="Phone_Number"]').val(phone);
+        $('input[name="Email_Address"]').val(email);
+        $('input[name="Rating"]').val(rating);
+        // Change the form action to the EditCategory action with the categoryId
+        $('#addOrEditSupplierForm').attr('action', `/Suppliers/UpdateSupplier`);
+        // Open the modal
+        $('#supplierModal').modal('show');
+    }
 
+    // Reset modal back to "Add Category" mode when it's closed
+    $('#supplierModal').on('hidden.bs.modal', function () {
+        // Reset modal title and button text for the Add mode
+        $('#supplierModalLabel').text("Add Supplier");
+        $('#addOrEditSupplier').text("Add");
+        // Clear the input field
+        $('input[name="Name"]').val('');
+        $('input[name="Id"]').val('');
+        $('input[name="Phone_Number"]').val('');
+        $('input[name="Email_Address"]').val('');
+        $('input[name="Rating"]').val('');
+        // Reset the form action back to AddCategory
+        $('#addOrEditSupplierForm').attr('action', '/Suppliers/AddSupplier');
+    });
+    //Add / Edit Supplier Modal End
 

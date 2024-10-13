@@ -1,4 +1,6 @@
-﻿namespace KoalaInventoryManagement.Models
+﻿using Inventory.Data.Models;
+
+namespace KoalaInventoryManagement.Models
 {
     public class WareHouseProduct
     {
@@ -10,5 +12,6 @@
 
         public virtual WareHouse WareHouse { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<Sales> Sales { get; set; } = new List<Sales>();
     }
 }

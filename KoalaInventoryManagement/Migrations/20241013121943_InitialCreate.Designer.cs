@@ -9,10 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Inventory.Data.Migrations
+namespace KoalaInventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
     [Migration("20241013184013_InitialCreate")]
+========
+    [Migration("20241013121943_InitialCreate")]
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +24,7 @@ namespace Inventory.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -122,32 +126,138 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 382, DateTimeKind.Local).AddTicks(1302),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 755, DateTimeKind.Local).AddTicks(5847),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 388, DateTimeKind.Local).AddTicks(1655),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6577),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Clothing"
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 388, DateTimeKind.Local).AddTicks(1722),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6633),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Groceries"
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 388, DateTimeKind.Local).AddTicks(1731),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6638),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 388, DateTimeKind.Local).AddTicks(1736),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 769, DateTimeKind.Local).AddTicks(6641),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Accessories"
+                        });
+                });
+
+            modelBuilder.Entity("Inventory.Data.Models.Sales", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ItemsSold")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("WareHouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId", "WareHouseId");
+
+                    b.ToTable("Sales");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(364),
+                            ItemsSold = 5,
+                            ProductId = 1,
+                            SaleDate = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(713),
+                            TotalPrice = 100m,
+                            WareHouseId = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1934),
+                            ItemsSold = 10,
+                            ProductId = 2,
+                            SaleDate = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1938),
+                            TotalPrice = 200m,
+                            WareHouseId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1944),
+                            ItemsSold = 15,
+                            ProductId = 3,
+                            SaleDate = new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 300m,
+                            WareHouseId = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1989),
+                            ItemsSold = 20,
+                            ProductId = 4,
+                            SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 400m,
+                            WareHouseId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 787, DateTimeKind.Local).AddTicks(1995),
+                            ItemsSold = 25,
+                            ProductId = 5,
+                            SaleDate = new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 500m,
+                            WareHouseId = 3
                         });
                 });
 
@@ -190,7 +300,11 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 404, DateTimeKind.Local).AddTicks(2035),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(4303),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Email_Address = "pyramidsmail@pyr.com",
                             Name = "Misr Pyramids Group",
                             Phone_Number = "01523456789",
@@ -199,7 +313,11 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 404, DateTimeKind.Local).AddTicks(4660),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6426),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Email_Address = "hero@basics.com",
                             Name = "Hero Basics",
                             Phone_Number = "01283492232",
@@ -208,7 +326,11 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 404, DateTimeKind.Local).AddTicks(4693),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6472),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Email_Address = "Resi@trade.com",
                             Name = "Resi Trade",
                             Phone_Number = "01129555939",
@@ -217,7 +339,11 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 404, DateTimeKind.Local).AddTicks(4699),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6477),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Email_Address = "Lamar@gmail.com",
                             Name = "lamar",
                             Phone_Number = "01522233333",
@@ -226,7 +352,11 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 404, DateTimeKind.Local).AddTicks(4704),
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 771, DateTimeKind.Local).AddTicks(6482),
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Email_Address = "info@Hazlam.com",
                             Name = "Hazlam",
                             Phone_Number = "01575732113",
@@ -280,8 +410,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 421, DateTimeKind.Local).AddTicks(9560),
                             Description = "High-quality Saudi Arabia flag for display",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(5562),
+                            Description = "Automotive Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Saudi Arabia Flag",
                             Price = 804m,
                             SupplierId = 2
@@ -290,9 +425,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2875),
                             Description = "Comprehensive textbook for Mathematics",
                             Name = "Textbook - Mathematics",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7444),
+                            Description = "Toys",
+                            Name = "Textbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 394m,
                             SupplierId = 4
                         },
@@ -300,8 +441,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2910),
                             Description = "Powerful laptop for home and office use",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7463),
+                            Description = "Home Appliances",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Laptop",
                             Price = 740m,
                             SupplierId = 2
@@ -310,9 +456,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 4,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2960),
                             Description = "Slim and stylish 40-inch smart TV",
                             Name = "TV - 40 Inch",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7467),
+                            Description = "Beauty Products",
+                            Name = "TV",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 72m,
                             SupplierId = 5
                         },
@@ -320,9 +472,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2969),
                             Description = "Essential garden tools set for outdoor tasks",
                             Name = "Garden Tools Set",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7471),
+                            Description = "Garden Equipment",
+                            Name = "Saudi Arabia Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 490m,
                             SupplierId = 4
                         },
@@ -330,9 +488,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 6,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2984),
                             Description = "High-performance smartphone with a large display",
                             Name = "Smartphone - Pro Edition",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7486),
+                            Description = "Furniture",
+                            Name = "Smartphone",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 113m,
                             SupplierId = 3
                         },
@@ -340,9 +504,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2990),
                             Description = "Elegant leather sofa for living room",
                             Name = "Leather Sofa",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7491),
+                            Description = "Electronics Products",
+                            Name = "Sofa",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 607m,
                             SupplierId = 5
                         },
@@ -350,9 +520,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(2996),
                             Description = "Fast-charging power bank for mobile devices",
                             Name = "Portable Power Bank",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7494),
+                            Description = "Books",
+                            Name = "Power Bank",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 664m,
                             SupplierId = 2
                         },
@@ -360,9 +536,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3002),
                             Description = "Compact digital camera with high resolution",
                             Name = "Digital Camera",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7498),
+                            Description = "Electronics Products",
+                            Name = "Camera",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 99m,
                             SupplierId = 1
                         },
@@ -370,9 +552,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 10,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3010),
                             Description = "Solid wood dining table with modern design",
                             Name = "Wooden Dining Table",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7503),
+                            Description = "Sports Equipment",
+                            Name = "Dining Table",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 833m,
                             SupplierId = 4
                         },
@@ -380,8 +568,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3016),
                             Description = "National Palestine flag for home and events",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7507),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Palestine Flag",
                             Price = 9m,
                             SupplierId = 1
@@ -390,8 +583,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 12,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3022),
                             Description = "Flag of Egypt, durable and fade-resistant",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7511),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Egypt Flag",
                             Price = 8m,
                             SupplierId = 2
@@ -400,9 +598,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 13,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3028),
                             Description = "Premium Saudi Arabia flag for outdoor use",
                             Name = "Flag of Saudi Arabia",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7514),
+                            Description = "Flags Products",
+                            Name = "Saudi Arabia Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 10m,
                             SupplierId = 3
                         },
@@ -410,9 +614,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 14,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3034),
                             Description = "High-end gaming laptop with advanced graphics",
                             Name = "Gaming Laptop",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7518),
+                            Description = "Electronics Products",
+                            Name = "Laptop",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 500m,
                             SupplierId = 1
                         },
@@ -420,9 +630,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 15,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3040),
                             Description = "Compact smartphone with essential features",
                             Name = "Smartphone - Mini Edition",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7627),
+                            Description = "Electronics Products",
+                            Name = "Smartphone",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 300m,
                             SupplierId = 2
                         },
@@ -430,9 +646,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 16,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3046),
                             Description = "10-inch tablet with large display and fast processor",
                             Name = "Tablet - 10 Inch",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7632),
+                            Description = "Electronics Products",
+                            Name = "Tablet",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 200m,
                             SupplierId = 3
                         },
@@ -440,9 +662,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 17,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3052),
                             Description = "Spacious double door refrigerator",
                             Name = "Refrigerator - Double Door",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7635),
+                            Description = "Home Appliances",
+                            Name = "Refrigerator",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 800m,
                             SupplierId = 4
                         },
@@ -450,8 +678,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 18,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3060),
                             Description = "Energy-efficient washing machine",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7641),
+                            Description = "Home Appliances",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Washing Machine",
                             Price = 600m,
                             SupplierId = 5
@@ -460,9 +693,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 19,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3066),
                             Description = "Compact microwave oven with multiple settings",
                             Name = "Microwave Oven",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7645),
+                            Description = "Home Appliances",
+                            Name = "Microwave",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 150m,
                             SupplierId = 4
                         },
@@ -470,9 +709,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 20,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3091),
                             Description = "Stylish and comfortable modern sofa",
                             Name = "Modern Sofa",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7649),
+                            Description = "Furniture",
+                            Name = "Sofa",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 350m,
                             SupplierId = 1
                         },
@@ -480,9 +725,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 21,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3097),
                             Description = "Classic dining table for six",
                             Name = "Classic Dining Table",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7652),
+                            Description = "Furniture",
+                            Name = "Dining Table",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 450m,
                             SupplierId = 2
                         },
@@ -490,9 +741,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 22,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3103),
                             Description = "Sturdy queen-size bed frame",
                             Name = "Bed Frame - Queen Size",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7656),
+                            Description = "Furniture",
+                            Name = "Bed Frame",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 400m,
                             SupplierId = 3
                         },
@@ -500,9 +757,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 23,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3110),
                             Description = "Fiction novel by a best-selling author",
                             Name = "Novel - Fiction",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7661),
+                            Description = "Books",
+                            Name = "Novel",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 1
                         },
@@ -510,9 +773,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 24,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3116),
                             Description = "Collection of healthy recipes",
                             Name = "Cookbook - Healthy Recipes",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7664),
+                            Description = "Books",
+                            Name = "Cookbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 20m,
                             SupplierId = 2
                         },
@@ -520,9 +789,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 25,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3122),
                             Description = "Educational science textbook for students",
                             Name = "Science Textbook",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7668),
+                            Description = "Books",
+                            Name = "Textbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 30m,
                             SupplierId = 3
                         },
@@ -530,9 +805,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 26,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3128),
                             Description = "High-resolution LCD monitor for desktop",
                             Name = "LCD Monitor",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7671),
+                            Description = "Furniture",
+                            Name = "Monitor",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 180m,
                             SupplierId = 2
                         },
@@ -540,9 +821,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 27,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3134),
                             Description = "Spacious 3-door wardrobe for bedrooms",
                             Name = "Wardrobe - 3 Door",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7675),
+                            Description = "Beauty Products",
+                            Name = "Wardrobe",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 615m,
                             SupplierId = 1
                         },
@@ -550,9 +837,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 28,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3140),
                             Description = "Decorative wall mirror for living room",
                             Name = "Wall Mirror",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7678),
+                            Description = "Toys",
+                            Name = "Mirror",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 563m,
                             SupplierId = 1
                         },
@@ -560,9 +853,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 29,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3146),
                             Description = "Cookbook with quick and easy meal recipes",
                             Name = "Cookbook - Quick Meals",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7682),
+                            Description = "Electronics Products",
+                            Name = "Cookbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 243m,
                             SupplierId = 3
                         },
@@ -570,9 +869,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 30,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3152),
                             Description = "Portable electric heater for home",
                             Name = "Electric Heater",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7685),
+                            Description = "Flags Products",
+                            Name = "Heater",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 5m,
                             SupplierId = 4
                         },
@@ -580,9 +885,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 31,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3299),
                             Description = "Soft kitchen rug with non-slip backing",
                             Name = "Kitchen Rug",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7689),
+                            Description = "Kitchen Appliances",
+                            Name = "Rug",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 336m,
                             SupplierId = 2
                         },
@@ -590,9 +901,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 32,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3307),
                             Description = "Powerful steam iron for wrinkle-free clothes",
                             Name = "Steam Iron",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7692),
+                            Description = "Home Appliances",
+                            Name = "Iron",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 874m,
                             SupplierId = 1
                         },
@@ -600,9 +917,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 33,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3313),
                             Description = "Textbook on game theory and applications",
                             Name = "Game Theory Textbook",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7696),
+                            Description = "Games",
+                            Name = "Textbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 436m,
                             SupplierId = 2
                         },
@@ -610,9 +933,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 34,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3321),
                             Description = "Large curved monitor for immersive experience",
                             Name = "Curved Monitor",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7701),
+                            Description = "Flags Products",
+                            Name = "Monitor",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 927m,
                             SupplierId = 3
                         },
@@ -620,9 +949,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 35,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3327),
                             Description = "Comfortable leather sofa for three people",
                             Name = "Leather Sofa - 3 Seater",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7704),
+                            Description = "Musical Instruments",
+                            Name = "Sofa",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 201m,
                             SupplierId = 5
                         },
@@ -630,9 +965,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 36,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3333),
                             Description = "Essential cookbook for baking recipes",
                             Name = "Cookbook - Baking Essentials",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7708),
+                            Description = "Musical Instruments",
+                            Name = "Cookbook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 399m,
                             SupplierId = 4
                         },
@@ -640,8 +981,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 37,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3358),
                             Description = "Durable Egypt flag for all occasions",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7711),
+                            Description = "Kitchen Appliances",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Egypt Flag",
                             Price = 549m,
                             SupplierId = 2
@@ -650,9 +996,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 38,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3364),
                             Description = "Durable laptop for children's learning",
                             Name = "Laptop - Kid's Edition",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7715),
+                            Description = "Toys",
+                            Name = "Laptop",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 442m,
                             SupplierId = 3
                         },
@@ -660,9 +1012,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 39,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3370),
                             Description = "Elegant king-size bed frame",
                             Name = "Bed Frame - King Size",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7718),
+                            Description = "Books",
+                            Name = "Bed Frame",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 657m,
                             SupplierId = 5
                         },
@@ -670,9 +1028,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 40,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3376),
                             Description = "Fast USB charger for multiple devices",
                             Name = "USB Charger",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7722),
+                            Description = "Electronics Products",
+                            Name = "Charger",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 257m,
                             SupplierId = 3
                         },
@@ -680,9 +1044,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 41,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3382),
                             Description = "Convertible tablet for mobile and desktop use",
                             Name = "Convertible Tablet",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7726),
+                            Description = "Automotive Products",
+                            Name = "Tablet",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 639m,
                             SupplierId = 4
                         },
@@ -690,9 +1060,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 42,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3388),
                             Description = "Headphones with noise-cancelling feature",
                             Name = "Noise Cancelling Headphones",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7729),
+                            Description = "Home Appliances",
+                            Name = "Headphones",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 676m,
                             SupplierId = 5
                         },
@@ -700,9 +1076,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 43,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3394),
                             Description = "Extendable dining table for extra seating",
                             Name = "Extendable Dining Table",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7733),
+                            Description = "Flags Products",
+                            Name = "Dining Table",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 161m,
                             SupplierId = 1
                         },
@@ -710,9 +1092,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 44,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3400),
                             Description = "Miniature Palestine flag for display",
                             Name = "Palestine Flag - Mini",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7736),
+                            Description = "Flags Products",
+                            Name = "Palestine Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 9m,
                             SupplierId = 1
                         },
@@ -720,8 +1108,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 45,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3405),
                             Description = "High-quality Lebanon flag",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7740),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Lebanon Flag",
                             Price = 10m,
                             SupplierId = 2
@@ -730,18 +1123,28 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 46,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3411),
                             Description = "Durable USA flag for outdoor use",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7743),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "USA Flag",
                             Price = 12m,
-                            SupplierId = 1
+                            SupplierId = 3
                         },
                         new
                         {
                             Id = 47,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3417),
                             Description = "Quality China flag for display",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7747),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "China Flag",
                             Price = 8m,
                             SupplierId = 4
@@ -750,8 +1153,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 48,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3422),
                             Description = "Vibrant Brazil flag for all occasions",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7751),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Brazil Flag",
                             Price = 11m,
                             SupplierId = 5
@@ -760,8 +1168,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 49,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3428),
                             Description = "Germany flag for international events",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7754),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Germany Flag",
                             Price = 10m,
                             SupplierId = 1
@@ -770,8 +1183,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 50,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3434),
                             Description = "Classic France flag for outdoor use",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7758),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "France Flag",
                             Price = 9m,
                             SupplierId = 2
@@ -780,8 +1198,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 51,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3440),
                             Description = "United Kingdom flag for all seasons",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7761),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "UK Flag",
                             Price = 13m,
                             SupplierId = 3
@@ -790,8 +1213,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 52,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3446),
                             Description = "Durable Russia flag for display",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7764),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Russia Flag",
                             Price = 9m,
                             SupplierId = 4
@@ -800,8 +1228,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 53,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3470),
                             Description = "High-quality Italy flag for indoor and outdoor use",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7768),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Italy Flag",
                             Price = 10m,
                             SupplierId = 5
@@ -810,9 +1243,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 54,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3476),
                             Description = "Portable USB flash drive with 16GB capacity",
                             Name = "USB Flash Drive",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7771),
+                            Description = "Tech Gadgets",
+                            Name = "Flash Drive",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 50m,
                             SupplierId = 3
                         },
@@ -820,9 +1259,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 55,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3482),
                             Description = "Compact notebook for notes and ideas",
                             Name = "Notebook - A5 Size",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7775),
+                            Description = "Stationery",
+                            Name = "Notebook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 1
                         },
@@ -830,9 +1275,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 56,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3488),
                             Description = "Smart fitness wristband for activity tracking",
                             Name = "Fitness Wristband",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7779),
+                            Description = "Fashion Accessories",
+                            Name = "Wristband",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 20m,
                             SupplierId = 4
                         },
@@ -840,9 +1291,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 57,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3493),
                             Description = "Large Palestine flag for official events",
                             Name = "Palestine Flag - Large",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7783),
+                            Description = "Flags Products",
+                            Name = "Palestine Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 9m,
                             SupplierId = 2
                         },
@@ -850,9 +1307,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 58,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3499),
                             Description = "Portable Bluetooth speaker with deep bass",
                             Name = "Bluetooth Speaker",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7786),
+                            Description = "Tech Gadgets",
+                            Name = "Portable Speaker",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 40m,
                             SupplierId = 5
                         },
@@ -860,9 +1323,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 59,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3505),
                             Description = "Compact desk calendar for office use",
                             Name = "Desk Calendar",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7790),
+                            Description = "Office Supplies",
+                            Name = "Calendar",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 18m,
                             SupplierId = 3
                         },
@@ -870,9 +1339,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 60,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3511),
                             Description = "Comfortable wireless headphones with long battery life",
                             Name = "Wireless Headphones",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7793),
+                            Description = "Electronics",
+                            Name = "Headphones",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 65m,
                             SupplierId = 2
                         },
@@ -880,9 +1355,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 61,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3517),
                             Description = "Classic baseball cap with adjustable strap",
                             Name = "Baseball Cap",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7797),
+                            Description = "Clothing and Apparel",
+                            Name = "Cap",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 1
                         },
@@ -890,9 +1371,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 62,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3523),
                             Description = "Stainless steel insulated water bottle",
                             Name = "Insulated Water Bottle",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7800),
+                            Description = "Travel Essentials",
+                            Name = "Water Bottle",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 25m,
                             SupplierId = 4
                         },
@@ -900,9 +1387,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 63,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3528),
                             Description = "Artistic wall poster for home decoration",
                             Name = "Wall Poster - Art",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7804),
+                            Description = "Home Decor",
+                            Name = "Poster",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 8m,
                             SupplierId = 2
                         },
@@ -910,9 +1403,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 64,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3534),
                             Description = "Small Palestine flag for personal use",
                             Name = "Palestine Flag - Small",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7807),
+                            Description = "Flags Products",
+                            Name = "Palestine Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 10m,
                             SupplierId = 2
                         },
@@ -920,9 +1419,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 65,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3540),
                             Description = "Durable ceramic coffee mug for office or home",
                             Name = "Ceramic Coffee Mug",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7811),
+                            Description = "Office Supplies",
+                            Name = "Coffee Mug",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 4
                         },
@@ -930,8 +1435,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 66,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3548),
                             Description = "Jordan flag with vibrant colors",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7860),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Jordan Flag",
                             Price = 8m,
                             SupplierId = 1
@@ -940,9 +1450,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 67,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3553),
                             Description = "Durable metal keychain with modern design",
                             Name = "Metal Keychain",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7864),
+                            Description = "Fashion Accessories",
+                            Name = "Keychain",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 5m,
                             SupplierId = 3
                         },
@@ -950,9 +1466,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 68,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3559),
                             Description = "Polarized sunglasses for UV protection",
                             Name = "Polarized Sunglasses",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7868),
+                            Description = "Fashion Accessories",
+                            Name = "Sunglasses",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 25m,
                             SupplierId = 5
                         },
@@ -960,9 +1482,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 69,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3582),
                             Description = "Comfortable graphic t-shirt with unique design",
                             Name = "Graphic T-Shirt",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7871),
+                            Description = "Clothing and Apparel",
+                            Name = "T-shirt",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 18m,
                             SupplierId = 2
                         },
@@ -970,9 +1498,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 70,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3588),
                             Description = "Durable hardcover notebook for everyday use",
                             Name = "Hardcover Notebook",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7875),
+                            Description = "Stationery",
+                            Name = "Notebook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 1
                         },
@@ -980,9 +1514,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 71,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3594),
                             Description = "Stylish leather bracelet for daily wear",
                             Name = "Leather Bracelet",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7878),
+                            Description = "Fashion Accessories",
+                            Name = "Bracelet",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 20m,
                             SupplierId = 4
                         },
@@ -990,9 +1530,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 72,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3600),
                             Description = "Customizable laptop sticker for decoration",
                             Name = "Laptop Decal Sticker",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7882),
+                            Description = "Stationery",
+                            Name = "Laptop Sticker",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 7m,
                             SupplierId = 5
                         },
@@ -1000,9 +1546,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 73,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3606),
                             Description = "Smooth writing ballpoint pen",
                             Name = "Ballpoint Pen",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7886),
+                            Description = "Office Supplies",
+                            Name = "Pen",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 6m,
                             SupplierId = 3
                         },
@@ -1010,9 +1562,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 74,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3612),
                             Description = "Premium noise-cancelling headphones",
                             Name = "Noise-Cancelling Headphones",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7889),
+                            Description = "Tech Gadgets",
+                            Name = "Headphones",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 50m,
                             SupplierId = 2
                         },
@@ -1020,9 +1578,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 75,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3618),
                             Description = "Compact Bluetooth speaker for outdoor use",
                             Name = "Portable Bluetooth Speaker",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7893),
+                            Description = "Tech Gadgets",
+                            Name = "Portable Speaker",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 55m,
                             SupplierId = 4
                         },
@@ -1030,9 +1594,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 76,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3624),
                             Description = "Eco-friendly reusable water bottle",
                             Name = "Reusable Water Bottle",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7896),
+                            Description = "Travel Essentials",
+                            Name = "Water Bottle",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 20m,
                             SupplierId = 5
                         },
@@ -1040,9 +1610,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 77,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3630),
                             Description = "Framed wall poster for home decor",
                             Name = "Framed Poster",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7900),
+                            Description = "Home Decor",
+                            Name = "Poster",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 10m,
                             SupplierId = 1
                         },
@@ -1050,9 +1626,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 78,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3636),
                             Description = "Protective silicone phone case",
                             Name = "Silicone Phone Case",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7904),
+                            Description = "Tech Gadgets",
+                            Name = "Phone Case",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 3
                         },
@@ -1060,9 +1642,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 79,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3642),
                             Description = "Spacious travel backpack with multiple compartments",
                             Name = "Travel Backpack",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7907),
+                            Description = "Travel Essentials",
+                            Name = "Backpack",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 30m,
                             SupplierId = 2
                         },
@@ -1070,9 +1658,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 80,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3790),
                             Description = "Fitness smartwatch with health tracking features",
                             Name = "Smartwatch - Fitness Edition",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7911),
+                            Description = "Tech Gadgets",
+                            Name = "Smartwatch",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 80m,
                             SupplierId = 4
                         },
@@ -1080,9 +1674,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 81,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3798),
                             Description = "Durable duffel bag for travel",
                             Name = "Travel Duffel Bag",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7914),
+                            Description = "Travel Essentials",
+                            Name = "Travel Bag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 35m,
                             SupplierId = 5
                         },
@@ -1090,9 +1690,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 82,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3804),
                             Description = "Slim power bank with fast charging",
                             Name = "Portable Power Bank - Slim",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7917),
+                            Description = "Tech Gadgets",
+                            Name = "Power Bank",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 25m,
                             SupplierId = 3
                         },
@@ -1100,9 +1706,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 83,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3810),
                             Description = "High-speed USB flash drive with 32GB capacity",
                             Name = "High-Speed Flash Drive",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7921),
+                            Description = "Tech Gadgets",
+                            Name = "Flash Drive",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 10m,
                             SupplierId = 2
                         },
@@ -1110,9 +1722,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 84,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3815),
                             Description = "Compact desktop calendar for office use",
                             Name = "Desktop Calendar",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7924),
+                            Description = "Office Supplies",
+                            Name = "Calendar",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 8m,
                             SupplierId = 1
                         },
@@ -1120,9 +1738,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 85,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3838),
                             Description = "Comfortable mouse pad with wrist support",
                             Name = "Ergonomic Mouse Pad",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7928),
+                            Description = "Office Supplies",
+                            Name = "Mouse Pad",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 4
                         },
@@ -1130,9 +1754,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 86,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3844),
                             Description = "Fast charging USB charger for multiple devices",
                             Name = "Fast Charging Charger",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7931),
+                            Description = "Tech Gadgets",
+                            Name = "Charger",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 5
                         },
@@ -1140,9 +1770,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 87,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3851),
                             Description = "Durable silicone wristband for everyday wear",
                             Name = "Silicone Wristband",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7935),
+                            Description = "Fashion Accessories",
+                            Name = "Wristband",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 10m,
                             SupplierId = 2
                         },
@@ -1150,8 +1786,13 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 88,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3857),
                             Description = "Quality Syria flag for events",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7939),
+                            Description = "Flags Products",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Name = "Syria Flag",
                             Price = 9m,
                             SupplierId = 3
@@ -1160,9 +1801,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 89,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3863),
                             Description = "Portable umbrella for travel",
                             Name = "Compact Umbrella",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7943),
+                            Description = "Travel Essentials",
+                            Name = "Umbrella",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 4
                         },
@@ -1170,9 +1817,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 90,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3868),
                             Description = "Small Lebanon flag for personal use",
                             Name = "Lebanon Flag - Small",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7947),
+                            Description = "Flags Products",
+                            Name = "Lebanon Flag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 7m,
                             SupplierId = 5
                         },
@@ -1180,9 +1833,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 91,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3875),
                             Description = "Multi-functional desk organizer for office supplies",
                             Name = "Office Desk Organizer",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7950),
+                            Description = "Office Supplies",
+                            Name = "Desk Organizer",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 18m,
                             SupplierId = 1
                         },
@@ -1190,9 +1849,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 92,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3880),
                             Description = "High-quality art poster for home decor",
                             Name = "Art Wall Poster",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7954),
+                            Description = "Home Decor",
+                            Name = "Poster",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 9m,
                             SupplierId = 2
                         },
@@ -1200,9 +1865,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 93,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3887),
                             Description = "Comfortable Bluetooth over-ear headphones",
                             Name = "Bluetooth Over-Ear Headphones",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7958),
+                            Description = "Tech Gadgets",
+                            Name = "Headphones",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 55m,
                             SupplierId = 3
                         },
@@ -1210,9 +1881,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 94,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3892),
                             Description = "Personalized keychain with durable metal",
                             Name = "Custom Keychain",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7962),
+                            Description = "Fashion Accessories",
+                            Name = "Keychain",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 5m,
                             SupplierId = 4
                         },
@@ -1220,9 +1897,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 95,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3899),
                             Description = "Luxury smartwatch with premium features",
                             Name = "Smartwatch - Luxury Edition",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7966),
+                            Description = "Tech Gadgets",
+                            Name = "Smartwatch",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 90m,
                             SupplierId = 5
                         },
@@ -1230,9 +1913,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 96,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3904),
                             Description = "Smooth writing rollerball pen",
                             Name = "Rollerball Pen",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7969),
+                            Description = "Office Supplies",
+                            Name = "Pen",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 6m,
                             SupplierId = 2
                         },
@@ -1240,9 +1929,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 97,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3910),
                             Description = "Durable academic notebook for school and office",
                             Name = "Academic Notebook",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7973),
+                            Description = "Stationery",
+                            Name = "Notebook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 14m,
                             SupplierId = 3
                         },
@@ -1250,9 +1945,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 98,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3917),
                             Description = "Breathable summer cap with adjustable strap",
                             Name = "Summer Cap",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7976),
+                            Description = "Clothing and Apparel",
+                            Name = "Cap",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 4
                         },
@@ -1260,9 +1961,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 99,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3922),
                             Description = "Polarized sunglasses with black frame",
                             Name = "Polarized Sunglasses - Black",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7979),
+                            Description = "Fashion Accessories",
+                            Name = "Sunglasses",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 25m,
                             SupplierId = 1
                         },
@@ -1270,9 +1977,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 100,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3928),
                             Description = "Stylish charm bracelet for daily wear",
                             Name = "Charm Bracelet",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7983),
+                            Description = "Fashion Accessories",
+                            Name = "Bracelet",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 20m,
                             SupplierId = 3
                         },
@@ -1280,9 +1993,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 101,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3934),
                             Description = "Durable protective case for smartphones",
                             Name = "Protective Phone Case",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7986),
+                            Description = "Tech Gadgets",
+                            Name = "Phone Case",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 15m,
                             SupplierId = 2
                         },
@@ -1290,9 +2009,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 102,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3940),
                             Description = "Spacious and ergonomic travel backpack",
                             Name = "Travel Backpack",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7990),
+                            Description = "Travel Essentials",
+                            Name = "Backpack",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 32m,
                             SupplierId = 5
                         },
@@ -1300,9 +2025,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 103,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3946),
                             Description = "Double-walled insulated water bottle",
                             Name = "Insulated Water Bottle",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7993),
+                            Description = "Travel Essentials",
+                            Name = "Water Bottle",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 18m,
                             SupplierId = 4
                         },
@@ -1310,9 +2041,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 104,
                             CategoryId = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3952),
                             Description = "Wireless keyboard compatible with all laptops",
                             Name = "Wireless Laptop Keyboard",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(7997),
+                            Description = "Stationery",
+                            Name = "Laptop Sticker",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 6m,
                             SupplierId = 1
                         },
@@ -1320,9 +2057,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 105,
                             CategoryId = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3958),
                             Description = "High-speed phone charger with universal compatibility",
                             Name = "Fast Charging Phone Charger",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8000),
+                            Description = "Tech Gadgets",
+                            Name = "Charger",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 16m,
                             SupplierId = 2
                         },
@@ -1330,9 +2073,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 106,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3964),
                             Description = "64GB high-speed USB flash drive",
                             Name = "USB Flash Drive",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8004),
+                            Description = "Tech Gadgets",
+                            Name = "Flash Drive",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 12m,
                             SupplierId = 3
                         },
@@ -1340,9 +2089,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 107,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3970),
                             Description = "Elegant leather wristband for men and women",
                             Name = "Leather Wristband",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8008),
+                            Description = "Fashion Accessories",
+                            Name = "Wristband",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 11m,
                             SupplierId = 5
                         },
@@ -1350,9 +2105,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 108,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3976),
                             Description = "Stylish desktop calendar with monthly pages",
                             Name = "Desktop Calendar",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8011),
+                            Description = "Office Supplies",
+                            Name = "Calendar",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 8m,
                             SupplierId = 4
                         },
@@ -1360,9 +2121,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 109,
                             CategoryId = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3982),
                             Description = "Smooth-writing gel ink pen for office use",
                             Name = "Gel Ink Pen",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8015),
+                            Description = "Office Supplies",
+                            Name = "Pen",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 7m,
                             SupplierId = 1
                         },
@@ -1370,9 +2137,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 110,
                             CategoryId = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3988),
                             Description = "Lightweight expandable travel bag",
                             Name = "Expandable Travel Bag",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8018),
+                            Description = "Travel Essentials",
+                            Name = "Travel Bag",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 36m,
                             SupplierId = 3
                         },
@@ -1380,9 +2153,15 @@ namespace Inventory.Data.Migrations
                         {
                             Id = 111,
                             CategoryId = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 422, DateTimeKind.Local).AddTicks(3994),
                             Description = "Classic journal notebook for writing and notes",
                             Name = "Journal Notebook",
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 781, DateTimeKind.Local).AddTicks(8022),
+                            Description = "Stationery",
+                            Name = "Notebook",
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             Price = 13m,
                             SupplierId = 2
                         });
@@ -1412,32 +2191,57 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 405, DateTimeKind.Local).AddTicks(1833),
                             Name = "SwiftStore"
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2148),
+                            Name = "Section A"
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 405, DateTimeKind.Local).AddTicks(2649),
                             Name = "OptiStock"
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2713),
+                            Name = "Section B"
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 405, DateTimeKind.Local).AddTicks(2673),
                             Name = "Nexus Dist"
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2731),
+                            Name = "Section C"
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 405, DateTimeKind.Local).AddTicks(2678),
                             Name = "PrimeSpace"
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2736),
+                            Name = "Section D"
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             CreateAt = new DateTime(2024, 10, 13, 21, 40, 2, 405, DateTimeKind.Local).AddTicks(2683),
                             Name = "AgileHub"
+========
+                            CreateAt = new DateTime(2024, 10, 13, 15, 19, 41, 772, DateTimeKind.Local).AddTicks(2741),
+                            Name = "Section E"
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                         });
                 });
 
@@ -1468,6 +2272,7 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             ProductID = 1,
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
                             WareHouseID = 3,
                             CurrentStock = (short)12,
                             MaxStock = (short)41,
@@ -1477,6 +2282,9 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 1,
                             WareHouseID = 5,
+========
+                            WareHouseID = 4,
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                             CurrentStock = (short)12,
                             MaxStock = (short)41,
                             MinStock = (short)7
@@ -1485,7 +2293,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 2,
                             WareHouseID = 1,
-                            CurrentStock = (short)5,
+                            CurrentStock = (short)18,
                             MaxStock = (short)44,
                             MinStock = (short)9
                         },
@@ -1717,7 +2525,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 31,
                             WareHouseID = 1,
-                            CurrentStock = (short)2,
+                            CurrentStock = (short)10,
                             MaxStock = (short)37,
                             MinStock = (short)6
                         },
@@ -1813,7 +2621,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 43,
                             WareHouseID = 5,
-                            CurrentStock = (short)9,
+                            CurrentStock = (short)14,
                             MaxStock = (short)44,
                             MinStock = (short)10
                         },
@@ -1925,7 +2733,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 57,
                             WareHouseID = 5,
-                            CurrentStock = (short)7,
+                            CurrentStock = (short)16,
                             MaxStock = (short)46,
                             MinStock = (short)11
                         },
@@ -1941,7 +2749,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 59,
                             WareHouseID = 1,
-                            CurrentStock = (short)4,
+                            CurrentStock = (short)10,
                             MaxStock = (short)36,
                             MinStock = (short)7
                         },
@@ -2077,7 +2885,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 76,
                             WareHouseID = 3,
-                            CurrentStock = (short)5,
+                            CurrentStock = (short)18,
                             MaxStock = (short)48,
                             MinStock = (short)13
                         },
@@ -2093,7 +2901,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 78,
                             WareHouseID = 5,
-                            CurrentStock = (short)10,
+                            CurrentStock = (short)16,
                             MaxStock = (short)45,
                             MinStock = (short)12
                         },
@@ -2101,7 +2909,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 79,
                             WareHouseID = 1,
-                            CurrentStock = (short)8,
+                            CurrentStock = (short)14,
                             MaxStock = (short)42,
                             MinStock = (short)9
                         },
@@ -2157,7 +2965,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 86,
                             WareHouseID = 3,
-                            CurrentStock = (short)3,
+                            CurrentStock = (short)13,
                             MaxStock = (short)42,
                             MinStock = (short)10
                         },
@@ -2197,7 +3005,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 91,
                             WareHouseID = 3,
-                            CurrentStock = (short)12,
+                            CurrentStock = (short)18,
                             MaxStock = (short)49,
                             MinStock = (short)13
                         },
@@ -2293,7 +3101,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 103,
                             WareHouseID = 5,
-                            CurrentStock = (short)10,
+                            CurrentStock = (short)16,
                             MaxStock = (short)47,
                             MinStock = (short)12
                         },
@@ -2333,7 +3141,7 @@ namespace Inventory.Data.Migrations
                         {
                             ProductID = 108,
                             WareHouseID = 5,
-                            CurrentStock = (short)0,
+                            CurrentStock = (short)17,
                             MaxStock = (short)46,
                             MinStock = (short)11
                         },
@@ -2388,6 +3196,7 @@ namespace Inventory.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+<<<<<<<< HEAD:KoalaInventoryManagement/Migrations/20241013184013_InitialCreate.Designer.cs
 
                     b.HasData(
                         new
@@ -2414,6 +3223,8 @@ namespace Inventory.Data.Migrations
                             Name = "User",
                             NormalizedName = "USER"
                         });
+========
+>>>>>>>> 020a471fc8ace304cada84c6dd61c75935855f3d:KoalaInventoryManagement/Migrations/20241013121943_InitialCreate.Designer.cs
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2522,6 +3333,17 @@ namespace Inventory.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Inventory.Data.Models.Sales", b =>
+                {
+                    b.HasOne("KoalaInventoryManagement.Models.WareHouseProduct", "WareHouseProduct")
+                        .WithMany("Sales")
+                        .HasForeignKey("ProductId", "WareHouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("WareHouseProduct");
+                });
+
             modelBuilder.Entity("KoalaInventoryManagement.Models.Product", b =>
                 {
                     b.HasOne("Inventory.Data.Models.Category", "Category")
@@ -2627,6 +3449,11 @@ namespace Inventory.Data.Migrations
             modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouse", b =>
                 {
                     b.Navigation("WareHouseProducts");
+                });
+
+            modelBuilder.Entity("KoalaInventoryManagement.Models.WareHouseProduct", b =>
+                {
+                    b.Navigation("Sales");
                 });
 #pragma warning restore 612, 618
         }
