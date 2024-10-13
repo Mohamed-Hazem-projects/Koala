@@ -1,12 +1,15 @@
 ﻿$(function () {
     $('#searchInput').on('input', function () {
+        debugger;
         var searchString = $(this).val();
         var searchWareHouseID = $('#wareHouseID').val();
         var searchCategoryID = $('#categoryID').val();
         var searchSupplierID = $('#supplierID').val();
-        //debugger;
+        console.log($('#filteredProductsData').val());
+        debugger;
         var filteredProductsList = JSON.parse($('#filteredProductsData').val());
-        //console.log(filteredProductsList);
+        debugger;
+        console.log(filteredProductsList);
         var productsJson = JSON.stringify(filteredProductsList);
         $.ajax({
             url: $('#getFilteredProductsUrl').val(),
@@ -26,16 +29,15 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
+                            //'<td>' + product.wareHouseName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
-                            product.supplierName + '\')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.categoryID + ', ' + product.supplierID + ')">' +
                             '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
@@ -91,16 +93,15 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
+                            //'<td>' + product.wareHouseName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
-                            product.supplierName + '\')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.categoryID + ', ' + product.supplierID + ')">' +
                             '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
@@ -156,16 +157,15 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
+                            //'<td>' + product.wareHouseName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
-                            product.supplierName + '\')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.categoryID + ', ' + product.supplierID + ')">' +
                             '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +
@@ -221,16 +221,15 @@
                             '<td>' + product.description + '</td>' +
                             '<td>$&nbsp;' + product.price + '</td>' +
                             '<td>' + product.image + '</td>' +
+                            //'<td>' + product.wareHouseName + '</td>' +
                             '<td>' +
                             '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                             '<i class="fa fa-info-circle color-info"></i>' +
                             '</a>' +
                             '</td>' +
                             '<td class="btn-td edit">' +
-                            '<a onclick="openEditModalProduct(' + product.id + ', ' + product.wareHouseID + ', ' + product.categoryID + ', ' + product.supplierID + ', \'' +
-                            product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
-                            product.currentStock + ', ' + product.mintStock + ', ' + product.maxStock + ', \'' + product.categoryName + '\', \'' +
-                            product.supplierName + '\')">' +
+                            '<a onclick="openEditModalProduct(' + product.id + ', \'' + product.name + '\', \'' + product.description + '\', ' + product.price + ', \'' + product.image + '\', ' +
+                            product.categoryID + ', ' + product.supplierID + ')">' +
                             '<i class="fa fa-pencil color-edit"></i>' +
                             '</a>' +
                             '</td>' +

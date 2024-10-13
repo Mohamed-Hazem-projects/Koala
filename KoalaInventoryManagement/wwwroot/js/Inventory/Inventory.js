@@ -45,26 +45,26 @@ function deleteFromDB() {
 
 
 // Function to open modal in edit mode
-function openEditModalProduct(id, wareHouseID, categoryID, supplierID, name, description, price,
-    image, currentStock, mintStock, maxStock) {
+function openEditModalProduct(id, name, description, price, image, categoryID, SupplierID) {
     debugger;
     $('#productModalLabel').text("Edit Product");
     $('#addOrEditProduct').text("Edit");
     // mapping
     $('input[name="Id"]').val(id);
-    $('input[name="oldWareHouseID"]').val(wareHouseID);
     $('input[name="Name"]').val(name);
     $('input[name="Description"]').val(description);
     $('input[name="Price"]').val(price);
     $('input[name="Image"]').val(image);
-    $('input[name="CurrentStock"]').val(currentStock);
-    $('input[name="MinStock"]').val(mintStock);
-    $('input[name="MaxStock"]').val(maxStock);
+    $('#supplierSelector').val(categoryID);
+    $('#categorySelector').val(SupplierID);
 
-    $('#wareHouseSelector').val(wareHouseID);
-    $('#supplierSelector').val(supplierID);
-    $('#categorySelector').val(categoryID);
-    
+    $('#currentDiv').hide();
+    $('#minDiv').hide();
+    $('#maxDiv').hide();
+    $('#warehouseDiv').hide();
+    $('#supplierDiv').hide();
+    $('#categoryDiv').hide();
+
     $('#addOrEditProductForm').attr('action', `/Inventory/UpdateProduct`);
     // Open the modal
     $('#productModal').modal('show');

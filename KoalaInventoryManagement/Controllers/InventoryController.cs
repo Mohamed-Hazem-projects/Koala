@@ -91,29 +91,15 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(Product editedProduct, WareHouseProduct editedWHP, int oldWareHouseID)
+        public IActionResult UpdateProduct(Product editedProduct)
         {
-            if(editedProduct != null && editedWHP != null && oldWareHouseID > 0)
+            if (editedProduct != null)
             {
                 Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
                 if (existingProduct != null)
                 {
                     if (_unitOfWork?.Products?.Update(editedProduct) ?? false)
                         _unitOfWork?.Complete();
-
-                    WareHouseProduct? existingWHP
-                        = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(existingProduct.Id, oldWareHouseID);
-
-                    if (existingWHP != null)
-                    {
-                        if (_unitOfWork?.WareHousesProducts?.DeleteOneRecord(editedProduct.Id, oldWareHouseID) ?? false)
-                        {
-                            _unitOfWork?.Complete();
-                            editedWHP.ProductID = editedProduct.Id;
-                            if (_unitOfWork?.WareHousesProducts?.Add(editedWHP) ?? false)
-                                _unitOfWork?.Complete();
-                        }
-                    }
                 }
             }
 
