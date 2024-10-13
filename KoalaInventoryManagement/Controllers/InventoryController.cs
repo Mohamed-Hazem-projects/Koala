@@ -1,12 +1,8 @@
-﻿using Inventory.Data.Models;
-using Inventory.Repository.Interfaces;
+﻿using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
-using NuGet.Configuration;
 
 namespace KoalaInventoryManagement.Controllers
 {
