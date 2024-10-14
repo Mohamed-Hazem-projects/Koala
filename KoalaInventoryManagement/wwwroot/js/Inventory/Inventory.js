@@ -72,7 +72,7 @@ function openEditModalProduct(id, name, description, price, image, categoryID, S
 
 // Reset modal back to "Add Product" mode when it's closed
 $('#productModal').on('hidden.bs.modal', function () {
-    //debugger;
+    debugger;
     // Reset modal title and button text for the Add mode
     $('#productModalLabel').text("Add Product");
     $('#addOrEditProduct').text("Add");
@@ -87,9 +87,13 @@ $('#productModal').on('hidden.bs.modal', function () {
     $('input[name="MinStock"]').val('');
     $('input[name="MaxStock"]').val('');
 
-    $('#wareHouseSelector').val('');
-    $('#supplierSelector').val('');
-    $('#categorySelector').val('');
+    $('#wareHouseSelector').val('Select Warehouse');
+    $('#supplierSelector').val('Select Supplier');
+    $('#categorySelector').val('Select Category');
+    $('#currentDiv').show();
+    $('#minDiv').show();
+    $('#maxDiv').show();
+    $('#warehouseDiv').show();
 
     // Reset the form action back to AddProduct
     $('#addOrEditProductForm').attr('action', '/Inventory/AddProduct');
