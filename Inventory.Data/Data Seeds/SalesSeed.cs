@@ -12,7 +12,7 @@ namespace Inventory.Data.Data_Seeds
                 SaleDate = DateTime.Now,
                 TotalPrice = 100,
                 ProductId = 1,
-                WareHouseId = 4
+                WareHouseId = 3
             },
             new Sales
             {
