@@ -7,6 +7,7 @@ using KoalaInventoryManagement.Services.Filteration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace KoalaInventoryManagement
 {
 	public class Program
@@ -16,25 +17,19 @@ namespace KoalaInventoryManagement
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddControllersWithViews()/*.AddSessionStateTempDataProvider()*/;
+			builder.Services.AddControllersWithViews();
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 				options.JsonSerializerOptions.MaxDepth = 100; // Make sure it's sufficient for your data structure
 			});
 
+
+			// Configure the database context with SQL Server
 			builder.Services.AddDbContext<InventoryDbContext>(op =>
-				 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
+				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly("KoalaInventoryManagement")));
 
-
-			//builder.Services.AddSession(options =>
-			//{
-			//    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout (e.g., 30 minutes)
-			//    options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
-			//    options.Cookie.IsEssential = true; // Mark the session cookie as essential for GDPR
-			//});
-
-
+			// Configure Identity
 			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
 			{
 				config.Password.RequiredUniqueChars = 2;
@@ -47,7 +42,9 @@ namespace KoalaInventoryManagement
 				config.Lockout.AllowedForNewUsers = true;
 				config.Lockout.MaxFailedAccessAttempts = 3;
 				config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
-			}).AddEntityFrameworkStores<InventoryDbContext>().AddDefaultTokenProviders();
+			})
+			.AddEntityFrameworkStores<InventoryDbContext>()
+			.AddDefaultTokenProviders();
 
 			builder.Services.AddAuthorization(options =>
 			{
@@ -59,7 +56,6 @@ namespace KoalaInventoryManagement
 			builder.Services.ConfigureApplicationCookie(options =>
 			{
 				options.Cookie.HttpOnly = true;
-				//if the remember me not selected the user still loged in in 60 min
 				options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
 				options.SlidingExpiration = true;
 				options.LoginPath = "/Account/Login";
@@ -70,6 +66,13 @@ namespace KoalaInventoryManagement
 				options.Cookie.SameSite = SameSiteMode.Strict;
 			});
 
+			// Add session services
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the timeout duration
+				options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+				options.Cookie.IsEssential = true; // Make the session cookie essential
+			});
 
 			// Register repositories in the unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
