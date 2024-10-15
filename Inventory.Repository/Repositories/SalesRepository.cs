@@ -15,20 +15,6 @@ namespace Inventory.Repository.Repositories
             _context = context;
         }
 
-        // public bool AddSale(Sales sale)
-        // {
-        //     try
-        //     {
-        //         _context.Sales.Add(sale);
-        //         _context.SaveChanges();
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return false;
-        //     }
-        // }
-
         public IEnumerable<SalesViewModel>? GetSalesPaginated(int pageNumber)
         {
             var query = _context.Sales.OrderByDescending(x => x.SaleDate).Select(s => new SalesViewModel
