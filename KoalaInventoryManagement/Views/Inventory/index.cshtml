@@ -26,20 +26,23 @@
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
-            <!-- WareHouse Filter Button Start -->
-            <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
-                <option selected>All Warehouses</option>
-                @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
-                {
-                    if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+            @* WareHouse Filter Button Start *@
+            @if (User.IsInRole("Admin"))  // Check if user is an Admin
+            {
+                <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
+                    <option selected>All Warehouses</option>
+                    @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                     {
-                        <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
-                        continue;
+                        if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+                        {
+                            <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                            continue;
+                        }
+                        <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
                     }
-                    <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
-                }
-            </select>
-            <!-- WareHouse Filter Button End -->
+                </select>
+            }
+            @* WareHouse Filter Button End *@
             <!-- Category Filter Button Start -->
             <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
                 <option selected>All Categories</option>
@@ -78,7 +81,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Products</h4>
-                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
+                    @* Show Add button only if the user has the correct role *@
+                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                    {
+                        <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
+                    }
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -89,10 +96,12 @@
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Image</th>
-                                    @* <th scope="col">Warehouse</th> *@
                                     <th class="btn-head" scope="col">Info</th>
-                                    <th class="btn-head" scope="col">Edit</th>
-                                    <th class="btn-head" scope="col">Delete</th>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                    {
+                                        <th class="btn-head" scope="col">Edit</th>
+                                        <th class="btn-head" scope="col">Delete</th>
+                                    }
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,25 +111,28 @@
                                         <td>@product.Name</td>
                                         <td>@product.Description</td>
                                         <td>$&nbsp;@product.Price</td>
-                                        <td>@product.Image</td>
-                                        @* <td>@product.WareHouseName</td> *@
+                                        <td>
+                                            @* Display the product image *@
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Image)" alt="Product Image" width="50" height="50" />
+                                        </td>
                                         <td>
                                             <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
                                                 <i class="fa fa-info-circle color-info"></i>
                                             </a>
                                         </td>
-                                        <td class="btn-td edit">
-                                            <a onclick="openEditModalProduct(@product.Id,
-                                                    '@product.Name', '@product.Description', @product.Price, '@product.Image',
-                                                    @product.CategoryID, @product.SupplierID)">
-                                                <i class="fa fa-pencil color-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)">
-                                                <i class="fa fa-close color-danger"></i>
-                                            </a>
-                                        </td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                        {
+                                            <td class="btn-td edit">
+                                                <a onclick="openEditModalProduct(@product.Id, '@product.Name', '@product.Description', @product.Price, '@product.Image', @product.CategoryID, @product.SupplierID)">
+                                                    <i class="fa fa-pencil color-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="btn-td delete">
+                                                <a onclick="confirmDelete('@product.Name Product', @product.Id)">
+                                                    <i class="fa fa-close color-danger"></i>
+                                                </a>
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             </tbody>
@@ -130,6 +142,7 @@
             </div>
         </div>
     </div>
+
     <!-- Products Table End -->
 </div>
 

@@ -1,10 +1,12 @@
 ﻿using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.ViewModels.Suppliers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KoalaInventoryManagement.Controllers
 {
+    [Authorize(Roles = "Admin,WHManager1,WHManager2,WHManager3,WHManager4,WHManager5")]
     public class SuppliersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -36,6 +38,7 @@ namespace KoalaInventoryManagement.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddSupplier(Supplier supplier)
         {
@@ -44,6 +47,7 @@ namespace KoalaInventoryManagement.Controllers
             await _unitOfWork.CompleteAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<IActionResult> UpdateSupplier(Supplier supplier)
         {
@@ -52,6 +56,7 @@ namespace KoalaInventoryManagement.Controllers
             await _unitOfWork.CompleteAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteSupplier(int id)
         {
@@ -59,6 +64,7 @@ namespace KoalaInventoryManagement.Controllers
             await _unitOfWork.CompleteAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<IActionResult> AddCategory(Category category)
         {
@@ -67,6 +73,7 @@ namespace KoalaInventoryManagement.Controllers
             await _unitOfWork.CompleteAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
@@ -75,6 +82,7 @@ namespace KoalaInventoryManagement.Controllers
             await _unitOfWork.CompleteAsync();
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteCategory(int id)
         {
