@@ -80,46 +80,56 @@ namespace Inventory.web.Controllers
 			ViewBag.Roles = _roleManager.Roles.ToList();
 			return View();
         }
-       
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel input)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _UserManager.FindByEmailAsync(input.Email);
 
-                if (user is not null)
-                {
-                    if (await _UserManager.CheckPasswordAsync(user, input.Password))
-                    {
-                        var result = await _signInManager.PasswordSignInAsync(user, input.Password, input.RememberMe, true);
-                        if (result.Succeeded)
-                        {
-                            if (input.RememberMe)
-                            {
-                                Response.Cookies.Append("RememberMeFunc" , $"{input.Email}|{input.Password}",
-                                    new CookieOptions
-                                    {
-                                        Expires = DateTime.Now.AddDays(30),
-                                        HttpOnly = true,
-                                        Secure = true,
-                                        SameSite = SameSiteMode.None
-                                    });
-                            }
-                            return RedirectToAction("Index", "Home");
-                        }
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", " Incorrect Email or Password");
-                }
-            }
-            return View(input);
-        }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Login(LoginViewModel input)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await _UserManager.FindByEmailAsync(input.Email);
 
-        public async Task<IActionResult> LogOut()
+				if (user is not null)
+				{
+					if (await _UserManager.CheckPasswordAsync(user, input.Password))
+					{
+						var result = await _signInManager.PasswordSignInAsync(user, input.Password, input.RememberMe, true);
+						if (result.Succeeded)
+						{
+							var roles = await _UserManager.GetRolesAsync(user); // Get user roles
+							var userRole = roles.FirstOrDefault(); // Assume one role for now
+							if (userRole != null)
+							{
+								// Store the user role in session
+								HttpContext.Session.SetString("UserRole", userRole);
+							}
+
+							if (input.RememberMe)
+							{
+								Response.Cookies.Append("RememberMeFunc", $"{input.Email}|{input.Password}",
+									new CookieOptions
+									{
+										Expires = DateTimeOffset.Now.AddDays(30),
+										HttpOnly = true,
+										Secure = true,
+										SameSite = SameSiteMode.None
+									});
+							}
+							return RedirectToAction("Index", "Home");
+						}
+					}
+				}
+				else
+				{
+					ModelState.AddModelError("", "Incorrect Email or Password");
+				}
+			}
+			return View(input);
+		}
+
+
+
+		public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             Response.Cookies.Delete("RememberMeFunc");
@@ -199,7 +209,8 @@ namespace Inventory.web.Controllers
 
 		#endregion
 
-		#region
+
+		#region Login as guest
 		public async Task<IActionResult> LoginAsGuest(string selectedRole)
 		{
 			var guestEmail = "guest@example.com";

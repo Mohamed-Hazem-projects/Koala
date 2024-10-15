@@ -86,7 +86,7 @@
             <div class="modal-body">
                 <form id="guestLoginForm" method="post" asp-action="LoginAsGuest">
                     <div id="rolesList">
-                        @* @foreach (var role in ViewBag.Roles as List<IdentityRole>)
+                        @foreach (var role in ViewBag.Roles as List<IdentityRole>)
                         {
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" id="role_@role.Name" name="selectedRole" value="@role.Name" />
@@ -94,7 +94,7 @@
                                     @role.Name
                                 </label>
                             </div>
-                        } *@
+                        }
                     </div>
                 </form>
             </div>
