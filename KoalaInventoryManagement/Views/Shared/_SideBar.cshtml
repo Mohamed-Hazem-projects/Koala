@@ -13,42 +13,52 @@
                     <span>Home</span>
                 </a>
             </li>
-            <li>
-                <a href="/Dashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
-                    <i class="fa-solid fa-chart-column fa-fw"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5")))
+            {                
+                <li>
+                    <a href="/Dashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
+                        <i class="fa-solid fa-chart-column fa-fw"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
             <li>
                 <a href="/Inventory" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Inventory" ? "active" : "")">
                     <i class="fa-solid fa-warehouse fa-fw"></i>
                     <span>Inventory</span>
                 </a>
             </li>
-            <li>
-                <a href="/Suppliers" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Suppliers" ? "active" : "")">
-                    <i class="fa-solid fa-truck-field"></i>
-                    <span>Suppliers</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Sales" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Sales" ? "active" : "")">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Sales</span>
-                </a>
-            </li>
-            <li>
-                <a href="/AdminDashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
-                    <i class="fa-solid fa-users fa-fw"></i>
-                    <span>Admin Board</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Reports" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Reports" ? "active" : "")">
-                    <i class="fa-solid fa-paperclip"></i>
-                    <span>Reports</span>
-                </a>
-            </li>   
+            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5") ))
+            {
+                <li>
+                    <a href="/Suppliers" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Suppliers" ? "active" : "")">
+                        <i class="fa-solid fa-truck-field"></i>
+                        <span>Suppliers</span>
+                    </a>
+                </li>
+            }
+
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="/Sales" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Sales" ? "active" : "")">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Sales</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/AdminDashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
+                        <i class="fa-solid fa-users fa-fw"></i>
+                        <span>Admin Board</span>
+                    </a>
+                </li>  
+                <li>
+                    <a href="/Reports" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Reports" ? "active" : "")">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>   
+            }
         </ul>
     </div>
     <div class="lower">

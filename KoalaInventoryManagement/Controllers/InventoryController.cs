@@ -2,11 +2,13 @@
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
 namespace KoalaInventoryManagement.Controllers
 {
+	[Authorize]
     public class InventoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -21,12 +23,36 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
-            List<Product> products
-                = _unitOfWork?.Products?.GetAll(["Supplier", "Category", "WareHouseProducts"])?.ToList()
-                    ?? new List<Product>();
-            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+            // Get the role from session
+            var userRole = HttpContext.Session.GetString("UserRole");
 
+            // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
+            int warehouseId = 0;
+            if (userRole != null && userRole.StartsWith("WHManager"))
+            {
+                int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
+            }
+
+            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
+            List<Product> products;
+
+            // Filter products based on warehouse role
+            if (warehouseId > 0)
+            {
+                products = _unitOfWork?.Products?
+                              .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })
+                              ?.Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == warehouseId))
+                              ?.ToList() ?? new List<Product>();
+            }
+            else
+            {
+                // Default behavior (show all products if no warehouse-specific role)
+                products = _unitOfWork?.Products?.GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?.ToList()
+                            ?? new List<Product>();
+            }
+
+            // Convert products to view model
+            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
             foreach (Product p in products)
             {
                 foreach (WareHouseProduct whp in p.WareHouseProducts)
@@ -37,7 +63,7 @@ namespace KoalaInventoryManagement.Controllers
                         Name = p.Name,
                         Description = p.Description,
                         Price = p.Price,
-                        Image = p.Image ?? [0],
+                        Image = p.Image ?? new byte[0], // Use an empty byte array for image
                         WareHouseID = whp?.WareHouseID ?? 0,
                         WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
                         CurrentStock = whp?.CurrentStock ?? 0,
@@ -54,6 +80,7 @@ namespace KoalaInventoryManagement.Controllers
             return View(productsViewModel);
         }
 
+
         [HttpPost]
         public JsonResult GetFilteredProducts(int wareHouseID, int categoryID, int supplierID, string searchString, string showedProducts)
         {
@@ -68,32 +95,48 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
-        {
-            if(_unitOfWork?.Products?.Add(newProduct) ?? false)
-            {
-                _unitOfWork?.Complete();
-                wareHouseProduct.ProductID = _unitOfWork?.Products?.GetAll()?.LastOrDefault()?.Id ?? 0;
+		public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
+		{
+			if (newProduct == null)
+			{
+				return BadRequest("Product information is required.");
+			}
 
-                if(_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
-                    _unitOfWork?.Complete();
-            }
+			if (_unitOfWork?.Products?.Add(newProduct) ?? false)
+			{
+				_unitOfWork?.Complete();
+				wareHouseProduct.ProductID = newProduct.Id;
 
-            return RedirectToAction("Index");
-        }
+				if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
+				{
+					_unitOfWork?.Complete();
+				}
+				return RedirectToAction("Index");
+			}
 
-        [HttpGet]
-        public IActionResult DeleteProduct(int id)
-        {
-            if(_unitOfWork?.Products?.Delete(id) ?? false)
-                _unitOfWork?.Complete();
-            return RedirectToAction("Index");
-        }
+			return StatusCode(500, "Failed to add the product."); // Or handle more gracefully
+		}
 
-        [HttpPost]
+		[HttpGet]
+		public IActionResult DeleteProduct(int id)
+		{
+			if (_unitOfWork?.Products?.Delete(id) ?? false)
+			{
+				_unitOfWork?.Complete();
+				return RedirectToAction("Index");
+			}
+
+			return NotFound($"Product with ID {id} not found."); // Provide feedback if deletion fails
+		}
+
+		[HttpPost]
         public IActionResult UpdateProduct(Product editedProduct)
         {
-            if (editedProduct != null)
+			if (editedProduct == null)
+			{
+				return BadRequest("Product information is required.");
+			}
+			if (editedProduct != null)
             {
                 Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
                 if (existingProduct != null)

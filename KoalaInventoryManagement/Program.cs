@@ -9,73 +9,87 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KoalaInventoryManagement
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<InventoryDbContext>(op =>
-                 op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+			// Configure the database context with SQL Server
+			builder.Services.AddDbContext<InventoryDbContext>(op =>
+				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
+			// Configure Identity
+			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+			{
+				config.Password.RequiredUniqueChars = 2;
+				config.Password.RequireDigit = true;
+				config.Password.RequireLowercase = true;
+				config.Password.RequireUppercase = true;
+				config.Password.RequireNonAlphanumeric = true;
+				config.Password.RequiredLength = 6;
+				config.User.RequireUniqueEmail = true;
+				config.Lockout.AllowedForNewUsers = true;
+				config.Lockout.MaxFailedAccessAttempts = 3;
+				config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+			})
+			.AddEntityFrameworkStores<InventoryDbContext>()
+			.AddDefaultTokenProviders();
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            builder.Services.AddAuthorization(options =>
             {
-                config.Password.RequiredUniqueChars = 2;
-                config.Password.RequireDigit = true;
-                config.Password.RequireLowercase = true;
-                config.Password.RequireUppercase = true;
-                config.Password.RequireNonAlphanumeric = true;
-                config.Password.RequiredLength = 6;
-                config.User.RequireUniqueEmail = true;
-                config.Lockout.AllowedForNewUsers = true;
-                config.Lockout.MaxFailedAccessAttempts = 3;
-                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
-            }).AddEntityFrameworkStores<InventoryDbContext>().AddDefaultTokenProviders();
-
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                //if the remember me not selected the user still loged in in 2 min
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
-                options.SlidingExpiration = true;
-                options.LoginPath = "/Account/Login";
-                options.LogoutPath = "/Account/Logout";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.Cookie.Name = "HamadaCookies";
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.AddPolicy("Admin", policy =>
+                    policy.RequireRole("Admin")); // Require 'Admin' role for the policy
             });
 
+            // Configure application cookie
+            builder.Services.ConfigureApplicationCookie(options =>
+			{
+				options.Cookie.HttpOnly = true;
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+				options.SlidingExpiration = true;
+				options.LoginPath = "/Account/Login";
+				options.LogoutPath = "/Account/Logout";
+				options.AccessDeniedPath = "/Account/AccessDenied";
+				options.Cookie.Name = "HamadaCookies";
+				options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+				options.Cookie.SameSite = SameSiteMode.Strict;
+			});
 
-            // Register repositories in the unit of work
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
+			// Add session services
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the timeout duration
+				options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+				options.Cookie.IsEssential = true; // Make the session cookie essential
+			});
 
-            var app = builder.Build();
+			// Register repositories in the unit of work
+			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+			builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles();
-            app.UseRouting();
+			var app = builder.Build();
 
-            app.UseAuthentication();
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
+			app.UseStaticFiles();
+			app.UseRouting();
 
-            //app.UseSession();
+			app.UseSession(); // Enable session middleware here
+			app.UseAuthentication();
+			app.UseAuthorization();
 
-            app.UseAuthorization();
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }
