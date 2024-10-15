@@ -1,32 +1,58 @@
-﻿using Inventory.Data.Models;
-using Inventory.Repository.Interfaces;
+﻿using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
-using NuGet.Configuration;
 
 namespace KoalaInventoryManagement.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProductFilterService _productFilter;
 
-        public InventoryController(IUnitOfWork unitOfWork)
+        public InventoryController(IUnitOfWork unitOfWork, IProductFilterService productFilter)
         {
             _unitOfWork = unitOfWork;
+            _productFilter = productFilter;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
-            List<Product> products
-                = _unitOfWork?.Products?.GetAll(["Supplier", "Category", "WareHouseProducts"])?.ToList()
-                    ?? new List<Product>();
-            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+            // Get the role from session
+            var userRole = HttpContext.Session.GetString("UserRole");
 
+            // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
+            int warehouseId = 0;
+            if (userRole != null && userRole.StartsWith("WHManager"))
+            {
+                int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
+            }
+
+            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
+            List<Product> products;
+
+            // Filter products based on warehouse role
+            if (warehouseId > 0)
+            {
+                products = _unitOfWork?.Products?
+                              .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })
+                              ?.Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == warehouseId))
+                              ?.ToList() ?? new List<Product>();
+            }
+            else
+            {
+                // Default behavior (show all products if no warehouse-specific role)
+                products = _unitOfWork?.Products?.GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?.ToList()
+                            ?? new List<Product>();
+            }
+
+            // Convert products to view model
+            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
             foreach (Product p in products)
             {
                 foreach (WareHouseProduct whp in p.WareHouseProducts)
@@ -37,12 +63,12 @@ namespace KoalaInventoryManagement.Controllers
                         Name = p.Name,
                         Description = p.Description,
                         Price = p.Price,
-                        Image = p.Image ?? [0],
-                        WareHouseID = whp.WareHouseID,
-                        WareHouseName = wareHouses?.Find(w => w.Id == whp.WareHouseID)?.Name ?? string.Empty,
-                        CurrentStock = whp.CurrentStock,
-                        MintStock = whp.MinStock,
-                        MaxStock = whp.MaxStock,
+                        Image = p.Image ?? new byte[0], // Use an empty byte array for image
+                        WareHouseID = whp?.WareHouseID ?? 0,
+                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
+                        CurrentStock = whp?.CurrentStock ?? 0,
+                        MintStock = whp?.MinStock ?? 0,
+                        MaxStock = whp?.MaxStock ?? 0,
                         CategoryID = p?.CategoryId ?? 0,
                         CategoryName = p?.Category?.Name ?? string.Empty,
                         SupplierID = p?.SupplierId ?? 0,
@@ -54,94 +80,104 @@ namespace KoalaInventoryManagement.Controllers
             return View(productsViewModel);
         }
 
+
         [HttpPost]
         public JsonResult GetFilteredProducts(int wareHouseID, int categoryID, int supplierID, string searchString, string showedProducts)
         {
-            List<ProductViewModel>? showedProductsNow = JsonConvert.DeserializeObject<List<ProductViewModel>>(showedProducts);
-
-            if (showedProductsNow == null)
-                showedProductsNow = new List<ProductViewModel>();
-
             ViewBag.SelectedWareHouse = wareHouseID;
             ViewBag.SelectedCategory = categoryID;
             ViewBag.SelectedSupplier = supplierID;
 
-            var filteredProducts = showedProductsNow.AsQueryable();
+            List<ProductViewModel> showedProductsNow = _productFilter?.FilterData(wareHouseID,
+                categoryID, supplierID, searchString, showedProducts) ?? new List<ProductViewModel>();
 
-            // Apply filters dynamically if provided
-            if (wareHouseID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.WareHouseID == wareHouseID);
-            }
-            if (categoryID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.CategoryID == categoryID);
-            }
-            if (supplierID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.SupplierID == supplierID);
-            }
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                filteredProducts = filteredProducts.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
-            }
-
-            // Return the filtered result as JSON
-            return Json(filteredProducts.ToList());
-        }
-
-        [HttpGet]
-        public IActionResult Search()
-        {
-            var searchTerm = "Palestine Flag".ToLower(); // Convert the search term to lowercase
-            var ProductName = _unitOfWork.Products.FindByName(
-                a => a.Name.ToLower().Contains(searchTerm)
-            );
-            return Ok(ProductName);
+            return Json(showedProductsNow);
         }
 
         [HttpPost]
         public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
         {
-            // Add the new product to the database
-            _unitOfWork.Products.Add(newProduct);
-            _unitOfWork.Complete();
-            wareHouseProduct.ProductID = _unitOfWork?.Products?.GetAll()?.LastOrDefault()?.Id ?? 0;
-            _unitOfWork.WareHousesProducts.Add(wareHouseProduct);
-            _unitOfWork.Complete();
+            if (newProduct == null)
+            {
+                return BadRequest("Product information is required.");
+            }
 
-            return RedirectToAction("Index");
+            if (_unitOfWork?.Products?.Add(newProduct) ?? false)
+            {
+                _unitOfWork?.Complete();
+                wareHouseProduct.ProductID = newProduct.Id;
+
+                if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
+                {
+                    _unitOfWork?.Complete();
+                }
+                return RedirectToAction("Index");
+            }
+
+            return StatusCode(500, "Failed to add the product."); // Or handle more gracefully
         }
 
         [HttpGet]
         public IActionResult DeleteProduct(int id)
         {
+            if (_unitOfWork?.Products?.Delete(id) ?? false)
+            {
+                _unitOfWork?.Complete();
+                return RedirectToAction("Index");
+            }
 
-            _unitOfWork.Products.Delete(id);
-            _unitOfWork.Complete();
-            return RedirectToAction("Index");
+            return NotFound($"Product with ID {id} not found."); // Provide feedback if deletion fails
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct()
+        public IActionResult UpdateProduct(Product editedProduct)
         {
-            var UpdateProduct = _unitOfWork.Products.Update(new Models.Product { Id = 5, Name = "salama2", Description = "Test salama2", Price = 50 });
-            _unitOfWork.Complete();
-            return Ok(UpdateProduct);
+            if (editedProduct == null)
+            {
+                return BadRequest("Product information is required.");
+            }
+            if (editedProduct != null)
+            {
+                Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
+                if (existingProduct != null)
+                {
+                    if (_unitOfWork?.Products?.Update(editedProduct) ?? false)
+                        _unitOfWork?.Complete();
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult GetAllProductSupplier()
+        public IActionResult ShowDetails(int id)
         {
-            var products = _unitOfWork.Products.GetProductsBySupplier(1);
-            return Ok(products);
-        }
+            Product? product
+                = _unitOfWork?.Products?.GetbyId(id, ["Supplier", "Category"]) ?? new Product();
 
-        [HttpGet]
-        public IActionResult GetAllProductCategory()
-        {
-            var products = _unitOfWork.Products.GetProductsByCategory(1);
-            return Ok(products);
+            List<WareHouseProduct> prdWareHouses
+                = _unitOfWork?.WareHousesProducts?
+                              .GettWareHousesProductsByPrdID(id, ["WareHouse"])?
+                              .ToList() ?? new List<WareHouseProduct>();
+
+
+            int productQuantity = 0;
+            foreach (int currentStock in prdWareHouses.Select(whp => whp.CurrentStock))
+                productQuantity += currentStock;
+
+            ProductDetailsVM productDetails = new ProductDetailsVM()
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Image = product.Image ?? [0],
+                Quantity = productQuantity,
+                ProductWareHouses = prdWareHouses,
+                CategoryName = product?.Category?.Name ?? string.Empty,
+                SupplierName = product?.Supplier?.Name ?? string.Empty,
+            };
+
+            return View(productDetails);
         }
     }
 }

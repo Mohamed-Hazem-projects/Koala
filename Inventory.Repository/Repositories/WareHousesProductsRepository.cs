@@ -83,6 +83,29 @@ namespace Inventory.Repository.Repositories
             }
         }
 
+        public IEnumerable<WareHouseProduct>? GettWareHousesProductsByPrdID(int productID, string[]? includes = null)
+        {
+            try
+            {
+                IQueryable<WareHouseProduct> query = _context.Set<WareHouseProduct>();
+
+                if (includes != null)
+                    foreach (var include in includes)
+                        query = query.Include(include);
+
+                List<WareHouseProduct>? wareHousesProducts = query.Where(whp => whp.ProductID == productID).ToList();
+
+                return wareHousesProducts;
+            }
+            catch (Exception ex)
+            {
+                //log error
+                //.......
+
+                return default;
+            }
+        }
+
         public IEnumerable<Product>? GetWareHouseProductsByWHID(int wareHouseID)
         {
             try
@@ -248,7 +271,7 @@ namespace Inventory.Repository.Repositories
             }
         }
 
-        public IEnumerable<WareHouseProduct> FindByName(Expression<Func<WareHouseProduct, bool>> match, string[] includes = null)
+        public IEnumerable<WareHouseProduct> FindByName(Expression<Func<WareHouseProduct, bool>> match, string[]? includes = null)
         {
             try
             {

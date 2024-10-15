@@ -2697,3 +2697,4 @@ namespace KoalaInventoryManagement.Migrations
         }
     }
 }
+

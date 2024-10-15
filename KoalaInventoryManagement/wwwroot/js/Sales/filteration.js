@@ -1,4 +1,3 @@
-/// <reference path="../../lib/jquery/jquery.d.ts" />
 var timer;
 var typingStopped = 400;
 const suggestionsUrl = $('#url').attr('data-productSuggestionsUrl');

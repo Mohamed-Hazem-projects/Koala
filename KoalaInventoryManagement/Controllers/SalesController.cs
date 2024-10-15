@@ -1,10 +1,12 @@
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KoalaInventoryManagement.Controllers
 {
+    [Authorize("Admin")]
     public class SalesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

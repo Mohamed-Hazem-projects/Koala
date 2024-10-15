@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Inventory.Data.Models;
 
 namespace Inventory.Data.Data_Seeds
@@ -16,7 +12,7 @@ namespace Inventory.Data.Data_Seeds
                 SaleDate = DateTime.Now,
                 TotalPrice = 100,
                 ProductId = 1,
-                WareHouseId = 4
+                WareHouseId = 3
             },
             new Sales
             {

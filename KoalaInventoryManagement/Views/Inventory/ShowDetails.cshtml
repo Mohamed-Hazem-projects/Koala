@@ -1,0 +1,64 @@
+﻿@model ProductDetailsVM
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<link href="~/css/inventory/productdetails.css" rel="stylesheet" />
+
+<div class="container-fluid p-0 suppliers">
+    <!-- Products Header Start -->
+    <div class="content-header">
+        <div class="heading">
+            <h1 class="header-title roboto">Product Details</h1>
+            <p class="header-subtitle roboto">Comprehensive details of your product</p>
+        </div>
+    </div>
+    <!-- Products Header End -->
+    <!-- Card Details Start -->
+    <div class="d-flex justify-content-center align-items-start flex-wrap mt-4">
+        <!-- Product Details Card -->
+        <div class="card product-card shadow-lg mx-3 mb-4" style="max-width: 400px;">
+            <img src="~/Images/i.jfif" class="card-img-top rounded-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+            <div class="card-body text-center">
+                <h5 class="card-title text-dark font-weight-bold">@Model.Name</h5>
+                <p class="card-text text-muted">@Model.Description</p>
+                <h6 class="text-success">$&nbsp;@Model.Price</h6>
+                <h6 class="text-dark">Quantity: <span class="font-weight-bold">@Model.Quantity</span></h6>
+                <h6 class="text-dark">Category: <span class="font-weight-bold">@Model.CategoryName</span></h6>
+                <h6 class="text-dark">Supplier: <span class="font-weight-bold">@Model.SupplierName</span></h6>
+                <div class="d-flex justify-content-center">
+                    <a href="javascript:void(0);" class="btn btn-primary mt-3" id="showWarehouseBtn">Warehouses</a>
+                    <a href="/Inventory/Index" class="btn btn-outline-secondary mt-3 ms-2">Show All Products</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warehouse Details Card (Initially Hidden) -->
+        <div class="card warehouse-card shadow-lg mx-3 mb-4" style="max-width: 400px; display: none; position: relative;">
+            <button class="btn back-button" style="position: absolute; top: 10px; left: 10px; z-index: 1;">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <div class="card-body">
+                <h5 class="card-title font-weight-bold text-center">Warehouse Details</h5>
+                <hr />
+                @foreach (WareHouseProduct whp in Model.ProductWareHouses)
+                {
+                    <h6 class="font-weight-bold">@whp.WareHouse.Name</h6>
+                    <p class="card-text text-muted">Current Stock: @whp.CurrentStock</p>
+                    <p class="card-text text-muted">Minimum Stock: @whp.MinStock</p>
+                    <p class="card-text text-muted">Maximum Stock: @whp.MaxStock</p>
+                    <a onclick="" class="btn btn-primary mt-3" id="editWareHouseData">Edit</a>
+                    <a onclick="" class="btn btn-primary mt-3" id="deleteFromWareHouse">Delete</a>
+                    <hr />
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Card Details End -->
+</div>
+
+@section Scripts {
+    <script src="~/js/inventory/productdetails.js"></script>
+}

@@ -1,0 +1,13 @@
+﻿select:focus, select:hover {
+    border-color: #593bdb !important; /* Change border to purple */
+    box-shadow: 0 0 5px #593bdb !important; /* Add purple shadow */
+    outline: none; /* Remove default blue outline */
+}
+
+.color-edit:hover {
+    color: #DD761C !important; /* Change to #DD761C on hover */
+}
+
+.color-info:hover {
+    color: #227B94 !important;
+}

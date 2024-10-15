@@ -1,5 +1,6 @@
 ﻿using Inventory.Data.Models;
 using KoalaInventoryManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +8,12 @@ using System.Data;
 
 namespace KoalaInventoryManagement.Controllers
 {
-    public class UserRoleController : Controller
+    [Authorize(Roles = "Admin")]
+    public class AdminDashboardController : Controller
     {
         public UserManager<ApplicationUser> _UserManager;
         public RoleManager<IdentityRole> _RoleManager;
-        public UserRoleController(UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
+        public AdminDashboardController(UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;
@@ -24,7 +26,11 @@ namespace KoalaInventoryManagement.Controllers
 
             foreach (var user in users)
             {
-                var userRoles = await _UserManager.GetRolesAsync(user);
+				if (user.FirstName.Equals("guest", StringComparison.OrdinalIgnoreCase))
+				{
+					continue;
+				}
+				var userRoles = await _UserManager.GetRolesAsync(user);
                 userRolesViewModel.Add(new UserRolesViewModel
                 {
                     UserId = user.Id,
@@ -117,12 +123,5 @@ namespace KoalaInventoryManagement.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
-
-
-
-
-
     }
 }

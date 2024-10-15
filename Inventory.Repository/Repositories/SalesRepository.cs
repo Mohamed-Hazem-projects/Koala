@@ -1,11 +1,11 @@
+using System.Linq.Expressions;
 using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Data.Shared;
-using Inventory.Data.ViewModels.Sales;
+using Inventory.Data.Shared.Sales;
 using Inventory.Repository.Interfaces;
-using KoalaInventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+
 namespace Inventory.Repository.Repositories
 {
     public class SalesRepository : GenericRepository<Sales>, ISalesRepository

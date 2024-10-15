@@ -1,6 +1,7 @@
 ﻿using Inventory.Data.Data_Seeds;
 using Inventory.Data.Models;
 using KoalaInventoryManagement.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,6 @@ namespace Inventory.Data.Context
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHousesProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Sales> Sales { get; set; }
         #endregion
 
         public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options)
@@ -37,14 +37,12 @@ namespace Inventory.Data.Context
 
             modelBuilder.Entity<WareHouseProduct>()
                         .HasData(WareHousesProductsSeed.WareHouseProducts);
-            modelBuilder.Entity<Sales>()
-                        .HasData(SalesSeed.sales);
             #endregion
 
             #region WareHouse and Product M:M Relationship
             //composite primary key
             modelBuilder.Entity<WareHouseProduct>()
-                        .HasKey(whp => new { whp.ProductID, whp.WareHouseID });
+                            .HasKey(whp => new { whp.ProductID, whp.WareHouseID });
 
             modelBuilder.Entity<WareHouse>()
                             .HasMany(w => w.WareHouseProducts)

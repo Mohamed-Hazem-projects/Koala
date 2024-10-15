@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace Inventory.Repository.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
-    {
-        IGenericRepositoryAsync<Category> Categories { get; }
-        IGenericRepositoryAsync<Supplier> Suppliers { get; }
-        IGenericRepository<WareHouse> WareHouses { get; }
-        IProductsRepository Products { get; }
-        IWareHousesProductsRepository WareHousesProducts { get; }
-        ISalesRepository Sales { get; }
-        int Complete();
+        public interface IUnitOfWork : IDisposable
+        {
+                IGenericRepositoryAsync<Category> Categories { get; }
+                IGenericRepositoryAsync<Supplier> Suppliers { get; }
+                IGenericRepository<WareHouse> WareHouses { get; }
+                IProductsRepository Products { get; }
+                IWareHousesProductsRepository WareHousesProducts { get; }
+                IDashBoardRepository DashBoard { get; }
+                ISalesRepository Sales { get; }
 
-        Task<int> CompleteAsync();
-    }
+                int Complete();
+
+                Task<int> CompleteAsync();
+        }
 }

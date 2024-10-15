@@ -256,7 +256,7 @@ a:hover {
     left: 23px;
 }
 .size-change .upper ul li {
-margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .size-change .upper ul li a {
     justify-content: center;
@@ -269,9 +269,62 @@ margin-bottom: 10px;
     font-size: 18px;
 }
 .size-change.main {
-padding: 10px;
+    padding: 10px;
 }
 .size-change.main > .lower > p {
     letter-spacing: -15px;
     transform: scale(0);
+}
+
+
+/*next part is for the user part*/
+.dropup {
+    padding: 0px 10px;
+    margin-bottom: 25px;
+    user-select: none;
+    transition:0.4s
+}
+.dropup a {
+    cursor: pointer;
+}
+.dropup img {
+    outline: 2px solid #5536df;
+    border: 1px solid transparent;
+    width: 29px;
+    position:relative;
+    transition:0.4s;
+    height: 29px;
+}
+.dropup i {
+    color: #5536df;
+    font-size: 18px;
+    position: absolute;
+    top: -18px;
+    left: 17px;
+    transition: 0.4s;
+}
+.dropup .shrink {
+    display:inline-block;
+    position: relative;
+    transition: 0.4s;
+    white-space: nowrap;
+}
+.size-change.main > .lower .dropup {
+    padding: 0;
+}
+.size-change.main > .lower .dropup .shrink {
+    transform: scale(0);
+    letter-spacing: -15px;
+    position: absolute;
+}
+.size-change.main > .lower .dropup i {
+    left: 12px;
+}
+.size-change.main > .lower .dropup img {
+    left: 5px;
+}
+@media (max-width: 767px) {
+    .main > .lower strong {
+        display: none;
+    }
 }
