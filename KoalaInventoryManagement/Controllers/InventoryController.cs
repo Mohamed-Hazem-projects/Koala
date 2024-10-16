@@ -142,10 +142,29 @@ namespace KoalaInventoryManagement.Controllers
         [HttpGet]
         public IActionResult DeleteProduct(int id)
         {
-            if (_unitOfWork?.Products?.Delete(id) ?? false)
+            string role = (HttpContext?.Session?.GetString("UserRole") ?? "");
+            if (role == "Admin")
             {
-                _unitOfWork?.Complete();
-                return RedirectToAction("Index");
+                //Delete from all warehouses
+                if (_unitOfWork?.Products?.Delete(id) ?? false)
+                {
+                    _unitOfWork?.Complete();
+                    return RedirectToAction("Index");
+                }
+            }
+            else if (role.StartsWith("WHManager"))
+            {
+                int warehouseId = 0;
+                int.TryParse(role.Substring("WHManager".Length), out warehouseId);
+
+                if(warehouseId > 0)
+                {
+                    if (_unitOfWork?.WareHousesProducts?.DeleteOneRecord(id, warehouseId) ?? false)
+                    {
+                        _unitOfWork?.Complete();
+                        return RedirectToAction("Index");
+                    }
+                }
             }
 
             return NotFound($"Product with ID {id} not found."); // Provide feedback if deletion fails

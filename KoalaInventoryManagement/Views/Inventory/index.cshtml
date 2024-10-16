@@ -198,7 +198,7 @@
                         <label class="col-sm-3 col-form-label">Warehouses</label>
                         <div class="col-sm-9">
                             <select id="wareHouseSelector" name="WareHouseID" class="form-control">
-                                <option disabled>Select Warehouse</option>
+                                <option disabled selected>Select Warehouse</option>
                                 @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
@@ -231,7 +231,7 @@
                         <label class="col-sm-3 col-form-label">Supplier</label>
                         <div class="col-sm-9">
                             <select id="supplierSelector" name="SupplierId" class="form-control">
-                                <option disabled>Select Supplier</option>
+                                <option disabled selected>Select Supplier</option>
                                 @foreach (var supplier in Model?.OrderBy(s => s.SupplierID).DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@supplier.SupplierID">@supplier.SupplierName</option>
@@ -243,7 +243,7 @@
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
                             <select id="categorySelector" name="CategoryId" class="form-control">
-                                <option disabled>Select Category</option>
+                                <option disabled selected>Select Category</option>
                                 @foreach (var category in Model?.OrderBy(c => c.CategoryID).DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
                                 {
                                     <option value="@category.CategoryID">@category.CategoryName</option>
