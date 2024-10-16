@@ -1,10 +1,13 @@
 ﻿using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Rotativa.AspNetCore;
+using System.IO;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -95,29 +98,52 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-		public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
-		{
-			if (newProduct == null)
-			{
-				return BadRequest("Product information is required.");
-			}
+        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct, IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var fileExtension = Path.GetExtension(fileName);
 
-			if (_unitOfWork?.Products?.Add(newProduct) ?? false)
-			{
-				_unitOfWork?.Complete();
-				wareHouseProduct.ProductID = newProduct.Id;
+                // Ensure that the uploaded file is an image
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                {
+                    return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
+                }
 
-				if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
-				{
-					_unitOfWork?.Complete();
-				}
-				return RedirectToAction("Index");
-			}
+                // Convert the file to byte array
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.CopyTo(memoryStream);
+                    newProduct.Image = memoryStream.ToArray();
+                }
+            }
 
-			return StatusCode(500, "Failed to add the product."); // Or handle more gracefully
-		}
+            if (newProduct == null)
+            {
+                return BadRequest("Product information is required.");
+            }
 
-		[HttpGet]
+            // Add the product using UnitOfWork pattern
+            if (_unitOfWork?.Products?.Add(newProduct) ?? false)
+            {
+                _unitOfWork?.Complete();
+                wareHouseProduct.ProductID = newProduct.Id;
+
+                // Add the warehouse product relationship
+                if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
+                {
+                    _unitOfWork?.Complete();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return StatusCode(500, "Failed to add the product.");
+        }
+
+        [HttpGet]
 		public IActionResult DeleteProduct(int id)
 		{
 			if (_unitOfWork?.Products?.Delete(id) ?? false)
@@ -130,20 +156,42 @@ namespace KoalaInventoryManagement.Controllers
 		}
 
 		[HttpPost]
-        public IActionResult UpdateProduct(Product editedProduct)
+        public IActionResult UpdateProduct(Product editedProduct, IFormFile file)
         {
-			if (editedProduct == null)
-			{
-				return BadRequest("Product information is required.");
-			}
-			if (editedProduct != null)
+            if (editedProduct == null)
             {
-                Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
-                if (existingProduct != null)
+                return BadRequest("Product information is required.");
+            }
+
+            // Retrieve the existing product from the database
+            Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
+            if (existingProduct != null)
+            {
+                // Check if a new image file is provided
+                if (file != null && file.Length > 0)
                 {
-                    if (_unitOfWork?.Products?.Update(editedProduct) ?? false)
-                        _unitOfWork?.Complete();
+                    var fileName = Path.GetFileName(file.FileName);
+                    var fileExtension = Path.GetExtension(fileName);
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+
+                    // Ensure the uploaded file is an image
+                    if (allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            file.CopyTo(memoryStream);
+                            existingProduct.Image = memoryStream.ToArray(); // Update the image
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
+                    }
                 }
+
+                // Update the existing product
+                _unitOfWork?.Products?.Update(existingProduct);
+                _unitOfWork?.Complete();
             }
 
             return RedirectToAction("Index");
@@ -179,5 +227,62 @@ namespace KoalaInventoryManagement.Controllers
 
             return View(productDetails);
         }
+
+        public IActionResult OnGet()
+        {
+            var product = _unitOfWork.Products.GetAll(new[] { "Supplier", "Category" }).ToList();
+            var reportingService = new ReportingService();
+            var document = reportingService.GetReport(product);
+
+            MemoryStream stream = new MemoryStream();
+            document.Save(stream);
+
+            Response.ContentType = "application/pdf";
+            Response.Headers.Add("content-length", stream.Length.ToString());
+            byte[] bytes = stream.ToArray();
+            stream.Close();
+
+            // Remove the file name to display the PDF in the browser instead of downloading it
+            return File(bytes, "application/pdf");
+        }
+
+        public IActionResult GenerateReport()
+        {
+            var report = new ReportViewModel
+            {
+                ReportId = Guid.NewGuid().ToString(),
+                ReportDate = DateTime.Now,
+                CompanyLogo = "/images/logo.png", // Path to the company logo
+                CompanyName = "Your Company Name",
+                Items = new List<Item>() // Method to retrieve items and prices
+            };
+
+            return View(report);
+        }
+		public IActionResult GenerateReportPdf()
+		{
+			var report = new ReportViewModel
+			{
+				ReportId = Guid.NewGuid().ToString(),
+				ReportDate = DateTime.Now,
+				CompanyLogo = "/images/logo.png",
+				CompanyName = "Your Company Name",
+				Items = new List<Item>
+		{
+			new Item { Name = "Item 1", Quantity = 1, Price = 100 },
+			new Item { Name = "Item 2", Quantity = 2, Price = 200 }
+		}
+			};
+
+			return new ViewAsPdf("Reports", report)
+			{
+				FileName = "Report.pdf", // Optionally set the name of the PDF
+				PageSize = Rotativa.AspNetCore.Options.Size.A4, // Set page size
+				PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait, // Set orientation
+				CustomSwitches = "--no-stop-slow-scripts --javascript-delay 1000" // Additional options if needed
+			};
+		}
+
+	}
+
     }
-}

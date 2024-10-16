@@ -4,8 +4,10 @@ using Inventory.Repository.Interfaces;
 using Inventory.Repository.Repositories;
 using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
+using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace KoalaInventoryManagement
 {
@@ -72,9 +74,11 @@ namespace KoalaInventoryManagement
 			builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
 
 			var app = builder.Build();
-
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
+            // Configure the Rotativa path
+            var rotativaPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            RotativaConfiguration.Setup(rotativaPath);
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
