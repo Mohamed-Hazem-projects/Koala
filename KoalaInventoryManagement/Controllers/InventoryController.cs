@@ -45,7 +45,6 @@ namespace KoalaInventoryManagement.Controllers
             return View(paginatedProducts);
         }
 
-
         [HttpPost]
         public IActionResult GetFilteredProducts(int wareHouseID, int categoryID, int supplierID, string searchString, int page = 1, int pageSize = 10)
         {
@@ -66,7 +65,8 @@ namespace KoalaInventoryManagement.Controllers
             {
                 products = paginatedProducts,
                 currentPage = page,
-                totalPages = (int)Math.Ceiling(filteredProducts.Count / (double)pageSize)
+                totalPages = (int)Math.Ceiling(filteredProducts.Count / (double)pageSize),
+                role = userRole
             });
         }
 
@@ -160,10 +160,24 @@ namespace KoalaInventoryManagement.Controllers
                               .GettWareHousesProductsByPrdID(id, ["WareHouse"])?
                               .ToList() ?? new List<WareHouseProduct>();
 
+            var userRole = HttpContext.Session.GetString("UserRole");
+
+            // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
+            int warehouseId = 0;
+            if (userRole != null && userRole.StartsWith("WHManager"))
+            {
+                int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
+                if (warehouseId > 0)
+                {
+                    prdWareHouses = prdWareHouses.Where(whp => whp.WareHouseID == warehouseId).ToList();
+                }
+            }
 
             int productQuantity = 0;
             foreach (int currentStock in prdWareHouses.Select(whp => whp.CurrentStock))
+            {
                 productQuantity += currentStock;
+            }
 
             ProductDetailsVM productDetails = new ProductDetailsVM()
             {

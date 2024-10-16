@@ -23,7 +23,7 @@
                 console.log(data);
                 var tableBody = $('#productsTable tbody');
                 tableBody.empty();
-                appendRows(data.products);  // Assuming `data.products` contains the products
+                appendRows(data.products, data.role);  // Assuming `data.products` contains the products
                 updatePagination(data.totalPages);  // Update pagination based on `totalPages`
             },
             error: function (xhr, status, error) {
@@ -32,7 +32,7 @@
         });
     }
 
-    function appendRows(products) {
+    function appendRows(products, role) {
         var tableBody = $('#productsTable tbody');
         if (!products || products.length === 0) {
             tableBody.append('<tr><td colspan="7">No products found</td></tr>');  // Display message if no products
@@ -44,8 +44,9 @@
                 '<td>' + product.name + '</td>' +
                 '<td>' + product.description + '</td>' +
                 '<td>$&nbsp;' + product.price + '</td>' +
-                '<td>' + product.image + '</td>' +
-                '<td>' +
+                '<td><img src="https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png" alt="Product Image" width="50" height="50" /></td>';
+
+            var contorls = '<td>' +
                 '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
                 '<i class="fa fa-info-circle color-info"></i>' +
                 '</a>' +
@@ -60,8 +61,15 @@
                 '<a onclick="confirmDelete(\'' + product.name + ' Product\', ' + product.id + ')">' +
                 '<i class="fa fa-close color-danger"></i>' +
                 '</a>' +
-                '</td>' +
-                '</tr>';
+                '</td>';
+
+            var closing = '</tr>';
+
+            if (role != "User") {
+                row += contorls;
+            }
+            row += closing;
+
             tableBody.append(row);
         });
     }

@@ -17,6 +17,7 @@
         </div>
     </div>
     <!-- Products Header End -->
+
     <!-- Filteration Start -->
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
@@ -73,6 +74,7 @@
         <br />
     </div>
     <!-- Filteration End -->
+
     <!-- Products Table Start -->
     <div class="bg-offwhite">
         <div class="col-lg-12 p-3">
@@ -94,9 +96,9 @@
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Image</th>
-                                    <th class="btn-head" scope="col">Info</th>
                                     @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
                                     {
+                                        <th class="btn-head" scope="col">Info</th>
                                         <th class="btn-head" scope="col">Edit</th>
                                         <th class="btn-head" scope="col">Delete</th>
                                     }
@@ -110,8 +112,7 @@
                                         <td>@product.Description</td>
                                         <td>$&nbsp;@product.Price</td>
                                         <td>
-                                            @* Display the product image *@
-                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Image)" alt="Product Image" width="50" height="50" />
+                                            <img src="https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png" alt="Product Image" width="50" height="50" />
                                         </td>
                                         <td>
                                             <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
@@ -141,6 +142,7 @@
         </div>
     </div>
     <!-- Products Table End -->
+
     <!-- Pagination Start -->
     <div class="pagination-container d-flex justify-content-center">
         @if (ViewBag.TotalPages > 1)
@@ -261,6 +263,7 @@
     </div>
 </div>
 <!-- Add or Edit Product Modal End-->
+
 <!-- Confirm Delete Start-->
 <div class="overlay" onclick="closeConfirmDelete(event)"></div>
 <div class="mainconfirm">
@@ -268,7 +271,14 @@
     <i class="fa-regular fa-circle-xmark red"></i>
     <i class="fa-regular fa-circle-check green"></i>
     <h2>Are you sure?</h2>
-    <p>Do you really want to delete the following?</p>
+    @if (User.IsInRole("Admin"))
+    {
+        <p>Do you really want to delete compeletly from the Inventory the following?</p>
+    }
+    else
+    {
+        <p>Do you really want to empty your warehouse from the following?</p>
+    }
     <h3 id="toBeDeleted"></h3>
     <div class="buttons">
         <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
