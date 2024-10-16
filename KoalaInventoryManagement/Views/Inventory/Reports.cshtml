@@ -1,0 +1,28 @@
+﻿@model ReportViewModel
+
+<div>
+    <img src="@Model.CompanyLogo" alt="Logo" />
+    <h1>@Model.CompanyName</h1>
+    <p>Report Date: @Model.ReportDate.ToString("MM/dd/yyyy")</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+    <button onclick="window.print()">Print as PDF</button>
