@@ -45,6 +45,7 @@ namespace KoalaInventoryManagement.Controllers
             return View(paginatedProducts);
         }
 
+        #region Filteration
         [HttpPost]
         public IActionResult GetFilteredProducts(int wareHouseID, int categoryID, int supplierID, string searchString, int page = 1, int pageSize = 10)
         {
@@ -55,7 +56,7 @@ namespace KoalaInventoryManagement.Controllers
             string? userRole = HttpContext.Session.GetString("UserRole");
 
             // Filter the products using the filtration service
-            List<ProductViewModel> filteredProducts 
+            List<ProductViewModel> filteredProducts
                 = _productFilter?.FilterData(wareHouseID, categoryID, supplierID, searchString, userRole ?? string.Empty)
                     ?? new List<ProductViewModel>();
 
@@ -68,8 +69,10 @@ namespace KoalaInventoryManagement.Controllers
                 totalPages = (int)Math.Ceiling(filteredProducts.Count / (double)pageSize),
                 role = userRole
             });
-        }
+        } 
+        #endregion
 
+        #region CRUD Operations
         [HttpPost]
         public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
         {
@@ -111,7 +114,7 @@ namespace KoalaInventoryManagement.Controllers
                 int warehouseId = 0;
                 int.TryParse(role.Substring("WHManager".Length), out warehouseId);
 
-                if(warehouseId > 0)
+                if (warehouseId > 0)
                 {
                     // only empty warehouse stocks from the product 
                     WareHouseProduct? existingWHP = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(id, warehouseId);
@@ -148,7 +151,9 @@ namespace KoalaInventoryManagement.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Details Management
         [HttpGet]
         public IActionResult ShowDetails(int id)
         {
@@ -162,7 +167,6 @@ namespace KoalaInventoryManagement.Controllers
 
             var userRole = HttpContext.Session.GetString("UserRole");
 
-            // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
             int warehouseId = 0;
             if (userRole != null && userRole.StartsWith("WHManager"))
             {
@@ -193,5 +197,27 @@ namespace KoalaInventoryManagement.Controllers
 
             return View(productDetails);
         }
+
+        [HttpPost]
+        public IActionResult EditWarehouseStock(WareHouseProduct newData)
+        {
+            if(newData != null)
+            {
+                WareHouseProduct? existing
+                    = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(newData.ProductID, newData.WareHouseID);
+                if (existing != null)
+                {
+                    existing.CurrentStock = newData.CurrentStock;
+                    existing.MinStock = newData.MinStock;
+                    existing.MaxStock = newData.MaxStock;
+
+                    _unitOfWork?.Complete();
+
+                    return RedirectToAction("ShowDetails", new { id = newData.ProductID });
+                }
+            }
+            return BadRequest("Not Valid Data.");
+        }
+        #endregion
     }
 }
