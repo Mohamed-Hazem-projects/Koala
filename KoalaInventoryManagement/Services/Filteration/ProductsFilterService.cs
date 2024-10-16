@@ -24,28 +24,42 @@ namespace KoalaInventoryManagement.Services
             int wareHouseIdForManager = 0;
 
             if (!string.IsNullOrEmpty(role))
-            {
-                //if (role.Equals("User"))
-                //    loggedRole = LoggedRole.User;
-                //else if (role.Equals("Staff"))
-                //    loggedRole = (LoggedRole.Staff);
-                //else if (role.Equals("User"))
-                //    loggedRole = LoggedRole.User;
-                //else if (role.StartsWith("WHManager"))
-                //{
-                //    loggedRole = LoggedRole.WareHouseManager;
-                //    int.TryParse(role.Substring("WHManager".Length), out wareHouseIdForManager);
-                //}
-                if(role.StartsWith("WHManager"))
+                if (role.StartsWith("WHManager"))
                     int.TryParse(role.Substring("WHManager".Length), out wareHouseIdForManager);
+
+            List<ProductViewModel> productsViewModel = ProductsPerRole(wareHouseIdForManager);
+
+            var filteredProducts = productsViewModel.AsQueryable();
+
+            if (wareHouseID > 0)
+            {
+                filteredProducts = filteredProducts.Where(s => s.WareHouseID == wareHouseID);
+            }
+            if (categoryID > 0)
+            {
+                filteredProducts = filteredProducts.Where(s => s.CategoryID == categoryID);
+            }
+            if (supplierID > 0)
+            {
+                filteredProducts = filteredProducts.Where(s => s.SupplierID == supplierID);
+            }
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                filteredProducts = filteredProducts.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
             }
 
+            return filteredProducts.ToList();
+        }
+
+        public List<ProductViewModel> ProductsPerRole(int wareHouseId)
+        {
             List<Product> products;
-            if(wareHouseIdForManager > 0)
+
+            if (wareHouseId > 0)
             {
                 products = _unitOfWork?.Products?
                               .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?
-                              .Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == wareHouseIdForManager))
+                              .Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == wareHouseId))
                               .ToList()
                                 ?? new List<Product>();
             }
@@ -82,26 +96,7 @@ namespace KoalaInventoryManagement.Services
                 }
             };
 
-            var filteredProducts = productsViewModel.AsQueryable();
-
-            if (wareHouseID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.WareHouseID == wareHouseID);
-            }
-            if (categoryID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.CategoryID == categoryID);
-            }
-            if (supplierID > 0)
-            {
-                filteredProducts = filteredProducts.Where(s => s.SupplierID == supplierID);
-            }
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                filteredProducts = filteredProducts.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
-            }
-
-            return filteredProducts.ToList();
+            return productsViewModel;
         }
     }
 }

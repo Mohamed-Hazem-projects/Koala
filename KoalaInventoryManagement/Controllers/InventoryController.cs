@@ -14,13 +14,11 @@ namespace KoalaInventoryManagement.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductFilterService _productFilter;
-        List<ProductViewModel> _filteredProducts;
 
         public InventoryController(IUnitOfWork unitOfWork, IProductFilterService productFilter)
         {
             _unitOfWork = unitOfWork;
             _productFilter = productFilter;
-            _filteredProducts = new List<ProductViewModel>();
         }
 
         [HttpGet]
@@ -32,56 +30,12 @@ namespace KoalaInventoryManagement.Controllers
             // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
             int warehouseId = 0;
             if (userRole != null && userRole.StartsWith("WHManager"))
-            {
                 int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
-            }
 
-            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
+            List<ProductViewModel> productsViewModel = _productFilter.ProductsPerRole(warehouseId);
 
-            List<Product> products;
-
-            // Filter products based on warehouse role
-            if (warehouseId > 0)
-            {
-                products = _unitOfWork?.Products?
-                          .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })
-                          ?.Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == warehouseId))
-                          ?.ToList() ?? new List<Product>();
-            }
-            else
-            {
-                // Default behavior (show all products if no warehouse-specific role)
-                products = _unitOfWork?.Products?.GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?.ToList()
-                            ?? new List<Product>();
-            }
-
-            // Convert products to view model
-            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
-            foreach (Product p in products)
-            {
-                foreach (WareHouseProduct whp in p.WareHouseProducts)
-                {
-                    productsViewModel.Add(new ProductViewModel()
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Description = p.Description,
-                        Price = p.Price,
-                        Image = p.Image ?? new byte[0], // Use an empty byte array for image
-                        WareHouseID = whp?.WareHouseID ?? 0,
-                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
-                        CurrentStock = whp?.CurrentStock ?? 0,
-                        MintStock = whp?.MinStock ?? 0,
-                        MaxStock = whp?.MaxStock ?? 0,
-                        CategoryID = p?.CategoryId ?? 0,
-                        CategoryName = p?.Category?.Name ?? string.Empty,
-                        SupplierID = p?.SupplierId ?? 0,
-                        SupplierName = p?.Supplier?.Name ?? string.Empty,
-                    });
-                }
-            }
-
-            var paginatedProducts = productsViewModel.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
+            var paginatedProducts 
+                = productsViewModel.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
 
             // Pass pagination metadata to the view
             ViewBag.CurrentPage = page;
@@ -159,8 +113,13 @@ namespace KoalaInventoryManagement.Controllers
 
                 if(warehouseId > 0)
                 {
-                    if (_unitOfWork?.WareHousesProducts?.DeleteOneRecord(id, warehouseId) ?? false)
+                    // only empty warehouse stocks from the product 
+                    WareHouseProduct? existingWHP = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(id, warehouseId);
+                    if (existingWHP != null)
                     {
+                        existingWHP.CurrentStock = 0;
+                        existingWHP.MinStock = 0;
+                        existingWHP.MaxStock = 0;
                         _unitOfWork?.Complete();
                         return RedirectToAction("Index");
                     }
