@@ -6,11 +6,6 @@ using Newtonsoft.Json;
 
 namespace KoalaInventoryManagement.Services
 {
-    enum LoggedRole : byte
-    {
-        Admin = 0, User = 1, Staff = 2, WareHouseManager = 3
-    }
-
     public class ProductsFilterService : IProductFilterService
     {
         private readonly IUnitOfWork _unitOfWork;
