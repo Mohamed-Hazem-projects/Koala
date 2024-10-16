@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Inventory";
-    var serlizedFilteredProducts = JsonConvert.SerializeObject(Model.DistinctBy(p => p.Id) ?? new List<ProductViewModel>());
     var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
 }
 
@@ -22,7 +21,6 @@
     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
         <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
-        <textarea id="filteredProductsData" style="display:none">@Html.Raw(serlizedFilteredProducts)</textarea>
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
@@ -105,7 +103,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in Model?.DistinctBy(p => p.Id) ?? new List<ProductViewModel>())
+                                @foreach (var product in Model ?? new List<ProductViewModel>())
                                 {
                                     <tr>
                                         <td>@product.Name</td>
@@ -142,8 +140,22 @@
             </div>
         </div>
     </div>
-
     <!-- Products Table End -->
+    <!-- Pagination Start -->
+    <div class="pagination-container d-flex justify-content-center">
+        @if (ViewBag.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="#" data-page="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    <!-- Pagination End -->
 </div>
 
 

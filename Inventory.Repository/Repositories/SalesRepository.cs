@@ -45,7 +45,7 @@ namespace Inventory.Repository.Repositories
             return PaginatedList<SalesViewModel>.GetPaginatedList(query, pageNumber);
         }
 
-        public IEnumerable<SalesViewModel>? GetProdcutAndWareHouse(string[] includes = null)
+        public IEnumerable<SalesViewModel>? GetProdcutAndWareHouse(string[]? includes = null)
         {
             //return _context.Sales.Include(x => x.WareHouseProduct).ThenInclude(x => x.Product).ThenInclude(s => s.WareHouseProducts).ThenInclude(x => x.WareHouse).Select(s => new SalesViewModel
             //{
