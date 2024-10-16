@@ -6,6 +6,8 @@ using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
+using Wkhtmltopdf.NetCore;
 
 namespace KoalaInventoryManagement
 {
@@ -17,10 +19,11 @@ namespace KoalaInventoryManagement
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddWkhtmltopdf();
 
 			// Configure the database context with SQL Server
 			builder.Services.AddDbContext<InventoryDbContext>(op =>
-				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly("Inventory.Data")));
 
 			// Configure Identity
 			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
@@ -39,14 +42,14 @@ namespace KoalaInventoryManagement
 			.AddEntityFrameworkStores<InventoryDbContext>()
 			.AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Admin", policy =>
-                    policy.RequireRole("Admin")); // Require 'Admin' role for the policy
-            });
+			builder.Services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", policy =>
+					policy.RequireRole("Admin")); // Require 'Admin' role for the policy
+			});
 
-            // Configure application cookie
-            builder.Services.ConfigureApplicationCookie(options =>
+			// Configure application cookie
+			builder.Services.ConfigureApplicationCookie(options =>
 			{
 				options.Cookie.HttpOnly = true;
 				options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
@@ -80,10 +83,16 @@ namespace KoalaInventoryManagement
 			}
 			app.UseStaticFiles();
 			app.UseRouting();
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/");
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/wkhtmltopdf");
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa/wkhtmltopdf");
+			// RotativaConfiguration.Setup("/usr/local/bin/wkhtmltopdf");
+
 
 			app.UseSession(); // Enable session middleware here
 			app.UseAuthentication();
 			app.UseAuthorization();
+			app.UseRotativa();
 
 			app.MapControllerRoute(
 				name: "default",

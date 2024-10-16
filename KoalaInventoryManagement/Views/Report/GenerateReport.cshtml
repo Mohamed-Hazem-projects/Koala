@@ -1,0 +1,71 @@
+@{
+    Layout = null; // This disables the default _Layout.cshtml for this view
+    ViewData["Title"] = "Sales";
+}
+
+
+@*Steps to generate a Report:
+1- Display a page that shows the report in html format
+2- display a button that says Download as a PDF
+3- Add a click event to that button that triggers an action method
+that return a File with the html content and the name of the PDf is
+(SalesReport-(DD-MM-YY).pdf format) *@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Report</title>
+    <style>
+        .report-container {
+            text-align: center;
+        }
+
+        .company-logo {
+            max-width: 150px;
+        }
+
+        .report-table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="report-container">
+        <img src="@Model.CompanyLogo" alt="Company Logo" class="company-logo" />
+        <h2>@Model.CompanyName</h2>
+
+        <h3>Report ID: @Model.ReportId</h3>
+        <h4>Date: @Model.ReportDate.ToString("MM/dd/yyyy")</h4>
+        `
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ItemsSold</td>
+                        <td>@item.TotalPrice.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
