@@ -1,11 +1,13 @@
 ﻿using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
+
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -133,20 +135,101 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(Product editedProduct)
+        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct, IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var fileExtension = Path.GetExtension(fileName);
+
+                // Ensure that the uploaded file is an image
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                {
+                    return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
+                }
+
+                // Convert the file to byte array
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.CopyTo(memoryStream);
+                    newProduct.Image = memoryStream.ToArray();
+                }
+            }
+
+            if (newProduct == null)
+            {
+                return BadRequest("Product information is required.");
+            }
+
+            // Add the product using UnitOfWork pattern
+            if (_unitOfWork?.Products?.Add(newProduct) ?? false)
+            {
+                _unitOfWork?.Complete();
+                wareHouseProduct.ProductID = newProduct.Id;
+
+                // Add the warehouse product relationship
+                if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
+                {
+                    _unitOfWork?.Complete();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return StatusCode(500, "Failed to add the product.");
+        }
+
+        [HttpGet]
+		public IActionResult DeleteProduct(int id)
+		{
+			if (_unitOfWork?.Products?.Delete(id) ?? false)
+			{
+				_unitOfWork?.Complete();
+				return RedirectToAction("Index");
+			}
+
+			return NotFound($"Product with ID {id} not found."); // Provide feedback if deletion fails
+		}
+
+		[HttpPost]
+        public IActionResult UpdateProduct(Product editedProduct, IFormFile file)
+
         {
             if (editedProduct == null)
             {
                 return BadRequest("Product information is required.");
             }
-            if (editedProduct != null)
+
+            // Retrieve the existing product from the database
+            Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
+            if (existingProduct != null)
             {
-                Product? existingProduct = _unitOfWork?.Products?.GetbyId(editedProduct.Id);
-                if (existingProduct != null)
+                // Check if a new image file is provided
+                if (file != null && file.Length > 0)
                 {
-                    if (_unitOfWork?.Products?.Update(editedProduct) ?? false)
-                        _unitOfWork?.Complete();
+                    var fileName = Path.GetFileName(file.FileName);
+                    var fileExtension = Path.GetExtension(fileName);
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+
+                    // Ensure the uploaded file is an image
+                    if (allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            file.CopyTo(memoryStream);
+                            existingProduct.Image = memoryStream.ToArray(); // Update the image
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
+                    }
                 }
+
+                // Update the existing product
+                _unitOfWork?.Products?.Update(existingProduct);
+                _unitOfWork?.Complete();
             }
 
             return RedirectToAction("Index");
@@ -198,6 +281,7 @@ namespace KoalaInventoryManagement.Controllers
             return View(productDetails);
         }
 
+
         [HttpPost]
         public IActionResult EditWarehouseStock(WareHouseProduct newData)
         {
@@ -219,5 +303,28 @@ namespace KoalaInventoryManagement.Controllers
             return BadRequest("Not Valid Data.");
         }
         #endregion
+        public IActionResult OnGet()
+        {
+            var product = _unitOfWork.Products.GetAll(new[] { "Supplier", "Category" }).ToList();
+            var reportingService = new ReportingService();
+            var document = reportingService.GetReport(product);
+
+
+            MemoryStream stream = new MemoryStream();
+            document.Save(stream);
+
+            Response.ContentType = "application/pdf";
+            Response.Headers.Add("content-length", stream.Length.ToString());
+            byte[] bytes = stream.ToArray();
+            stream.Close();
+            var name = "Report" + DateTime.Now.ToString() + ".pdf";
+            return File(bytes, "application/pdf", name);
+        }
+
+
+
+
     }
-}
+
+    }
+

@@ -16,6 +16,7 @@
             <p class="header-subtitle roboto">Manage your products with their warehouses.</p>
         </div>
     </div>
+    
     <!-- Products Header End -->
 
     <!-- Filteration Start -->
@@ -70,6 +71,9 @@
                 }
             </select>
             <!-- Supplier Filter Button End -->
+            <div>
+                <a download href="inventory/OnGet" class="btn btn-secondary">Download Reaport</a>
+            </div>
         </div>
         <br />
     </div>
@@ -111,9 +115,19 @@
                                         <td>@product.Name</td>
                                         <td>@product.Description</td>
                                         <td>$&nbsp;@product.Price</td>
+
                                         <td>
-                                            <img src="https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png" alt="Product Image" width="50" height="50" />
+                                            @if (product.Image != null && product.Image.Length > 0)
+                                            {
+                                                var base64Image = Convert.ToBase64String(product.Image);
+                                                <img src="data:image/png;base64,@base64Image" alt="Product Image" width="50" height="50" />
+                                            }
+                                            else
+                                            {
+                                                <span>No Image Available</span>
+                                            }
                                         </td>
+                                          
                                         <td>
                                             <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
                                                 <i class="fa fa-info-circle color-info"></i>
@@ -172,7 +186,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm">
+                <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm" enctype="multipart/form-data">
                     <input type="number" name="Id" hidden value="" />
                     <input type="number" name="oldWareHouseID" hidden value="" />
                     <div class="form-group-row">
@@ -189,6 +203,15 @@
                                    required placeholder="Description" />
                         </div>
                     </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Image</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="file" class="form-control"
+                                   required placeholder="Description" />
+                        </div>
+                    </div>
+
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Price</label>
                         <div class="col-sm-9">

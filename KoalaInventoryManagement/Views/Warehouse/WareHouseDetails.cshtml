@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<div class="container-fluid p-0 suppliers">
+    <!-- WareHouses Header Start-->
+    <div class="content-header">
+        <div class=" heading">
+            <h1 class="header-title roboto">WareHouses Page</h1>
+            <p class="header-subtitle roboto">Manage your WareHouses </p>
+        </div>
+    </div>
+    <!-- WareHouses Header End-->
+    <!-- WareHouse Table Start-->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Warehouse</h4>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#warehouseModal">Add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+
+                                    <th class="btn-head" scope="col">Edit</th>
+                                    <th class="btn-head" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var index = 1;
+                                }
+                                @foreach (var product in Model)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@item.Name</td>
+
+                                        <td class="btn-td edit">
+                                            <a onclick="openEditModalWarehouse(@item.Id,'@item.Name')">
+                                                <i class="fa fa-pencil color-muted"></i>
+                                            </a>
+                                        </td>
+                                        <td class="btn-td delete">
+                                            <a onclick="confirmDelete('@item.Name Warehouse',@item.Id,1)"><i class="fa fa-close color-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- WareHouse Table End-->
+
+</div>
+
+
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    <p>Do you really want to delete the following?</p>
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
+
+@section Scripts {
+    <script src="/js/Warehouse/Warehouse.js"></script>
+}
