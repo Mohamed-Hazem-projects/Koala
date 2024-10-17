@@ -40,11 +40,19 @@
         }
 
         $.each(products, function (index, product) {
+            var imageSrc = '';
+
+            if (product.image && product.image.length > 0) {
+                imageSrc = 'data:image/png;base64,' + product.image;
+            } else {
+                imageSrc = 'https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png';
+            }
+
             var row = '<tr>' +
                 '<td>' + product.name + '</td>' +
                 '<td>' + product.description + '</td>' +
                 '<td>$&nbsp;' + product.price + '</td>' +
-                '<td><img src="https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png" alt="Product Image" width="50" height="50" /></td>';
+                '<td><img src="' + imageSrc + '" alt="Product Image" width="50" height="50" /></td>';
 
             var contorls = '<td>' +
                 '<a href="/Inventory/ShowDetails/' + product.id + '" class="btn btn-labeled">' +
