@@ -49,7 +49,7 @@ function deleteFromDB() {
 
 
 
-$("#addOrEditwarehouse").on('click', () => {
+$("#addOrEditWarehouse").on('click', () => {
     $("#addOrEditWarehouseForm").validate()
     if ($("#addOrEditWarehouseForm").valid()) {
         $("#addOrEditWarehouseForm").trigger("submit")
