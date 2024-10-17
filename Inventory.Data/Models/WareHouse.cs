@@ -11,10 +11,5 @@ namespace KoalaInventoryManagement.Models
 
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; } 
             = new HashSet<WareHouseProduct>();
-
-        public object Select(Func<object, object> value)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
