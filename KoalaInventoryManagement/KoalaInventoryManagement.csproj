@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Warehouse\WareHouseDetails.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BoldReports.AspNet.Core" Version="6.2.40" />
     <PackageReference Include="BoldReports.Net.Core" Version="6.2.40" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
@@ -26,6 +30,18 @@
     <Folder Include="wwwroot\Images\Account\" />
     <Folder Include="wwwroot\Rotativa\" />
     <Folder Include="wwwroot\Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Warehouse\WareHouseDetails.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Warehouse\WareHouseDetails.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Warehouse\WareHouseDetails.cshtml" />
   </ItemGroup>
 
 </Project>
