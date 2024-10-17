@@ -36,7 +36,7 @@ namespace KoalaInventoryManagement.Controllers
 
             List<ProductViewModel> productsViewModel = _productFilter.ProductsPerRole(warehouseId);
 
-            var paginatedProducts
+            var paginatedProducts 
                 = productsViewModel.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
 
             // Pass pagination metadata to the view
@@ -71,36 +71,13 @@ namespace KoalaInventoryManagement.Controllers
                 totalPages = (int)Math.Ceiling(filteredProducts.Count / (double)pageSize),
                 role = userRole
             });
-        }
+        } 
         #endregion
 
         #region CRUD Operations
         [HttpPost]
-        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct, IFormFile file)
+        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct)
         {
-            #region Handling Image
-            if (file != null && file.Length > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var fileExtension = Path.GetExtension(fileName);
-
-                // Ensure that the uploaded file is an image
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-                if (!allowedExtensions.Contains(fileExtension.ToLower()))
-                {
-                    return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
-                }
-
-                // Convert the file to byte array
-                using (var memoryStream = new MemoryStream())
-                {
-                    file.CopyTo(memoryStream);
-                    newProduct.Image = memoryStream.ToArray();
-                }
-            }
-            #endregion
-
-            #region Saving To Database
             if (newProduct == null)
             {
                 return BadRequest("Product information is required.");
@@ -117,7 +94,6 @@ namespace KoalaInventoryManagement.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            #endregion
 
             return StatusCode(500, "Failed to add the product."); // Or handle more gracefully
         }
@@ -159,6 +135,64 @@ namespace KoalaInventoryManagement.Controllers
         }
 
         [HttpPost]
+        public IActionResult AddProduct(Product newProduct, WareHouseProduct wareHouseProduct, IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var fileExtension = Path.GetExtension(fileName);
+
+                // Ensure that the uploaded file is an image
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                {
+                    return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
+                }
+
+                // Convert the file to byte array
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.CopyTo(memoryStream);
+                    newProduct.Image = memoryStream.ToArray();
+                }
+            }
+
+            if (newProduct == null)
+            {
+                return BadRequest("Product information is required.");
+            }
+
+            // Add the product using UnitOfWork pattern
+            if (_unitOfWork?.Products?.Add(newProduct) ?? false)
+            {
+                _unitOfWork?.Complete();
+                wareHouseProduct.ProductID = newProduct.Id;
+
+                // Add the warehouse product relationship
+                if (_unitOfWork?.WareHousesProducts?.Add(wareHouseProduct) ?? false)
+                {
+                    _unitOfWork?.Complete();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return StatusCode(500, "Failed to add the product.");
+        }
+
+        [HttpGet]
+		public IActionResult DeleteProduct(int id)
+		{
+			if (_unitOfWork?.Products?.Delete(id) ?? false)
+			{
+				_unitOfWork?.Complete();
+				return RedirectToAction("Index");
+			}
+
+			return NotFound($"Product with ID {id} not found."); // Provide feedback if deletion fails
+		}
+
+		[HttpPost]
         public IActionResult UpdateProduct(Product editedProduct, IFormFile file)
 
         {
@@ -186,21 +220,16 @@ namespace KoalaInventoryManagement.Controllers
                             file.CopyTo(memoryStream);
                             existingProduct.Image = memoryStream.ToArray(); // Update the image
                         }
-
-                        // Update the existing product
-                        existingProduct.Name = editedProduct.Name;
-                        existingProduct.Price = editedProduct.Price;
-                        existingProduct.Description = editedProduct.Description;
-                        existingProduct.SupplierId = editedProduct.SupplierId;
-                        existingProduct.CategoryId = editedProduct.CategoryId;
-
-                        _unitOfWork?.Complete();
                     }
                     else
                     {
                         return BadRequest("Only image files (.jpg, .jpeg, .png, .gif) are allowed.");
                     }
                 }
+
+                // Update the existing product
+                _unitOfWork?.Products?.Update(existingProduct);
+                _unitOfWork?.Complete();
             }
 
             return RedirectToAction("Index");
@@ -252,10 +281,11 @@ namespace KoalaInventoryManagement.Controllers
             return View(productDetails);
         }
 
+
         [HttpPost]
         public IActionResult EditWarehouseStock(WareHouseProduct newData)
         {
-            if (newData != null)
+            if(newData != null)
             {
                 WareHouseProduct? existing
                     = _unitOfWork?.WareHousesProducts?.GetWareHouseProduct(newData.ProductID, newData.WareHouseID);
@@ -273,8 +303,6 @@ namespace KoalaInventoryManagement.Controllers
             return BadRequest("Not Valid Data.");
         }
         #endregion
-
-        #region Reporting
         public IActionResult OnGet()
         {
             var product = _unitOfWork.Products.GetAll(new[] { "Supplier", "Category" }).ToList();
@@ -291,7 +319,12 @@ namespace KoalaInventoryManagement.Controllers
             stream.Close();
             var name = "Report" + DateTime.Now.ToString() + ".pdf";
             return File(bytes, "application/pdf", name);
-        } 
-        #endregion
+        }
+
+
+
+
     }
-}
+
+    }
+
