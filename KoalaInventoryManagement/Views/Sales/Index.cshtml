@@ -49,9 +49,9 @@
                     <td>@sales.ItemsSold</td>
                     <td>@sales.TotalPrice</td>
                     <td>@sales.SaleDate</td>
-                    <td class="btn-td delete text-center">
-                      <a id="sales-id" data-id="@sales.Id"><i class="fa fa-close color-danger"></i></a>
-                    </td>
+                                        <td class="btn-td delete">
+                                            <a onclick="confirmDelete('@sales.ProductName sale',@sales.Id,2)"><i class="fa fa-close color-danger"></i></a>
+                                        </td>
                   </tr>
                 }
               </tbody>
@@ -115,7 +115,23 @@
   </div>
 </div>
 <!-- Modal End-->
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    <p>Do you really want to delete the following?</p>
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
 
 @section Scripts {
   <script src="~/js/Sales/filteration.js"></script>
+	<script src="~/js/sales/delete.js"></script>
 }

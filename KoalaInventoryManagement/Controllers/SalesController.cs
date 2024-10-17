@@ -1,3 +1,4 @@
+using Inventory.Data.Data_Seeds;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
@@ -66,7 +67,16 @@ namespace KoalaInventoryManagement.Controllers
             }
             return Json(new { message = "failed" });
         }
-
+        public IActionResult DeleteSales(int id)
+        {
+            Sales existingsale = _unitOfWork.Sales.GetbyId(id);
+            if (existingsale != null)
+            {
+                _unitOfWork.Sales.Delete(id);
+                _unitOfWork.Complete();
+            }
+            return RedirectToAction("Index");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
