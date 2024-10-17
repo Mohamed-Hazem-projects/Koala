@@ -58,14 +58,59 @@
                     <p class="card-text text-muted">Current Stock: @whp.CurrentStock</p>
                     <p class="card-text text-muted">Minimum Stock: @whp.MinStock</p>
                     <p class="card-text text-muted">Maximum Stock: @whp.MaxStock</p>
-                    <a onclick="" class="btn btn-primary mt-3" id="editWareHouseData">Edit</a>
-                    <a onclick="" class="btn btn-primary mt-3" id="deleteFromWareHouse">Delete</a>
+                    <a href="javascript:void(0);" class="btn btn-primary mt-3 editWarehouseBtn"
+                       data-id="@whp.WareHouseID"
+                       data-product-id="@whp.ProductID"
+                       data-current-stock="@whp.CurrentStock"
+                       data-min-stock="@whp.MinStock"
+                       data-max-stock="@whp.MaxStock">Edit</a>
+                    @* <a onclick="" class="btn btn-primary mt-3" id="deleteFromWareHouse">Delete</a> *@
                     <hr />
                 }
             </div>
         </div>
     </div>
     <!-- Card Details End -->
+</div>
+
+<!-- Edit Warehouse Modal -->
+<div class="modal fade" id="editWarehouseModal" tabindex="-1" role="dialog" aria-labelledby="editWarehouseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editWarehouseModalLabel">Edit Warehouse Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Inventory/EditWarehouseStock" id="editWarehouseStockForm">
+                    <input type="hidden" name="WareHouseID" id="editWareHouseID" value="" />
+                    <input type="hidden" name="ProductID" id="editProductID" value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-4 col-form-label">Current Stock</label>
+                        <div class="col-sm-8">
+                            <input type="number" name="CurrentStock" id="editCurrentStock" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-4 col-form-label">Minimum Stock</label>
+                        <div class="col-sm-8">
+                            <input type="number" name="MinStock" id="editMinStock" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-4 col-form-label">Maximum Stock</label>
+                        <div class="col-sm-8">
+                            <input type="number" name="MaxStock" id="editMaxStock" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="saveWarehouseStock" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

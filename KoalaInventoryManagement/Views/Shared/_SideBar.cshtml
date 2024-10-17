@@ -28,6 +28,12 @@
                     <span>Inventory</span>
                 </a>
             </li>
+            <li>
+                <a href="/Warehouse" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Warehouse" ? "active" : "")">
+                    <i class="fa-solid fa-warehouse fa-fw"></i>
+                    <span>Warehouse</span>
+                </a>
+            </li>
             @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5") ))
             {
                 <li>

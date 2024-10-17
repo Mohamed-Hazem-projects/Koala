@@ -13,15 +13,18 @@ namespace KoalaInventoryManagement.Services
         public ProductsFilterService(IUnitOfWork unitOfWork)
             => _unitOfWork = unitOfWork;
 
-        public List<ProductViewModel> FilterData(int wareHouseID, int categoryID, int supplierID, string searchString, string showedProducts)
+        public List<ProductViewModel> FilterData(int wareHouseID, int categoryID, int supplierID, string searchString, string role)
         {
-            List<ProductViewModel>? showedProductsNow = JsonConvert.DeserializeObject<List<ProductViewModel>>(showedProducts);
+            //LoggedRole loggedRole = LoggedRole.Admin;
+            int wareHouseIdForManager = 0;
 
-            if (showedProductsNow == null)
-                showedProductsNow = new List<ProductViewModel>();
+            if (!string.IsNullOrEmpty(role))
+                if (role.StartsWith("WHManager"))
+                    int.TryParse(role.Substring("WHManager".Length), out wareHouseIdForManager);
 
+            List<ProductViewModel> productsViewModel = ProductsPerRole(wareHouseIdForManager);
 
-            var filteredProducts = showedProductsNow.AsQueryable();
+            var filteredProducts = productsViewModel.AsQueryable();
 
             if (wareHouseID > 0)
             {
@@ -41,6 +44,54 @@ namespace KoalaInventoryManagement.Services
             }
 
             return filteredProducts.ToList();
+        }
+
+        public List<ProductViewModel> ProductsPerRole(int wareHouseId)
+        {
+            List<Product> products;
+
+            if (wareHouseId > 0)
+            {
+                products = _unitOfWork?.Products?
+                              .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?
+                              .Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == wareHouseId))
+                              .ToList()
+                                ?? new List<Product>();
+            }
+            else
+            {
+                products = _unitOfWork?.Products?.GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?.ToList()
+                    ?? new List<Product>();
+            }
+
+            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
+
+            foreach (Product p in products)
+            {
+                foreach (WareHouseProduct whp in p.WareHouseProducts)
+                {
+                    productsViewModel.Add(new ProductViewModel()
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Description = p.Description,
+                        Price = p.Price,
+                        Image = p.Image ?? new byte[0], // Use an empty byte array for image
+                        WareHouseID = whp?.WareHouseID ?? 0,
+                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
+                        CurrentStock = whp?.CurrentStock ?? 0,
+                        MintStock = whp?.MinStock ?? 0,
+                        MaxStock = whp?.MaxStock ?? 0,
+                        CategoryID = p?.CategoryId ?? 0,
+                        CategoryName = p?.Category?.Name ?? string.Empty,
+                        SupplierID = p?.SupplierId ?? 0,
+                        SupplierName = p?.Supplier?.Name ?? string.Empty,
+                    });
+                }
+            };
+
+            return productsViewModel;
         }
     }
 }

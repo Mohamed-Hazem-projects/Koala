@@ -1,0 +1,127 @@
+﻿@model WarehouseWithProductsViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<div class="container-fluid p-0 suppliers">
+    <!-- WareHouses Header Start-->
+    <div class="content-header">
+        <div class=" heading">
+            <h1 class="header-title roboto">WareHouses Page</h1>
+            <p class="header-subtitle roboto">Manage your WareHouses </p>
+        </div>
+    </div>
+    <!-- WareHouses Header End-->
+    <!-- WareHouse Table Start-->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Warehouse</h4>
+                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#warehouseModal">Add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th class="btn-head" scope="col">Info</th>
+                                     <th class="btn-head" scope="col">Edit</th>
+                                    <th class="btn-head" scope="col">Delete</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var index = 1;
+                                }
+                                @foreach (var item in  Model.warehouse)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            <a href="/Warehouse/ShowWarehouseDetails/@item.Id" class="btn btn-labeled">
+                                                <i class="fa fa-info-circle color-info"></i>
+                                            </a>
+                                        </td>
+                                        <td class="btn-td edit">
+                                            <a onclick="openEditModalWarehouse(@item.Id,'@item.Name')">
+                                                <i class="fa fa-pencil color-muted"></i>
+                                            </a>
+                                    </td>
+                                        <td class="btn-td delete">
+                                            <a onclick="confirmDelete('@item.Name Warehouse',@item.Id,1)"><i class="fa fa-close color-danger"></i></a>
+                                        </td> 
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- WareHouse Table End-->
+   
+</div>
+
+
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    <p>Do you really want to delete the following?</p>
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
+
+<!-- Warehouse Modal Start-->
+<div class="modal fade" id="warehouseModal" tabindex="-1" role="dialog" aria-labelledby="warehouseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="warehouseModalLabel">Add Warehouse</h5>
+                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Warehouse/Add" id="addOrEditWarehouseForm">
+                    <input type="number" name="Id" hidden value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Name" class="form-control"
+                                   required minlength="2" maxlength="50" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="col-sm-10">
+                            <button hidden type="submit" class="btn btn-primary">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addOrEditWarehouse">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Warehouse Modal End-->
+@section Scripts {
+    <script src="/js/Warehouse/Warehouse.js"></script>
+}
