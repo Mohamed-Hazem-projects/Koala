@@ -1,10 +1,8 @@
-using Microsoft.Win32.SafeHandles;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace KoalaInventoryManagement.Controllers
 {
