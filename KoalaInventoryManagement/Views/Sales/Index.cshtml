@@ -4,12 +4,13 @@
   var productSuggestionsUrl = Url.Action("GetProductSuggestions", "Sales");
   var addSaleUrl = Url.Action("AddSale", "Sales");
   var updatedDataUrl = Url.Action("GetUpdatedData", "Sales");
+  var baseUrl = Url.Action("Index", "Sales");
 }
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
 <link rel="stylesheet" href="~/css/Sales/sales.css">
 
 <input type="text" id="url" data-productSuggestionsUrl="@productSuggestionsUrl" data-addSaleUrl="@addSaleUrl"
-  data-updatedDataUrl="@updatedDataUrl" hidden />
+  data-updatedDataUrl="@updatedDataUrl" data-base-url="@baseUrl" hidden />
 <div class="container-fluid p-0 suppliers">
   <!-- Products Header Start -->
   <div class="content-header">
