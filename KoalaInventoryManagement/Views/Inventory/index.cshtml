@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Inventory";
     var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
+    var wareHouseManagerID = ViewBag?.WareHouseManagerID ?? 0;
 }
 
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
@@ -31,14 +32,14 @@
             {
                 <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
                     <option selected>All Warehouses</option>
-                    @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+                    @foreach (WareHouse warehouse in ViewBag?.AllWareHouses ?? new List<WareHouse>())
                     {
-                        if (ViewBag.SelectedWareHouse > 0 && warehouse.WareHouseID == ViewBag.SelectedWareHouse)
+                        if (ViewBag?.SelectedWareHouse > 0 && warehouse.Id == ViewBag?.SelectedWareHouse)
                         {
-                            <option selected value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                            <option selected value="@warehouse.Id">@warehouse.Name</option>
                             continue;
                         }
-                        <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                        <option value="@warehouse.Id">@warehouse.Name</option>
                     }
                 </select>
             }
@@ -46,28 +47,28 @@
             <!-- Category Filter Button Start -->
             <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
                 <option selected>All Categories</option>
-                @foreach (var category in Model?.DistinctBy(p => p.CategoryName) ?? new List<ProductViewModel>())
+                @foreach (Category category in ViewBag?.AllCategories ?? new List<Category>())
                 {
-                    if (ViewBag.SelectedCategory > 0 && category.Id == ViewBag.SelectedCategory)
+                    if (ViewBag?.SelectedCategory > 0 && category.Id == ViewBag?.SelectedCategory)
                     {
-                        <option selected value="@category.CategoryID">@category.CategoryName</option>
+                        <option selected value="@category.Id">@category.Name</option>
                         continue;
                     }
-                    <option value="@category.CategoryID">@category.CategoryName</option>
+                    <option value="@category.Id">@category.Name</option>
                 }
             </select>
             <!-- Category Filter Button End -->
             <!-- Supplier Filter Button Start -->
             <select id="supplierID" class="form-select" name="supplierID" aria-label="Default select example">
                 <option selected>All Suppliers</option>
-                @foreach (var supplier in Model?.DistinctBy(p => p.SupplierName) ?? new List<ProductViewModel>())
+                @foreach (Supplier supplier in ViewBag?.AllSuppliers ?? new List<Supplier>())
                 {
-                    if (ViewBag.SelectedSupplier > 0 && supplier.SupplierID == ViewBag.SelectedSupplier)
+                    if (ViewBag?.SelectedSupplier > 0 && supplier.Id == ViewBag?.SelectedSupplier)
                     {
-                        <option selected value="@supplier.SupplierID">@supplier.SupplierName</option>
+                        <option selected value="@supplier.Id">@supplier.Name</option>
                         continue;
                     }
-                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                    <option value="@supplier.Id">@supplier.Name</option>
                 }
             </select>
             <!-- Supplier Filter Button End -->
@@ -159,12 +160,12 @@
 
     <!-- Pagination Start -->
     <div class="pagination-container d-flex justify-content-center">
-        @if (ViewBag.TotalPages > 1)
+        @if (ViewBag?.TotalPages > 1)
         {
             <ul class="pagination">
-                @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                @for (var i = 1; i <= ViewBag?.TotalPages; i++)
                 {
-                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <li class="page-item @(i == ViewBag?.CurrentPage ? "active" : "")">
                         <a class="page-link" href="#" data-page="@i">@i</a>
                     </li>
                 }
@@ -224,9 +225,18 @@
                         <div class="col-sm-9">
                             <select id="wareHouseSelector" name="WareHouseID" class="form-control">
                                 <option disabled selected>Select Warehouse</option>
-                                @foreach (var warehouse in Model?.OrderBy(w => w.WareHouseID).DistinctBy(w => w.WareHouseName) ?? new List<ProductViewModel>())
+                                @foreach (WareHouse warehouse in ViewBag?.AllWareHouses ?? new List<WareHouse>())
                                 {
-                                    <option value="@warehouse.WareHouseID">@warehouse.WareHouseName</option>
+                                    if (wareHouseManagerID > 0)
+                                    {
+                                        if (warehouse.Id == wareHouseManagerID)
+                                        {
+                                            <option value="@warehouse.Id">@warehouse.Name</option>
+                                            break;
+                                        }
+                                        continue;
+                                    }
+                                    <option value="@warehouse.Id">@warehouse.Name</option>
                                 }
                             </select>
                         </div>
@@ -257,9 +267,9 @@
                         <div class="col-sm-9">
                             <select id="supplierSelector" name="SupplierId" class="form-control">
                                 <option disabled selected>Select Supplier</option>
-                                @foreach (var supplier in Model?.OrderBy(s => s.SupplierID).DistinctBy(s => s.SupplierName) ?? new List<ProductViewModel>())
+                                @foreach (Supplier supplier in ViewBag?.AllSuppliers ?? new List<Supplier>())
                                 {
-                                    <option value="@supplier.SupplierID">@supplier.SupplierName</option>
+                                    <option value="@supplier.Id">@supplier.Name</option>
                                 }
                             </select>
                         </div>
@@ -269,9 +279,9 @@
                         <div class="col-sm-9">
                             <select id="categorySelector" name="CategoryId" class="form-control">
                                 <option disabled selected>Select Category</option>
-                                @foreach (var category in Model?.OrderBy(c => c.CategoryID).DistinctBy(c => c.CategoryName) ?? new List<ProductViewModel>())
+                                @foreach (Category category in ViewBag?.AllCategories ?? new List<Category>())
                                 {
-                                    <option value="@category.CategoryID">@category.CategoryName</option>
+                                    <option value="@category.Id">@category.Name</option>
                                 }
                             </select>
                         </div>
