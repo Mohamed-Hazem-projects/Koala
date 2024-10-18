@@ -1,5 +1,3 @@
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
@@ -8,8 +6,6 @@ using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Rotativa.AspNetCore;
-using Wkhtmltopdf.NetCore;
 
 
 namespace KoalaInventoryManagement
@@ -22,8 +18,6 @@ namespace KoalaInventoryManagement
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-			builder.Services.AddWkhtmltopdf();
-			builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 			// Configure the database context with SQL Server
 			builder.Services.AddDbContext<InventoryDbContext>(op =>
@@ -79,9 +73,9 @@ namespace KoalaInventoryManagement
 			builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
 
 			var app = builder.Build();
-          
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
@@ -96,7 +90,6 @@ namespace KoalaInventoryManagement
 			app.UseSession(); // Enable session middleware here
 			app.UseAuthentication();
 			app.UseAuthorization();
-			app.UseRotativa();
 
 			app.MapControllerRoute(
 				name: "default",
