@@ -1,4 +1,15 @@
 ﻿$(function () {
+    $('.editWarehouseBtn').click(function () {
+        $('#editWareHouseID').val($(this).data('id'));
+        $('#editProductID').val($(this).data('product-id'));
+        console.log($('#editProductID').val());
+        $('#editCurrentStock').val($(this).data('current-stock'));
+        $('#editMinStock').val($(this).data('min-stock'));
+        $('#editMaxStock').val($(this).data('max-stock'));
+
+        $('#editWarehouseModal').modal('show');
+    });
+
     $('#showWarehouseBtn').click(function () {
         // Slide in the warehouse card next to the product card
         $('.warehouse-card').css({

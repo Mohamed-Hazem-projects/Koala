@@ -13,6 +13,28 @@
     <!-- Font Awesome Kit -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+        .report-container {
+            text-align: center;
+        }
+
+        .company-logo {
+            max-width: 150px;
+        }
+
+        .report-table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,6 +67,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/831317d937.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 
 </html>
