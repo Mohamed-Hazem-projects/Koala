@@ -1,4 +1,5 @@
-﻿using Inventory.Repository.Interfaces;
+﻿using Inventory.Data.Models;
+using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
@@ -33,6 +34,12 @@ namespace KoalaInventoryManagement.Controllers
                 int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
 
             List<ProductViewModel> productsViewModel = _productFilter.ProductsPerRole(warehouseId);
+
+            ViewBag.AllWareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
+            ViewBag.AllSuppliers = _unitOfWork?.Suppliers?.GetAllAsync().Result?.ToList() ?? new List<Supplier>();
+            ViewBag.AllCategories = _unitOfWork?.Categories?.GetAllAsync().Result?.ToList() ?? new List<Category>();
+            ViewBag.WareHouseManagerID = warehouseId > 0 ? warehouseId : 0;
+
 
             var paginatedProducts
                 = productsViewModel.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
@@ -240,7 +247,7 @@ namespace KoalaInventoryManagement.Controllers
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Image = product.Image ?? [0],
+                Image = product.Image,
                 Quantity = productQuantity,
                 ProductWareHouses = prdWareHouses,
                 CategoryName = product?.Category?.Name ?? string.Empty,
