@@ -15,6 +15,7 @@ namespace KoalaInventoryManagement.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductFilterService _productFilter;
+        private static List<ProductViewModel> _ProductsAfterFilter = new List<ProductViewModel>();
 
         public InventoryController(IUnitOfWork unitOfWork, IProductFilterService productFilter)
         {
@@ -66,6 +67,10 @@ namespace KoalaInventoryManagement.Controllers
             List<ProductViewModel> filteredProducts
                 = _productFilter?.FilterData(wareHouseID, categoryID, supplierID, searchString, userRole ?? string.Empty)
                     ?? new List<ProductViewModel>();
+
+            //Getting Filtered Products to be fetched in Reports
+            _ProductsAfterFilter.Clear();
+            _ProductsAfterFilter.AddRange(filteredProducts);
 
             var paginatedProducts = filteredProducts.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
 
@@ -282,7 +287,22 @@ namespace KoalaInventoryManagement.Controllers
         #region Reporting
         public IActionResult OnGet()
         {
-            var product = _unitOfWork.Products.GetAll(new[] { "Supplier", "Category" }).ToList();
+            //var product = _unitOfWork.Products.GetAll(new[] { "Supplier", "Category" }).ToList();
+            var product = _ProductsAfterFilter.Select(p =>  
+                new Product
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Supplier = _unitOfWork?.Suppliers?.GetbyIdAsync(p.SupplierID)?.Result ?? new Supplier(),
+                    Category = _unitOfWork?.Categories?.GetbyIdAsync(p.CategoryID)?.Result ?? new Category(),
+                    CategoryId = p.CategoryID,
+                    SupplierId = p.SupplierID,
+                }).DistinctBy(p => p.Id).ToList();
+
+            _ProductsAfterFilter.Clear();
+
             var reportingService = new ReportingService();
             var document = reportingService.GetReport(product);
 
