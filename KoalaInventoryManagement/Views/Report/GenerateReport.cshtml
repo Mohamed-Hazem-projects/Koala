@@ -1,0 +1,130 @@
+@model ReportViewModel<SalesViewModel>
+@{
+    Layout = null; // This disables the default _Layout.cshtml for this view
+    ViewData["Title"] = "Sales";
+}
+
+
+@*Steps to generate a Report:
+1- Display a page that shows the report in html format
+2- display a button that says Download as a PDF
+3- Add a click event to that button that triggers an action method
+that return a File with the html content and the name of the PDf is
+(SalesReport-(DD-MM-YY).pdf format) *@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Report</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Sales/report.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <style>
+        .table {
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-transform: uppercase;
+        }
+
+        .table th,
+        .table td {
+            border: 2px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .add-btn {
+            color: white;
+            background-color: #593bdb;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: -10px;
+        }
+
+        .pdf {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center mt-4">
+        <!-- 'container' centers the content and adds padding, 'text-center' centers text, 'mt-4' adds margin-top -->
+        <div class="flex-column">
+            <!-- 'row' creates a horizontal group of columns, 'justify-content-center' centers the row content -->
+            <div class="col-12 d-flex justify-content-start">
+                <!-- 'col-12' makes it full width on extra small devices, 'col-md-4' sets it to 4 columns wide on medium devices and larger -->
+                <img src="@Url.Content("~/Images/Report/Sales/koala.svg")" alt="Company Logo"
+                    class="company-logo img-fluid" />
+                @* <img
+                src="@($"{Context.Request.Scheme}://{Context.Request.Host}{Url.Content("~/Images/Report/Sales/koala.svg")}")"
+                alt="Company Logo" class="company-logo img-fluid" /> *@
+                <img src="http://localhost:5169/Images/Report/Sales/koala.svg" alt="Company Logo"
+                    class="company-logo img-fluid" />
+
+                <!-- 'img-fluid' makes the image responsive, ensuring it scales with the parent -->
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <!-- 'col-12' for full width on small screens, 'col-md-8' for 8 columns on medium and larger -->
+                <h5 class="mt-2" id="company-name">@Model.CompanyName</h5> <!-- 'mt-2' adds margin-top for spacing -->
+            </div>
+        </div>
+
+        <div class="flex-column mt-3"> <!-- 'mt-3' adds margin-top to this row -->
+            <div class="col-12 d-flex "> <!-- Full width for the row -->
+                <h5>Report ID: @Model.ReportId</h5>
+            </div>
+            <div class="col-12 d-flex justify-content-between"> <!-- Full width for the row -->
+                <h5>Date: <span class="text-date">@Model.ReportDate</span></h5>
+            </div>
+        </div>
+
+
+        <div class="row mt-4"> <!-- 'mt-4' adds margin-top for spacing -->
+            <div class="col-12"> <!-- Full width for the row -->
+                <table class="table table-bordered">
+                    <!-- 'table' styles the table, 'table-bordered' adds borders around the table cells -->
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Warehouse Name</th>
+                            <th scope="col">Items Sold</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.WareHouseName</td>
+                                <td>@item.ItemsSold</td>
+                                <td>@item.TotalPrice</td>
+                                <td>@item.SaleDate.ToString("MM/dd/yyyy hh:mm tt")</td>
+                            </tr>
+
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/831317d937.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

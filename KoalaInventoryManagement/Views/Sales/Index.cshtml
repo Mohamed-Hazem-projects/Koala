@@ -26,9 +26,23 @@
           <h4 class="card-title roboto">Sales</h4>
           @* <a href="/sales/form" class="add-btn">Add</a> *@
           <!-- Button trigger modal -->
-          <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addModal">
-            Add
-          </button>
+          @* <div>
+          <select name="warehouses" id="warehouses" class="form-select">
+          <option value="0">All Warehouses</option>
+          @foreach (var warehouse in ViewBag.WareHouses)
+          {
+          <option value="@warehouse.Id">@warehouse.Name</option>
+          }
+          </select>
+          </div> *@
+          <div>
+            @* <a href="@Url.Action("DownloadPdf", "Report")" class="btn add-btn icon">Generate Report <i *@
+            @* class="fa-solid fa-print print-icon"></i></a> *@
+            <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#addModal">
+              Add
+            </button>
+          </div>
+
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -53,7 +67,7 @@
                     <td>@sales.TotalPrice</td>
                     <td>@sales.SaleDate.ToString("MM/dd/yyyy hh:mm tt")</td>
                     <td class="btn-td delete text-center">
-                      <a id="sales-id" data-id="@sales.Id"><i class="fa fa-close color-danger"></i></a>
+                      <a class="sales-id-delete-button" data-id="@sales.Id"><i class="fa fa-close color-danger"></i></a>
                     </td>
                   </tr>
                 }
@@ -67,19 +81,19 @@
               var nextDisabled = !Model.HasNextPage ? "disabled" : "";
             }
             <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-end align-items-center">
+              <ul class="pagination justify-content-end align-items-center" id="navigation-btns">
                 <li><span class="mx-3" id="page-item-count">@(Model.PageIndex == Model.PageNumbers ? Model.TotalItems :
                     Model.PageIndex > 1 ? Model.ItemsCountPerPage * Model.PageIndex : Model.ItemsCountPerPage) out of
                     @(Model.TotalItems)</span></li>
-                <li class="page-item @prevDisabled"><a class="page-link"
+                <li class="page-item @prevDisabled" id="previous-button"><a class="page-link"
                     asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a></li>
                 @for (int i = 1; i <= Model.PageNumbers; i++)
                 {
                   <li class="page-item @(i == Model.PageIndex ? "active" : "")">
-                    <a class="page-link" asp-route-pageNumber="@(i)" id="@(i == Model.PageIndex ? "active": "")">@i</a>
+                    <a class="page-link" asp-route-pageNumber="@(i)" id="@(i == Model.PageIndex ? "active": i)">@i</a>
                   </li>
                 }
-                <li class="page-item @nextDisabled"><a class="page-link"
+                <li class="page-item @nextDisabled" id="next-button"><a class="page-link"
                     asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a></li>
               </ul>
             </nav>
@@ -147,6 +161,21 @@
   </div>
 </div>
 <!-- Modal End-->
+
+@* Delete-Record-Start *@
+<div class="mainconfirm">
+  <i class="fa-solid fa-xmark close" id="close-delete-btn"></i>
+  <i class="fa-regular fa-circle-xmark red"></i>
+  <i class="fa-regular fa-circle-check green"></i>
+  <h2>Are you sure?</h2>
+  <p>Do you really want to delete this record?</p>
+  <h3 id="toBeDeleted"></h3>
+  <div class="buttons">
+    <button class="close2">Close</button>
+    <button class="delete" id="confirm-delete">Delete</button>
+  </div>
+</div>
+@* Delete-Record-End *@
 
 @section Scripts {
   <script src="~/js/Sales/filteration.js" asp-append-version="true"></script>

@@ -30,3 +30,19 @@ select option[value="default"] {
 #page-item-count{
     color: gray;
 }
+
+select:focus, select:hover {
+    border-color: #593bdb !important; /* Change border to purple */
+    box-shadow: 0 0 5px #593bdb !important; /* Add purple shadow */
+    outline: none; /* Remove default blue outline */
+}
+.print-icon{
+    color: white;
+}
+.icon:hover{
+    color: #2e2e30;
+}
+/* Ensure the icon color is the same as the button text on hover */
+.btn.add-btn:hover .print-icon {
+    color: inherit; /* Makes the icon inherit the color of the text */
+  }

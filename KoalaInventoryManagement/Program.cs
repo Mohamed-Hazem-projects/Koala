@@ -17,11 +17,11 @@ namespace KoalaInventoryManagement
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddControllersWithViews();
+			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 			// Configure the database context with SQL Server
 			builder.Services.AddDbContext<InventoryDbContext>(op =>
-				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+				op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"), b => b.MigrationsAssembly("Inventory.Data")));
 
 			// Configure Identity
 			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
@@ -40,17 +40,17 @@ namespace KoalaInventoryManagement
 			.AddEntityFrameworkStores<InventoryDbContext>()
 			.AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Admin", policy =>
-                    policy.RequireRole("Admin")); // Require 'Admin' role for the policy
-            });
+			builder.Services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", policy =>
+					policy.RequireRole("Admin")); // Require 'Admin' role for the policy
+			});
 
-            // Configure application cookie
-            builder.Services.ConfigureApplicationCookie(options =>
+			// Configure application cookie
+			builder.Services.ConfigureApplicationCookie(options =>
 			{
 				options.Cookie.HttpOnly = true;
-				options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(300);
 				options.SlidingExpiration = true;
 				options.LoginPath = "/Account/Login";
 				options.LogoutPath = "/Account/Logout";
@@ -63,7 +63,7 @@ namespace KoalaInventoryManagement
 			// Add session services
 			builder.Services.AddSession(options =>
 			{
-				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the timeout duration
+				options.IdleTimeout = TimeSpan.FromMinutes(300); // Set the timeout duration
 				options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
 				options.Cookie.IsEssential = true; // Make the session cookie essential
 			});
@@ -73,14 +73,19 @@ namespace KoalaInventoryManagement
 			builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
 
 			var app = builder.Build();
-          
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
 			app.UseStaticFiles();
 			app.UseRouting();
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/");
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/wkhtmltopdf");
+			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa/wkhtmltopdf");
+			// RotativaConfiguration.Setup("/usr/local/bin/wkhtmltopdf");
+
 
 			app.UseSession(); // Enable session middleware here
 			app.UseAuthentication();
