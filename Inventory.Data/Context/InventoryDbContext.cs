@@ -44,6 +44,36 @@ namespace Inventory.Data.Context
                         .HasData(RolesSeed.Roles);
             modelBuilder.Entity<Sales>()
                         .HasData(SalesSeed.sales);
+            // Seed an admin user
+            string adminUserId = Guid.NewGuid().ToString();
+            var hasher = new PasswordHasher<ApplicationUser>();
+
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    Id = adminUserId,
+                    UserName = "admin@yourdomain.com",
+                    NormalizedUserName = "ADMIN@YOURDOMAIN.COM",
+                    Email = "admin@yourdomain.com",
+                    NormalizedEmail = "ADMIN@YOURDOMAIN.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "Admin@123"), // Seed password
+                    SecurityStamp = string.Empty,
+                    FirstName = "Admin",
+                    LastName = "User"
+                }
+            );
+
+            // Assign the admin user to the admin role
+            var adminRoleId = RolesSeed.Roles.First(r => r.NormalizedName == "ADMIN").Id;
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = adminRoleId,
+                    UserId = adminUserId
+                }
+            );
             #endregion
 
             #region WareHouse and Product M:M Relationship
