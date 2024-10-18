@@ -67,7 +67,7 @@ namespace KoalaInventoryManagement.Controllers
                     var warehouseProduct = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
                     if (warehouseProduct != null)
                     {
-                        warehouseProduct.CurrentStock -= 1;
+                        warehouseProduct.CurrentStock -= (short)sale.ItemsSold;
                         _unitOfWork.Sales.Add(sale);
                         _unitOfWork.Complete();
                     }

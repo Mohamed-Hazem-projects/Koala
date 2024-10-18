@@ -327,34 +327,6 @@ $(document).ready(function () {
         }">Next</a></li>`;
 
         $('#navigation-btns').append(navigationBtns);
-
-        // updatedData.hasPreviousPage
-        //   ? $('#previous-button').removeClass('disabled')
-        //   : $('#previous-button').addClass('disabled');
-        // updatedData.hasNextPage
-        //   ? $('#next-button').removeClass('disabled')
-        //   : $('#next-button').addClass('disabled');
-
-        // $('#page-item-count').text(
-        //   `${
-        //     updatedData.pageIndex == updatedData.pageNumbers
-        //       ? updatedData.totalItems
-        //       : updatedData.pageIndex > 1
-        //       ? updatedData.itemCountPerPage * updatedData.pageIndex
-        //       : updatedData.itemCountPerPage
-        //   } out of ${updatedData.totalItems}`
-        // );
-        // const pageNumbers = $('#navigation-btns li').length;
-        // const newLi = $(`<li class="page-item">
-        //             <a class="page-link" asp-route-pageNumber="${updatedData.pageNumbers}" id="${updatedData.pageNumbers}">${updatedData.pageNumbers}</a>
-        //           </li>`);
-        // if (updatedData.pageNumbers + 3 > $('#navigation-btns li').length) {
-        //   $('#navigation-btns li').eq(updatedData.pageNumbers).after(newLi);
-        // } else {
-        //   $('#navigation-btns li')
-        //     .eq(pageNumbers - 2)
-        //     .remove();
-        // }
       },
       error: function (error) {
         console.log('Error: ', error);
