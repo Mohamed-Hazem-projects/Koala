@@ -1,0 +1,60 @@
+@* <!DOCTYPE html>
+<html>
+
+<head>
+<title>Report</title>
+<style>
+.report-container {
+text-align: center;
+}
+
+.company-logo {
+max-width: 150px;
+}
+
+.report-table {
+margin: 20px auto;
+border-collapse: collapse;
+width: 80%;
+}
+
+.report-table th,
+.report-table td {
+border: 1px solid black;
+padding: 8px;
+text-align: left;
+}
+</style>
+</head>
+
+<body>
+<div class="report-container">
+<img src="@Model.CompanyLogo" alt="Company Logo" class="company-logo" />
+<h2>@Model.CompanyName</h2>
+
+<h3>Report ID: @Model.ReportId</h3>
+<h4>Date: @Model.ReportDate.ToString("MM/dd/yyyy")</h4>
+`
+<table class="report-table">
+<thead>
+<tr>
+<th>Item</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+@foreach (var item in Model.Items)
+{
+<tr>
+<td>@item.ItemsSold</td>
+<td>@item.TotalPrice.ToString("C")</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
+
+<button onclick="window.print()">Print as PDF</button>
+</body>
+
+</html> *@

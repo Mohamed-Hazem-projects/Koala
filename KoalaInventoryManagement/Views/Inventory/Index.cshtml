@@ -1,0 +1,327 @@
+﻿@using Newtonsoft.Json
+@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Inventory";
+    var getFilteredProductsUrl = Url.Action("GetFilteredProducts", "Inventory");
+    var wareHouseManagerID = ViewBag?.WareHouseManagerID ?? 0;
+}
+
+<link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
+<link href="~/css/inventory/inventory.css" rel="stylesheet" />
+<div class="container-fluid p-0 suppliers">
+    <!-- Products Header Start -->
+    <div class="content-header">
+        <div class=" heading">
+            <h1 class="header-title roboto">Products Page</h1>
+            <p class="header-subtitle roboto">Manage your products with their warehouses.</p>
+        </div>
+    </div>
+    
+    <!-- Products Header End -->
+
+    <!-- Filteration Start -->
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <br />
+        <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
+        <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
+        <br />
+        <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
+            @* WareHouse Filter Button Start *@
+            @if (User.IsInRole("Admin"))  // Check if user is an Admin
+            {
+                <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
+                    <option selected>All Warehouses</option>
+                    @foreach (WareHouse warehouse in ViewBag?.AllWareHouses ?? new List<WareHouse>())
+                    {
+                        if (ViewBag?.SelectedWareHouse > 0 && warehouse.Id == ViewBag?.SelectedWareHouse)
+                        {
+                            <option selected value="@warehouse.Id">@warehouse.Name</option>
+                            continue;
+                        }
+                        <option value="@warehouse.Id">@warehouse.Name</option>
+                    }
+                </select>
+            }
+            @* WareHouse Filter Button End *@
+            <!-- Category Filter Button Start -->
+            <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
+                <option selected>All Categories</option>
+                @foreach (Category category in ViewBag?.AllCategories ?? new List<Category>())
+                {
+                    if (ViewBag?.SelectedCategory > 0 && category.Id == ViewBag?.SelectedCategory)
+                    {
+                        <option selected value="@category.Id">@category.Name</option>
+                        continue;
+                    }
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <!-- Category Filter Button End -->
+            <!-- Supplier Filter Button Start -->
+            <select id="supplierID" class="form-select" name="supplierID" aria-label="Default select example">
+                <option selected>All Suppliers</option>
+                @foreach (Supplier supplier in ViewBag?.AllSuppliers ?? new List<Supplier>())
+                {
+                    if (ViewBag?.SelectedSupplier > 0 && supplier.Id == ViewBag?.SelectedSupplier)
+                    {
+                        <option selected value="@supplier.Id">@supplier.Name</option>
+                        continue;
+                    }
+                    <option value="@supplier.Id">@supplier.Name</option>
+                }
+            </select>
+            <!-- Supplier Filter Button End -->
+            <div>
+                <a download href="inventory/OnGet" class="btn btn-sm text-light" style = "background-color: #593bdb;">Download Report</a>
+            </div>
+        </div>
+        <br />
+    </div>
+    <!-- Filteration End -->
+
+    <!-- Products Table Start -->
+    <div class="bg-offwhite">
+        <div class="col-lg-12 p-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title roboto">Products</h4>
+                    @* Show Add button only if the user has the correct role *@
+                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                    {
+                        <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Image</th>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                    {
+                                        <th class="btn-head" scope="col">Info</th>
+                                        <th class="btn-head" scope="col">Edit</th>
+                                        <th class="btn-head" scope="col">Delete</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model ?? new List<ProductViewModel>())
+                                {
+                                    <tr>
+                                        <td>@product.Name</td>
+                                        <td>@product.Description</td>
+                                        <td>$&nbsp;@product.Price</td>
+
+                                        <td>
+                                            @if (product.Image != null && product.Image.Length > 0)
+                                            {
+                                                var base64Image = Convert.ToBase64String(product.Image);
+                                                <img src="data:image/png;base64,@base64Image" alt="Product Image" width="50" height="50" />
+                                            }
+                                            else
+                                            {
+                                                <img src="https://niteair.co.uk/wp-content/uploads/2023/08/default-product-image.png" alt="Product Image" width="50" height="50" />
+                                            }
+                                        </td>
+                                          
+                                        <td>
+                                            <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
+                                                <i class="fa fa-info-circle color-info"></i>
+                                            </a>
+                                        </td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                        {
+                                            <td class="btn-td edit">
+                                                <a onclick="openEditModalProduct(@product.Id, '@product.Name', '@product.Description', @product.Price, '@product.Image', @product.CategoryID, @product.SupplierID)">
+                                                    <i class="fa fa-pencil color-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="btn-td delete">
+                                                <a onclick="confirmDelete('@product.Name Product', @product.Id)">
+                                                    <i class="fa fa-close color-danger"></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products Table End -->
+
+    <!-- Pagination Start -->
+    <div class="pagination-container d-flex justify-content-center">
+        @if (ViewBag?.TotalPages > 1)
+        {
+            <ul class="pagination">
+                @for (var i = 1; i <= ViewBag?.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag?.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="#" data-page="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    <!-- Pagination End -->
+</div>
+
+
+<!-- Add or Edit Product Modal Start-->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Add Product</h5>
+                <button type="button" class="modalclose" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm" enctype="multipart/form-data">
+                    <input type="number" name="Id" hidden value="" />
+                    <input type="number" name="oldWareHouseID" hidden value="" />
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Name" class="form-control"
+                                   required minlength="2" maxlength="50" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Description" class="form-control"
+                                   required placeholder="Description" />
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Image</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="file" class="form-control"
+                                   required placeholder="Description" />
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Price" class="form-control"
+                                   placeholder="Price" />
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="warehouseDiv">
+                        <label class="col-sm-3 col-form-label">Warehouses</label>
+                        <div class="col-sm-9">
+                            <select id="wareHouseSelector" name="WareHouseID" class="form-control">
+                                <option disabled selected>Select Warehouse</option>
+                                @foreach (WareHouse warehouse in ViewBag?.AllWareHouses ?? new List<WareHouse>())
+                                {
+                                    if (wareHouseManagerID > 0)
+                                    {
+                                        if (warehouse.Id == wareHouseManagerID)
+                                        {
+                                            <option value="@warehouse.Id">@warehouse.Name</option>
+                                            break;
+                                        }
+                                        continue;
+                                    }
+                                    <option value="@warehouse.Id">@warehouse.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="currentDiv">
+                        <label class="col-sm-3 col-form-label">Current Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="CurrentStock" class="form-control"
+                                   placeholder="Current Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="minDiv">
+                        <label class="col-sm-3 col-form-label">Minimum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="MinStock" class="form-control"
+                                   placeholder="Minimum Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="maxDiv">
+                        <label class="col-sm-3 col-form-label">Maximum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="MaxStock" class="form-control"
+                                   placeholder="Maximum Stock" />
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="supplierDiv">
+                        <label class="col-sm-3 col-form-label">Supplier</label>
+                        <div class="col-sm-9">
+                            <select id="supplierSelector" name="SupplierId" class="form-control">
+                                <option disabled selected>Select Supplier</option>
+                                @foreach (Supplier supplier in ViewBag?.AllSuppliers ?? new List<Supplier>())
+                                {
+                                    <option value="@supplier.Id">@supplier.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row" id="categoryDiv">
+                        <label class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                            <select id="categorySelector" name="CategoryId" class="form-control">
+                                <option disabled selected>Select Category</option>
+                                @foreach (Category category in ViewBag?.AllCategories ?? new List<Category>())
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="addOrEditProduct" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add or Edit Product Modal End-->
+
+<!-- Confirm Delete Start-->
+<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+<div class="mainconfirm">
+    <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
+    <i class="fa-regular fa-circle-xmark red"></i>
+    <i class="fa-regular fa-circle-check green"></i>
+    <h2>Are you sure?</h2>
+    @if (User.IsInRole("Admin"))
+    {
+        <p>Do you really want to delete compeletly from the Inventory the following?</p>
+    }
+    else
+    {
+        <p>Do you really want to empty your warehouse from the following?</p>
+    }
+    <h3 id="toBeDeleted"></h3>
+    <div class="buttons">
+        <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
+        <button class="delete" onclick="startAnimation()">Delete</button>
+    </div>
+</div>
+<!-- Confirm Delete End-->
+
+
+@section Scripts {
+    <script src="~/js/Inventory/Filteration.js"></script>
+    <script src="~/js/Inventory/Inventory.js"></script>
+}
