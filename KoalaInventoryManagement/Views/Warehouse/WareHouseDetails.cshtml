@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Dashboard";
 }
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
@@ -18,7 +17,8 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title roboto">Warehouse</h4>
-                    <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#warehouseModal">Add</button>
+                    <button class="add-btn" type="button" data-bs-toggle="modal"
+                        data-bs-target="#warehouseModal">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -36,7 +36,7 @@
                                 @{
                                     var index = 1;
                                 }
-                                @foreach (var product in Model)
+                                @foreach (var item in Model)
                                 {
                                     <tr>
                                         <td>@index</td>
@@ -48,7 +48,8 @@
                                             </a>
                                         </td>
                                         <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@item.Name Warehouse',@item.Id,1)"><i class="fa fa-close color-danger"></i></a>
+                                            <a onclick="confirmDelete('@item.Name Warehouse',@item.Id,1)"><i
+                                                    class="fa fa-close color-danger"></i></a>
                                         </td>
                                     </tr>
                                     index++;

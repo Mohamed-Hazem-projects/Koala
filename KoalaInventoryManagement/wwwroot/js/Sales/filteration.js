@@ -3,6 +3,7 @@ var typingStopped = 400;
 const suggestionsUrl = $('#url').attr('data-productSuggestionsUrl');
 const addUrl = $('#url').attr('data-addSaleUrl');
 const updatedUrl = $('#url').attr('data-updatedDataUrl');
+const baseUrl = $('#url').attr('data-base-url');
 const options = {
   year: 'numeric',
   month: '2-digit',
@@ -201,6 +202,7 @@ $(document).ready(function () {
   });
 
   $('#close-delete-btn').click(function (e) {
+    debugger;
     e.stopPropagation();
     $('.overlay').fadeOut();
     $('.mainconfirm').fadeOut();
@@ -213,25 +215,41 @@ $(document).ready(function () {
   });
 
   $('#confirm-delete').click(function () {
-    if (!this.runOnce) {
-      this.runOnce = true;
-      $('.red').addClass('animate');
+    debugger;
+
+    this.runOnce = true;
+    $('.red').addClass('animate');
+    setTimeout(() => {
+      $('.red').hide();
+      $('.green').show();
       setTimeout(() => {
-        $('.red').hide();
-        $('.green').show();
+        $('.green').addClass('animate2');
         setTimeout(() => {
-          $('.green').addClass('animate2');
+          deleteFromDB();
+          $('.overlay').fadeOut();
+          $('.mainconfirm').fadeOut();
           setTimeout(() => {
-            deleteFromDB();
-            $('.overlay').fadeOut();
-            $('.mainconfirm').fadeOut();
-          }, 250);
-        }, 5);
-      }, 150);
-    }
+            resetState(); // Reset everything to the initial state
+          }, 450);
+        }, 250);
+      }, 5);
+    }, 150);
   });
 
+  function resetState() {
+    // Show the red element again and hide the green one
+    $('.red').removeClass('animate');
+    $('.red').show();
+    $('.green').hide();
+
+    // Remove the animate2 class from the green element
+    $('.green').removeClass('animate2');
+
+    // Reset any other UI elements as needed
+  }
+
   function deleteFromDB() {
+    debugger;
     const url = '/Sales/DeleteSales';
     const id = $('#confirm-delete').attr('data-id');
     $.ajax({
@@ -277,33 +295,38 @@ $(document).ready(function () {
                   </tr>`;
           $('#salesTable tbody').append(row);
         });
-        updatedData.hasPreviousPage
-          ? $('#previous-button').removeClass('disabled')
-          : $('#previous-button').addClass('disabled');
-        updatedData.hasNextPage
-          ? $('#next-button').removeClass('disabled')
-          : $('#next-button').addClass('disabled');
 
-        $('#page-item-count').text(
-          `${
-            updatedData.pageIndex == updatedData.pageNumbers
-              ? updatedData.totalItems
-              : updatedData.pageIndex > 1
-              ? updatedData.itemCountPerPage * updatedData.pageIndex
-              : updatedData.itemCountPerPage
-          } out of ${updatedData.totalItems}`
-        );
-        const pageNumbers = $('#navigation-btns li').length;
-        const newLi = $(`<li class="page-item">
-                    <a class="page-link" asp-route-pageNumber="${updatedData.pageNumbers}" id="${updatedData.pageNumbers}">${updatedData.pageNumbers}</a>
-                  </li>`);
-        if (updatedData.pageNumbers + 3 > $('#navigation-btns li').length) {
-          $('#navigation-btns li').eq(updatedData.pageNumbers).after(newLi);
-        } else {
-          $('#navigation-btns li')
-            .eq(pageNumbers - 2)
-            .remove();
+        $('#navigation-btns').empty();
+        let navigationBtns = `<li><span class="mx-3" id="page-item-count">${
+          updatedData.pageIndex == updatedData.pageNumbers
+            ? updatedData.totalItems
+            : updatedData.pageIndex > 1
+            ? updatedData.itemCountPerPage * updatedData.pageIndex
+            : updatedData.itemCountPerPage
+        } out of ${updatedData.totalItems}</span></li>
+                <li class="page-item ${
+                  !updatedData.hasPreviousPage ? 'disabled' : ''
+                }" id="previous-button"><a class="page-link"
+                    href="${baseUrl}?pageNumber=${
+          updatedData.pageIndex - 1
+        }">Previous</a></li> `;
+        for (let i = 1; i <= updatedData.pageNumbers; i++) {
+          navigationBtns += `<li class="page-item ${
+            i == updatedData.pageIndex ? 'active' : ''
+          }">
+                    <a class="page-link" href="${baseUrl}?pageNumber=${i}" id="${
+            i == updatedData.pageIndex ? 'active' : i
+          }">${i}</a>
+                  </li> `;
         }
+        navigationBtns += `<li class="page-item ${
+          !updatedData.hasNextPage ? 'disabled' : ''
+        }" id="next-button"><a class="page-link"
+                    href="${baseUrl}?pageNumber=${
+          updatedData.pageIndex + 1
+        }">Next</a></li>`;
+
+        $('#navigation-btns').append(navigationBtns);
       },
       error: function (error) {
         console.log('Error: ', error);
