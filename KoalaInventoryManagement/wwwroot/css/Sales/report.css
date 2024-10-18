@@ -1,0 +1,27 @@
+.company-logo {
+    max-width: 85px;
+}
+
+.table th{
+    text-transform: uppercase;
+}
+
+.table th,
+.table td {
+    border: 2px solid black;
+    padding: 8px;
+    text-align: left;
+}
+.add-btn {
+    color: white;
+    background-color: #593bdb;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+.pdf{
+    color: red;
+}

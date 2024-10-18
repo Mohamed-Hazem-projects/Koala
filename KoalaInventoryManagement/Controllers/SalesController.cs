@@ -1,8 +1,10 @@
+using Microsoft.Win32.SafeHandles;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -63,11 +65,12 @@ namespace KoalaInventoryManagement.Controllers
             {
                 try
                 {
-                    _unitOfWork.Sales.Add(sale);
-                    var product = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
-                    if (product != null)
+                    var product = _unitOfWork.Products.GetbyId(sale.ProductId);
+                    var warehouseProduct = _unitOfWork.WareHousesProducts.FindByName(w => w.ProductID == sale.ProductId && w.WareHouseID == sale.WareHouseId).SingleOrDefault();
+                    if (warehouseProduct != null)
                     {
-                        product.CurrentStock -= 1;
+                        warehouseProduct.CurrentStock -= 1;
+                        _unitOfWork.Sales.Add(sale);
                         _unitOfWork.Complete();
                     }
                     return Json(new { message = "success" });
@@ -79,12 +82,53 @@ namespace KoalaInventoryManagement.Controllers
             }
             return Json(new { message = "failed" });
         }
+
         [HttpGet, HttpPost]
         public IActionResult GetUpdatedData(int pageNumber)
         {
             var sales = _unitOfWork.Sales.GetSalesPaginated(pageNumber)!;
-            return Json(sales);
+            var list = new
+            {
+                sales = sales,
+                TotalItems = sales.TotalItems,
+                PageIndex = sales.PageIndex,
+                PageNumbers = sales.PageNumbers,
+                HasPreviousPage = sales.HasPreviousPage,
+                HasNextPage = sales.HasNextPage,
+                ItemCountPerPage = sales.ItemsCountPerPage
+            };
+            return Json(list);
         }
+
+
+        public IActionResult DeleteSales(int salesId)
+        {
+
+            var result = _unitOfWork.Sales.Delete(salesId);
+            if (!result)
+            {
+                return Json(new { message = "error" });
+            }
+            _unitOfWork.Complete();
+            return Json(new { message = "success" });
+        }
+
+        public IActionResult FilterSales(int pageNumber, int warehouseId)
+        {
+            var sales = _unitOfWork.Sales.GetSalesPaginated(x => x.WareHouseProduct.WareHouseID == warehouseId, pageNumber)!;
+            var response = new
+            {
+                sales = sales,
+                TotalItems = sales.TotalItems,
+                PageIndex = sales.PageIndex,
+                PageNumbers = sales.PageNumbers,
+                HasPreviousPage = sales.HasPreviousPage,
+                HasNextPage = sales.HasNextPage,
+                ItemCountPerPage = sales.ItemsCountPerPage
+            };
+            return Json(response);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -12,10 +12,77 @@ const options = {
   hour12: true, // Use 12-hour format
   timeZone: 'Africa/Cairo',
 };
+$('.overlay').hide();
+$('.mainconfirm').hide();
+$('.green').hide();
 $(document).ready(function () {
   $('#warehouseNames').change(function () {
     $('#warehouse-error').hide();
   });
+
+  // $('#warehouses').change(function () {
+  //   debugger;
+  //   const value = $(this).val();
+  //   const pageNumber = $('#active').text();
+
+  //   $.ajax({
+  //     url: '/Sales/FilterSales',
+  //     method: 'POST',
+  //     data: { warehouseId: value, pageNumber: pageNumber },
+  //     success: function (data) {
+  //       console.log(data);
+  //       $('#salesTable tbody').empty();
+  //       $.each(data.sales, function (i, obj) {
+  //         const row = ` <tr>
+  //                   <td>${obj.productName}</td>
+  //                   <td>${obj.wareHouseName}</td>
+  //                   <td>${obj.itemsSold}</td>
+  //                   <td>${obj.totalPrice}</td>
+  //                   <td>${new Date(obj.saleDate)
+  //                     .toLocaleString('en-US', options)
+  //                     .replace(',', '')}</td>
+  //                   <td class="btn-td delete text-center">
+  //                     <a class="sales-id-delete-button" data-id="${
+  //                       obj.id
+  //                     }"><i class="fa fa-close color-danger"></i></a>
+  //                   </td>
+  //                 </tr>`;
+  //         $('#salesTable tbody').append(row);
+  //       });
+  //       data.hasPreviousPage
+  //         ? $('#previous-button').removeClass('disabled')
+  //         : $('#previous-button').addClass('disabled');
+  //       data.hasNextPage
+  //         ? $('#next-button').removeClass('disabled')
+  //         : $('#next-button').addClass('disabled');
+
+  //       $('#page-item-count').text(
+  //         `${
+  //           data.pageIndex == data.pageNumbers
+  //             ? data.totalItems
+  //             : data.pageIndex > 1
+  //             ? data.itemCountPerPage * data.pageIndex
+  //             : data.itemCountPerPage
+  //         } out of ${data.totalItems}`
+  //       );
+  //       const pageNumbers = $('#navigation-btns li').length;
+  //       const newLi = $(`<li class="page-item">
+  //                   <a class="page-link" asp-route-pageNumber="${data.pageNumbers}" id="${data.pageNumbers}">${data.pageNumbers}</a>
+  //                 </li>`);
+  //       if (data.pageNumbers + 3 > $('#navigation-btns li').length) {
+  //         $('#navigation-btns li').eq(data.pageNumbers).after(newLi);
+  //       } else {
+  //         $('#navigation-btns li')
+  //           .eq(pageNumbers - 2)
+  //           .remove();
+  //       }
+  //     },
+  //     error: function (error) {
+  //       console.log('Error: ', error);
+  //     },
+  //     error: function (error) {},
+  //   });
+  // });
 
   $('#productName').on('input', function () {
     clearTimeout(timer);
@@ -69,13 +136,17 @@ $(document).ready(function () {
   $(document).click(function (e) {
     /* This function checks if the user clicked the dropdown menu of not*/
     var target = $(e.target);
-
+    debugger;
     // Check if the click is outside of the dropdown or the input
     if (
       !target.closest('#productSuggestions').length &&
       !target.closest('#productName').length
     ) {
       $('#productSuggestions').hide();
+    }
+    if (!target.closest('.mainconfirm').length) {
+      $('.overlay').fadeOut();
+      $('.mainconfirm').fadeOut();
     }
   });
 
@@ -183,18 +254,77 @@ $(document).ready(function () {
     });
   });
 
+  /* Delete Modal and Animation */
+  $(document).on('click', '.sales-id-delete-button', function (e) {
+    debugger;
+    e.stopPropagation();
+    const id = $(this).attr('data-id');
+    $('#confirm-delete').attr('data-id', id);
+    $('.overlay').fadeIn();
+    $('.mainconfirm').fadeIn();
+  });
+
+  $('#close-delete-btn').click(function (e) {
+    e.stopPropagation();
+    $('.overlay').fadeOut();
+    $('.mainconfirm').fadeOut();
+  });
+
+  $('.close2').click(function (e) {
+    e.stopPropagation();
+    $('.overlay').fadeOut();
+    $('.mainconfirm').fadeOut();
+  });
+
+  $('#confirm-delete').click(function () {
+    if (!this.runOnce) {
+      this.runOnce = true;
+      $('.red').addClass('animate');
+      setTimeout(() => {
+        $('.red').hide();
+        $('.green').show();
+        setTimeout(() => {
+          $('.green').addClass('animate2');
+          setTimeout(() => {
+            deleteFromDB();
+            $('.overlay').fadeOut();
+            $('.mainconfirm').fadeOut();
+          }, 250);
+        }, 5);
+      }, 150);
+    }
+  });
+
+  function deleteFromDB() {
+    const url = '/Sales/DeleteSales';
+    const id = $('#confirm-delete').attr('data-id');
+    $.ajax({
+      url: '/Sales/DeleteSales',
+      method: 'POST',
+      data: { salesId: id },
+      success: function (updatedData) {
+        console.log(updatedData);
+        fetchUpdatedData();
+      },
+      error: function (error) {
+        alert('Error deleting product. Please try again.'); // Error handling
+      },
+    });
+  }
+  /* End of Delete Modal and Animation */
+
   function fetchUpdatedData() {
     const pageNumber = $('#active').text();
     obj = { pageNumber: pageNumber };
-    debugger;
     $.ajax({
       url: updatedUrl,
       method: 'POST',
       data: obj,
       success: function (updatedData) {
         console.log(updatedData);
+        debugger;
         $('#salesTable tbody').empty();
-        $.each(updatedData, function (i, obj) {
+        $.each(updatedData.sales, function (i, obj) {
           const row = ` <tr>
                     <td>${obj.productName}</td>
                     <td>${obj.wareHouseName}</td>
@@ -204,13 +334,40 @@ $(document).ready(function () {
                       .toLocaleString('en-US', options)
                       .replace(',', '')}</td>
                     <td class="btn-td delete text-center">
-                      <a id="sales-id" data-id="${
+                      <a class="sales-id-delete-button" data-id="${
                         obj.id
                       }"><i class="fa fa-close color-danger"></i></a>
                     </td>
                   </tr>`;
           $('#salesTable tbody').append(row);
         });
+        updatedData.hasPreviousPage
+          ? $('#previous-button').removeClass('disabled')
+          : $('#previous-button').addClass('disabled');
+        updatedData.hasNextPage
+          ? $('#next-button').removeClass('disabled')
+          : $('#next-button').addClass('disabled');
+
+        $('#page-item-count').text(
+          `${
+            updatedData.pageIndex == updatedData.pageNumbers
+              ? updatedData.totalItems
+              : updatedData.pageIndex > 1
+              ? updatedData.itemCountPerPage * updatedData.pageIndex
+              : updatedData.itemCountPerPage
+          } out of ${updatedData.totalItems}`
+        );
+        const pageNumbers = $('#navigation-btns li').length;
+        const newLi = $(`<li class="page-item">
+                    <a class="page-link" asp-route-pageNumber="${updatedData.pageNumbers}" id="${updatedData.pageNumbers}">${updatedData.pageNumbers}</a>
+                  </li>`);
+        if (updatedData.pageNumbers + 3 > $('#navigation-btns li').length) {
+          $('#navigation-btns li').eq(updatedData.pageNumbers).after(newLi);
+        } else {
+          $('#navigation-btns li')
+            .eq(pageNumbers - 2)
+            .remove();
+        }
       },
       error: function (error) {
         console.log('Error: ', error);

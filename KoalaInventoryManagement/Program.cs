@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Inventory.Data.Context;
 using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
@@ -18,8 +20,9 @@ namespace KoalaInventoryManagement
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddControllersWithViews();
+			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			builder.Services.AddWkhtmltopdf();
+			builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 			// Configure the database context with SQL Server
 			builder.Services.AddDbContext<InventoryDbContext>(op =>
@@ -52,7 +55,7 @@ namespace KoalaInventoryManagement
 			builder.Services.ConfigureApplicationCookie(options =>
 			{
 				options.Cookie.HttpOnly = true;
-				options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(300);
 				options.SlidingExpiration = true;
 				options.LoginPath = "/Account/Login";
 				options.LogoutPath = "/Account/Logout";
@@ -65,7 +68,7 @@ namespace KoalaInventoryManagement
 			// Add session services
 			builder.Services.AddSession(options =>
 			{
-				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the timeout duration
+				options.IdleTimeout = TimeSpan.FromMinutes(300); // Set the timeout duration
 				options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
 				options.Cookie.IsEssential = true; // Make the session cookie essential
 			});
