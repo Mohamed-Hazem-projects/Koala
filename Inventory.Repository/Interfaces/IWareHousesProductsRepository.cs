@@ -1,4 +1,5 @@
-﻿using KoalaInventoryManagement.Models;
+﻿using Inventory.Data.Models;
+using KoalaInventoryManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace Inventory.Repository.Interfaces
 
         //Deletes only one record with ProductID and WareHouseID
         bool DeleteOneRecord(int productID, int wareHouseID);
+
+        bool AddWHUser(UserWarehouse entity);
+        UserWarehouse GetUserWarehouse(string userId);  // Method to get the UserWarehouse by UserId
+        void UpdateWHUser(UserWarehouse userWarehouse);
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Inventory.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -238,6 +238,33 @@ namespace Inventory.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserWarehouses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserWarehouses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserWarehouses_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserWarehouses_WareHouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "WareHouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WareHousesProducts",
                 columns: table => new
                 {
@@ -293,31 +320,27 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1435fad2-6350-4460-b8de-4b580a9de970", null, "WHManager4", "WHMANAGER4" },
-                    { "2c72947e-744c-4772-be9f-194b8fdb6105", null, "Admin", "ADMIN" },
-                    { "35bd58fc-c0d9-4b24-89d9-d2a349e5a399", null, "Staff", "STAFF" },
-                    { "4009f9c0-bb67-4c29-9a26-8114154fca2e", null, "WHManager1", "WHMANAGER1" },
-                    { "89b33861-b8d8-4b49-a878-ed083a0b4c03", null, "WHManager2", "WHMANAGER2" },
-                    { "8bf30356-29ff-405e-a8e0-b56f9ab57cad", null, "WHManager3", "WHMANAGER3" },
-                    { "b49fe665-52dc-4ac1-836b-d26e05ed485f", null, "User", "USER" },
-                    { "dd6b6801-5958-4a66-833e-d23b4f6ccfb3", null, "WHManager5", "WHMANAGER5" }
+                    { "9511d5ab-e920-4f9d-b349-b700440d8d36", null, "User", "USER" },
+                    { "aca821a3-76f7-4f95-97c9-1d9eaad429c4", null, "WHManager", "WHMANAGER" },
+                    { "c8bab1aa-a526-496f-84df-4a314cd0f309", null, "Admin", "ADMIN" },
+                    { "ef381465-97f4-4335-b3fc-e28bc99ad053", null, "Staff", "STAFF" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f3f2aeb3-016e-469f-ad4f-96f11ebee851", 0, "2c883667-f40b-43e2-b734-a4260d4e0d06", "admin@yourdomain.com", true, "Admin", "User", false, null, "ADMIN@YOURDOMAIN.COM", "ADMIN@YOURDOMAIN.COM", "AQAAAAIAAYagAAAAEMpMuCdFer7bIBk/u34zdKg/A8kMQs0YmRixPZhfXmuvizz2yihrwF888vvsqEdqbg==", null, false, "", false, "admin@yourdomain.com" });
+                values: new object[] { "4293b995-4763-4acc-9f98-711e33b529bf", 0, "d809a341-d40a-42d4-af62-1a01121411fb", "admin@yourdomain.com", true, "Admin", "User", false, null, "ADMIN@YOURDOMAIN.COM", "ADMIN@YOURDOMAIN.COM", "AQAAAAIAAYagAAAAEFTeq1rDmiggOoCvzm30nXyevmwlPiOBq+kj41KNvd2uct+vblQ27Fxp/gwPgJZmZA==", null, false, "", false, "admin@yourdomain.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 18, 15, 51, 56, 627, DateTimeKind.Local).AddTicks(2519), "Electronics" },
-                    { 2, new DateTime(2024, 10, 18, 15, 51, 56, 645, DateTimeKind.Local).AddTicks(8828), "Clothing" },
-                    { 3, new DateTime(2024, 10, 18, 15, 51, 56, 645, DateTimeKind.Local).AddTicks(8882), "Groceries" },
-                    { 4, new DateTime(2024, 10, 18, 15, 51, 56, 645, DateTimeKind.Local).AddTicks(8888), "Furniture" },
-                    { 5, new DateTime(2024, 10, 18, 15, 51, 56, 645, DateTimeKind.Local).AddTicks(8892), "Accessories" }
+                    { 1, new DateTime(2024, 10, 22, 0, 8, 22, 714, DateTimeKind.Local).AddTicks(9431), "Electronics" },
+                    { 2, new DateTime(2024, 10, 22, 0, 8, 22, 721, DateTimeKind.Local).AddTicks(2764), "Clothing" },
+                    { 3, new DateTime(2024, 10, 22, 0, 8, 22, 721, DateTimeKind.Local).AddTicks(2839), "Groceries" },
+                    { 4, new DateTime(2024, 10, 22, 0, 8, 22, 721, DateTimeKind.Local).AddTicks(2846), "Furniture" },
+                    { 5, new DateTime(2024, 10, 22, 0, 8, 22, 721, DateTimeKind.Local).AddTicks(2849), "Accessories" }
                 });
 
             migrationBuilder.InsertData(
@@ -325,11 +348,11 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "Email_Address", "Image", "Name", "Phone_Number", "Rating" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 18, 15, 51, 56, 647, DateTimeKind.Local).AddTicks(5044), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
-                    { 2, new DateTime(2024, 10, 18, 15, 51, 56, 647, DateTimeKind.Local).AddTicks(6973), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
-                    { 3, new DateTime(2024, 10, 18, 15, 51, 56, 647, DateTimeKind.Local).AddTicks(6994), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
-                    { 4, new DateTime(2024, 10, 18, 15, 51, 56, 647, DateTimeKind.Local).AddTicks(6999), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
-                    { 5, new DateTime(2024, 10, 18, 15, 51, 56, 647, DateTimeKind.Local).AddTicks(7004), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
+                    { 1, new DateTime(2024, 10, 22, 0, 8, 22, 723, DateTimeKind.Local).AddTicks(7376), "pyramidsmail@pyr.com", null, "Misr Pyramids Group", "01523456789", (byte)7 },
+                    { 2, new DateTime(2024, 10, 22, 0, 8, 22, 723, DateTimeKind.Local).AddTicks(9816), "hero@basics.com", null, "Hero Basics", "01283492232", (byte)5 },
+                    { 3, new DateTime(2024, 10, 22, 0, 8, 22, 723, DateTimeKind.Local).AddTicks(9847), "Resi@trade.com", null, "Resi Trade", "01129555939", (byte)9 },
+                    { 4, new DateTime(2024, 10, 22, 0, 8, 22, 723, DateTimeKind.Local).AddTicks(9852), "Lamar@gmail.com", null, "lamar", "01522233333", (byte)3 },
+                    { 5, new DateTime(2024, 10, 22, 0, 8, 22, 723, DateTimeKind.Local).AddTicks(9857), "info@Hazlam.com", null, "Hazlam", "01575732113", (byte)8 }
                 });
 
             migrationBuilder.InsertData(
@@ -337,134 +360,134 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 18, 15, 51, 56, 648, DateTimeKind.Local).AddTicks(2233), "SwiftStore" },
-                    { 2, new DateTime(2024, 10, 18, 15, 51, 56, 648, DateTimeKind.Local).AddTicks(2792), "OptiStock" },
-                    { 3, new DateTime(2024, 10, 18, 15, 51, 56, 648, DateTimeKind.Local).AddTicks(2809), "Nexus Dist" },
-                    { 4, new DateTime(2024, 10, 18, 15, 51, 56, 648, DateTimeKind.Local).AddTicks(2815), "PrimeSpace" },
-                    { 5, new DateTime(2024, 10, 18, 15, 51, 56, 648, DateTimeKind.Local).AddTicks(2819), "AgileHub" }
+                    { 1, new DateTime(2024, 10, 22, 0, 8, 22, 724, DateTimeKind.Local).AddTicks(9129), "SwiftStore" },
+                    { 2, new DateTime(2024, 10, 22, 0, 8, 22, 725, DateTimeKind.Local).AddTicks(4), "OptiStock" },
+                    { 3, new DateTime(2024, 10, 22, 0, 8, 22, 725, DateTimeKind.Local).AddTicks(26), "Nexus Dist" },
+                    { 4, new DateTime(2024, 10, 22, 0, 8, 22, 725, DateTimeKind.Local).AddTicks(31), "PrimeSpace" },
+                    { 5, new DateTime(2024, 10, 22, 0, 8, 22, 725, DateTimeKind.Local).AddTicks(36), "AgileHub" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2c72947e-744c-4772-be9f-194b8fdb6105", "f3f2aeb3-016e-469f-ad4f-96f11ebee851" });
+                values: new object[] { "c8bab1aa-a526-496f-84df-4a314cd0f309", "4293b995-4763-4acc-9f98-711e33b529bf" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "CreateAt", "Description", "Image", "Name", "Price", "SupplierId" },
                 values: new object[,]
                 {
-                    { 1, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(2900), "High-quality Saudi Arabia flag for display", null, "Saudi Arabia Flag", 804m, 2 },
-                    { 2, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5284), "Comprehensive textbook for Mathematics", null, "Textbook - Mathematics", 394m, 4 },
-                    { 3, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5309), "Powerful laptop for home and office use", null, "Laptop", 740m, 2 },
-                    { 4, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5315), "Slim and stylish 40-inch smart TV", null, "TV - 40 Inch", 72m, 5 },
-                    { 5, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5319), "Essential garden tools set for outdoor tasks", null, "Garden Tools Set", 490m, 4 },
-                    { 6, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5338), "High-performance smartphone with a large display", null, "Smartphone - Pro Edition", 113m, 3 },
-                    { 7, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5343), "Elegant leather sofa for living room", null, "Leather Sofa", 607m, 5 },
-                    { 8, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5348), "Fast-charging power bank for mobile devices", null, "Portable Power Bank", 664m, 2 },
-                    { 9, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5354), "Compact digital camera with high resolution", null, "Digital Camera", 99m, 1 },
-                    { 10, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5362), "Solid wood dining table with modern design", null, "Wooden Dining Table", 833m, 4 },
-                    { 11, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5368), "National Palestine flag for home and events", null, "Palestine Flag", 9m, 1 },
-                    { 12, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5374), "Flag of Egypt, durable and fade-resistant", null, "Egypt Flag", 8m, 2 },
-                    { 13, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5379), "Premium Saudi Arabia flag for outdoor use", null, "Flag of Saudi Arabia", 10m, 3 },
-                    { 14, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5384), "High-end gaming laptop with advanced graphics", null, "Gaming Laptop", 500m, 1 },
-                    { 15, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5390), "Compact smartphone with essential features", null, "Smartphone - Mini Edition", 300m, 2 },
-                    { 16, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5396), "10-inch tablet with large display and fast processor", null, "Tablet - 10 Inch", 200m, 3 },
-                    { 17, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5401), "Spacious double door refrigerator", null, "Refrigerator - Double Door", 800m, 4 },
-                    { 18, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5410), "Energy-efficient washing machine", null, "Washing Machine", 600m, 5 },
-                    { 19, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5415), "Compact microwave oven with multiple settings", null, "Microwave Oven", 150m, 4 },
-                    { 20, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5421), "Stylish and comfortable modern sofa", null, "Modern Sofa", 350m, 1 },
-                    { 21, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5427), "Classic dining table for six", null, "Classic Dining Table", 450m, 2 },
-                    { 22, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5433), "Sturdy queen-size bed frame", null, "Bed Frame - Queen Size", 400m, 3 },
-                    { 23, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5437), "Fiction novel by a best-selling author", null, "Novel - Fiction", 15m, 1 },
-                    { 24, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5442), "Collection of healthy recipes", null, "Cookbook - Healthy Recipes", 20m, 2 },
-                    { 25, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5447), "Educational science textbook for students", null, "Science Textbook", 30m, 3 },
-                    { 26, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5452), "High-resolution LCD monitor for desktop", null, "LCD Monitor", 180m, 2 },
-                    { 27, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5458), "Spacious 3-door wardrobe for bedrooms", null, "Wardrobe - 3 Door", 615m, 1 },
-                    { 28, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5463), "Decorative wall mirror for living room", null, "Wall Mirror", 563m, 1 },
-                    { 29, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5467), "Cookbook with quick and easy meal recipes", null, "Cookbook - Quick Meals", 243m, 3 },
-                    { 30, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5472), "Portable electric heater for home", null, "Electric Heater", 5m, 4 },
-                    { 31, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5476), "Soft kitchen rug with non-slip backing", null, "Kitchen Rug", 336m, 2 },
-                    { 32, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5481), "Powerful steam iron for wrinkle-free clothes", null, "Steam Iron", 874m, 1 },
-                    { 33, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5486), "Textbook on game theory and applications", null, "Game Theory Textbook", 436m, 2 },
-                    { 34, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5494), "Large curved monitor for immersive experience", null, "Curved Monitor", 927m, 3 },
-                    { 35, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5499), "Comfortable leather sofa for three people", null, "Leather Sofa - 3 Seater", 201m, 5 },
-                    { 36, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5505), "Essential cookbook for baking recipes", null, "Cookbook - Baking Essentials", 399m, 4 },
-                    { 37, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5511), "Durable Egypt flag for all occasions", null, "Egypt Flag", 549m, 2 },
-                    { 38, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5516), "Durable laptop for children's learning", null, "Laptop - Kid's Edition", 442m, 3 },
-                    { 39, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5522), "Elegant king-size bed frame", null, "Bed Frame - King Size", 657m, 5 },
-                    { 40, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5527), "Fast USB charger for multiple devices", null, "USB Charger", 257m, 3 },
-                    { 41, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5648), "Convertible tablet for mobile and desktop use", null, "Convertible Tablet", 639m, 4 },
-                    { 42, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5656), "Headphones with noise-cancelling feature", null, "Noise Cancelling Headphones", 676m, 5 },
-                    { 43, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5661), "Extendable dining table for extra seating", null, "Extendable Dining Table", 161m, 1 },
-                    { 44, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5666), "Miniature Palestine flag for display", null, "Palestine Flag - Mini", 9m, 1 },
-                    { 45, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5672), "High-quality Lebanon flag", null, "Lebanon Flag", 10m, 2 },
-                    { 46, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5677), "Durable USA flag for outdoor use", null, "USA Flag", 12m, 1 },
-                    { 47, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5682), "Quality China flag for display", null, "China Flag", 8m, 4 },
-                    { 48, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5687), "Vibrant Brazil flag for all occasions", null, "Brazil Flag", 11m, 5 },
-                    { 49, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5693), "Germany flag for international events", null, "Germany Flag", 10m, 1 },
-                    { 50, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5698), "Classic France flag for outdoor use", null, "France Flag", 9m, 2 },
-                    { 51, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5702), "United Kingdom flag for all seasons", null, "UK Flag", 13m, 3 },
-                    { 52, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5706), "Durable Russia flag for display", null, "Russia Flag", 9m, 4 },
-                    { 53, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5711), "High-quality Italy flag for indoor and outdoor use", null, "Italy Flag", 10m, 5 },
-                    { 54, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5716), "Portable USB flash drive with 16GB capacity", null, "USB Flash Drive", 50m, 3 },
-                    { 55, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5720), "Compact notebook for notes and ideas", null, "Notebook - A5 Size", 12m, 1 },
-                    { 56, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5725), "Smart fitness wristband for activity tracking", null, "Fitness Wristband", 20m, 4 },
-                    { 57, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5729), "Large Palestine flag for official events", null, "Palestine Flag - Large", 9m, 2 },
-                    { 58, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5735), "Portable Bluetooth speaker with deep bass", null, "Bluetooth Speaker", 40m, 5 },
-                    { 59, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5740), "Compact desk calendar for office use", null, "Desk Calendar", 18m, 3 },
-                    { 60, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5746), "Comfortable wireless headphones with long battery life", null, "Wireless Headphones", 65m, 2 },
-                    { 61, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5751), "Classic baseball cap with adjustable strap", null, "Baseball Cap", 15m, 1 },
-                    { 62, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5757), "Stainless steel insulated water bottle", null, "Insulated Water Bottle", 25m, 4 },
-                    { 63, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5763), "Artistic wall poster for home decoration", null, "Wall Poster - Art", 8m, 2 },
-                    { 64, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5768), "Small Palestine flag for personal use", null, "Palestine Flag - Small", 10m, 2 },
-                    { 65, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5774), "Durable ceramic coffee mug for office or home", null, "Ceramic Coffee Mug", 15m, 4 },
-                    { 66, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5784), "Jordan flag with vibrant colors", null, "Jordan Flag", 8m, 1 },
-                    { 67, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5790), "Durable metal keychain with modern design", null, "Metal Keychain", 5m, 3 },
-                    { 68, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5795), "Polarized sunglasses for UV protection", null, "Polarized Sunglasses", 25m, 5 },
-                    { 69, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5799), "Comfortable graphic t-shirt with unique design", null, "Graphic T-Shirt", 18m, 2 },
-                    { 70, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5804), "Durable hardcover notebook for everyday use", null, "Hardcover Notebook", 12m, 1 },
-                    { 71, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5809), "Stylish leather bracelet for daily wear", null, "Leather Bracelet", 20m, 4 },
-                    { 72, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5814), "Customizable laptop sticker for decoration", null, "Laptop Decal Sticker", 7m, 5 },
-                    { 73, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5819), "Smooth writing ballpoint pen", null, "Ballpoint Pen", 6m, 3 },
-                    { 74, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5823), "Premium noise-cancelling headphones", null, "Noise-Cancelling Headphones", 50m, 2 },
-                    { 75, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5829), "Compact Bluetooth speaker for outdoor use", null, "Portable Bluetooth Speaker", 55m, 4 },
-                    { 76, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5834), "Eco-friendly reusable water bottle", null, "Reusable Water Bottle", 20m, 5 },
-                    { 77, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5839), "Framed wall poster for home decor", null, "Framed Poster", 10m, 1 },
-                    { 78, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5844), "Protective silicone phone case", null, "Silicone Phone Case", 15m, 3 },
-                    { 79, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5849), "Spacious travel backpack with multiple compartments", null, "Travel Backpack", 30m, 2 },
-                    { 80, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5854), "Fitness smartwatch with health tracking features", null, "Smartwatch - Fitness Edition", 80m, 4 },
-                    { 81, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5858), "Durable duffel bag for travel", null, "Travel Duffel Bag", 35m, 5 },
-                    { 82, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5864), "Slim power bank with fast charging", null, "Portable Power Bank - Slim", 25m, 3 },
-                    { 83, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5869), "High-speed USB flash drive with 32GB capacity", null, "High-Speed Flash Drive", 10m, 2 },
-                    { 84, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5874), "Compact desktop calendar for office use", null, "Desktop Calendar", 8m, 1 },
-                    { 85, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5878), "Comfortable mouse pad with wrist support", null, "Ergonomic Mouse Pad", 12m, 4 },
-                    { 86, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5884), "Fast charging USB charger for multiple devices", null, "Fast Charging Charger", 15m, 5 },
-                    { 87, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5889), "Durable silicone wristband for everyday wear", null, "Silicone Wristband", 10m, 2 },
-                    { 88, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5895), "Quality Syria flag for events", null, "Syria Flag", 9m, 3 },
-                    { 89, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5900), "Portable umbrella for travel", null, "Compact Umbrella", 12m, 4 },
-                    { 90, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5905), "Small Lebanon flag for personal use", null, "Lebanon Flag - Small", 7m, 5 },
-                    { 91, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5910), "Multi-functional desk organizer for office supplies", null, "Office Desk Organizer", 18m, 1 },
-                    { 92, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5915), "High-quality art poster for home decor", null, "Art Wall Poster", 9m, 2 },
-                    { 93, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5920), "Comfortable Bluetooth over-ear headphones", null, "Bluetooth Over-Ear Headphones", 55m, 3 },
-                    { 94, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5984), "Personalized keychain with durable metal", null, "Custom Keychain", 5m, 4 },
-                    { 95, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5992), "Luxury smartwatch with premium features", null, "Smartwatch - Luxury Edition", 90m, 5 },
-                    { 96, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(5997), "Smooth writing rollerball pen", null, "Rollerball Pen", 6m, 2 },
-                    { 97, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6002), "Durable academic notebook for school and office", null, "Academic Notebook", 14m, 3 },
-                    { 98, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6007), "Breathable summer cap with adjustable strap", null, "Summer Cap", 12m, 4 },
-                    { 99, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6013), "Polarized sunglasses with black frame", null, "Polarized Sunglasses - Black", 25m, 1 },
-                    { 100, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6018), "Stylish charm bracelet for daily wear", null, "Charm Bracelet", 20m, 3 },
-                    { 101, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6022), "Durable protective case for smartphones", null, "Protective Phone Case", 15m, 2 },
-                    { 102, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6028), "Spacious and ergonomic travel backpack", null, "Travel Backpack", 32m, 5 },
-                    { 103, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6032), "Double-walled insulated water bottle", null, "Insulated Water Bottle", 18m, 4 },
-                    { 104, 2, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6037), "Wireless keyboard compatible with all laptops", null, "Wireless Laptop Keyboard", 6m, 1 },
-                    { 105, 5, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6042), "High-speed phone charger with universal compatibility", null, "Fast Charging Phone Charger", 16m, 2 },
-                    { 106, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6047), "64GB high-speed USB flash drive", null, "USB Flash Drive", 12m, 3 },
-                    { 107, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6052), "Elegant leather wristband for men and women", null, "Leather Wristband", 11m, 5 },
-                    { 108, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6058), "Stylish desktop calendar with monthly pages", null, "Desktop Calendar", 8m, 4 },
-                    { 109, 3, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6063), "Smooth-writing gel ink pen for office use", null, "Gel Ink Pen", 7m, 1 },
-                    { 110, 4, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6069), "Lightweight expandable travel bag", null, "Expandable Travel Bag", 36m, 3 },
-                    { 111, 1, new DateTime(2024, 10, 18, 15, 51, 56, 659, DateTimeKind.Local).AddTicks(6075), "Classic journal notebook for writing and notes", null, "Journal Notebook", 13m, 2 }
+                    { 1, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(5182), "High-quality Saudi Arabia flag for display", null, "Saudi Arabia Flag", 804m, 2 },
+                    { 2, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9065), "Comprehensive textbook for Mathematics", null, "Textbook - Mathematics", 394m, 4 },
+                    { 3, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9108), "Powerful laptop for home and office use", null, "Laptop", 740m, 2 },
+                    { 4, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9115), "Slim and stylish 40-inch smart TV", null, "TV - 40 Inch", 72m, 5 },
+                    { 5, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9121), "Essential garden tools set for outdoor tasks", null, "Garden Tools Set", 490m, 4 },
+                    { 6, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9145), "High-performance smartphone with a large display", null, "Smartphone - Pro Edition", 113m, 3 },
+                    { 7, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9151), "Elegant leather sofa for living room", null, "Leather Sofa", 607m, 5 },
+                    { 8, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9156), "Fast-charging power bank for mobile devices", null, "Portable Power Bank", 664m, 2 },
+                    { 9, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9162), "Compact digital camera with high resolution", null, "Digital Camera", 99m, 1 },
+                    { 10, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9172), "Solid wood dining table with modern design", null, "Wooden Dining Table", 833m, 4 },
+                    { 11, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9178), "National Palestine flag for home and events", null, "Palestine Flag", 9m, 1 },
+                    { 12, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9184), "Flag of Egypt, durable and fade-resistant", null, "Egypt Flag", 8m, 2 },
+                    { 13, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9190), "Premium Saudi Arabia flag for outdoor use", null, "Flag of Saudi Arabia", 10m, 3 },
+                    { 14, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9196), "High-end gaming laptop with advanced graphics", null, "Gaming Laptop", 500m, 1 },
+                    { 15, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9202), "Compact smartphone with essential features", null, "Smartphone - Mini Edition", 300m, 2 },
+                    { 16, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9208), "10-inch tablet with large display and fast processor", null, "Tablet - 10 Inch", 200m, 3 },
+                    { 17, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9214), "Spacious double door refrigerator", null, "Refrigerator - Double Door", 800m, 4 },
+                    { 18, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9274), "Energy-efficient washing machine", null, "Washing Machine", 600m, 5 },
+                    { 19, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9286), "Compact microwave oven with multiple settings", null, "Microwave Oven", 150m, 4 },
+                    { 20, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9292), "Stylish and comfortable modern sofa", null, "Modern Sofa", 350m, 1 },
+                    { 21, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9297), "Classic dining table for six", null, "Classic Dining Table", 450m, 2 },
+                    { 22, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9303), "Sturdy queen-size bed frame", null, "Bed Frame - Queen Size", 400m, 3 },
+                    { 23, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9309), "Fiction novel by a best-selling author", null, "Novel - Fiction", 15m, 1 },
+                    { 24, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9315), "Collection of healthy recipes", null, "Cookbook - Healthy Recipes", 20m, 2 },
+                    { 25, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9321), "Educational science textbook for students", null, "Science Textbook", 30m, 3 },
+                    { 26, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9326), "High-resolution LCD monitor for desktop", null, "LCD Monitor", 180m, 2 },
+                    { 27, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9333), "Spacious 3-door wardrobe for bedrooms", null, "Wardrobe - 3 Door", 615m, 1 },
+                    { 28, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9455), "Decorative wall mirror for living room", null, "Wall Mirror", 563m, 1 },
+                    { 29, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9463), "Cookbook with quick and easy meal recipes", null, "Cookbook - Quick Meals", 243m, 3 },
+                    { 30, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9469), "Portable electric heater for home", null, "Electric Heater", 5m, 4 },
+                    { 31, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9474), "Soft kitchen rug with non-slip backing", null, "Kitchen Rug", 336m, 2 },
+                    { 32, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9479), "Powerful steam iron for wrinkle-free clothes", null, "Steam Iron", 874m, 1 },
+                    { 33, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9484), "Textbook on game theory and applications", null, "Game Theory Textbook", 436m, 2 },
+                    { 34, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9526), "Large curved monitor for immersive experience", null, "Curved Monitor", 927m, 3 },
+                    { 35, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9533), "Comfortable leather sofa for three people", null, "Leather Sofa - 3 Seater", 201m, 5 },
+                    { 36, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9539), "Essential cookbook for baking recipes", null, "Cookbook - Baking Essentials", 399m, 4 },
+                    { 37, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9544), "Durable Egypt flag for all occasions", null, "Egypt Flag", 549m, 2 },
+                    { 38, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9549), "Durable laptop for children's learning", null, "Laptop - Kid's Edition", 442m, 3 },
+                    { 39, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9555), "Elegant king-size bed frame", null, "Bed Frame - King Size", 657m, 5 },
+                    { 40, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9560), "Fast USB charger for multiple devices", null, "USB Charger", 257m, 3 },
+                    { 41, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9566), "Convertible tablet for mobile and desktop use", null, "Convertible Tablet", 639m, 4 },
+                    { 42, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9571), "Headphones with noise-cancelling feature", null, "Noise Cancelling Headphones", 676m, 5 },
+                    { 43, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9576), "Extendable dining table for extra seating", null, "Extendable Dining Table", 161m, 1 },
+                    { 44, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9582), "Miniature Palestine flag for display", null, "Palestine Flag - Mini", 9m, 1 },
+                    { 45, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9587), "High-quality Lebanon flag", null, "Lebanon Flag", 10m, 2 },
+                    { 46, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9593), "Durable USA flag for outdoor use", null, "USA Flag", 12m, 1 },
+                    { 47, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9598), "Quality China flag for display", null, "China Flag", 8m, 4 },
+                    { 48, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9604), "Vibrant Brazil flag for all occasions", null, "Brazil Flag", 11m, 5 },
+                    { 49, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9610), "Germany flag for international events", null, "Germany Flag", 10m, 1 },
+                    { 50, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9615), "Classic France flag for outdoor use", null, "France Flag", 9m, 2 },
+                    { 51, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9649), "United Kingdom flag for all seasons", null, "UK Flag", 13m, 3 },
+                    { 52, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9656), "Durable Russia flag for display", null, "Russia Flag", 9m, 4 },
+                    { 53, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9662), "High-quality Italy flag for indoor and outdoor use", null, "Italy Flag", 10m, 5 },
+                    { 54, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9668), "Portable USB flash drive with 16GB capacity", null, "USB Flash Drive", 50m, 3 },
+                    { 55, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9673), "Compact notebook for notes and ideas", null, "Notebook - A5 Size", 12m, 1 },
+                    { 56, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9680), "Smart fitness wristband for activity tracking", null, "Fitness Wristband", 20m, 4 },
+                    { 57, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9685), "Large Palestine flag for official events", null, "Palestine Flag - Large", 9m, 2 },
+                    { 58, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9690), "Portable Bluetooth speaker with deep bass", null, "Bluetooth Speaker", 40m, 5 },
+                    { 59, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9696), "Compact desk calendar for office use", null, "Desk Calendar", 18m, 3 },
+                    { 60, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9701), "Comfortable wireless headphones with long battery life", null, "Wireless Headphones", 65m, 2 },
+                    { 61, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9706), "Classic baseball cap with adjustable strap", null, "Baseball Cap", 15m, 1 },
+                    { 62, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9711), "Stainless steel insulated water bottle", null, "Insulated Water Bottle", 25m, 4 },
+                    { 63, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9718), "Artistic wall poster for home decoration", null, "Wall Poster - Art", 8m, 2 },
+                    { 64, 1, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9723), "Small Palestine flag for personal use", null, "Palestine Flag - Small", 10m, 2 },
+                    { 65, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9729), "Durable ceramic coffee mug for office or home", null, "Ceramic Coffee Mug", 15m, 4 },
+                    { 66, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9737), "Jordan flag with vibrant colors", null, "Jordan Flag", 8m, 1 },
+                    { 67, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9818), "Durable metal keychain with modern design", null, "Metal Keychain", 5m, 3 },
+                    { 68, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9827), "Polarized sunglasses for UV protection", null, "Polarized Sunglasses", 25m, 5 },
+                    { 69, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9833), "Comfortable graphic t-shirt with unique design", null, "Graphic T-Shirt", 18m, 2 },
+                    { 70, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9838), "Durable hardcover notebook for everyday use", null, "Hardcover Notebook", 12m, 1 },
+                    { 71, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9844), "Stylish leather bracelet for daily wear", null, "Leather Bracelet", 20m, 4 },
+                    { 72, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9849), "Customizable laptop sticker for decoration", null, "Laptop Decal Sticker", 7m, 5 },
+                    { 73, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9855), "Smooth writing ballpoint pen", null, "Ballpoint Pen", 6m, 3 },
+                    { 74, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9860), "Premium noise-cancelling headphones", null, "Noise-Cancelling Headphones", 50m, 2 },
+                    { 75, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9865), "Compact Bluetooth speaker for outdoor use", null, "Portable Bluetooth Speaker", 55m, 4 },
+                    { 76, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9870), "Eco-friendly reusable water bottle", null, "Reusable Water Bottle", 20m, 5 },
+                    { 77, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9969), "Framed wall poster for home decor", null, "Framed Poster", 10m, 1 },
+                    { 78, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9978), "Protective silicone phone case", null, "Silicone Phone Case", 15m, 3 },
+                    { 79, 2, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9983), "Spacious travel backpack with multiple compartments", null, "Travel Backpack", 30m, 2 },
+                    { 80, 4, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9988), "Fitness smartwatch with health tracking features", null, "Smartwatch - Fitness Edition", 80m, 4 },
+                    { 81, 3, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9994), "Durable duffel bag for travel", null, "Travel Duffel Bag", 35m, 5 },
+                    { 82, 5, new DateTime(2024, 10, 22, 0, 8, 22, 752, DateTimeKind.Local).AddTicks(9999), "Slim power bank with fast charging", null, "Portable Power Bank - Slim", 25m, 3 },
+                    { 83, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(34), "High-speed USB flash drive with 32GB capacity", null, "High-Speed Flash Drive", 10m, 2 },
+                    { 84, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(41), "Compact desktop calendar for office use", null, "Desktop Calendar", 8m, 1 },
+                    { 85, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(47), "Comfortable mouse pad with wrist support", null, "Ergonomic Mouse Pad", 12m, 4 },
+                    { 86, 5, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(53), "Fast charging USB charger for multiple devices", null, "Fast Charging Charger", 15m, 5 },
+                    { 87, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(58), "Durable silicone wristband for everyday wear", null, "Silicone Wristband", 10m, 2 },
+                    { 88, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(64), "Quality Syria flag for events", null, "Syria Flag", 9m, 3 },
+                    { 89, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(69), "Portable umbrella for travel", null, "Compact Umbrella", 12m, 4 },
+                    { 90, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(74), "Small Lebanon flag for personal use", null, "Lebanon Flag - Small", 7m, 5 },
+                    { 91, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(80), "Multi-functional desk organizer for office supplies", null, "Office Desk Organizer", 18m, 1 },
+                    { 92, 5, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(85), "High-quality art poster for home decor", null, "Art Wall Poster", 9m, 2 },
+                    { 93, 5, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(91), "Comfortable Bluetooth over-ear headphones", null, "Bluetooth Over-Ear Headphones", 55m, 3 },
+                    { 94, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(96), "Personalized keychain with durable metal", null, "Custom Keychain", 5m, 4 },
+                    { 95, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(102), "Luxury smartwatch with premium features", null, "Smartwatch - Luxury Edition", 90m, 5 },
+                    { 96, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(107), "Smooth writing rollerball pen", null, "Rollerball Pen", 6m, 2 },
+                    { 97, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(112), "Durable academic notebook for school and office", null, "Academic Notebook", 14m, 3 },
+                    { 98, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(117), "Breathable summer cap with adjustable strap", null, "Summer Cap", 12m, 4 },
+                    { 99, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(123), "Polarized sunglasses with black frame", null, "Polarized Sunglasses - Black", 25m, 1 },
+                    { 100, 5, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(128), "Stylish charm bracelet for daily wear", null, "Charm Bracelet", 20m, 3 },
+                    { 101, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(134), "Durable protective case for smartphones", null, "Protective Phone Case", 15m, 2 },
+                    { 102, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(139), "Spacious and ergonomic travel backpack", null, "Travel Backpack", 32m, 5 },
+                    { 103, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(144), "Double-walled insulated water bottle", null, "Insulated Water Bottle", 18m, 4 },
+                    { 104, 2, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(150), "Wireless keyboard compatible with all laptops", null, "Wireless Laptop Keyboard", 6m, 1 },
+                    { 105, 5, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(155), "High-speed phone charger with universal compatibility", null, "Fast Charging Phone Charger", 16m, 2 },
+                    { 106, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(160), "64GB high-speed USB flash drive", null, "USB Flash Drive", 12m, 3 },
+                    { 107, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(166), "Elegant leather wristband for men and women", null, "Leather Wristband", 11m, 5 },
+                    { 108, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(171), "Stylish desktop calendar with monthly pages", null, "Desktop Calendar", 8m, 4 },
+                    { 109, 3, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(177), "Smooth-writing gel ink pen for office use", null, "Gel Ink Pen", 7m, 1 },
+                    { 110, 4, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(182), "Lightweight expandable travel bag", null, "Expandable Travel Bag", 36m, 3 },
+                    { 111, 1, new DateTime(2024, 10, 22, 0, 8, 22, 753, DateTimeKind.Local).AddTicks(187), "Classic journal notebook for writing and notes", null, "Journal Notebook", 13m, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -591,11 +614,11 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreateAt", "ItemsSold", "ProductId", "SaleDate", "TotalPrice", "WareHouseId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(2588), 5, 1, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(2909), 100m, 3 },
-                    { 2, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(3994), 10, 2, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(3997), 200m, 1 },
-                    { 3, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(4002), 15, 3, new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300m, 5 },
-                    { 4, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(4029), 20, 4, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 400m, 2 },
-                    { 5, new DateTime(2024, 10, 18, 15, 51, 56, 667, DateTimeKind.Local).AddTicks(4034), 25, 5, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 500m, 3 }
+                    { 1, new DateTime(2024, 10, 22, 0, 8, 22, 773, DateTimeKind.Local).AddTicks(7667), 5, 1, new DateTime(2024, 10, 22, 0, 8, 22, 773, DateTimeKind.Local).AddTicks(8257), 100m, 3 },
+                    { 2, new DateTime(2024, 10, 22, 0, 8, 22, 774, DateTimeKind.Local).AddTicks(531), 10, 2, new DateTime(2024, 10, 22, 0, 8, 22, 774, DateTimeKind.Local).AddTicks(538), 200m, 1 },
+                    { 3, new DateTime(2024, 10, 22, 0, 8, 22, 774, DateTimeKind.Local).AddTicks(550), 15, 3, new DateTime(2024, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300m, 5 },
+                    { 4, new DateTime(2024, 10, 22, 0, 8, 22, 774, DateTimeKind.Local).AddTicks(756), 20, 4, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 400m, 2 },
+                    { 5, new DateTime(2024, 10, 22, 0, 8, 22, 774, DateTimeKind.Local).AddTicks(765), 25, 5, new DateTime(2024, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 500m, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -653,6 +676,16 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "ProductId", "WareHouseId" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserWarehouses_UserId",
+                table: "UserWarehouses",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserWarehouses_WarehouseId",
+                table: "UserWarehouses",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WareHousesProducts_WareHouseID",
                 table: "WareHousesProducts",
                 column: "WareHouseID");
@@ -680,13 +713,16 @@ namespace Inventory.Data.Migrations
                 name: "Sales");
 
             migrationBuilder.DropTable(
+                name: "UserWarehouses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "WareHousesProducts");
 
             migrationBuilder.DropTable(
-                name: "WareHousesProducts");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Products");
