@@ -28,15 +28,21 @@ $.get("/Dashboard/GetWarehouseDetails", function (warehouseData) {
 
 });
 
-//change that number to get it from authorization somehow
-changeCharts(1)
 
-function warehouseChanged(id, element) {
+//change that number to get it from authorization somehow
+$.get("/Dashboard/GetWarehouseAccess", function (warehouseID) {
+
+    warehouseID == 0 ? warehouseChanged(1) : warehouseChanged(warehouseID);
+
+});
+
+
+function warehouseChanged(id) {
     // Remove 'active' class from all buttons
     $(".wh-btn").removeClass("active");
-
     // Add 'active' class to the clicked button
-    $(element).addClass("active");
+    btnID = `#btn_${id}`
+    $(btnID).addClass("active");
     changeCharts(id)
 }
 var productsPieChart;

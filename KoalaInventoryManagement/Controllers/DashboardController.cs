@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using Inventory.Data.Models;
+using NuGet.Protocol;
+using BoldReports.Shared.Serializer;
 
 namespace KoalaInventoryManagement.Controllers
 {
@@ -21,8 +23,6 @@ namespace KoalaInventoryManagement.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User);
-            var roles = await _userManager.GetRolesAsync(user);
             var dashboardViewModel = new DashboardViewModel();
 
             // Get total counts for all warehouses
@@ -32,11 +32,6 @@ namespace KoalaInventoryManagement.Controllers
 
             // Filter warehouses based on roles
             var warehouses =  _unitOfWork.WareHouses.GetAll();
-            if (roles.Any(role => role.StartsWith("WHManager")))
-            {
-                // Filter warehouses based on the specific WHManager role
-                warehouses = warehouses.Where(wh => roles.Contains("WHManager" + wh.Id.ToString()));
-            }
 
             dashboardViewModel.Warehouses = warehouses
                 .Select(wh => new WarehouseViewModel
@@ -117,6 +112,10 @@ namespace KoalaInventoryManagement.Controllers
             };
 
             return Json(charts);
+        }
+        public  IActionResult GetWarehouseAccess()
+        {
+            return Json(_unitOfWork.WareHousesProducts.GetWareHouseIdByUserId(_userManager.GetUserId(User)));
         }
     }
 }
