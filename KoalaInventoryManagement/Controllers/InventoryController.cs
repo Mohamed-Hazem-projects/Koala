@@ -42,7 +42,7 @@ namespace KoalaInventoryManagement.Controllers
             ViewBag.AllCategories = await _unitOfWork?.Categories?.GetAllAsync() ?? new List<Category>();
             ViewBag.WareHouseManagerID = warehouseId > 0 ? warehouseId : 0;
 
-            //Pagination
+            //Paginations
             var paginatedProducts = productsViewModel
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
