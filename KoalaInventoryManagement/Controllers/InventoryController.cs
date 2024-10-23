@@ -5,6 +5,7 @@ using KoalaInventoryManagement.Services;
 using KoalaInventoryManagement.Services.Filteration;
 using KoalaInventoryManagement.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
@@ -15,37 +16,39 @@ namespace KoalaInventoryManagement.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductFilterService _productFilter;
+        private readonly UserManager<ApplicationUser> _userManager;
         private static List<ProductViewModel> _ProductsAfterFilter = new List<ProductViewModel>();
 
-        public InventoryController(IUnitOfWork unitOfWork, IProductFilterService productFilter)
+        public InventoryController(UserManager<ApplicationUser> userManager , IUnitOfWork unitOfWork, IProductFilterService productFilter)
         {
             _unitOfWork = unitOfWork;
             _productFilter = productFilter;
+            _userManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult Index(int page = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            // Get the role from session
-            var userRole = HttpContext.Session.GetString("UserRole");
+            var userId = _userManager.GetUserId(User);
+            var userRoles = await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(userId));
 
-            // Extract the warehouse ID from the role (e.g., 'WHManager1' -> 1)
+            string userRole = userRoles.FirstOrDefault();
             int warehouseId = 0;
-            if (userRole != null && userRole.StartsWith("WHManager"))
-                int.TryParse(userRole.Substring("WHManager".Length), out warehouseId);
 
-            List<ProductViewModel> productsViewModel = _productFilter.ProductsPerRole(warehouseId);
+            List<ProductViewModel> productsViewModel = _productFilter.ProductsPerRole(userId, userRole);
 
             ViewBag.AllWareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
-            ViewBag.AllSuppliers = _unitOfWork?.Suppliers?.GetAllAsync().Result?.ToList() ?? new List<Supplier>();
-            ViewBag.AllCategories = _unitOfWork?.Categories?.GetAllAsync().Result?.ToList() ?? new List<Category>();
+            ViewBag.AllSuppliers = await _unitOfWork?.Suppliers?.GetAllAsync() ?? new List<Supplier>();
+            ViewBag.AllCategories = await _unitOfWork?.Categories?.GetAllAsync() ?? new List<Category>();
             ViewBag.WareHouseManagerID = warehouseId > 0 ? warehouseId : 0;
 
+            //Paginations
+            var paginatedProducts = productsViewModel
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .DistinctBy(p => p.Id)
+                .ToList();
 
-            var paginatedProducts
-                = productsViewModel.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
-
-            // Pass pagination metadata to the view
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = pageSize;
             ViewBag.TotalPages = (int)Math.Ceiling(productsViewModel.Count / (double)pageSize);
@@ -63,14 +66,7 @@ namespace KoalaInventoryManagement.Controllers
 
             string? userRole = HttpContext.Session.GetString("UserRole");
 
-            // Filter the products using the filtration service
-            List<ProductViewModel> filteredProducts
-                = _productFilter?.FilterData(wareHouseID, categoryID, supplierID, searchString, userRole ?? string.Empty)
-                    ?? new List<ProductViewModel>();
-
-            //Getting Filtered Products to be fetched in Reports
-            _ProductsAfterFilter.Clear();
-            _ProductsAfterFilter.AddRange(filteredProducts);
+            List<ProductViewModel> filteredProducts = _productFilter.FilterData(wareHouseID, categoryID, supplierID, searchString, userRole ?? string.Empty);
 
             var paginatedProducts = filteredProducts.Skip((page - 1) * pageSize).Take(pageSize).DistinctBy(p => p.Id).ToList();
 
@@ -83,6 +79,7 @@ namespace KoalaInventoryManagement.Controllers
             });
         }
         #endregion
+
 
         #region CRUD Operations
         [HttpPost]
@@ -217,6 +214,7 @@ namespace KoalaInventoryManagement.Controllers
         }
         #endregion
 
+
         #region Details Management
         [HttpGet]
         public IActionResult ShowDetails(int id)
@@ -283,6 +281,7 @@ namespace KoalaInventoryManagement.Controllers
             return BadRequest("Not Valid Data.");
         }
         #endregion
+
 
         #region Reporting
         public IActionResult OnGet()

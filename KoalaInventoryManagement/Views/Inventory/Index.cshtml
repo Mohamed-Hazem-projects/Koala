@@ -1,4 +1,4 @@
-﻿@using Newtonsoft.Json
+﻿@using Newtonsoft.Json 
 @model List<ProductViewModel>
 
 @{
@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="~/css/Suppliers/suppliers.css" />
 <link href="~/css/inventory/inventory.css" rel="stylesheet" />
+
 <div class="container-fluid p-0 suppliers">
     <!-- Products Header Start -->
     <div class="content-header">
@@ -21,14 +22,14 @@
     <!-- Products Header End -->
 
     <!-- Filteration Start -->
-    <div class="d-flex justify-content-center align-items-center flex-column">
+     <div class="d-flex justify-content-center align-items-center flex-column">
         <br />
         <input id="searchInput" class="form-control" style="width:500px;font-size:large" type="text" placeholder="Search products..." />
         <input type="hidden" id="getFilteredProductsUrl" value="@getFilteredProductsUrl" />
         <br />
         <div class="d-flex justify-content-center align-items-center gap-3" style="width:auto">
-            @* WareHouse Filter Button Start *@
-            @if (User.IsInRole("Admin"))  // Check if user is an Admin
+            <!-- WareHouse Filter Button Start -->
+            @if (User.IsInRole("Admin"))  
             {
                 <select id="wareHouseID" class="form-select" name="warehouseId" aria-label="Default select example">
                     <option selected>All Warehouses</option>
@@ -44,6 +45,7 @@
                 </select>
             }
             @* WareHouse Filter Button End *@
+
             <!-- Category Filter Button Start -->
             <select id="categoryID" class="form-select" name="categoryID" aria-label="Default select example">
                 <option selected>All Categories</option>
@@ -58,6 +60,7 @@
                 }
             </select>
             <!-- Category Filter Button End -->
+
             <!-- Supplier Filter Button Start -->
             <select id="supplierID" class="form-select" name="supplierID" aria-label="Default select example">
                 <option selected>All Suppliers</option>
@@ -71,27 +74,28 @@
                     <option value="@supplier.Id">@supplier.Name</option>
                 }
             </select>
+
             <!-- Supplier Filter Button End -->
             <div>
                 <a download href="inventory/OnGet" class="btn btn-sm text-light" style = "background-color: #593bdb;">Download Report</a>
             </div>
         </div>
         <br />
-    </div>
+    </div> 
     <!-- Filteration End -->
 
     <!-- Products Table Start -->
     <div class="bg-offwhite">
         <div class="col-lg-12 p-3">
             <div class="card">
-                <div class="card-header">
+                 <div class="card-header">
                     <h4 class="card-title roboto">Products</h4>
-                    @* Show Add button only if the user has the correct role *@
-                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                @* Show Add button only if the user has the correct role *@
+                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager") )
                     {
                         <button class="add-btn" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Add</button>
                     }
-                </div>
+                </div> 
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="productsTable" class="table table-bordered verticle-middle table-responsive-sm">
@@ -101,16 +105,16 @@
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Image</th>
-                                    @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                     @if (User.IsInRole("Admin") || User.IsInRole("WHManager"))
                                     {
                                         <th class="btn-head" scope="col">Info</th>
                                         <th class="btn-head" scope="col">Edit</th>
                                         <th class="btn-head" scope="col">Delete</th>
-                                    }
+                                    } 
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in Model ?? new List<ProductViewModel>())
+                                @foreach (var product in Model)
                                 {
                                     <tr>
                                         <td>@product.Name</td>
@@ -129,12 +133,12 @@
                                             }
                                         </td>
                                           
-                                        <td>
+                                         <td>
                                             <a href="/Inventory/ShowDetails/@product.Id" class="btn btn-labeled">
                                                 <i class="fa fa-info-circle color-info"></i>
                                             </a>
                                         </td>
-                                        @if (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5"))
+                                        @if (User.IsInRole("Admin") || User.IsInRole("WHManager"))
                                         {
                                             <td class="btn-td edit">
                                                 <a onclick="openEditModalProduct(@product.Id, '@product.Name', '@product.Description', @product.Price, '@product.Image', @product.CategoryID, @product.SupplierID)">
@@ -146,7 +150,7 @@
                                                     <i class="fa fa-close color-danger"></i>
                                                 </a>
                                             </td>
-                                        }
+                                        } 
                                     </tr>
                                 }
                             </tbody>
@@ -160,19 +164,22 @@
 
     <!-- Pagination Start -->
     <div class="pagination-container d-flex justify-content-center">
-        @if (ViewBag?.TotalPages > 1)
+        @if (ViewBag.TotalPages > 1)
         {
-            <ul class="pagination">
-                @for (var i = 1; i <= ViewBag?.TotalPages; i++)
-                {
-                    <li class="page-item @(i == ViewBag?.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="#" data-page="@i">@i</a>
-                    </li>
-                }
-            </ul>
+                <ul class="pagination">
+                    @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="#" data-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+
         }
     </div>
+
     <!-- Pagination End -->
+
 </div>
 
 
@@ -298,7 +305,7 @@
 <!-- Add or Edit Product Modal End-->
 
 <!-- Confirm Delete Start-->
-<div class="overlay" onclick="closeConfirmDelete(event)"></div>
+ <div class="overlay" onclick="closeConfirmDelete(event)"></div>
 <div class="mainconfirm">
     <i class="fa-solid fa-xmark close" onclick="closeConfirmDelete(event)"></i>
     <i class="fa-regular fa-circle-xmark red"></i>
@@ -317,11 +324,10 @@
         <button class="close2" onclick="closeConfirmDelete(event)">Close</button>
         <button class="delete" onclick="startAnimation()">Delete</button>
     </div>
-</div>
+</div> 
 <!-- Confirm Delete End-->
 
 
 @section Scripts {
-    <script src="~/js/Inventory/Filteration.js"></script>
-    <script src="~/js/Inventory/Inventory.js"></script>
+    <script src="~/js/Inventory/Inventory.js"></script> 
 }

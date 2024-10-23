@@ -83,6 +83,16 @@ namespace Inventory.Data.Context
             modelBuilder.Entity<WareHouseProduct>()
                             .HasKey(whp => new { whp.ProductID, whp.WareHouseID });
 
+            modelBuilder.Entity<WareHouseProduct>()
+           .HasOne(wp => wp.WareHouse)
+           .WithMany(w => w.WareHouseProducts)
+           .HasForeignKey(wp => wp.WareHouseID);
+
+            modelBuilder.Entity<WareHouseProduct>()
+                .HasOne(wp => wp.Product)
+                .WithMany(p => p.WareHouseProducts)
+                .HasForeignKey(wp => wp.ProductID);
+
             modelBuilder.Entity<WareHouse>()
                             .HasMany(w => w.WareHouseProducts)
                             .WithOne(whp => whp.WareHouse)

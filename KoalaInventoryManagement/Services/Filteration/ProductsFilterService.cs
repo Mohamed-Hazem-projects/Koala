@@ -1,97 +1,91 @@
-﻿using Inventory.Repository.Interfaces;
-using KoalaInventoryManagement.Models;
-using KoalaInventoryManagement.Services.Filteration;
+﻿using Inventory.Data.Models;
+using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.ViewModels.Products;
-using Newtonsoft.Json;
 
-namespace KoalaInventoryManagement.Services
+namespace KoalaInventoryManagement.Services.Filteration
 {
-    public class ProductsFilterService : IProductFilterService
+    public class ProductFilterService : IProductFilterService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductsFilterService(IUnitOfWork unitOfWork)
-            => _unitOfWork = unitOfWork;
-
-        public List<ProductViewModel> FilterData(int wareHouseID, int categoryID, int supplierID, string searchString, string role)
+        public ProductFilterService(IUnitOfWork unitOfWork)
         {
-            //LoggedRole loggedRole = LoggedRole.Admin;
-            int wareHouseIdForManager = 0;
+            _unitOfWork = unitOfWork;
+        }
 
-            if (!string.IsNullOrEmpty(role))
-                if (role.StartsWith("WHManager"))
-                    int.TryParse(role.Substring("WHManager".Length), out wareHouseIdForManager);
+        public List<ProductViewModel> ProductsPerRole(string userId, string userRole)
+        {
+            // Retrieve products based on user role
+            // This is just a sample logic; adjust according to your requirements
+            if (userRole == "Admin")
+            {
+                return _unitOfWork.Products.GetAll().Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Description = p.Description,
+                    SupplierID = (int)p.SupplierId,
+                    CategoryID = (int)p.CategoryId
+                }).ToList();
+            }
+            else if (userRole.StartsWith("WHManager"))
+            {   
+                int warehouseId = _unitOfWork.WareHousesProducts.GetWareHouseIdByUserId(userId);
+                 var productss =  _unitOfWork.WareHousesProducts.GetByWarehouseId(warehouseId)
+                    .Select(whp => new ProductViewModel
+                    {
+                        Id = whp.Product.Id,
+                        Name = whp.Product.Name,
+                        Price = whp.Product.Price,
+                        Description = whp.Product.Description,
+                        SupplierID = (int)whp.Product.SupplierId,
+                        CategoryID = (int)whp.Product.CategoryId
+                    }).ToList();
+                return productss;
+            }
 
-            List<ProductViewModel> productsViewModel = ProductsPerRole(wareHouseIdForManager);
+            return null;
+        }
 
-            var filteredProducts = productsViewModel.AsQueryable();
+        public List<ProductViewModel> FilterData(int wareHouseID, int categoryID, int supplierID, string searchString, string userRole)
+        {
+            var products = _unitOfWork.Products.GetAll();
 
             if (wareHouseID > 0)
             {
-                filteredProducts = filteredProducts.Where(s => s.WareHouseID == wareHouseID);
+                products = products.Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == wareHouseID));
             }
+
             if (categoryID > 0)
             {
-                filteredProducts = filteredProducts.Where(s => s.CategoryID == categoryID);
+                products = products.Where(p => p.CategoryId == categoryID);
             }
+
             if (supplierID > 0)
             {
-                filteredProducts = filteredProducts.Where(s => s.SupplierID == supplierID);
-            }
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                filteredProducts = filteredProducts.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
+                products = products.Where(p => p.SupplierId == supplierID);
             }
 
-            return filteredProducts.ToList();
-        }
-
-        public List<ProductViewModel> ProductsPerRole(int wareHouseId)
-        {
-            List<Product> products;
-
-            if (wareHouseId > 0)
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
-                products = _unitOfWork?.Products?
-                              .GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?
-                              .Where(p => p.WareHouseProducts.Any(whp => whp.WareHouseID == wareHouseId))
-                              .ToList()
-                                ?? new List<Product>();
-            }
-            else
-            {
-                products = _unitOfWork?.Products?.GetAll(new[] { "Supplier", "Category", "WareHouseProducts" })?.ToList()
-                    ?? new List<Product>();
+                products = products.Where(p => p.Name.Contains(searchString) || p.Description.Contains(searchString));
             }
 
-            List<WareHouse> wareHouses = _unitOfWork?.WareHouses?.GetAll()?.ToList() ?? new List<WareHouse>();
-            List<ProductViewModel> productsViewModel = new List<ProductViewModel>();
-
-            foreach (Product p in products)
+            return products.Select(p => new ProductViewModel
             {
-                foreach (WareHouseProduct whp in p.WareHouseProducts)
-                {
-                    productsViewModel.Add(new ProductViewModel()
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Description = p.Description,
-                        Price = p.Price,
-                        Image = p.Image ?? new byte[0], // Use an empty byte array for image
-                        WareHouseID = whp?.WareHouseID ?? 0,
-                        WareHouseName = wareHouses?.Find(w => w.Id == whp?.WareHouseID)?.Name ?? string.Empty,
-                        CurrentStock = whp?.CurrentStock ?? 0,
-                        MintStock = whp?.MinStock ?? 0,
-                        MaxStock = whp?.MaxStock ?? 0,
-                        CategoryID = p?.CategoryId ?? 0,
-                        CategoryName = p?.Category?.Name ?? string.Empty,
-                        SupplierID = p?.SupplierId ?? 0,
-                        SupplierName = p?.Supplier?.Name ?? string.Empty,
-                    });
-                }
-            };
-
-            return productsViewModel;
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Description = p.Description,
+                SupplierID = (int)p.SupplierId,
+                CategoryID = (int)p.CategoryId,
+                Image = p.Image ?? new byte[0], 
+                WareHouseID = p.WareHouseProducts.FirstOrDefault()?.WareHouseID ?? 0,
+                CurrentStock = p.WareHouseProducts.FirstOrDefault()?.CurrentStock ?? 0,
+                MintStock = p.WareHouseProducts.FirstOrDefault()?.MinStock ?? 0,
+                MaxStock = p.WareHouseProducts.FirstOrDefault()?.MaxStock ?? 0
+            }).ToList();
         }
     }
 }
