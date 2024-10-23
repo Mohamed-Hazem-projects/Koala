@@ -107,8 +107,8 @@ namespace KoalaInventoryManagement.Controllers
 
             // Remove existing roles
             var currentRoles = await _UserManager.GetRolesAsync(appUser);
-            var rolesToRemove = currentRoles.Except(Roles); // Roles to remove
-            var rolesToAdd = Roles.Except(currentRoles); // Roles to add
+            var rolesToRemove = currentRoles.Except(Roles); 
+            var rolesToAdd = Roles.Except(currentRoles); 
 
             foreach (var currentRole in rolesToRemove)
             {

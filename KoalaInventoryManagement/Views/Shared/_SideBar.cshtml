@@ -13,7 +13,7 @@
                     <span>Home</span>
                 </a>
             </li>
-            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5")))
+            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager") ))
             {                
                 <li>
                     <a href="/Dashboard" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
@@ -34,7 +34,7 @@
                     </a>
                 </li>
             }
-            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager1") || User.IsInRole("WHManager2") || User.IsInRole("WHManager3") || User.IsInRole("WHManager4") || User.IsInRole("WHManager5") ))
+            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("WHManager") ))
             {
                 <li>
                     <a href="/Suppliers" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Suppliers" ? "active" : "")">

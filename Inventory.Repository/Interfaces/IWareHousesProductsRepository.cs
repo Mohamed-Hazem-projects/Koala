@@ -18,8 +18,13 @@ namespace Inventory.Repository.Interfaces
         //Deletes only one record with ProductID and WareHouseID
         bool DeleteOneRecord(int productID, int wareHouseID);
 
+
+        IEnumerable<WareHouseProduct> GetByWarehouseId(int warehouseId);
+        int GetWareHouseIdByUserId(string userIdd);
+
+        // related to Admin DashBoard Controller
         bool AddWHUser(UserWarehouse entity);
-        UserWarehouse GetUserWarehouse(string userId);  // Method to get the UserWarehouse by UserId
+        UserWarehouse GetUserWarehouse(string userId);  
         void UpdateWHUser(UserWarehouse userWarehouse);
     }
 }

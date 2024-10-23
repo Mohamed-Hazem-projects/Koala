@@ -341,6 +341,8 @@ namespace Inventory.Repository.Repositories
             }
         }
 
+
+        //re;ated to Admin Dashboard Controller
         public bool AddWHUser(UserWarehouse entity)
         {
             _context.UserWarehouses.Add(entity);
@@ -356,6 +358,23 @@ namespace Inventory.Repository.Repositories
         {
             _context.UserWarehouses.Update(userWarehouse);
         }
+
+        public IEnumerable<WareHouseProduct> GetByWarehouseId(int warehouseId)
+        {
+            return _context.WareHousesProducts
+                .Where(b => b.WareHouseID == warehouseId)
+                .Include(b => b.Product).ToList();   
+        }
+
+        public int GetWareHouseIdByUserId(string userIdd)
+        {
+            return _context.UserWarehouses
+                .Where(b => b.UserId == userIdd)
+                .Select(b => b.WarehouseId)
+                .FirstOrDefault();
+        }
+
+
 
     }
 }

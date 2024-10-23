@@ -70,9 +70,9 @@ namespace KoalaInventoryManagement
 
 			// Register repositories in the unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-			builder.Services.AddTransient<IProductFilterService, ProductsFilterService>();
+            builder.Services.AddTransient<IProductFilterService, ProductFilterService>();
 
-			var app = builder.Build();
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
@@ -81,10 +81,6 @@ namespace KoalaInventoryManagement
 			}
 			app.UseStaticFiles();
 			app.UseRouting();
-			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/");
-			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "/usr/local/bin/wkhtmltopdf");
-			// RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa/wkhtmltopdf");
-			// RotativaConfiguration.Setup("/usr/local/bin/wkhtmltopdf");
 
 
 			app.UseSession(); // Enable session middleware here
