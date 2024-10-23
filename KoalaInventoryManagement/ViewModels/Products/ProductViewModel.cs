@@ -9,7 +9,6 @@ namespace KoalaInventoryManagement.ViewModels.Products
         public string Description { get; set; } = string.Empty;
         public double Price { get; set; }
         public byte[] Image { get; set; } = [];
-        //public WareHouse ProductWareHouse { get; set; } = new WareHouse();
         public int WareHouseID { get; set; }
         public string WareHouseName { get; set; } = string.Empty;
         public int CurrentStock { get; set; }
@@ -18,6 +17,6 @@ namespace KoalaInventoryManagement.ViewModels.Products
         public int CategoryID { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public int SupplierID { get; set; }
-        public string SupplierName { get; set; } = string.Empty;
+        public string SupplierName { get; set; } = string.Empty;    
     }
 }

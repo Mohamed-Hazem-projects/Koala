@@ -31,7 +31,7 @@ namespace KoalaInventoryManagement.Controllers
             dashboardViewModel.TotalStock = _unitOfWork.DashBoard.GetTotalStock();
 
             // Filter warehouses based on roles
-            var warehouses = _unitOfWork.WareHouses.GetAll();
+            var warehouses =  _unitOfWork.WareHouses.GetAll();
             if (roles.Any(role => role.StartsWith("WHManager")))
             {
                 // Filter warehouses based on the specific WHManager role

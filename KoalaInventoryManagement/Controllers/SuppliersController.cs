@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KoalaInventoryManagement.Controllers
 {
-    [Authorize(Roles = "Admin,WHManager1,WHManager2,WHManager3,WHManager4,WHManager5")]
+    [Authorize(Roles = "Admin,WHManager")]
     public class SuppliersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

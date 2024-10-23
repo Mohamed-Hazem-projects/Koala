@@ -1,4 +1,5 @@
 ﻿using Inventory.Data.Context;
+using Inventory.Data.Models;
 using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
@@ -339,5 +340,41 @@ namespace Inventory.Repository.Repositories
                 return default;
             }
         }
+
+
+        //re;ated to Admin Dashboard Controller
+        public bool AddWHUser(UserWarehouse entity)
+        {
+            _context.UserWarehouses.Add(entity);
+            return true;
+        }
+
+        public UserWarehouse GetUserWarehouse(string userId)
+        {
+            return _context.UserWarehouses.SingleOrDefault(uw => uw.UserId == userId);
+        }
+
+        public void UpdateWHUser(UserWarehouse userWarehouse)
+        {
+            _context.UserWarehouses.Update(userWarehouse);
+        }
+
+        public IEnumerable<WareHouseProduct> GetByWarehouseId(int warehouseId)
+        {
+            return _context.WareHousesProducts
+                .Where(b => b.WareHouseID == warehouseId)
+                .Include(b => b.Product).ToList();   
+        }
+
+        public int GetWareHouseIdByUserId(string userIdd)
+        {
+            return _context.UserWarehouses
+                .Where(b => b.UserId == userIdd)
+                .Select(b => b.WarehouseId)
+                .FirstOrDefault();
+        }
+
+
+
     }
 }

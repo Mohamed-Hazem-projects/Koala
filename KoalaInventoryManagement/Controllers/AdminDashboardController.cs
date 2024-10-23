@@ -1,9 +1,11 @@
 ﻿using Inventory.Data.Models;
+using Inventory.Repository.Interfaces;
 using KoalaInventoryManagement.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 using System.Data;
 
 namespace KoalaInventoryManagement.Controllers
@@ -13,34 +15,41 @@ namespace KoalaInventoryManagement.Controllers
     {
         public UserManager<ApplicationUser> _UserManager;
         public RoleManager<IdentityRole> _RoleManager;
-        public AdminDashboardController(UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
+        private readonly IUnitOfWork _unitOfWork;
+        public AdminDashboardController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> roleManager)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;
+            _unitOfWork = unitOfWork;
         }
         public async Task<IActionResult> Index()
         {
-            var users = await _UserManager.Users.ToListAsync();
-            var roles = await _RoleManager.Roles.ToListAsync(); 
+            var users = await _UserManager.Users.ToListAsync(); 
+            var roles = await _RoleManager.Roles.ToListAsync();
+            var warehouses = _unitOfWork.WareHouses.GetAll(); // Use Unit of Work to fetch warehouses
+
             var userRolesViewModel = new List<UserRolesViewModel>();
 
             foreach (var user in users)
             {
-				if (user.FirstName.Equals("guest", StringComparison.OrdinalIgnoreCase))
-				{
-					continue;
-				}
-				var userRoles = await _UserManager.GetRolesAsync(user);
+                if (user.FirstName.Equals("guest", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+                var userRoles = await _UserManager.GetRolesAsync(user);
+                var assignedWarehouse = _unitOfWork.WareHousesProducts.GetUserWarehouse(user.Id);
                 userRolesViewModel.Add(new UserRolesViewModel
                 {
                     UserId = user.Id,
                     FullName = $"{user.FirstName} {user.LastName}",
-                    Roles = userRoles.ToList() 
+                    Roles = userRoles.ToList(),
+                    Warehouses = warehouses, // Add warehouses to the ViewModel
+                    AssignedWarehouseId = assignedWarehouse?.WarehouseId ?? 0
                 });
             }
 
             ViewBag.Roles = roles;
-            return View(userRolesViewModel); 
+            return View(userRolesViewModel);
         }
 
         public async Task<IActionResult> Delete(string id)
@@ -88,7 +97,7 @@ namespace KoalaInventoryManagement.Controllers
             return View(userDetailsViewModel);
         }
 
-        public async Task<IActionResult> UpdateUserRoles(string userId, List<string> Roles)
+        public async Task<IActionResult> UpdateUserRoles(string userId, List<string> Roles, int warehouseId)
         {
             var appUser = await _UserManager.FindByIdAsync(userId);
             if (appUser == null)
@@ -96,32 +105,52 @@ namespace KoalaInventoryManagement.Controllers
                 return NotFound();
             }
 
+            // Remove existing roles
             var currentRoles = await _UserManager.GetRolesAsync(appUser);
+            var rolesToRemove = currentRoles.Except(Roles); 
+            var rolesToAdd = Roles.Except(currentRoles); 
 
-            foreach (var role in Roles)
+            foreach (var currentRole in rolesToRemove)
             {
-                if (!await _UserManager.IsInRoleAsync(appUser, role))
+                await _UserManager.RemoveFromRoleAsync(appUser, currentRole);
+            }
+
+            foreach (var newRole in rolesToAdd)
+            {
+                if (!string.IsNullOrWhiteSpace(newRole))
                 {
-                    var result = await _UserManager.AddToRoleAsync(appUser, role);
-                    if (!result.Succeeded)
-                    {
-                        return BadRequest($"Failed to add role {role} to user {appUser.UserName}");
-                    }
+                    await _UserManager.AddToRoleAsync(appUser, newRole);
                 }
             }
 
-            foreach (var role in currentRoles)
+
+            // Update the user-warehouse mapping
+            var existingUserWarehouse = _unitOfWork.WareHousesProducts.GetUserWarehouse(userId);
+
+            if (existingUserWarehouse != null)
             {
-                if (!Roles.Contains(role))
-                {
-                    var result = await _UserManager.RemoveFromRoleAsync(appUser, role);
-                    if (!result.Succeeded)
-                    {
-                        return BadRequest($"Failed to remove role {role} from user {appUser.UserName}");
-                    }
-                }
+                // If the user-warehouse mapping exists, update it with the new warehouseId
+                existingUserWarehouse.WarehouseId = warehouseId;
+                _unitOfWork.WareHousesProducts.UpdateWHUser(existingUserWarehouse);
             }
+            else
+            {
+                // If no existing mapping is found, create a new one
+                var userWarehouse = new UserWarehouse
+                {
+                    UserId = userId,
+                    WarehouseId = warehouseId
+                };
+                _unitOfWork.WareHousesProducts.AddWHUser(userWarehouse);
+            }
+
+            // Save changes to the database
+            _unitOfWork.Complete();
+
             return RedirectToAction("Index");
         }
+
+
+
     }
 }

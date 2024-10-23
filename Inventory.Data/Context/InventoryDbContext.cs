@@ -16,6 +16,8 @@ namespace Inventory.Data.Context
         public virtual DbSet<WareHouseProduct> WareHousesProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Sales> Sales { get; set; }
+        public DbSet<UserWarehouse> UserWarehouses { get; set; }
+
         #endregion
 
 
@@ -80,6 +82,16 @@ namespace Inventory.Data.Context
             //composite primary key
             modelBuilder.Entity<WareHouseProduct>()
                             .HasKey(whp => new { whp.ProductID, whp.WareHouseID });
+
+            modelBuilder.Entity<WareHouseProduct>()
+           .HasOne(wp => wp.WareHouse)
+           .WithMany(w => w.WareHouseProducts)
+           .HasForeignKey(wp => wp.WareHouseID);
+
+            modelBuilder.Entity<WareHouseProduct>()
+                .HasOne(wp => wp.Product)
+                .WithMany(p => p.WareHouseProducts)
+                .HasForeignKey(wp => wp.ProductID);
 
             modelBuilder.Entity<WareHouse>()
                             .HasMany(w => w.WareHouseProducts)
