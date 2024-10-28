@@ -1,8 +1,6 @@
 # Koala - Inventory Management System
 
-Koala is an advanced, full-featured inventory management system built with .NET MVC, utilizing C#, JavaScript, jQuery, Bootstrap, CSS, and HTML.
-Designed to optimize inventory processes, Koala empowers businesses with real-time tracking, data-driven analytics, and seamless integrations,
-helping them minimize waste, boost operational efficiency, and make informed decisions.
+Koala is an advanced, full-featured inventory management system built with .NET MVC using C#, JavaScript, jQuery, Bootstrap, CSS, and HTML. Leveraging the 3-Tier Architecture and Repository Pattern, Koala offers a modular and maintainable design that enables easy scalability and clean code management. This system optimizes inventory processes, empowering businesses with real-time tracking, data-driven analytics, and seamless integrations, helping them reduce waste, boost operational efficiency, and make informed decisions.
 
 ## Key Features:
 
@@ -20,7 +18,9 @@ helping them minimize waste, boost operational efficiency, and make informed dec
 ## Tech Stack:
 
 **.NET MVC (C#)** :
-Backend framework for creating a robust, scalable system.<br/>
+A robust and scalable framework, facilitating the 3-Tier Architecture and enabling clean separation between the presentation, business, and data access layers.<br/>
+**Repository Pattern** :
+Implements a clean data access layer, allowing for easier management, unit testing, and future flexibility in data operations.<br/>
 **JavaScript & jQuery** :
 For dynamic interactions and enhanced user experience. <br/>
 **Bootstrap (Responsive design)** :
